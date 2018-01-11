@@ -4,7 +4,9 @@ import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,12 +21,12 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
     //setDefaultCommand(new MySpecialCommand());
 	
-	PWMTalonSRX m_frontLeft = new PWMTalonSRX(RobotMap.k_LeftFront);
-	PWMTalonSRX m_rearLeft = new PWMTalonSRX(RobotMap.k_LeftBack);
+	WPI_TalonSRX m_frontLeft = new WPI_TalonSRX(RobotMap.k_LeftFront);
+	WPI_TalonSRX m_rearLeft = new WPI_TalonSRX(RobotMap.k_LeftBack);
 	SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
 
-	PWMTalonSRX m_frontRight = new PWMTalonSRX(RobotMap.k_RightFront);
-	PWMTalonSRX m_rearRight = new PWMTalonSRX(RobotMap.k_RightBack);
+	WPI_TalonSRX m_frontRight = new WPI_TalonSRX(RobotMap.k_RightFront);
+	WPI_TalonSRX m_rearRight = new WPI_TalonSRX(RobotMap.k_RightBack);
 	SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
 
 	DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
