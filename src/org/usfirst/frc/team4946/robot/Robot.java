@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -25,6 +26,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot {
 	
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
+	public static final DriveTrain kDriveTrain = new DriveTrain();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
