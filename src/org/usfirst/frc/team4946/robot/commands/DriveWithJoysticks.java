@@ -24,7 +24,11 @@ public class DriveWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+<<<<<<< HEAD
     	Robot.k_DriveTrain.driveRobot(OI.k_joy1.getRawAxis(0)*0.5, OI.k_joy1.getRawAxis(1)*0.5);
+=======
+    	Robot.kDriveTrain.driveRobot(OI.k_joy1.getRawAxis(0), OI.k_joy1.getRawAxis(1));
+>>>>>>> branch 'DriveTrain' of https://github.com/FRC4946/2018Robot.git
     }
 
     // Make this return true when this Command no longer needs to run execute()
