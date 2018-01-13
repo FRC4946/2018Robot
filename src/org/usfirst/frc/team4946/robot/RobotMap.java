@@ -29,6 +29,6 @@ public class RobotMap {
 	public static final int k_LeftBack = 1;
 	public static final int k_RightBack = 3;
 	
-	public static final int k_joy1InPort = 0;
+	public static final int k_joy1InPort = 0; //Port number for joystick that controls robot
 	
 }

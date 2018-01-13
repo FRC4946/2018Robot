@@ -36,7 +36,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void driveRobot(double spd, double rot) {
-		m_drive.arcadeDrive(spd, rot);
+		m_drive.arcadeDrive(spd, rot); //Arcade drive?
 	}
 	
 }
