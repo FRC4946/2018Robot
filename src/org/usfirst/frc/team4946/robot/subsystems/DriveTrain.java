@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,13 +22,15 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class DriveTrain extends Subsystem {
 	
 	//Create motors, controller groups, and drives
-	WPI_TalonSRX m_frontLeft = new WPI_TalonSRX(RobotMap.k_LeftFront);
-	WPI_TalonSRX m_rearLeft = new WPI_TalonSRX(RobotMap.k_LeftBack);
-	SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
-
-	WPI_TalonSRX m_frontRight = new WPI_TalonSRX(RobotMap.k_RightFront);
-	WPI_TalonSRX m_rearRight = new WPI_TalonSRX(RobotMap.k_RightBack);
-	SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
+	WPI_TalonSRX m_frontLeft = new WPI_TalonSRX(RobotMap.k_LeftFront), 
+			m_midLeft = new WPI_TalonSRX(RobotMap.k_LeftMid), 
+			m_rearLeft = new WPI_TalonSRX(RobotMap.k_LeftBack),
+			m_frontRight = new WPI_TalonSRX(RobotMap.k_RightFront),
+			m_midRight = new WPI_TalonSRX(RobotMap.k_RightMid),
+			m_rearRight = new WPI_TalonSRX(RobotMap.k_RightBack);
+	
+	SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_midLeft, m_rearLeft),
+			m_right = new SpeedControllerGroup(m_frontRight, m_midRight, m_rearRight);
 
 	DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
@@ -39,7 +43,15 @@ public class DriveTrain extends Subsystem {
 	
 	//PID
 	PIDSourceGroup m_encPID = new PIDSourceGroup(m_leftEnc, m_rightEnc);
-	PIDController m_distPIDLeft = new PIDController(RobotConstants.k_leftDistEncP, RobotConstants.k_leftDistEncI, RobotConstants.k_leftDistEncD, m_encPID, m_left);
+//	m_encPID.setPIDSourceType();
+	PIDController m_distPID = new PIDController(RobotConstants.k_leftDistEncP, RobotConstants.k_leftDistEncI, RobotConstants.k_leftDistEncD, m_encPID, (PIDOutput) m_drive);
+	
+	public DriveTrain() {
+
+		m_encPID.setPIDSourceType(PIDSourceType.kDisplacement);
+		m_distPID.setAbsoluteTolerance(0.5); //Dummy
+		
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -66,5 +78,17 @@ public class DriveTrain extends Subsystem {
 	
 	public boolean getGearState() {
 		return m_gearShift.get();
+	}
+	
+	public void setDistSetpoint(double distSetpoint) {
+		m_distPID.setSetpoint(distSetpoint);
+	}
+	
+	public double getDistSetpoint() {
+		return m_distPID.getSetpoint();
+	}
+	
+	public boolean getDistOnTarget() {
+		return m_distPID.onTarget();
 	}
 }

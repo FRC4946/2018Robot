@@ -30,6 +30,8 @@ public class RobotMap {
 	public static final int k_RightFront = 2;
 	public static final int k_LeftBack = 1;
 	public static final int k_RightBack = 3;
+	public static final int k_LeftMid = 4;
+	public static final int k_RightMid = 5;
 	
 	public static final int k_DIO_LeftEnc1 = 0;
 	public static final int k_DIO_LeftEnc2 = 1;
