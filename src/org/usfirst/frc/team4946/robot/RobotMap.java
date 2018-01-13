@@ -23,4 +23,9 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	
+	// Port numbers for motors on the intake mechanism
+	public static final int i_intakeLeftMotorPort = 0; //These numbers aren't correct
+	public static final int i_intakeRightMotorPort = 1;//     ||  <--These are ditto marks...
+	
 }
