@@ -54,7 +54,7 @@ public class OI {
 	
 	//Button-command linking:
 	public OI() {
-		intakeButtonIn.whenPressed(new IntakeCube());	
+		intakeButtonIn.whileHeld(new IntakeCube());	
 	}
 	
 	
