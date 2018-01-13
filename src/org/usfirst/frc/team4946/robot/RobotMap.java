@@ -25,8 +25,8 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 	
 	public static final int k_LeftFront = 0;
-	public static final int k_RightFront = 1;
-	public static final int k_LeftBack = 2;
+	public static final int k_RightFront = 2;
+	public static final int k_LeftBack = 1;
 	public static final int k_RightBack = 3;
 	
 	public static final int k_joy1InPort = 0;
