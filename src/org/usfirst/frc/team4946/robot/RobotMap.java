@@ -24,8 +24,14 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
+	//Port numbers for Robot:
+	
 	// Port numbers for motors on the intake mechanism
-	public static final int i_intakeLeftMotorPort = 0; //These numbers aren't correct
-	public static final int i_intakeRightMotorPort = 1;//     ||  <--These are ditto marks...
+	public static final int i_intakeLeftMotorPort = 4; //These numbers probably aren't correct
+	public static final int i_intakeRightMotorPort = 3;//     ||  <--These are ditto marks...
+	
+	//Port numbers for inputs:
+	
+	public static final int i_joystickPort = 2; //Probably also not correct
 	
 }

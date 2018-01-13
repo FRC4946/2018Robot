@@ -7,6 +7,12 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.IntakeCube;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -40,4 +46,17 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
+	//Button creation:
+	Joystick mainJoystick = new Joystick(RobotMap.i_joystickPort);
+	Button intakeButtonIn = new JoystickButton(mainJoystick, 1); //1 is the button number for the cube intake Button
+	Button intakeButtonOut = new JoystickButton(mainJoystick, 2); //2 is the button number for the cube output button
+	
+	//Button-command linking:
+	public OI() {
+		intakeButtonIn.whenPressed(new IntakeCube());	
+	}
+	
+	
+	
 }

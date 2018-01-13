@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeMechanism;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
