@@ -32,6 +32,19 @@ public class RobotMap {
 	
 	//Port numbers for inputs:
 	
-	public static final int i_joystickPort = 2; //Probably also not correct
+	public static final int k_joy1InPort = 0; //Port number for joystick that controls robot
 	
+	public static final int k_LeftFront = 0;
+	public static final int k_RightFront = 2;
+	public static final int k_LeftBack = 1;
+	public static final int k_RightBack = 3;
+	public static final int k_LeftMid = 4;
+	public static final int k_RightMid = 5;
+	
+	public static final int k_DIO_LeftEnc1 = 0;
+	public static final int k_DIO_LeftEnc2 = 1;
+	public static final int k_DIO_RightEnc1 = 2;
+	public static final int k_DIO_RightEnc2 = 3;
+	
+	public static final int k_DIO_GearShifter = 0;
 }

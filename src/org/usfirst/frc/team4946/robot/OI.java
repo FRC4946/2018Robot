@@ -13,11 +13,17 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+
+	public static Joystick k_joy1 = new Joystick(RobotMap.k_joy1InPort); 
+	
+	
 	//// CREATING BUTTONS
 	//Tester test
 	// One type of button is a joystick button which is any button on a
@@ -48,7 +54,7 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	//Button creation:
-	Joystick mainJoystick = new Joystick(RobotMap.i_joystickPort);
+	Joystick mainJoystick = new Joystick(RobotMap.k_joy1InPort);
 	Button intakeButtonIn = new JoystickButton(mainJoystick, 1); //1 is the button number for the cube intake Button
 	Button intakeButtonOut = new JoystickButton(mainJoystick, 2); //2 is the button number for the cube output button
 	

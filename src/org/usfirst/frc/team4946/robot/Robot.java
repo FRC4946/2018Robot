@@ -7,13 +7,13 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeMechanism;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,9 +24,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	//public static final ExampleSubsystem k_ExampleSubsystem = new ExampleSubsystem();
-	
+
 	public static final IntakeMechanism intakeMechanismSubsystem = new IntakeMechanism(); //This is the correct way of naming subsytems
+	public static final DriveTrain k_DriveTrain = new DriveTrain(); //drivetrain object
+
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
