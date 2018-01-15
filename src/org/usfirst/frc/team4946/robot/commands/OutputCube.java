@@ -13,7 +13,7 @@ public class OutputCube extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
-    	requires(Robot.intakeMechanismSubsystem);
+    	requires(Robot.intakeSubsystem);
     	
     }
 
@@ -25,7 +25,7 @@ public class OutputCube extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.intakeMechanismSubsystem.spin(1.0);
+    	Robot.intakeSubsystem.spin(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,12 +37,12 @@ public class OutputCube extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeMechanismSubsystem.disableMechanism();
+    	Robot.intakeSubsystem.disableMechanism();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.intakeMechanismSubsystem.disableMechanism();
+    	end();
     }
 }
