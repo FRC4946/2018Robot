@@ -16,7 +16,7 @@ import org.usfirst.frc.team4946.robot.Robot;
 public class ExampleCommand extends Command {
 	public ExampleCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.kExampleSubsystem);
+		requires(Robot.k_ExampleSubsystem); //Does this command even matter?
 	}
 
 	// Called just before this Command runs the first time
