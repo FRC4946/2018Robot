@@ -21,8 +21,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 
-	public static Joystick k_joy1 = new Joystick(RobotMap.k_joy1InPort); 
-	
+	private static Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK); 
+	private static Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK); 
+
 	
 	//// CREATING BUTTONS
 	//Tester test
@@ -54,15 +55,20 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	//Button creation:
-	Joystick mainJoystick = new Joystick(RobotMap.k_joy1InPort);
-	Button intakeButtonIn = new JoystickButton(mainJoystick, 1); //1 is the button number for the cube intake Button
-	Button intakeButtonOut = new JoystickButton(mainJoystick, 2); //2 is the button number for the cube output button
+	Button intakeButtonIn = new JoystickButton(driveStick, 1); //1 is the button number for the cube intake Button
+	Button intakeButtonOut = new JoystickButton(driveStick, 2); //2 is the button number for the cube output button
 	
 	//Button-command linking:
 	public OI() {
 		intakeButtonIn.whileHeld(new IntakeCube());	
 	}
 	
+	public static Joystick getDriveStick() {
+		return driveStick;
+	}
 	
+	public static Joystick getOperatorStick() {
+		return operatorStick;
+	}
 	
 }

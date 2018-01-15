@@ -32,8 +32,9 @@ public class RobotMap {
 	
 	//Port numbers for inputs:
 	
-	public static final int k_joy1InPort = 0; //Port number for joystick that controls robot
-	
+	public static final int USB_DS_DRIVESTICK = 0;
+	public static final int USB_DS_OPERATORSTICK = 0;
+
 	public static final int k_LeftFront = 0;
 	public static final int k_RightFront = 2;
 	public static final int k_LeftBack = 1;

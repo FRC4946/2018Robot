@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeMechanism extends Subsystem {
 	
-	static VictorSP m_leftMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
-	static VictorSP m_rightMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
+	private VictorSP m_leftMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
+	private VictorSP m_rightMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
 	
 	public void disableMechanism() { //Disables both motors
 		m_leftMotor.set(0);
@@ -22,9 +22,6 @@ public class IntakeMechanism extends Subsystem {
 		m_leftMotor.set(speed);
 		m_rightMotor.set(-1.0*speed);		
 	}
-	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
