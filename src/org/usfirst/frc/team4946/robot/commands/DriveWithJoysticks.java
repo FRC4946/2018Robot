@@ -2,7 +2,6 @@ package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,8 +24,7 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.k_DriveTrain.driveRobot(OI.k_joy1.getRawAxis(0)/5.0, OI.k_joy1.getRawAxis(1)/5.0);
-
+    	Robot.k_DriveTrain.arcadeDrive(OI.k_joy1.getRawAxis(0)/5.0, OI.k_joy1.getRawAxis(1)/5.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
