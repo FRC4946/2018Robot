@@ -33,11 +33,11 @@ public class DriveTrain extends Subsystem {
 
 	//Create encoders and gyro
 	private Encoder m_leftEnc,
-	m_rightEnc;
+		m_rightEnc;
 	
 	//Create Solenoid
 	private Solenoid m_gearShiftLeft,
-	m_gearShiftRight;
+		m_gearShiftRight;
 	
 	private ADXRS450_Gyro m_driveGyro;
 	private NullPIDOutput m_gyroPIDOutput;
@@ -45,28 +45,28 @@ public class DriveTrain extends Subsystem {
 	//PIDSourceGroup m_encPID = new PIDSourceGroup(m_leftEnc, m_rightEnc);
     //m_encPID.setPIDSourceType();
 	private PIDController m_leftPID,
-	m_rightPID, 
-	m_gyroPID;
+		m_rightPID, 
+		m_gyroPID;
 	
 	private double distancePerPulse;
 	
 	public DriveTrain() {
 		
-		m_frontLeft = new WPI_TalonSRX(RobotMap.k_LeftFront); 
-		m_midLeft = new WPI_TalonSRX(RobotMap.k_LeftMid);
-		m_rearLeft = new WPI_TalonSRX(RobotMap.k_LeftBack);
-		m_frontRight = new WPI_TalonSRX(RobotMap.k_RightFront);
-		m_midRight = new WPI_TalonSRX(RobotMap.k_RightMid);
-		m_rearRight = new WPI_TalonSRX(RobotMap.k_RightBack);
+		m_frontLeft = new WPI_TalonSRX(RobotMap.CAN_DRIVE_LEFTFRONT); 
+		m_midLeft = new WPI_TalonSRX(RobotMap.CAN_DRIVE_LEFTMID);
+		m_rearLeft = new WPI_TalonSRX(RobotMap.CAN_DRIVE_LEFTBACK);
+		m_frontRight = new WPI_TalonSRX(RobotMap.CAN_DRIVE_RIGHTFRONT);
+		m_midRight = new WPI_TalonSRX(RobotMap.CAN_DRIVE_RIGHTMID);
+		m_rearRight = new WPI_TalonSRX(RobotMap.CAN_DRIVE_RIGHTBACK);
 		
 		m_left = new SpeedControllerGroup(m_frontLeft, m_midLeft, m_rearLeft);
 		m_right = new SpeedControllerGroup(m_frontRight, m_midRight, m_rearRight);
 		
-		m_leftEnc = new Encoder(RobotMap.k_DIO_LeftEnc1, RobotMap.k_DIO_LeftEnc2);
-		m_rightEnc = new Encoder(RobotMap.k_DIO_RightEnc1, RobotMap.k_DIO_RightEnc2);
+		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
+		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
 		
-		m_gearShiftLeft = new Solenoid(RobotMap.k_DIO_GearShifter);
-		m_gearShiftRight = new Solenoid(RobotMap.k_DIO_GearShifter);
+		m_gearShiftLeft = new Solenoid(RobotMap.DIO_DRIVE_LEFTSOLENOID);
+		m_gearShiftRight = new Solenoid(RobotMap.DIO_DRIVE_RIGHTSOLENOID);
 		
 		m_driveGyro = new ADXRS450_Gyro();
 		m_gyroPIDOutput = new NullPIDOutput();
@@ -78,12 +78,15 @@ public class DriveTrain extends Subsystem {
 		m_leftPID = new PIDController(RobotConstants.k_leftDistEncP, RobotConstants.k_leftDistEncI, RobotConstants.k_leftDistEncD, m_leftEnc, m_left);
 		m_rightPID = new PIDController(RobotConstants.k_leftDistEncP, RobotConstants.k_leftDistEncI, RobotConstants.k_leftDistEncD, m_rightEnc, m_right);
 		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
+		m_gyroPID.setContinuous();
 		
+		calibrateGyro();
+		resetPID();
+		enablePID();
 		
 		m_leftPID.setAbsoluteTolerance(0.5); //Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); //Dummy
 		m_gyroPID.setAbsoluteTolerance(1.0); //Dummy
-		
 	}
 	
 	@Override
@@ -128,6 +131,11 @@ public class DriveTrain extends Subsystem {
 		m_right.set(right);
 	}
 
+	public void stop() {
+		m_left.set(0.0);
+		m_right.set(0.0);
+	}
+	
 	public void toggleGear() {
 		m_gearShiftLeft.set(!getGearState());
 		m_gearShiftRight.set(!getGearState());
@@ -146,8 +154,12 @@ public class DriveTrain extends Subsystem {
 		return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint())/2;
 	}
 	
-	public boolean getOnTarget() {
+	public boolean getEncOnTarget() {
 		return m_leftPID.onTarget() && m_rightPID.onTarget();
+	}
+	
+	public boolean getGyroOnTarget() {
+		return m_gyroPID.onTarget();
 	}
 	
 	public void resetEncs() {
@@ -159,22 +171,44 @@ public class DriveTrain extends Subsystem {
 		m_driveGyro.reset();
 	}
 	
-	public void resetPID() {
+	public void resetGyroPID() {
 		m_gyroPID.reset();
 	}
 	
-	public void setEncoderDPP() {
-		
+	public void enablePID() {
+		m_leftPID.enable();
+		m_rightPID.enable();
+	}
+	
+	public void disablePID() {
+		m_leftPID.disable();
+		m_rightPID.disable();
+	}
+	
+	public void resetPID() {
+		m_leftPID.reset();
+		m_rightPID.reset();
+	}
+	
+	public void setEncoderDPP() {	
 		if(getGearState()) {
+			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
 					/ RobotConstants.ENCODER_PPR * RobotConstants.GEARBOX_REDUCTION_HIGH;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
+			
 		} else {
+			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
 					/ RobotConstants.ENCODER_PPR * RobotConstants.GEARBOX_REDUCTION_LOW;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
+			
 		}
+	}
+	
+	public double getEncoderDistance() {
+		return (m_leftEnc.getDistance() + m_rightEnc.getDistance())/2.0;
 	}
 }

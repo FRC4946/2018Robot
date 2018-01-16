@@ -7,33 +7,29 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveStraight extends Command {
-
-	double m_speed; //in case the turning is too abrupt
-	double m_distanceToGo;
-	double m_distanceInit;
+public class TurnPID extends Command {
 	
-    public DriveStraight(double speed, double distance) {
-    	requires(Robot.DriveTrain); //This is a comment... :(
-    	m_speed = speed;
-    	m_distanceToGo = distance;
+	double m_setAngle;
+
+    public TurnPID(double angle) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.DriveTrain);
+    	m_setAngle = angle;
     }
 
+    // Called just before this Command runs the first time
     protected void initialize() {
-    	m_distanceInit = Robot.DriveTrain.getEncoderDistance();
-    	
-    	Robot.DriveTrain.setGyroSetpoint(Robot.DriveTrain.getGyroAngle());
-    	Robot.DriveTrain.setDistSetpoint(m_distanceInit + m_distanceToGo);
+    	Robot.DriveTrain.setGyroSetpoint(m_setAngle);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.DriveTrain.getEncOnTarget();
+        return Robot.DriveTrain.getGyroOnTarget();
     }
 
     // Called once after isFinished returns true
