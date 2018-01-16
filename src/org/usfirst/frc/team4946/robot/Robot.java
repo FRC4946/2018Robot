@@ -9,11 +9,13 @@ package org.usfirst.frc.team4946.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4946.robot.commands.ElevatorCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +25,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends IterativeRobot {
-	
+	public static final ElevatorSubsystem ElevatorSubsystem = new ElevatorSubsystem();
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
 
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
