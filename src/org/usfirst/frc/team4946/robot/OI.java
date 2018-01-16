@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.IntakeCube;
+import org.usfirst.frc.team4946.robot.commands.ToggleCube;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -60,7 +60,8 @@ public class OI {
 	
 	//Button-command linking:
 	public OI() {
-		intakeButtonIn.whileHeld(new IntakeCube());	
+		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); //Pulls in cube
+		intakeButtonOut.whileHeld(new ToggleCube(1.0)); //Pushes out cube
 	}
 	
 	public static Joystick getDriveStick() {

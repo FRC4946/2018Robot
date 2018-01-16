@@ -12,22 +12,13 @@ public class IntakeMechanism extends Subsystem {
 	
 	private static VictorSP m_leftMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
 	private static VictorSP m_rightMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
-	public double d_mechanismSpeed = 1.0; //Must remain positive, fraction of max speed that the spin forwards and spin backwards methods use
 	
 	public void disableMechanism() { //Disables both motors
 		m_leftMotor.set(0);
 		m_rightMotor.set(0); //Equivalent to .disable
 	}
 	
-	public void spinForwards() {
-		spin(1.0*d_mechanismSpeed);
-	}
-	
-	public void spinBackwards() {
-		spin(0.1*d_mechanismSpeed);
-	}
-	
-	public static void spin(double d_speed) { //Takes values from -1.0 to 1.0. Spins the motors, positive is forwards, negative is backwards (Maybe, or it might be the other way around).
+	public void spin(double d_speed) { //Takes values from -1.0 to 1.0. Spins the motors, positive is forwards, negative is backwards (Maybe, or it might be the other way around).
 		m_leftMotor.set(d_speed);
 		m_rightMotor.set(-1.0*d_speed);		
 	}
