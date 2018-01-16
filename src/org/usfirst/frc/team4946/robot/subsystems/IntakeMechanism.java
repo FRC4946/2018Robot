@@ -2,7 +2,8 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeMechanism extends Subsystem {
 	
-	private static VictorSP m_leftMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
-	private static VictorSP m_rightMotor = new VictorSP(RobotMap.i_intakeLeftMotorPort);
+	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFT_MOTOR);
+	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFT_MOTOR);
 	
 	public void disableMechanism() { //Disables both motors
 		m_leftMotor.set(0);

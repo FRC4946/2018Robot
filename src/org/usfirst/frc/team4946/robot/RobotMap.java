@@ -27,8 +27,8 @@ public class RobotMap {
 	//Port numbers for Robot:
 	
 	// Port numbers for motors on the intake mechanism
-	public static final int i_intakeLeftMotorPort = 4; //These numbers probably aren't correct
-	public static final int i_intakeRightMotorPort = 3;//     ||  <--These are ditto marks...
+	public static final int CAN_INTAKE_LEFT_MOTOR = 6;
+	public static final int CAN_INTAKE_RIGHT_MOTOR = 7;
 	
 	//Port numbers for inputs:
 	
