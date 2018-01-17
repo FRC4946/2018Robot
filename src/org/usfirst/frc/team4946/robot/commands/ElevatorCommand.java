@@ -26,7 +26,7 @@ public class ElevatorCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    Robot.ElevatorSubsystem.set(0.6);
+    Robot.ElevatorSubsystem.set(0.0);
    //this is a dummy number -----^
     
     

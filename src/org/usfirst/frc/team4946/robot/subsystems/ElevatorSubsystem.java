@@ -20,8 +20,10 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX (RobotMap.m_elevatorMotorLeft);
 	WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX (RobotMap.m_elevatorMotorRight);
+	
 	SpeedControllerGroup elevatorMotorGroup = new SpeedControllerGroup 
 			(Robot.ElevatorSubsystem.m_elevatorMotorLeft, Robot.ElevatorSubsystem.m_elevatorMotorRight);
+	
 	AnalogPotentiometer elevatorAnalogPotentiometer = new AnalogPotentiometer
 			(RobotMap.elevatorAnalogPotentiometerPort1,RobotMap.elevatorAnalogPotentiometerPort2,
 					RobotMap.elevatorAnalogPotentiometerPort3);
@@ -42,24 +44,28 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorMotorGroup.set(ButtonValue);
 		} 
 		else if (pos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-			elevatorMotorGroup.set(8.0);
+			elevatorMotorGroup.set(0.2);
 		}
 		else if (pos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			elevatorMotorGroup.set(24.0);
+			elevatorMotorGroup.set(-0.2);
 		}
 		
-	//oof idk about this
 		
 	}
 
+	/*Sets motor speed manually
+	 * 
+	 * 
+	 */
 	
-	
-	public void set(double speed) {
-		m_elevatorMotorLeft.set(speed);
-		m_elevatorMotorRight.set(speed);
+	public void set(double d_speed) {
+		m_elevatorMotorLeft.set(d_speed);
+		m_elevatorMotorRight.set(d_speed);
 	}
 	
-	
+	public void setPoint(double d_point) {
+		m_elevatorPIDController.setSetpoint(d_point);
+	}	
 	
 
 	
