@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
@@ -9,11 +10,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorCommand extends Command {
+public class ElevatorUp extends Command {
+	
+	double m_elevatorSpeed;
+	
 
-    public ElevatorCommand() {
+    public ElevatorUp(double elevatorSpeed) {
     	
+    	m_elevatorSpeed = elevatorSpeed;
     	requires(Robot.ElevatorSubsystem);
+    	
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -26,9 +32,11 @@ public class ElevatorCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    Robot.ElevatorSubsystem.set(0.0);
-   //this is a dummy number -----^
-    
+    	Robot.ElevatorSubsystem.set(m_elevatorSpeed);
+    	//this is a dummy number -----^
+    	
+    	Robot.ElevatorSubsystem.getElevatorPos();
+    	Robot.ElevatorSubsystem.setPoint(0.1);
     
     }
 

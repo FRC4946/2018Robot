@@ -9,7 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4946.robot.commands.ElevatorCommand;
+import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

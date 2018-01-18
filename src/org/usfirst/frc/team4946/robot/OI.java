@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.ElevatorCommand;
+import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -20,16 +20,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	Joystick joystick = new Joystick (RobotMap.joystick);
-	
-	Button elevatorButton = new JoystickButton(joystick, 1);
+	Button elevatorButtonUp = new JoystickButton(joystick, 1);
 	
 	
 	public OI() {
-		elevatorButton.whileHeld(new ElevatorCommand());
+		elevatorButtonUp.whileHeld(new ElevatorUp(joystick.getRawAxis(1)));
+	}
+	
+	public Joystick getJoystick() {
+		return joystick;
 	}
 	
 	public Button getElevatorButton() {
-		return elevatorButton;
+		return elevatorButtonUp;
 	}
 	
 	
