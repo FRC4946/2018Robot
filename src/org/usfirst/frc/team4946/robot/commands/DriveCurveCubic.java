@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * is defined as the origin, the cubic equation follows the general form ax^3 + bx^2. Every cycle, the robot travels an arbitrarily
  * defined unit of distance and turns based on the 
  */
-public class DriveCurveSqrt extends Command {
+public class DriveCurveCubic extends Command {
 	//https://www.chiefdelphi.com/forums/showthread.php?t=105211
 	double m_speed;
 	double m_distanceInit;
@@ -25,7 +25,7 @@ public class DriveCurveSqrt extends Command {
 	double m_cubicCoefficient;
 	double m_quadraticCoefficient;
 
-    public DriveCurveSqrt(double dist1, double dist2, double speed) {
+    public DriveCurveCubic(double dist1, double dist2, double speed) {
     	requires(Robot.DriveTrain);
 
     	m_speed = speed;
