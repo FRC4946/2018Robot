@@ -9,6 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ToggleCube;
 import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
+import org.usfirst.frc.team4946.robot.commands.OpenLoop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -57,6 +58,8 @@ public class OI {
 	Button intakeButtonOut = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
 
 	Button elevatorButtonUp = new JoystickButton(operatorStick, 1);
+	
+	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); //Activates open loop controls for elevator
 
 	// Button-command linking:
 	public OI() {
@@ -64,6 +67,8 @@ public class OI {
 		intakeButtonOut.whileHeld(new ToggleCube(1.0)); // Pushes out cube
 
 		elevatorButtonUp.whileHeld(new ElevatorUp(operatorStick.getRawAxis(1)));
+		
+		toggleElevatorOpenLoop.whenPressed(new OpenLoop(operatorStick));
 	}
 
 	public static Joystick getDriveStick() {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,21 +10,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class OpenLoop extends Command {
 
-    public OpenLoop() {
+	Joystick j_joy;
+	
+    public OpenLoop(Joystick j_joy) {
     	
     	requires(Robot.ElevatorSubsystem);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
+    	this.j_joy = j_joy;
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.ElevatorSubsystem.getElevatorPos();
+    	Robot.ElevatorSubsystem.set(j_joy.getRawAxis(1));
     	
     }
 
