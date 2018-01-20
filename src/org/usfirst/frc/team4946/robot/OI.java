@@ -22,6 +22,7 @@ public class OI {
 	Joystick joystick = new Joystick (RobotMap.joystick);
 	
 	Button elevatorButton = new JoystickButton(joystick, 1);
+	Button elevatorButtonDown = new JoystickButton (joystick, 2);
 	
 	
 	public OI() {
