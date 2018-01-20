@@ -18,7 +18,7 @@ public class ElevatorUp extends Command {
     public ElevatorUp(double elevatorSpeed) {
     	
     	m_elevatorSpeed = elevatorSpeed;
-    	requires(Robot.ElevatorSubsystem);
+    	requires(Robot.elevatorSubsystem);
     	
     	
         // Use requires() here to declare subsystem dependencies
@@ -32,9 +32,9 @@ public class ElevatorUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.ElevatorSubsystem.set(m_elevatorSpeed);
-    	Robot.ElevatorSubsystem.getElevatorPos();
-    	Robot.ElevatorSubsystem.setPoint(height);
+    	Robot.elevatorSubsystem.set(m_elevatorSpeed);
+    	Robot.elevatorSubsystem.getElevatorPos();
+    	Robot.elevatorSubsystem.setSetpoint(height);
     
     }
 

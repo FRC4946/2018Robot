@@ -24,7 +24,7 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	
 	SpeedControllerGroup elevatorMotorGroup = new SpeedControllerGroup 
-			(Robot.ElevatorSubsystem.m_elevatorMotorLeft, Robot.ElevatorSubsystem.m_elevatorMotorRight);
+			(Robot.elevatorSubsystem.m_elevatorMotorLeft, Robot.elevatorSubsystem.m_elevatorMotorRight);
 	
 	AnalogPotentiometer elevatorAnalogPotentiometer = new AnalogPotentiometer
 			(RobotMap.elevatorAnalogPotentiometerPort1,RobotMap.elevatorAnalogPotentiometerPort2,
@@ -64,10 +64,10 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public void set(double d_speed) {
 		m_elevatorMotorLeft.set(d_speed);
-		m_elevatorMotorRight.set(d_speed);
+		m_elevatorMotorRight.set(-d_speed);
 	}
 	
-	public void setPoint(double d_point) {
+	public void setSetpoint(double d_point) {
 		m_elevatorPIDController.setSetpoint(d_point);
 	}	
 	
@@ -79,9 +79,6 @@ public class ElevatorSubsystem extends Subsystem {
     public void initDefaultCommand() {
     	
     	setDefaultCommand(new ElevatorUp(OI.getOperatorStick().getRawAxis(1)));
-    	
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
 }
 

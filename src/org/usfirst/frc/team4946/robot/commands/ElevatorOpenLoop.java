@@ -8,16 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OpenLoop extends Command {
+public class ElevatorOpenLoop extends Command {
 
 	Joystick j_joy;
 	
-    public OpenLoop(Joystick j_joy) {
-    	
-    	requires(Robot.ElevatorSubsystem);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	
+    public ElevatorOpenLoop(Joystick j_joy) {
+    	requires(Robot.elevatorSubsystem);
     	this.j_joy = j_joy;
 
     }
@@ -30,7 +26,7 @@ public class OpenLoop extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.ElevatorSubsystem.set(j_joy.getRawAxis(1));
+    	Robot.elevatorSubsystem.set(j_joy.getRawAxis(1));
     	
     }
 

@@ -9,7 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ToggleCube;
 import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
-import org.usfirst.frc.team4946.robot.commands.OpenLoop;
+import org.usfirst.frc.team4946.robot.commands.ElevatorOpenLoop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -68,7 +68,7 @@ public class OI {
 
 		elevatorButtonUp.whileHeld(new ElevatorUp(operatorStick.getRawAxis(1)));
 		
-		toggleElevatorOpenLoop.whenPressed(new OpenLoop(operatorStick));
+		toggleElevatorOpenLoop.whenPressed(new ElevatorOpenLoop(operatorStick));
 	}
 
 	public static Joystick getDriveStick() {
