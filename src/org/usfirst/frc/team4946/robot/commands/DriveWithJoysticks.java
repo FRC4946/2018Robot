@@ -24,7 +24,8 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.DriveTrain.arcadeDrive(OI.k_joy1.getRawAxis(0)/5.0, OI.k_joy1.getRawAxis(1)/5.0);
+    	Robot.DriveTrain.arcadeDrive(Robot.OI.getDriveJoystick().getRawAxis(1)/5.0, 
+    			Robot.OI.getDriveJoystick().getRawAxis(0)/5.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

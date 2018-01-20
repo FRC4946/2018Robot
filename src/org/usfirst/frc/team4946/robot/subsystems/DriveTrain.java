@@ -211,4 +211,9 @@ public class DriveTrain extends Subsystem {
 	public double getEncoderDistance() {
 		return (m_leftEnc.getDistance() + m_rightEnc.getDistance())/2.0;
 	}
+
+	public void setMaxSpeed(double speed) {
+		m_leftPID.setOutputRange(-speed, speed);
+		m_rightPID.setOutputRange(-speed, speed);
+	}
 }

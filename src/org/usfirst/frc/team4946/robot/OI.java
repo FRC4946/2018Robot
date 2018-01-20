@@ -19,4 +19,11 @@ public class OI {
 	private Joystick k_driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK); 
 	private Joystick k_operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
+	public OI() {
+		
+	}
+	
+	public Joystick getDriveJoystick() {
+		return k_driveStick;
+	}
 }

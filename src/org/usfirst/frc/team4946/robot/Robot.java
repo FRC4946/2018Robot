@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 	
 	public static final ExampleSubsystem ExampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain DriveTrain = new DriveTrain(); //drivetrain object
-	public static OI m_oi;
+	public static OI OI;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
+		OI = new OI();
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);

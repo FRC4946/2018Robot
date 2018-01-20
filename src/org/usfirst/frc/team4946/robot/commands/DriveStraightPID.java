@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveStraight extends Command {
+public class DriveStraightPID extends Command {
 
 	double m_speed; //in case the turning is too abrupt
 	double m_distanceToGo;
 	double m_distanceInit;
 	
-    public DriveStraight(double speed, double distance) {
+    public DriveStraightPID(double speed, double distance) {
     	requires(Robot.DriveTrain); //This is a comment... :(
     	m_speed = speed;
     	m_distanceToGo = distance;
@@ -21,6 +21,7 @@ public class DriveStraight extends Command {
 
     protected void initialize() {
     	m_distanceInit = Robot.DriveTrain.getEncoderDistance();
+    	Robot.DriveTrain.setMaxSpeed(m_speed);
     	
     	Robot.DriveTrain.setGyroSetpoint(Robot.DriveTrain.getGyroAngle());
     	Robot.DriveTrain.setDistSetpoint(m_distanceInit + m_distanceToGo);
