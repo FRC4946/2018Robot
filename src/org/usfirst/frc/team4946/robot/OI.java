@@ -8,11 +8,11 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ToggleCube;
+import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,7 +23,6 @@ public class OI {
 
 	private static Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK); 
 	private static Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK); 
-
 	
 	//// CREATING BUTTONS
 	//Tester test
@@ -58,10 +57,15 @@ public class OI {
 	Button intakeButtonIn = new JoystickButton(driveStick, 1); //1 is the button number for the cube intake Button
 	Button intakeButtonOut = new JoystickButton(driveStick, 2); //2 is the button number for the cube output button
 	
+  Button elevatorButtonUp = new JoystickButton(driveSick, 3);
+	
+  
 	//Button-command linking:
 	public OI() {
 		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); //Pulls in cube
 		intakeButtonOut.whileHeld(new ToggleCube(1.0)); //Pushes out cube
+    
+    elevatorButtonUp.whileHeld(new ElevatorUp(joystick.getRawAxis(1)));
 	}
 	
 	public static Joystick getDriveStick() {
@@ -70,6 +74,10 @@ public class OI {
 	
 	public static Joystick getOperatorStick() {
 		return operatorStick;
+	}
+  
+  public Button getElevatorButton() {
+		return elevatorButtonUp;
 	}
 	
 }

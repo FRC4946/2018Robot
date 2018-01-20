@@ -14,8 +14,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,7 +33,7 @@ public class Robot extends IterativeRobot {
 
 	public static IntakeMechanism intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
-
+	public static final ElevatorSubsystem ElevatorSubsystem = new ElevatorSubsystem();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -56,7 +61,6 @@ public class Robot extends IterativeRobot {
 		
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
-
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", m_chooser);
