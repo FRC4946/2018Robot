@@ -1,22 +1,16 @@
 package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorCommand extends Command {
-
-    public ElevatorCommand() {
-    	
-    	requires(Robot.ElevatorSubsystem);
-    	
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+public class DriveStraight extends Command {
+	
+    public DriveStraight() {
+    	requires(Robot.driveTrainSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -25,11 +19,6 @@ public class ElevatorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    Robot.ElevatorSubsystem.set(0.0);
-   //this is a dummy number -----^
-    
-    
     }
 
     // Make this return true when this Command no longer needs to run execute()

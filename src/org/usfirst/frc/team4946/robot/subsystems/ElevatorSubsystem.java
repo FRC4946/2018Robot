@@ -1,9 +1,10 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.ElevatorCommand;
+import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -17,9 +18,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	
 	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX (RobotMap.m_elevatorMotorLeft);
 	WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX (RobotMap.m_elevatorMotorRight);
+	
 	
 	SpeedControllerGroup elevatorMotorGroup = new SpeedControllerGroup 
 			(Robot.ElevatorSubsystem.m_elevatorMotorLeft, Robot.ElevatorSubsystem.m_elevatorMotorRight);
@@ -31,6 +32,8 @@ public class ElevatorSubsystem extends Subsystem {
 	public PIDController m_elevatorPIDController = new PIDController 
 			(0.0,0.0,0.0,elevatorAnalogPotentiometer,elevatorMotorGroup);
 	//dummy numbers 
+	
+	
 	
 	public double getElevatorPos() {
 		return elevatorAnalogPotentiometer.get();
@@ -74,7 +77,7 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
     	
-    	setDefaultCommand(new ElevatorCommand());
+    	setDefaultCommand(new ElevatorUp(Robot.m_oi.getOperatorStick().getRawAxis(1)));
     	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
