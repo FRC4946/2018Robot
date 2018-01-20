@@ -1,25 +1,23 @@
 package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
-import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class ElevatorUp extends Command {
-	
+	Joystick m_joy;
 	double m_elevatorSpeed;
 	double height;
-
+	
     public ElevatorUp(double elevatorSpeed) {
-    	
+  
     	m_elevatorSpeed = elevatorSpeed;
     	requires(Robot.elevatorSubsystem);
-    	
+   
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
