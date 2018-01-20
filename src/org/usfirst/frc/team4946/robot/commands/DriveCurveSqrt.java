@@ -42,7 +42,6 @@ public class DriveCurveSqrt extends Command {
     	
     	//Generate the cubic fxn which follows the form: f(x) = ax^3 + bx^2 by finding the coefficients
     	//The cubic coefficient has the equation: 
-    	//The derivative will be 3ax^2 + 2bx
     	m_cubicCoefficient = ((m_finalSlope*m_secondDistanceToGo - 2*m_firstDistanceToGo))/Math.pow(m_secondDistanceToGo, 3);
     	m_quadraticCoefficient = ((3*m_firstDistanceToGo - m_finalSlope*m_secondDistanceToGo))/Math.pow(m_secondDistanceToGo, 2);
     	
@@ -59,6 +58,7 @@ public class DriveCurveSqrt extends Command {
     	m_angleInit = Robot.DriveTrain.getGyroAngle();	
     	//Calculate the angle to turn to. It's the current angle plus the angle indicated by the derivative 
     	//which is being converted from radians to degrees
+    	//The derivative will be 3ax^2 + 2bx, and the angle to add on is (180/pi)*arctan(3ax^2 + 2bx)
     	m_angleToGo = m_angleInit + 180*(Math.atan(3*m_cubicCoefficient*Math.pow(m_distXTraveled + 0.1, 2) + 2*m_quadraticCoefficient*m_distXTraveled))/Math.PI;
     	
     	//Set the gyro setpoint and keep the robot moving forward
