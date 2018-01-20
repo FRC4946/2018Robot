@@ -8,19 +8,15 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeMechanism;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,7 +29,7 @@ public class Robot extends IterativeRobot {
 
 	public static IntakeMechanism intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
-	public static final ElevatorSubsystem ElevatorSubsystem = new ElevatorSubsystem();
+	public static ElevatorSubsystem ElevatorSubsystem;
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -57,6 +53,7 @@ public class Robot extends IterativeRobot {
 
 		intakeSubsystem = new IntakeMechanism();
 		driveTrainSubsystem = new DriveTrain();
+		ElevatorSubsystem = new ElevatorSubsystem();
 
 		
 		// This MUST occur AFTER the subsystems and instantiated
