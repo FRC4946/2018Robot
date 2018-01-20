@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 
+import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
@@ -77,7 +78,7 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
     	
-    	setDefaultCommand(new ElevatorUp(Robot.m_oi.getOperatorStick().getRawAxis(1)));
+    	setDefaultCommand(new ElevatorUp(OI.getOperatorStick().getRawAxis(1)));
     	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

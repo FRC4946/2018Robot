@@ -1,26 +1,17 @@
 package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
-import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorUp extends Command {
-	
-	double m_elevatorSpeed;
-	double height;
+public class OpenLoop extends Command {
 
-    public ElevatorUp(double elevatorSpeed) {
+    public OpenLoop() {
     	
-    	m_elevatorSpeed = elevatorSpeed;
     	requires(Robot.ElevatorSubsystem);
-    	
-    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -32,10 +23,8 @@ public class ElevatorUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.ElevatorSubsystem.set(m_elevatorSpeed);
     	Robot.ElevatorSubsystem.getElevatorPos();
-    	Robot.ElevatorSubsystem.setPoint(height);
-    
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
