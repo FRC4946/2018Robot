@@ -63,7 +63,6 @@ public class OI {
 
 	// Button-command linking:
 	public OI() {
-		
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
 	}
 
