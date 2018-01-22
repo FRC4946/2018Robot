@@ -8,8 +8,8 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ToggleCube;
-import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
-import org.usfirst.frc.team4946.robot.commands.ElevatorOpenLoop;
+import org.usfirst.frc.team4946.robot.commands.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.ElevatorJoystickCtrl;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -66,9 +66,9 @@ public class OI {
 		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); // Pulls in cube
 		intakeButtonOut.whileHeld(new ToggleCube(1.0)); // Pushes out cube
 
-		elevatorButtonUp.whileHeld(new ElevatorUp(operatorStick.getRawAxis(1)));
+		elevatorButtonUp.whileHeld(new ElevatorSetHeight(operatorStick.getRawAxis(1)));
 		
-		toggleElevatorOpenLoop.whenPressed(new ElevatorOpenLoop(operatorStick));
+		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl(operatorStick));
 	}
 
 	public static Joystick getDriveStick() {

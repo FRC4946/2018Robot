@@ -5,7 +5,7 @@ import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
+import org.usfirst.frc.team4946.robot.commands.ElevatorSetHeight;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -27,14 +27,19 @@ public class ElevatorSubsystem extends Subsystem {
 			(Robot.elevatorSubsystem.m_elevatorMotorLeft, Robot.elevatorSubsystem.m_elevatorMotorRight);
 	
 	AnalogPotentiometer elevatorAnalogPotentiometer = new AnalogPotentiometer
-			(RobotMap.elevatorAnalogPotentiometerPort1,RobotMap.elevatorAnalogPotentiometerPort2,
-					RobotMap.elevatorAnalogPotentiometerPort3);
+			(RobotMap.elevatorAnalogPotentiometerChannel, RobotConstants.ELEVATOR_SCALING_VALUE,
+					RobotConstants.ELEVATOR_OFFSET_VALUE);
 	
 	public PIDController m_elevatorPIDController = new PIDController 
 			(0.0,0.0,0.0,elevatorAnalogPotentiometer,elevatorMotorGroup);
 	//dummy numbers 
 	
-	
+	public ElevatorSubsystem() {
+		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, 
+				RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
+		m_elevatorPIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT, 
+				RobotConstants.ELEVATOR_MAX_OUTPUT);
+	}
 	
 	public double getElevatorPos() {
 		return elevatorAnalogPotentiometer.get();
@@ -67,9 +72,17 @@ public class ElevatorSubsystem extends Subsystem {
 		m_elevatorMotorRight.set(-d_speed);
 	}
 	
+	public double getSpeed() {
+		return (Math.abs(m_elevatorMotorLeft.get()) + Math.abs(m_elevatorMotorRight.get()))/2;
+	}
+	
 	public void setSetpoint(double d_point) {
 		m_elevatorPIDController.setSetpoint(d_point);
-	}	
+	}
+	
+	public boolean getOnTarget() {
+		return m_elevatorPIDController.onTarget();
+	}
 	
 
 	
@@ -78,7 +91,7 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
     	
-    	setDefaultCommand(new ElevatorUp(OI.getOperatorStick().getRawAxis(1)));
+    	setDefaultCommand(new ElevatorSetHeight());
     }
 }
 

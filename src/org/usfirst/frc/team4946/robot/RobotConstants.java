@@ -5,8 +5,10 @@ import edu.wpi.first.wpilibj.Preferences;
 public class RobotConstants {
 
   public static final double ELEVATOR_MAX_OUTPUT = 1.0;
-	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0;
-	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0;
+	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; //Dummy
+	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; //Dummy
+	public static final double ELEVATOR_SCALING_VALUE = 67.1; //Dummy
+	public static final double ELEVATOR_OFFSET_VALUE = 5.0; //Dummy
 
 	public static double leftDriveP = 0.0;
 	public static double leftDriveI = 0.0;

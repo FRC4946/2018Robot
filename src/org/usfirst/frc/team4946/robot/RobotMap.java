@@ -22,13 +22,7 @@ public class RobotMap {
 	public static final int joystick = 0;
 	//these are dummy numbers
 			
-	public static final int elevatorAnalogPotentiometerPort1 = 1;
-	public static final int elevatorAnalogPotentiometerPort2 = 2;
-	public static final int elevatorAnalogPotentiometerPort3 = 3;
-	
-	
-	
-	
+	public static final int elevatorAnalogPotentiometerChannel = 1;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
