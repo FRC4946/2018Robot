@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeMechanism;
 
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static IntakeMechanism intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
+	public static ElbowSubsystem elbowSubsystem;
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -54,6 +56,7 @@ public class Robot extends IterativeRobot {
 		intakeSubsystem = new IntakeMechanism();
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
+		elbowSubsystem = new ElbowSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();

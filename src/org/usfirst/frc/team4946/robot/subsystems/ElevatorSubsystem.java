@@ -21,16 +21,15 @@ public class ElevatorSubsystem extends Subsystem {
 	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX (RobotMap.m_elevatorMotorLeft);
 	WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX (RobotMap.m_elevatorMotorRight);
 	
-	
-	SpeedControllerGroup elevatorMotorGroup = new SpeedControllerGroup 
+	SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup 
 			(Robot.elevatorSubsystem.m_elevatorMotorLeft, Robot.elevatorSubsystem.m_elevatorMotorRight);
 	
-	AnalogPotentiometer elevatorAnalogPotentiometer = new AnalogPotentiometer
+	AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer
 			(RobotMap.elevatorAnalogPotentiometerChannel, RobotConstants.ELEVATOR_SCALING_VALUE,
 					RobotConstants.ELEVATOR_OFFSET_VALUE);
 	
 	public PIDController m_elevatorPIDController = new PIDController 
-			(0.0,0.0,0.0,elevatorAnalogPotentiometer,elevatorMotorGroup);
+			(0.0,0.0,0.0,m_elevatorAnalogPotentiometer,m_elevatorMotorGroup);
 	//dummy numbers 
 	
 	public ElevatorSubsystem() {
@@ -41,21 +40,21 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
 	public double getElevatorPos() {
-		return elevatorAnalogPotentiometer.get();
+		return m_elevatorAnalogPotentiometer.get();
 	}
 	
 	public void manualMoveElevator(double ButtonValue) {
-		double pos = elevatorAnalogPotentiometer.get();
+		double pos = m_elevatorAnalogPotentiometer.get();
 		
 		if (pos > RobotConstants.ELEVATOR_MINIMUM_HEIGHT 
 				&& pos < RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			elevatorMotorGroup.set(ButtonValue);
+			m_elevatorMotorGroup.set(ButtonValue);
 		} 
 		else if (pos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-			elevatorMotorGroup.set(0.2);
+			m_elevatorMotorGroup.set(0.2);
 		}
 		else if (pos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			elevatorMotorGroup.set(-0.2);
+			m_elevatorMotorGroup.set(-0.2);
 		}
 		
 		

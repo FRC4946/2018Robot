@@ -21,6 +21,7 @@ public class ElevatorJoystickCtrl extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	j_joy = Robot.m_oi.getOperatorStick();
+    	Robot.elbowSubsystem.setElbowUp();
     }
 
     // Called repeatedly when this Command is scheduled to run

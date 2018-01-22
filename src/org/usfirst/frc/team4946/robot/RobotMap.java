@@ -23,6 +23,10 @@ public class RobotMap {
 	//these are dummy numbers
 			
 	public static final int elevatorAnalogPotentiometerChannel = 1;
+	public static final int DIO_INTAKE_DETECTOR = 0;
+	
+	public static final int PCM_ELBOW_LEFT = 0;
+	public static final int PCM_ELBOW_RIGHT = 1;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -34,13 +38,9 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	//Port numbers for Robot:
-	
 	// Port numbers for motors on the intake mechanism
 	public static final int CAN_INTAKE_LEFT_MOTOR = 6;
 	public static final int CAN_INTAKE_RIGHT_MOTOR = 7;
-	
-	//Port numbers for inputs:
 	
 	public static final int USB_DS_DRIVESTICK = 0;
 	public static final int USB_DS_OPERATORSTICK = 0;

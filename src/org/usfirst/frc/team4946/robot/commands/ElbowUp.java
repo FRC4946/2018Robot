@@ -7,17 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ToggleCube extends Command {
-	
-	double d_speed = 1.0;
+public class ElbowUp extends Command {
 
-    public ToggleCube(double d_speed) {
+    public ElbowUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.elbowSubsystem);
     	
-    	requires(Robot.intakeSubsystem);
-    	
-    	this.d_speed = d_speed;
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +22,7 @@ public class ToggleCube extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intakeSubsystem.spin(d_speed);
+    	Robot.elbowSubsystem.setElbowUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,12 +32,10 @@ public class ToggleCube extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeSubsystem.disableMechanism();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
