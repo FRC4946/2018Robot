@@ -8,7 +8,8 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ToggleCube;
-import org.usfirst.frc.team4946.robot.commands.ElevatorUp;
+import org.usfirst.frc.team4946.robot.commands.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.ElevatorJoystickCtrl;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -19,13 +20,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
 
-	private static Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK); 
-	private static Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK); 
-	
+	private static Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
+	private static Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
+
 	//// CREATING BUTTONS
-	//Tester test
+	// Tester test
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
 	// You create one by telling it which joystick it's on and which button
@@ -52,32 +52,33 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+
+	// Button creation:
+	Button intakeButtonIn = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
+	Button intakeButtonOut = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
+
+	Button elevatorButtonUp = new JoystickButton(operatorStick, 1);
 	
-	//Button creation:
-	Button intakeButtonIn = new JoystickButton(driveStick, 1); //1 is the button number for the cube intake Button
-	Button intakeButtonOut = new JoystickButton(driveStick, 2); //2 is the button number for the cube output button
-	
-  Button elevatorButtonUp = new JoystickButton(driveSick, 3);
-	
-  
-	//Button-command linking:
+	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); //Activates open loop controls for elevator
+
+	// Button-command linking:
 	public OI() {
-		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); //Pulls in cube
-		intakeButtonOut.whileHeld(new ToggleCube(1.0)); //Pushes out cube
-    
-    elevatorButtonUp.whileHeld(new ElevatorUp(joystick.getRawAxis(1)));
+		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); // Pulls in cube
+		intakeButtonOut.whileHeld(new ToggleCube(1.0)); // Pushes out cube
+		
+		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
 	}
-	
+
 	public static Joystick getDriveStick() {
 		return driveStick;
 	}
-	
+
 	public static Joystick getOperatorStick() {
 		return operatorStick;
 	}
-  
-  public Button getElevatorButton() {
+
+	public Button getElevatorButton() {
 		return elevatorButtonUp;
 	}
-	
+
 }
