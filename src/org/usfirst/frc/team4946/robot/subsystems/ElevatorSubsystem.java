@@ -1,11 +1,10 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 
-import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.ElevatorJoystickCtrl;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -91,7 +90,7 @@ public class ElevatorSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
     	
-    	setDefaultCommand(new ElevatorSetHeight());
+    	setDefaultCommand(new ElevatorJoystickCtrl());
     }
 }
 
