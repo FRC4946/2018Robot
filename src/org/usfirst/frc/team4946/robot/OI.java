@@ -65,10 +65,8 @@ public class OI {
 	public OI() {
 		intakeButtonIn.whileHeld(new ToggleCube(-1.0)); // Pulls in cube
 		intakeButtonOut.whileHeld(new ToggleCube(1.0)); // Pushes out cube
-
-		elevatorButtonUp.whileHeld(new ElevatorSetHeight(operatorStick.getRawAxis(1)));
 		
-		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl(operatorStick));
+		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
 	}
 
 	public static Joystick getDriveStick() {
