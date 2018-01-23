@@ -30,8 +30,8 @@ public class Robot extends IterativeRobot {
 	public static IntakeMechanism intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
-	public static OI m_oi;
-
+	public static OI m_oi;	
+	public static OI OI;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -44,7 +44,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-
 		// Load all of the robot preferences from the NetworkTables,
 		// and then repopulate them to ensure they are visible on the
 		// SmartDashboard
@@ -58,6 +57,7 @@ public class Robot extends IterativeRobot {
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
+		OI = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", m_chooser);
 	}

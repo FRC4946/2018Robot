@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveStraight extends Command {
+public class ExampleCommand extends Command {
 
-    public DriveStraight() {
+    public ExampleCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
