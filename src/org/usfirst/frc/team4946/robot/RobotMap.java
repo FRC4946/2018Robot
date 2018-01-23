@@ -16,8 +16,10 @@ package org.usfirst.frc.team4946.robot;
  */
 public class RobotMap {
 	
-	public static final int m_elevatorMotorLeft = 0;
-	public static final int m_elevatorMotorRight = 1;
+	public static final int m_elevatorMotorTopLeft = 0;
+	public static final int m_elevatorMotorTopRight = 1;
+	public static final int m_elevatorMotorBottomLeft = 2;
+	public static final int m_elevatorMotorBottomRight = 3;
 	
 	public static final int joystick = 0;
 	//these are dummy numbers
