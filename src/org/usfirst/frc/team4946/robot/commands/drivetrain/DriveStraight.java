@@ -1,13 +1,13 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ExampleCommand extends Command {
+public class DriveStraight extends Command {
 
-    public ExampleCommand() {
+    public DriveStraight() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

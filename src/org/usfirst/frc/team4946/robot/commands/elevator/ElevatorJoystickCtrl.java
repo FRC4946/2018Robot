@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -9,34 +9,35 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorSetHeight extends Command {
+public class ElevatorJoystickCtrl extends Command {
 
-	double m_elevatorSpeed;
-	double m_height;
+	Joystick j_joy;
 	
-    public ElevatorSetHeight(double height, double speed) {
+    public ElevatorJoystickCtrl() {
     	requires(Robot.elevatorSubsystem);
-   
-    	m_height = height;
-    	m_elevatorSpeed = speed;
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    	if(m_height > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-    		m_height = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-    	} else if (m_height < RobotConstants.ELEVATOR_MINIMUM_HEIGHT){
-    		m_height = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
-    	}
-    	
-    	Robot.elevatorSubsystem.set(m_elevatorSpeed);
-    	Robot.elevatorSubsystem.setSetpoint(m_height);
-    	
+    	j_joy = Robot.m_oi.getOperatorStick();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	Robot.elevatorSubsystem.set(j_joy.getRawAxis(0));
+    	if((RobotConstants.ELEVATOR_MAXIMUM_HEIGHT - Robot.elevatorSubsystem.getElevatorPos()) 
+    			<= 6*(1 + Robot.elevatorSubsystem.getSpeed())) {
+    		
+    		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MAXIMUM_HEIGHT - 2);
+    		
+    	} else if((Robot.elevatorSubsystem.getElevatorPos() - RobotConstants.ELEVATOR_MINIMUM_HEIGHT) 
+    			<= 6*(1 + Robot.elevatorSubsystem.getSpeed())) {
+    		
+    		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MINIMUM_HEIGHT + 2);
+    		
+    	}
     	
     }
 
