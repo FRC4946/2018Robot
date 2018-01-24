@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.DriveWithJoysticks;
@@ -35,10 +36,6 @@ public class DriveTrain extends Subsystem {
 	private Encoder m_leftEnc,
 		m_rightEnc;
 	
-	//Create Solenoid
-	private Solenoid m_gearShiftLeft,
-		m_gearShiftRight;
-	
 	private ADXRS450_Gyro m_driveGyro;
 	private NullPIDOutput m_gyroPIDOutput;
 	//PID
@@ -64,9 +61,6 @@ public class DriveTrain extends Subsystem {
 		
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
-		
-		m_gearShiftLeft = new Solenoid(RobotMap.DIO_DRIVE_LEFTSOLENOID);
-		m_gearShiftRight = new Solenoid(RobotMap.DIO_DRIVE_RIGHTSOLENOID);
 		
 		m_driveGyro = new ADXRS450_Gyro();
 		m_gyroPIDOutput = new NullPIDOutput();
@@ -136,15 +130,6 @@ public class DriveTrain extends Subsystem {
 		m_right.set(0.0);
 	}
 	
-	public void toggleGear() {
-		m_gearShiftLeft.set(!getGearState());
-		m_gearShiftRight.set(!getGearState());
-	}
-	
-	public boolean getGearState() {
-		return m_gearShiftLeft.get();
-	}
-	
 	public void setDistSetpoint(double distSetpoint) {
 		m_leftPID.setSetpoint(distSetpoint);
 		m_rightPID.setSetpoint(distSetpoint); 
@@ -191,7 +176,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void setEncoderDPP() {	
-		if(getGearState()) {
+		if(Robot.transmission.getGearState()) {
 			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
 					/ RobotConstants.ENCODER_PPR * RobotConstants.GEARBOX_REDUCTION_HIGH;
