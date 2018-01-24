@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.Transmission;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
 	
 	public static final ExampleSubsystem ExampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain DriveTrain = new DriveTrain(); //drivetrain object
+	public static final Transmission transmission = new Transmission();
 	public static OI OI;
 
 	Command m_autonomousCommand;
