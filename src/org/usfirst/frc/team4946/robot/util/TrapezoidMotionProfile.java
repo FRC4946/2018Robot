@@ -8,6 +8,7 @@ public class TrapezoidMotionProfile {
 	double fAccMax;
 	double fVelMax;
 	double fDisTarget;
+	double fDisInit;
 	double fSampleTime;
 	double iSampleCnt;
 	double iAccCnt;
@@ -18,7 +19,7 @@ public class TrapezoidMotionProfile {
 	double v2;
 	double fAccSP;
 	
-	public TrapezoidMotionProfile(double aDis, double aVelMax, double aAccLim, double aSampleTime) {
+	public TrapezoidMotionProfile(double aDis, double aVelMax, double aAccLim, double aSampleTime, double distInit) {
 		fAccMax = aAccLim;
 		fVelMax = aVelMax;
 		fDisTarget = aDis;
@@ -38,32 +39,33 @@ public class TrapezoidMotionProfile {
 		
 		v1 = 0;
 		v2 = 0;
+		fDisInit = distInit;
 	}
 	
-	double getVel() {
+	public double getVel(double fDisGone) {
 		fAccSP = fhan(-fDisTarget, v2, fAccMax, fSampleTime);
 		v1 = v1 + v2 * fSampleTime;
 		v2 = v2 + fSampleTime * fAccSP;
 		v2 = Math.min(v2, fVelMax);
 		fVelSP = v2;
-		fDisTarget -= fVelSP*fSampleTime;
+		fDisTarget -= fDisGone - fDisInit;
 		iSampleCnt = iSampleCnt + 1;
 		return fVelSP;
 	}
 	
-	double getAccel() {
+	public double getAccel() {
 		return fAccSP;
 	}
 	
-	double getDist() {
+	public double getDist() {
 		return fDisTarget;
 	}
 	
-	double getCount() {
+	public double getCount() {
 		return iSampleCnt;
 	}
 	
-	double fhan(double v1, double v2, double r0, double h0) {
+	public double fhan(double v1, double v2, double r0, double h0) {
 		// from Han J. From PID to active disturbance rejection control[J]. IEEE transactions on Industrial Electronics, 2009, 56(3): 900-906.
 		double d = r0 * h0 * h0;
 		double a0 = h0 * v2;

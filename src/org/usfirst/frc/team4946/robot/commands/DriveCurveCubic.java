@@ -63,7 +63,7 @@ public class DriveCurveCubic extends Command {
     	
     	//Set the gyro setpoint and keep the robot moving forward
     	Robot.DriveTrain.setGyroSetpoint(m_angleToGo);
-    	Robot.DriveTrain.setDistSetpoint(m_distanceInit + 1.0);
+    	Robot.DriveTrain.setDistSetpoint(m_distanceInit + 0.5);
     	//Update the x-coordinate of the robot
     	m_distXTraveled += Math.cos(m_angleToGo)*(Robot.DriveTrain.getEncoderDistance() - m_distanceInit);
     	
