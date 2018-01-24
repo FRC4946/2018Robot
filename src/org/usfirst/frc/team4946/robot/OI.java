@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.clamp.ChangeClamp;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
@@ -28,6 +29,8 @@ public class OI {
 	Button intakeButtonIn = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
 	Button intakeButtonOut = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
 	Button outputButtonOut = new JoystickButton(driveStick, 3); //Button to output from upper output subsystem
+	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
+	Button clampButtonClosed = new JoystickButton(operatorStick, 2); //Closes clamp on elevator
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
 
 	// Button-command linking:
@@ -37,6 +40,9 @@ public class OI {
 		outputButtonOut.whileHeld(new RunOutput(-1.0)); //Pushes out cube from above
 
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
+		
+		clampButtonOpen.whenPressed(new ChangeClamp(false));
+		clampButtonClosed.whenPressed(new ChangeClamp(true));
 	}
 
 	public Joystick getDriveStick() {

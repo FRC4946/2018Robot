@@ -44,6 +44,8 @@ public class RobotMap {
 	public static final int CAN_ELEVATOR_TOPRIGHT = 9;
 	public static final int CAN_ELEVATOR_BOTLEFT = 10;
 	public static final int CAN_ELEVATOR_BOTRIGHT = 11;
+	
+	public static final int CLAMP_SOLENOID = 13;
 
 	public static final int DIO_DRIVE_LEFTENC1 = 0;
 	public static final int DIO_DRIVE_LEFTENC2 = 1;
