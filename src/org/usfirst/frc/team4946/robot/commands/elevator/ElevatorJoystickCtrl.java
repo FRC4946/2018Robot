@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.commands.elevator;
 
-import org.usfirst.frc.team4946.robot.OI;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 
@@ -21,8 +20,8 @@ public class ElevatorJoystickCtrl extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	j_joy = OI.getOperatorStick();
-    	Robot.elbowSubsystem.setElbowUp();
+    	j_joy = Robot.m_oi.getOperatorStick();
+//    	Robot.elbowSubsystem.setElbowUp();
     }
 
     // Called repeatedly when this Command is scheduled to run

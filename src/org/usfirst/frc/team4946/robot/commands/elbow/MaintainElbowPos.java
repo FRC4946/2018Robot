@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.elbow;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;

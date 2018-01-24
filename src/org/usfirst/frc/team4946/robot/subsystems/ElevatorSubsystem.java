@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	WPI_TalonSRX m_elevatorMotorTopLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFTMOTOR);
-	WPI_TalonSRX m_elevatorMotorTopRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHTMOTOR);
-	WPI_TalonSRX m_elevatorMotorBottomLeft = new WPI_TalonSRX(RobotMap.m_elevatorMotorBottomLeft);
-	WPI_TalonSRX m_elevatorMotorBottomRight = new WPI_TalonSRX(RobotMap.m_elevatorMotorBottomRight);
+	WPI_TalonSRX m_elevatorMotorTopLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPLEFT);
+	WPI_TalonSRX m_elevatorMotorTopRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPRIGHT);
+	WPI_TalonSRX m_elevatorMotorBottomLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_BOTLEFT);
+	WPI_TalonSRX m_elevatorMotorBottomRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_BOTRIGHT);
 
 	SpeedControllerGroup m_elevatorMotorGroupLeft = new SpeedControllerGroup(
 			Robot.elevatorSubsystem.m_elevatorMotorTopLeft, Robot.elevatorSubsystem.m_elevatorMotorBottomLeft);
@@ -31,9 +31,8 @@ public class ElevatorSubsystem extends Subsystem {
 	SpeedControllerGroup m_elevatorMotorGroupAll = new SpeedControllerGroup(
 			Robot.elevatorSubsystem.m_elevatorMotorGroupLeft, Robot.elevatorSubsystem.m_elevatorMotorGroupRight);
 
-	AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(
-			RobotMap.elevatorAnalogPotentiometerChannel, RobotConstants.ELEVATOR_SCALING_VALUE,
-			RobotConstants.ELEVATOR_OFFSET_VALUE);
+	AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
+			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
 	public PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
 			m_elevatorMotorGroupAll);

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeIn extends Command {
+public class IntakeUntilCube extends Command {
 
 	double m_speed;
 	
-    public CubeIn(double speed) {
+    public IntakeUntilCube(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeSubsystem);
@@ -24,7 +24,7 @@ public class CubeIn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intakeSubsystem.spin(m_speed);
+    	Robot.intakeSubsystem.set(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,7 +34,7 @@ public class CubeIn extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeSubsystem.spin(0.0);
+    	Robot.intakeSubsystem.set(0.0);
     }
 
     // Called when another command which requires one or more of the same

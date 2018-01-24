@@ -3,7 +3,6 @@ package org.usfirst.frc.team4946.robot.commands.elevator;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**

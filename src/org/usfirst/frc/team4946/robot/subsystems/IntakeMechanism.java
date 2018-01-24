@@ -15,7 +15,13 @@ public class IntakeMechanism extends Subsystem {
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 
-	private DigitalInput m_cubeDetector = new DigitalInput(RobotMap.DIO_INTAKE_DETECTOR);
+	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH);
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+
+	}
 
 	// TODO: Add javadoc
 	public void set(double d_speed) { // Takes values from -1.0 to 1.0. Spins the motors, positive is forwards,
@@ -31,7 +37,7 @@ public class IntakeMechanism extends Subsystem {
 	}
 
 	public boolean getHasCube() {
-		return m_cubeDetector.get();
+		return m_cubeSwitch.get();
 	}
 
 }
