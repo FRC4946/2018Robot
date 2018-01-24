@@ -16,7 +16,6 @@ public class ElevatorSetHeight extends Command {
 	
     public ElevatorSetHeight(double height, double speed) {
     	requires(Robot.elevatorSubsystem);
-   
     	m_height = height;
     	m_elevatorSpeed = speed;
     }
