@@ -13,7 +13,7 @@ public class IntakeAndClampCube extends CommandGroup {
 
     public IntakeAndClampCube() {
     	addSequential(new ChangeClamp(false));
-    	addSequential(new IntakeUntilCube(1.0)); //The 1.0 argument may need to be reversed
+    	addSequential(new IntakeUntilCube(1.0)); //The 1.0 argument may need to be inverted
     	addSequential(new ChangeClamp(true));
     }
 }
