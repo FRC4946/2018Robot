@@ -17,6 +17,7 @@ public class PathfileParser {
 	ArrayList<Double> m_velList;
 	ArrayList<Double> m_accelList;
 	ArrayList<Double> m_jerkList;
+	ArrayList<NDimensionalPoint> m_pointList;
 	String m_line;
 	String m_numbersList[];
 	
@@ -37,10 +38,13 @@ public class PathfileParser {
 		while((m_line = m_fileReader.readLine()) != null) {
 			
 			m_numbersList = m_line.split(" ");
+			m_pointList.add(new NDimensionalPoint());
 			
 			for(int i = 0; i < m_numbersList.length; i++) {
 				m_count %= 4;
 				m_listofLists.get(m_count).add(m_numbersList[i]);
+				m_pointList.get(m_pointList.size() - 1).addDimension(m_numbersList[i]);
+				m_count++;
 			}
 		}
 	}
@@ -59,5 +63,9 @@ public class PathfileParser {
 	
 	public ArrayList<Double> getJerkList() {
 		return m_jerkList;
+	}
+	
+	public ArrayList<NDimensionalPoint> getpointList() {
+		return m_pointList;
 	}
 }
