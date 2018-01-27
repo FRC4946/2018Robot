@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.clamp.ChangeClamp;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
@@ -32,6 +33,7 @@ public class OI {
 	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
 	Button clampButtonClosed = new JoystickButton(operatorStick, 2); //Closes clamp on elevator
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
+	Button gearshiftButton = new JoystickButton(operatorStick, 1); //Shifts gears on the elevator
 
 	// Button-command linking:
 	public OI() {
@@ -43,6 +45,10 @@ public class OI {
 		
 		clampButtonOpen.whenPressed(new ChangeClamp(false));
 		clampButtonClosed.whenPressed(new ChangeClamp(true));
+		
+		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));
+		
+		
 	}
 
 	public Joystick getDriveStick() {

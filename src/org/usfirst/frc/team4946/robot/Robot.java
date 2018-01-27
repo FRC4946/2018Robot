@@ -10,6 +10,7 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorClampSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissions;
 import org.usfirst.frc.team4946.robot.subsystems.LowerIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.UpperOutputSubsystem;
 
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static LowerIntakeSubsystem lowerIntakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
+	public static ElevatorTransmissions elevatorTransmissions;
 	public static UpperOutputSubsystem upperOutputSubsystem;
 	public static ElevatorClampSubsystem elevatorClampSubsystem;
 	public static OI m_oi;
