@@ -30,11 +30,6 @@ public class UpperOutputSubsystem extends Subsystem {
 	public boolean getHasCube() {
 		return m_cubeSwitch.get();
 	}
-	
-	public void stop() {
-		m_leftMotor.set(0);
-		m_rightMotor.set(0);
-	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
