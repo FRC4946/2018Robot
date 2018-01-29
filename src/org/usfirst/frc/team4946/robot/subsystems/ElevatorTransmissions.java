@@ -17,9 +17,12 @@ public class ElevatorTransmissions extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
    
+    /**Moves solenoid to change gear of elevator
+     * 
+     * @param position true is closed, false is open
+     */
     public void moveSolenoid (boolean position) { //True Is Closed, False is Open
     	m_transmissionsSolenoid.set(position);
     }
     
 }
-
