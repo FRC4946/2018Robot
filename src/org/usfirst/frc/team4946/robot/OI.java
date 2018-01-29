@@ -7,9 +7,11 @@
 
 package org.usfirst.frc.team4946.robot;
 
-
-import org.usfirst.frc.team4946.robot.commands.ElevatorSetHeight;
-import org.usfirst.frc.team4946.robot.commands.ElevatorJoystickCtrl;
+import org.usfirst.frc.team4946.robot.commands.clamp.ChangeClamp;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
+import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,61 +23,40 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-	private static Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
-	private static Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
-
-	//// CREATING BUTTONS
-	// Tester test
-	// One type of button is a joystick button which is any button on a
-	//// joystick.
-	// You create one by telling it which joystick it's on and which button
-	// number it is.
-	// Joystick stick = new Joystick(port);
-	// Button button = new JoystickButton(stick, buttonNumber);
-
-	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
-	// commands the same as any other Button.
-
-	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand());
+	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
+	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
 	// Button creation:
 	Button intakeButtonIn = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
 	Button intakeButtonOut = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
-
-	Button elevatorButtonUp = new JoystickButton(operatorStick, 1);
-	
-	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); //Activates open loop controls for elevator
+	Button outputButtonOut = new JoystickButton(driveStick, 3); //Button to output from upper output subsystem
+	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
+	Button clampButtonClosed = new JoystickButton(operatorStick, 2); //Closes clamp on elevator
+	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
+	Button gearshiftButton = new JoystickButton(operatorStick, 1); //Shifts gears on the elevator
 
 	// Button-command linking:
 	public OI() {
+		intakeButtonIn.whileHeld(new RunIntake(-1.0)); // Pulls in cube
+		intakeButtonOut.whileHeld(new RunIntake(1.0)); // Pushes out cube
+		outputButtonOut.whileHeld(new RunOutput(-1.0)); //Pushes out cube from above
+
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
+		
+		clampButtonOpen.whenPressed(new ChangeClamp(false));
+		clampButtonClosed.whenPressed(new ChangeClamp(true));
+		
+		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));
+		
+		
 	}
 
-	public static Joystick getDriveStick() {
+	public Joystick getDriveStick() {
 		return driveStick;
 	}
 
-	public static Joystick getOperatorStick() {
+	public Joystick getOperatorStick() {
 		return operatorStick;
-	}
-
-	public Button getElevatorButton() {
-		return elevatorButtonUp;
 	}
 
 }

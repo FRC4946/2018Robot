@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team4946.robot;
 
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -15,49 +14,51 @@ package org.usfirst.frc.team4946.robot;
  * floating around.
  */
 public class RobotMap {
-	
-	public static final int m_elevatorMotorTopLeft = 0;
-	public static final int m_elevatorMotorTopRight = 1;
-	public static final int m_elevatorMotorBottomLeft = 2;
-	public static final int m_elevatorMotorBottomRight = 3;
-	
-	public static final int joystick = 0;
-	//these are dummy numbers
-			
-	public static final int elevatorAnalogPotentiometerChannel = 1;
-	public static final int DIO_INTAKE_DETECTOR = 0;
-	
-	public static final int PCM_ELBOW_LEFT = 0;
-	public static final int PCM_ELBOW_RIGHT = 1;
-	
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
 
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+	// Let's establish a naming convention here.
+	// Each constant will be of the format INTERFACE_SUBSYSTEM_COMPONENT.
+	// Remember also that all of these should be public static final ints.
+
+	// For example,
+	// PWM_DRIVETRAIN_FLMOTOR
+	// CAN_SHOOTER_MOTOR
+	// DIO_SHOOTER_ENCODER
+	// PCM_SHOOTER_HOOD
+	// RELAY_VISION_LED
+	//
 	
-	// Port numbers for motors on the intake mechanism
-	public static final int CAN_INTAKE_LEFT_MOTOR = 6;
-	public static final int CAN_INTAKE_RIGHT_MOTOR = 7;
+	public static final int ANALOG_ELEVATOR_POT = 1;
 	
 	public static final int USB_DS_DRIVESTICK = 0;
 	public static final int USB_DS_OPERATORSTICK = 0;
 
-	public static final int k_LeftFront = 0;
-	public static final int k_RightFront = 2;
-	public static final int k_LeftBack = 1;
-	public static final int k_RightBack = 3;
-	public static final int k_LeftMid = 4;
-	public static final int k_RightMid = 5;
+	public static final int CAN_DRIVE_LEFTFRONT = 0;
+	public static final int CAN_DRIVE_RIGHTFRONT = 2;
+	public static final int CAN_DRIVE_LEFTBACK = 1;
+	public static final int CAN_DRIVE_RIGHTBACK = 3;
+	public static final int CAN_DRIVE_LEFTMID = 4;
+	public static final int CAN_DRIVE_RIGHTMID = 5;
+	public static final int CAN_INTAKE_LEFTMOTOR = 6;
+	public static final int CAN_INTAKE_RIGHTMOTOR = 7;
+	public static final int CAN_ELEVATOR_TOPLEFT = 8;
+	public static final int CAN_ELEVATOR_TOPRIGHT = 9;
+	public static final int CAN_ELEVATOR_BOTLEFT = 10;
+	public static final int CAN_ELEVATOR_BOTRIGHT = 11;
 	
-	public static final int k_DIO_LeftEnc1 = 0;
-	public static final int k_DIO_LeftEnc2 = 1;
-	public static final int k_DIO_RightEnc1 = 2;
-	public static final int k_DIO_RightEnc2 = 3;
+	public static final int ELEVATOR_SOLENOID = 12;
+	public static final int CLAMP_SOLENOID = 13;
+
+	public static final int DIO_DRIVE_LEFTENC1 = 0;
+	public static final int DIO_DRIVE_LEFTENC2 = 1;
+	public static final int DIO_DRIVE_RIGHTENC1 = 2;
+	public static final int DIO_DRIVE_RIGHTENC2 = 3;
+	public static final int DIO_INTAKE_SWITCH = 4;
+	public static final int DIO_OUTPUT_SWITCH = 5;
 	
-	public static final int k_DIO_GearShifter = 0;
+	public static final int K_CLAMP = 1;
+	
+	public static final int PCM_DRIVE_LEFTSOLENOID = 0;
+	public static final int PCM_ELBOW_LEFT = 0;
+	public static final int PCM_ELBOW_RIGHT = 1;
+
 }
