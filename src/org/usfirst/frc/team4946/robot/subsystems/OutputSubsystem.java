@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class OutputMechanism extends Subsystem {
+public class OutputSubsystem extends Subsystem {
 	
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	
-	public void disableMechanism() { //Disables both motors
+	public void stop() { //Disables both motors
 		m_leftMotor.set(0);
 		m_rightMotor.set(0); //Equivalent to .disable
 	}

@@ -10,8 +10,8 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.IntakeMechanism;
-import org.usfirst.frc.team4946.robot.subsystems.OutputMechanism;
+import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.OutputSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
@@ -29,10 +29,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends IterativeRobot {
 
-	public static IntakeMechanism intakeSubsystem;
+	public static IntakeSubsystem intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
-	public static OutputMechanism outputsubsystem;
+	public static OutputSubsystem outputsubsystem;
 	public static ElbowSubsystem elbowSubsystem;
 	public static OI m_oi;
 
@@ -54,10 +54,10 @@ public class Robot extends IterativeRobot {
 		m_robotPrefs = Preferences.getInstance();
 		RobotConstants.updatePrefs(m_robotPrefs);
 
-		intakeSubsystem = new IntakeMechanism();
+		intakeSubsystem = new IntakeSubsystem();
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
-		outputsubsystem = new OutputMechanism();
+		outputsubsystem = new OutputSubsystem();
 		elbowSubsystem = new ElbowSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
