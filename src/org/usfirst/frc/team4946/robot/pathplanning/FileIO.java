@@ -92,8 +92,8 @@ public class FileIO {
 				curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(), curEl.getAttribute("options"));
 				curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
 						curEl.getAttribute("behaviour"));
-				curAction.data = Integer.parseInt(curEl.getAttribute("data"));
-				curAction.timeout = Integer.parseInt(curEl.getAttribute("timeout"));
+				curAction.data = Double.parseDouble(curEl.getAttribute("data"));
+				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
 
 				if (curAction instanceof DriveAction) {
 					StringTokenizer fileReader = new StringTokenizer(curEl.getTextContent());
