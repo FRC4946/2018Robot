@@ -2,65 +2,54 @@ package org.usfirst.frc.team4946.robot.pathplanning;
 
 public class TrapezoidMotionProfile {
 	
-	
-	double fAccMax;
-	double fVelMax;
-	double fDisTarget;
-	double fDisInit;
-	double fSampleTime;
-	double iSampleCnt;
-	double iAccCnt;
-	double fAccTime;
-	double fAccDis;
-	double fVelSP;
-	double v1;
-	double v2;
-	double fAccSP;
+	double m_maxAccel;
+	double m_maxVel;
+	double m_distToTarget;
+	double m_distInit;
+	double m_sampleTime;
+	double m_count;
+	double m_accelSP;
+	double m_velSP;
+	double m_v2;
 	
 	public TrapezoidMotionProfile(double aDis, double aVelMax, double aAccLim, double aSampleTime, double distInit) {
-		fAccMax = aAccLim;
-		fVelMax = aVelMax;
-		fDisTarget = aDis;
-		fSampleTime = aSampleTime;
-		fAccTime = fVelMax / fAccMax;
-		fAccDis = fAccMax * fAccTime * fAccTime / 2;
 		
-		if (fAccDis > (fDisTarget / 2)) {
-			fAccDis = fDisTarget / 2;
-			fAccTime = Math.sqrt(2 * fAccDis / fAccMax);
-			fVelMax = fAccMax * fAccTime;
-		}
-		
-		iSampleCnt = 0;
-		iAccCnt = fAccTime / fSampleTime;
-		fVelSP = 0;
-		
-		v1 = 0;
-		v2 = 0;
-		fDisInit = distInit;
+		m_maxAccel = aAccLim;
+		m_maxVel = aVelMax;
+		m_distToTarget = aDis;
+		m_sampleTime = aSampleTime;
+		m_distInit = distInit;
+	
+		m_count = 0;	
+		m_accelSP = 0;
+		m_v2 = 0;
 	}
 	
 	public double getVel(double fDisGone) {
-		fAccSP = fhan(-fDisTarget, v2, fAccMax, fSampleTime);
-		v1 = v1 + v2 * fSampleTime;
-		v2 = v2 + fSampleTime * fAccSP;
-		v2 = Math.min(v2, fVelMax);
-		fVelSP = v2;
-		fDisTarget -= fDisGone - fDisInit;
-		iSampleCnt = iSampleCnt + 1;
-		return fVelSP;
+		
+		m_velSP = fhan(-m_distToTarget, m_v2, m_maxAccel, m_sampleTime);
+		
+		//Uses the acceleration setpoint to calculate a velocity setpoint based off the current speed
+		m_v2 += m_sampleTime * m_velSP;
+		m_v2 = Math.min(m_v2, m_maxVel);
+		m_accelSP = m_v2;
+		
+		m_distToTarget -= fDisGone - m_distInit;
+		m_count++;
+		
+		return m_accelSP;
 	}
 	
 	public double getAccel() {
-		return fAccSP;
+		return m_velSP;
 	}
 	
-	public double getDist() {
-		return fDisTarget;
+	public double getTargetDist() {
+		return m_distToTarget;
 	}
 	
 	public double getCount() {
-		return iSampleCnt;
+		return m_count;
 	}
 	
 	public double fhan(double v1, double v2, double r0, double h0) {
@@ -73,6 +62,7 @@ public class TrapezoidMotionProfile {
 		double sy = (Math.signum(y + d) - Math.signum(y - d)) / 2;
 		double a = (a0 + y - a2) * sy + a2;
 		double sa = (Math.signum(a + d) - Math.signum(a - d)) / 2;
+		//return an acceleration setpoint
 		return -r0 * (a / d - Math.signum(a)) * sa - r0 * Math.signum(a);
 	}
 	
