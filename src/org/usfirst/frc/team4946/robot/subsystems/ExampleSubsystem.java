@@ -5,25 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team4946.robot;
+package org.usfirst.frc.team4946.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class OI {
-	
+public class ExampleSubsystem extends Subsystem {
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 
-	private Joystick k_driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK); 
-	private Joystick k_operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
-
-	public OI() {
-		
-	}
-	
-	public Joystick getDriveJoystick() {
-		return k_driveStick;
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
 	}
 }
