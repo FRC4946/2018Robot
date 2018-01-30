@@ -2,17 +2,17 @@ package org.usfirst.frc.team4946.robot.pathplanning;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.usfirst.frc.team4946.robot.pathplanning.data.Script;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DelayAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
-import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction.Segment;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ElevatorAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.IntakeAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.OutputAction;
@@ -55,8 +55,8 @@ public class FileIO {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Script loadScript(Element parent) {
-		Script s = new Script();
+	private static ArrayList<Action<?>> loadScript(Element parent) {
+		ArrayList<Action<?>> s = new ArrayList<>();
 
 		NodeList list = parent.getElementsByTagName("action");
 
@@ -96,60 +96,45 @@ public class FileIO {
 				curAction.timeout = Integer.parseInt(curEl.getAttribute("timeout"));
 
 				if (curAction instanceof DriveAction) {
-					// TODO: Parse
+					StringTokenizer fileReader = new StringTokenizer(curEl.getTextContent());
 
-					// NodeList waypoints = curEl.getElementsByTagName("waypoint");
-					// for (int j = 0; j < waypoints.getLength(); j++) {
-					// if (waypoints.item(j).getNodeType() == Node.ELEMENT_NODE) {
-					//
-					// Waypoint pt = new Waypoint();
-					// Element curPtEl = (Element) waypoints.item(j);
-					//
-					// pt.setX(Double.parseDouble(curPtEl.getAttribute("x")));
-					// pt.setY(Double.parseDouble(curPtEl.getAttribute("y")));
-					// pt.setR(Double.parseDouble(curPtEl.getAttribute("radius")));
-					// pt.setHeading(Double.parseDouble(curPtEl.getAttribute("heading")));
-					// pt.setAutomaticHeading(curPtEl.getAttribute("autoHeading") == "true" ? true :
-					// false);
-					// pt.setMagnet(curPtEl.getAttribute("magnet") == "true" ? true : false);
-					//
-					// ((DriveAction) curAction).waypoints.add(pt);
-					// }
-					// }
+					int numLeft = Integer.parseInt(fileReader.nextToken());
+					for (int j = 0; j < numLeft; j++) {
+						DriveAction.Segment segment = new DriveAction.Segment();
+
+						segment.pos = Double.parseDouble(fileReader.nextToken());
+						segment.vel = Double.parseDouble(fileReader.nextToken());
+						segment.accel = Double.parseDouble(fileReader.nextToken());
+						segment.jerk = Double.parseDouble(fileReader.nextToken());
+						segment.heading = Double.parseDouble(fileReader.nextToken());
+						segment.dt = Double.parseDouble(fileReader.nextToken());
+						segment.x = Double.parseDouble(fileReader.nextToken());
+						segment.y = Double.parseDouble(fileReader.nextToken());
+
+						((DriveAction) curAction).addSegment(true, segment);
+					}
+
+					int numRight = Integer.parseInt(fileReader.nextToken());
+					for (int j = 0; j < numRight; j++) {
+						DriveAction.Segment segment = new DriveAction.Segment();
+
+						segment.pos = Double.parseDouble(fileReader.nextToken());
+						segment.vel = Double.parseDouble(fileReader.nextToken());
+						segment.accel = Double.parseDouble(fileReader.nextToken());
+						segment.jerk = Double.parseDouble(fileReader.nextToken());
+						segment.heading = Double.parseDouble(fileReader.nextToken());
+						segment.dt = Double.parseDouble(fileReader.nextToken());
+						segment.x = Double.parseDouble(fileReader.nextToken());
+						segment.y = Double.parseDouble(fileReader.nextToken());
+
+						((DriveAction) curAction).addSegment(false, segment);
+					}
 				}
 
-				s.addAction(curAction);
+				s.add(curAction);
 			}
 		}
 
 		return s;
 	}
-
-	// private static String printPath(DriveAction a) {
-	// String path = "";
-	// path += a.left.size() + "\n";
-	// for (Segment s : a.left) {
-	// path += s.pos + " ";
-	// path += s.vel + " ";
-	// path += s.accel + " ";
-	// path += s.jerk + " ";
-	// path += s.heading + " ";
-	// path += s.dt + " ";
-	// path += s.x + " ";
-	// path += s.y + "\n";
-	// }
-	// path += a.right.size() + "\n";
-	// for (Segment s : a.left) {
-	// path += s.pos + " ";
-	// path += s.vel + " ";
-	// path += s.accel + " ";
-	// path += s.jerk + " ";
-	// path += s.heading + " ";
-	// path += s.dt + " ";
-	// path += s.x + " ";
-	// path += s.y + "\n";
-	// }
-	//
-	// return path;
-	// }
 }

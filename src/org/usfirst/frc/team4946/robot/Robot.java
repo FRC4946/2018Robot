@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorClamp;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
@@ -15,12 +16,12 @@ import org.usfirst.frc.team4946.robot.subsystems.ExternalIntake;
 import org.usfirst.frc.team4946.robot.subsystems.Transmission;
 import org.usfirst.frc.team4946.robot.subsystems.UpperOutput;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,8 +42,8 @@ public class Robot extends IterativeRobot {
 
 	public static OI m_oi;
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	private CommandGroup m_autoCommand;
+	private ScriptBundle m_script;
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
@@ -69,9 +70,6 @@ public class Robot extends IterativeRobot {
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
-		// m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		// SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
 	/**
@@ -92,8 +90,11 @@ public class Robot extends IterativeRobot {
 		// Every 3 seconds, update the robot preferences
 		// No idea if this is a good idea or not. Worth experimenting with
 		// though.
-		if (m_prefsUpdateTimer.hasPeriodPassed(3))
+		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
+
+			// TODO: Load from file
+		}
 	}
 
 	/**
@@ -114,19 +115,12 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 
-		m_autonomousCommand = m_chooser.getSelected();
+		String data = DriverStation.getInstance().getGameSpecificMessage();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
-		 * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-		 * ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		// Load the auto
+		m_autoCommand = m_script.getAuto(data);
+		if (m_autoCommand != null)
+			m_autoCommand.start();
 	}
 
 	/**
@@ -143,8 +137,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (m_autoCommand != null) {
+			m_autoCommand.cancel();
 		}
 	}
 
