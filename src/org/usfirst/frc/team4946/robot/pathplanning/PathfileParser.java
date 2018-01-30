@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.util;
+package org.usfirst.frc.team4946.robot.pathplanning;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+
+import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction.Segment;
 
 public class PathfileParser {
 
@@ -17,7 +19,7 @@ public class PathfileParser {
 	ArrayList<Double> m_velList;
 	ArrayList<Double> m_accelList;
 	ArrayList<Double> m_jerkList;
-	ArrayList<NDimensionalPoint> m_pointList;
+	ArrayList<Segment> m_pointList;
 	String m_line;
 	String m_numbersList[];
 
@@ -40,12 +42,12 @@ public class PathfileParser {
 			for (int i = 0; i < m_numbersList.length; i++) {
 
 				m_listofLists.get(m_count).add(Double.parseDouble(m_numbersList[i]));
-				m_pointList.get(m_pointList.size() - 1).addDimension(m_numbersList[i]);
+				// m_pointList.get(m_pointList.size() - 1).addDimension(m_numbersList[i]);
 				m_count++;
 
 				if (m_count == 4) {
 					m_count = 0;
-					m_pointList.add(new NDimensionalPoint());
+					// m_pointList.add(new NDimensionalPoint());
 				}
 			}
 		}
@@ -67,7 +69,7 @@ public class PathfileParser {
 		return m_jerkList;
 	}
 
-	public ArrayList<NDimensionalPoint> getpointList() {
+	public ArrayList<Segment> getpointList() {
 		return m_pointList;
 	}
 }

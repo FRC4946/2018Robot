@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.util;
+package org.usfirst.frc.team4946.robot.pathplanning;
 
 public class TrapezoidMotionProfile {
 	
