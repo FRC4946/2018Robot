@@ -19,13 +19,14 @@ public class IntakeSubsystem extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-
 	}
 
-	/** Manually sets the speed of the motors.
+	/**
+	 * Manually sets the speed of the motors
 	 * 
-	 * @param d_speed The fraction of the motor's maximum speed the motors are to spin at. Ranges between -1.0 and 1.0
+	 * @param d_speed
+	 *            The fraction of the motor's maximum speed the motors are to spin
+	 *            at. Ranges between -1.0 and 1.0
 	 * 
 	 * 
 	 */
@@ -36,18 +37,15 @@ public class IntakeSubsystem extends Subsystem {
 	}
 
 	/**
-	 * Sets the speed of both motors to 0.
-	 * 
-	 * 
-	 * 
+	 * Sets the speed of both motors to 0
 	 */
 	public void stop() { // Disables both motors
 		m_leftMotor.set(0);
 		m_rightMotor.set(0); // Equivalent to .disable
 	}
-	
+
 	/**
-	 * Finds out if the cube is in the intake subsystem.
+	 * Finds out if the cube is in the intake subsystem
 	 * 
 	 * @return whether the cube is in the intake subsystem
 	 */

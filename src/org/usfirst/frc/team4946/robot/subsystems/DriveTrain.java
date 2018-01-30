@@ -48,7 +48,7 @@ public class DriveTrain extends Subsystem {
 		m_left = new SpeedControllerGroup(m_frontLeft, m_midLeft, m_rearLeft);
 		m_right = new SpeedControllerGroup(m_frontRight, m_midRight, m_rearRight);
 
-		m_gearShift = new Solenoid(RobotMap.PCM_DRIVE_LEFTSOLENOID);
+		m_gearShift = new Solenoid(RobotMap.PCM_DRIVE_GEAR);
 
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);

@@ -47,7 +47,8 @@ public class ElevatorSubsystem extends Subsystem {
 		setDefaultCommand(new ElevatorJoystickCtrl());
 	}
 
-	/**Gets the position of the elevator
+	/**
+	 * Gets the position of the elevator
 	 * 
 	 * @return the position of the elevator
 	 */
@@ -55,10 +56,13 @@ public class ElevatorSubsystem extends Subsystem {
 		return m_elevatorAnalogPotentiometer.get();
 	}
 
-	/**Manually moves the elevator without employing any form of PID.
+	/**
+	 * Manually moves the elevator without employing any form of PID.
 	 * 
 	 * 
-	 * @param move the velocity the elevator is intended to move at. Accepts values between -1.0 and 1.0.
+	 * @param move
+	 *            the velocity the elevator is intended to move at. Accepts values
+	 *            between -1.0 and 1.0.
 	 */
 	public void manualMoveElevator(double move) {
 		double pos = m_elevatorAnalogPotentiometer.get();
@@ -73,9 +77,12 @@ public class ElevatorSubsystem extends Subsystem {
 
 	}
 
-	/** Manually sets the speed of the motors.
+	/**
+	 * Manually sets the speed of the motors.
 	 * 
-	 * @param d_speed The fraction of the motor's maximum speed the motors are to spin at. Ranges between -1.0 and 1.0
+	 * @param d_speed
+	 *            The fraction of the motor's maximum speed the motors are to spin
+	 *            at. Ranges between -1.0 and 1.0
 	 * 
 	 * 
 	 */
