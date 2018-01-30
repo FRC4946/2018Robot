@@ -33,7 +33,7 @@ public class RunOutput extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.upperOutputSubsystem.stop();
+    	Robot.upperOutputSubsystem.disableMechanism();
     }
 
     // Called when another command which requires one or more of the same
