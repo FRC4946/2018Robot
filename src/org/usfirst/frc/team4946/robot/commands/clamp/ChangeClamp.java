@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.intake;
+package org.usfirst.frc.team4946.robot.commands.clamp;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,15 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeUntilCube extends Command {
+public class ChangeClamp extends Command {
 
-	double m_speed;
+	boolean position;
 	
-    public IntakeUntilCube(double speed) {
+    public ChangeClamp(boolean position) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.lowerIntakeSubsystem);
-    	m_speed = speed;
+    	requires(Robot.elevatorClampSubsystem);
+    	
+    	this.position = position;
     }
 
     // Called just before this Command runs the first time
@@ -24,17 +25,19 @@ public class IntakeUntilCube extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.lowerIntakeSubsystem.set(m_speed);
+    	
+    	Robot.elevatorClampSubsystem.moveSolenoid(position);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lowerIntakeSubsystem.getHasCube();
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.lowerIntakeSubsystem.set(0.0);
+    	Robot.elevatorClampSubsystem.moveSolenoid(false);
     }
 
     // Called when another command which requires one or more of the same

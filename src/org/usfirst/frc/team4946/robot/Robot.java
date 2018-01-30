@@ -8,8 +8,11 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorClampSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissions;
+import org.usfirst.frc.team4946.robot.subsystems.LowerIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.UpperOutputSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.OutputSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.Transmission;
@@ -30,12 +33,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends IterativeRobot {
 
-	public static IntakeSubsystem intakeSubsystem;
+  public static LowerIntakeSubsystem lowerIntakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
-	public static OutputSubsystem outputsubsystem;
-	public static ElbowSubsystem elbowSubsystem;
+	public static ElevatorTransmissions elevatorTransmissions;
+	public static UpperOutputSubsystem upperOutputSubsystem;
+	public static ElevatorClampSubsystem elevatorClampSubsystem;
 	public static Transmission transmission;
+  
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -56,11 +61,11 @@ public class Robot extends IterativeRobot {
 		m_robotPrefs = Preferences.getInstance();
 		RobotConstants.updatePrefs(m_robotPrefs);
 
-		intakeSubsystem = new IntakeSubsystem();
+		lowerIntakeSubsystem = new LowerIntakeSubsystem();
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
-		outputsubsystem = new OutputSubsystem();
-		elbowSubsystem = new ElbowSubsystem();
+		upperOutputSubsystem = new UpperOutputSubsystem();
+		intakeSubsystem = new IntakeSubsystem();
 		transmission = new Transmission();
 
 		// This MUST occur AFTER the subsystems and instantiated

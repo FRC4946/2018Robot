@@ -26,7 +26,7 @@ public class RobotMap {
 	// PCM_SHOOTER_HOOD
 	// RELAY_VISION_LED
 	//
-
+	
 	public static final int ANALOG_ELEVATOR_POT = 1;
 
 	public static final int USB_DS_DRIVESTICK = 0;
@@ -44,12 +44,18 @@ public class RobotMap {
 	public static final int CAN_ELEVATOR_TOPRIGHT = 9;
 	public static final int CAN_ELEVATOR_BOTLEFT = 10;
 	public static final int CAN_ELEVATOR_BOTRIGHT = 11;
+	
+	public static final int ELEVATOR_SOLENOID = 12;
+	public static final int CLAMP_SOLENOID = 13;
 
 	public static final int DIO_DRIVE_LEFTENC1 = 0;
 	public static final int DIO_DRIVE_LEFTENC2 = 1;
 	public static final int DIO_DRIVE_RIGHTENC1 = 2;
 	public static final int DIO_DRIVE_RIGHTENC2 = 3;
 	public static final int DIO_INTAKE_SWITCH = 4;
+	public static final int DIO_OUTPUT_SWITCH = 5;
+	
+	public static final int K_CLAMP = 1;
 
 	public static final int PCM_DRIVE_GEAR = 0;
 	public static final int PCM_ELBOW_LEFT = 1;

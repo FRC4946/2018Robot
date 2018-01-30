@@ -108,18 +108,34 @@ public class DriveTrain extends Subsystem {
 		m_right.set(speed + rotate);
 	}
 
+	/**
+	 * Calibrates the gyro
+	 */
 	public void calibrateGyro() {
 		m_driveGyro.calibrate();
 	}
 
+	/**
+	 * 
+	 * @return fetches the angle of gyro
+	 */
 	public double getGyroAngle() {
 		return m_driveGyro.getAngle();
 	}
 
+	
+	/**
+	 * 
+	 * @returns the PID output of the gyro
+	 */
 	public double getGyroPIDOutput() {
 		return m_gyroPIDOutput.getOutput();
 	}
 
+	/**Sets a set point for the gyro
+	 * 
+	 * @param setpoint to set the point of the gyro to
+	 */
 	public void setGyroSetpoint(double setpoint) {
 		m_gyroPID.setSetpoint(setpoint);
 	}

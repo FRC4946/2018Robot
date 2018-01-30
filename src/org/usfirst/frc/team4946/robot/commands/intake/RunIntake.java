@@ -15,7 +15,7 @@ public class RunIntake extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
-    	requires(Robot.intakeSubsystem);
+    	requires(Robot.lowerIntakeSubsystem);
     	
     	this.speed = speed;
     }
@@ -26,7 +26,7 @@ public class RunIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intakeSubsystem.set(speed);
+    	Robot.lowerIntakeSubsystem.set(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +36,7 @@ public class RunIntake extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intakeSubsystem.stop();
+    	Robot.lowerIntakeSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
