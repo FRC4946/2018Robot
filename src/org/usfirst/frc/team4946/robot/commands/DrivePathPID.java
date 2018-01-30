@@ -16,7 +16,7 @@ public class DrivePathPID extends Command {
 	double m_pathLength;
 
     public DrivePathPID(Path leftPath, Path rightPath) {
-    	requires(Robot.DriveTrain);
+    	requires(Robot.driveTrainSubsystem);
     	m_leftPath = leftPath;
     	m_rightPath = rightPath;
     }

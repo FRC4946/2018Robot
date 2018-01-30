@@ -26,7 +26,7 @@ public class DriveStraightPID extends Command {
     	m_distanceInit = Robot.driveTrainSubsystem.getEncoderDistance();
     	Robot.driveTrainSubsystem.setMaxSpeed(m_speed);
     	m_motionProfiler = new TrapezoidMotionProfile(m_distanceToGo, m_speed, 
-    			RobotConstants.DRIVETRAIN_MAX_ACCEL, RobotConstants.ROBOT_SAMPLE_TIME, Robot.DriveTrain.getEncoderDistance());
+    			RobotConstants.DRIVETRAIN_MAX_ACCEL, RobotConstants.ROBOT_SAMPLE_TIME, Robot.driveTrainSubsystem.getEncoderDistance());
     	
     	Robot.driveTrainSubsystem.setGyroSetpoint(Robot.driveTrainSubsystem.getGyroAngle());
     	Robot.driveTrainSubsystem.setDistSetpoint(m_distanceInit + m_distanceToGo);
@@ -34,7 +34,7 @@ public class DriveStraightPID extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DriveTrain.arcadeDrive(m_motionProfiler.getVel(Robot.DriveTrain.getEncoderDistance()), 
+    	Robot.driveTrainSubsystem.arcadeDrive(m_motionProfiler.getVel(Robot.driveTrainSubsystem.getEncoderDistance()), 
     			1.0);   
     }
 

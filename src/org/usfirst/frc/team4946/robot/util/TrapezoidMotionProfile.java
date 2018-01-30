@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4946.robot.util;
 
-import org.usfirst.frc.team4946.robot.Robot;
-
 public class TrapezoidMotionProfile {
 	
 	

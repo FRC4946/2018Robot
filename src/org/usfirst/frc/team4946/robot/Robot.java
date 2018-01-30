@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -62,7 +61,7 @@ public class Robot extends IterativeRobot {
 		elevatorSubsystem = new ElevatorSubsystem();
 		outputsubsystem = new OutputSubsystem();
 		elbowSubsystem = new ElbowSubsystem();
-		transmission = new Transmission()
+		transmission = new Transmission();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
