@@ -14,7 +14,7 @@ public class IntakeUntilCube extends Command {
     public IntakeUntilCube(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.lowerIntakeSubsystem);
+    	requires(Robot.externalIntakeSubsystem);
     	m_speed = speed;
     }
 
@@ -24,17 +24,17 @@ public class IntakeUntilCube extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.lowerIntakeSubsystem.set(m_speed);
+    	Robot.externalIntakeSubsystem.set(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lowerIntakeSubsystem.getHasCube();
+        return Robot.externalIntakeSubsystem.getHasCube();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.lowerIntakeSubsystem.set(0.0);
+    	Robot.externalIntakeSubsystem.set(0.0);
     }
 
     // Called when another command which requires one or more of the same

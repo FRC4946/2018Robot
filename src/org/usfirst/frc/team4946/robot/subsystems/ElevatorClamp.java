@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ElevatorClampSubsystem extends Subsystem {
+public class ElevatorClamp extends Subsystem {
 
-	Solenoid m_clampSolenoid = new Solenoid(RobotMap.CLAMP_SOLENOID);
+	Solenoid m_clampSolenoid = new Solenoid(RobotMap.PCM_CLAMP_SOLENOID);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

@@ -1,28 +1,19 @@
-package org.usfirst.frc.team4946.robot.commands;
-
-import java.nio.file.Path;
-
-import org.usfirst.frc.team4946.robot.Robot;
+package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DrivePathPID extends Command {
-	
-	Path m_leftPath;
-	Path m_rightPath;
-	double m_pathLength;
+public class ElevatorClosedLoop extends Command {
 
-    public DrivePathPID(Path leftPath, Path rightPath) {
-    	requires(Robot.driveTrainSubsystem);
-    	m_leftPath = leftPath;
-    	m_rightPath = rightPath;
+    public ElevatorClosedLoop() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
+    // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run

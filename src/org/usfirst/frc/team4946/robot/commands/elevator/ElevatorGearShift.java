@@ -12,7 +12,7 @@ public class ElevatorGearShift extends Command {
 	boolean position;
 	
     public ElevatorGearShift(boolean position) {
-    	requires(Robot.elevatorTransmissions);
+    	requires(Robot.elevatorTransmissionSubsystem);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
@@ -25,7 +25,7 @@ public class ElevatorGearShift extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevatorTransmissions.moveSolenoid(position);
+    	Robot.elevatorTransmissionSubsystem.moveSolenoid(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,7 +35,7 @@ public class ElevatorGearShift extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevatorTransmissions.moveSolenoid(false);
+    	Robot.elevatorTransmissionSubsystem.moveSolenoid(false);
     }
 
     // Called when another command which requires one or more of the same
