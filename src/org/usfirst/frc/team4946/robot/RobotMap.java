@@ -28,9 +28,9 @@ public class RobotMap {
 	//
 	
 	public static final int ANALOG_ELEVATOR_POT = 1;
-	
+
 	public static final int USB_DS_DRIVESTICK = 0;
-	public static final int USB_DS_OPERATORSTICK = 0;
+	public static final int USB_DS_OPERATORSTICK = 1;
 
 	public static final int CAN_DRIVE_LEFTFRONT = 0;
 	public static final int CAN_DRIVE_RIGHTFRONT = 2;
@@ -56,9 +56,9 @@ public class RobotMap {
 	public static final int DIO_OUTPUT_SWITCH = 5;
 	
 	public static final int K_CLAMP = 1;
-	
-	public static final int PCM_DRIVE_LEFTSOLENOID = 0;
-	public static final int PCM_ELBOW_LEFT = 0;
-	public static final int PCM_ELBOW_RIGHT = 1;
+
+	public static final int PCM_DRIVE_GEAR = 0;
+	public static final int PCM_ELBOW_LEFT = 1;
+	public static final int PCM_ELBOW_RIGHT = 2;
 
 }

@@ -47,15 +47,28 @@ public class ElevatorSubsystem extends Subsystem {
 		setDefaultCommand(new ClosedLoopControl());
 	}
 
+	/**
+	 * Gets the position of the elevator
+	 * 
+	 * @return the position of the elevator
+	 */
 	public double getElevatorPos() {
 		return m_elevatorAnalogPotentiometer.get();
 	}
 
-	public void manualMoveElevator(double ButtonValue) {
+	/**
+	 * Manually moves the elevator without employing any form of PID.
+	 * 
+	 * 
+	 * @param move
+	 *            the velocity the elevator is intended to move at. Accepts values
+	 *            between -1.0 and 1.0.
+	 */
+	public void manualMoveElevator(double move) {
 		double pos = m_elevatorAnalogPotentiometer.get();
 
 		if (pos > RobotConstants.ELEVATOR_MINIMUM_HEIGHT && pos < RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_elevatorMotorGroupAll.set(ButtonValue);
+			m_elevatorMotorGroupAll.set(move);
 		} else if (pos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
 			m_elevatorMotorGroupAll.set(0.2);
 		} else if (pos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
@@ -64,12 +77,15 @@ public class ElevatorSubsystem extends Subsystem {
 
 	}
 
-	/*
-	 * Sets motor speed manually
+	/**
+	 * Manually sets the speed of the motors.
+	 * 
+	 * @param d_speed
+	 *            The fraction of the motor's maximum speed the motors are to spin
+	 *            at. Ranges between -1.0 and 1.0
 	 * 
 	 * 
 	 */
-
 	public void set(double d_speed) {
 		m_elevatorMotorGroupLeft.set(0.2);
 		m_elevatorMotorGroupRight.set(-0.2);

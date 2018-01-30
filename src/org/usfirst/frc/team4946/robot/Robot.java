@@ -13,6 +13,9 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissions;
 import org.usfirst.frc.team4946.robot.subsystems.LowerIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.UpperOutputSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.OutputSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.Transmission;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
@@ -30,12 +33,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends IterativeRobot {
 
-	public static LowerIntakeSubsystem lowerIntakeSubsystem;
+  public static LowerIntakeSubsystem lowerIntakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmissions elevatorTransmissions;
 	public static UpperOutputSubsystem upperOutputSubsystem;
 	public static ElevatorClampSubsystem elevatorClampSubsystem;
+	public static Transmission transmission;
+  
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -60,7 +65,9 @@ public class Robot extends IterativeRobot {
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
 		upperOutputSubsystem = new UpperOutputSubsystem();
-		
+		intakeSubsystem = new IntakeSubsystem();
+		transmission = new Transmission();
+
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
