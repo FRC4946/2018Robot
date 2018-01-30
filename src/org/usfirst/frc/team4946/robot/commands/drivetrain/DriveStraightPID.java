@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -17,19 +17,19 @@ public class DriveStraightPID extends Command {
 	TrapezoidMotionProfile m_motionProfiler;
 	
     public DriveStraightPID(double speed, double distance) {
-    	requires(Robot.DriveTrain); //This is a comment... :(
+    	requires(Robot.driveTrainSubsystem); //This is a comment... :(
     	m_speed = speed;
     	m_distanceToGo = distance;
     }
 
     protected void initialize() {
-    	m_distanceInit = Robot.DriveTrain.getEncoderDistance();
-    	Robot.DriveTrain.setMaxSpeed(m_speed);
+    	m_distanceInit = Robot.driveTrainSubsystem.getEncoderDistance();
+    	Robot.driveTrainSubsystem.setMaxSpeed(m_speed);
     	m_motionProfiler = new TrapezoidMotionProfile(m_distanceToGo, m_speed, 
     			RobotConstants.DRIVETRAIN_MAX_ACCEL, RobotConstants.ROBOT_SAMPLE_TIME, Robot.DriveTrain.getEncoderDistance());
     	
-    	Robot.DriveTrain.setGyroSetpoint(Robot.DriveTrain.getGyroAngle());
-    	Robot.DriveTrain.setDistSetpoint(m_distanceInit + m_distanceToGo);
+    	Robot.driveTrainSubsystem.setGyroSetpoint(Robot.driveTrainSubsystem.getGyroAngle());
+    	Robot.driveTrainSubsystem.setDistSetpoint(m_distanceInit + m_distanceToGo);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,12 +40,12 @@ public class DriveStraightPID extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.DriveTrain.getEncOnTarget();
+        return Robot.driveTrainSubsystem.getEncOnTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.DriveTrain.stop();
+    	Robot.driveTrainSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
