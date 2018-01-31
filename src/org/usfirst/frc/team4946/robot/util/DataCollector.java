@@ -29,9 +29,7 @@ public class DataCollector  {
 		m_jerkList = new ArrayList<Double>();
 		
 		m_velList.add(0.0); 
-		m_accelList.add(0.0); //Adds it twice so the algorithm for calculating left and right values will work
 		m_accelList.add(0.0);
-		m_jerkList.add(0.0);
 		m_jerkList.add(0.0);
 		
 		m_file = new File(path);
@@ -84,7 +82,15 @@ public class DataCollector  {
 			m_firstValueArray = m_secondValueArray;
 		}
 		
-		
-		
+		for(int i = 1; i < m_velList.size(); i += 2) {
+			
+			m_dataWriter.write(m_velList.get(i) + " " + m_velList.get(i + 1) + " " 
+					+ m_accelList.get(i) + " " + m_accelList.get(i + 1) + " " 
+					+ m_jerkList.get(i) + " " + m_jerkList.get(i + 1) + " "
+					+ (((m_velList.get(i) + m_velList.get(i + 1))/2.0)) + " "
+					+ (((m_accelList.get(i) + m_accelList.get(i + 1))/2.0)) + " " 
+					+ (((m_jerkList.get(i) + m_jerkList.get(i + 1))/2.0)) + " ");
+			
+		}
 	}
 }
