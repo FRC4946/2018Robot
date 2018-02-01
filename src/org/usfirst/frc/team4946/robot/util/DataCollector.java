@@ -41,7 +41,6 @@ public class DataCollector  {
 		}
 		
 		m_dataWriter.write("Left Raw Enc, Right Raw Enc, Time, Left Dist Enc, Right Dist Enc");
-		//, Left Dist Enc, "+ "Right Dist Enc, Dist, Vel, Accel, Jerk"
 	}
 	
 	public void writeRawEnc(double leftRawEnc, double rightRawEnc, double time, double leftDistEnc, double rightDistEnc) throws IOException {
@@ -84,13 +83,15 @@ public class DataCollector  {
 		
 		for(int i = 1; i < m_velList.size(); i += 2) {
 			
-			m_dataWriter.write(m_velList.get(i) + " " + m_velList.get(i + 1) + " " 
-					+ m_accelList.get(i) + " " + m_accelList.get(i + 1) + " " 
-					+ m_jerkList.get(i) + " " + m_jerkList.get(i + 1) + " "
-					+ (((m_velList.get(i) + m_velList.get(i + 1))/2.0)) + " "
-					+ (((m_accelList.get(i) + m_accelList.get(i + 1))/2.0)) + " " 
-					+ (((m_jerkList.get(i) + m_jerkList.get(i + 1))/2.0)) + " ");
-			
+			m_dataWriter.write(m_velList.get(i) + " " + m_velList.get(i + 1) + " " //Left and right velocity
+					+ m_accelList.get(i) + " " + m_accelList.get(i + 1) + " " //Left and right accel
+					+ m_jerkList.get(i) + " " + m_jerkList.get(i + 1) + " " //Left and right jerk
+					+ (((m_velList.get(i) + m_velList.get(i + 1))/2.0)) + " " //Average velocity of both sides
+					+ (((m_accelList.get(i) + m_accelList.get(i + 1))/2.0)) + " " //Average accel of both sides
+					+ (((m_jerkList.get(i) + m_jerkList.get(i + 1))/2.0)) + " "); //Average jerk of both sides
 		}
+		
+		m_dataWriter.close();
+		m_dataReader.close();
 	}
 }

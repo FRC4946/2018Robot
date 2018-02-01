@@ -33,11 +33,13 @@ public class RobotMap {
 	public static final int USB_DS_OPERATORSTICK = 1;
 
 	public static final int CAN_DRIVE_LEFTFRONT = 0;
-	public static final int CAN_DRIVE_RIGHTFRONT = 2;
-	public static final int CAN_DRIVE_LEFTBACK = 1;
-	public static final int CAN_DRIVE_RIGHTBACK = 3;
-	public static final int CAN_DRIVE_LEFTMID = 4;
-	public static final int CAN_DRIVE_RIGHTMID = 5;
+	public static final int CAN_DRIVE_LEFTMID = 1;
+	public static final int CAN_DRIVE_LEFTBACK = 2;
+	
+	public static final int CAN_DRIVE_RIGHTFRONT = 3;
+	public static final int CAN_DRIVE_RIGHTMID = 12;
+	public static final int CAN_DRIVE_RIGHTBACK = 13;
+
 	public static final int CAN_INTAKE_LEFTMOTOR = 6;
 	public static final int CAN_INTAKE_RIGHTMOTOR = 7;
 	public static final int CAN_ELEVATOR_TOPLEFT = 8;
