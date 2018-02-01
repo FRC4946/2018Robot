@@ -3,7 +3,7 @@ package org.usfirst.frc.team4946.robot.pathplanning.data;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
-import org.usfirst.frc.team4946.robot.commands.IntakeAndClampCube;
+import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorSetHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
@@ -81,7 +81,7 @@ public class ScriptBundle {
 				if (a.options == IntakeAction.Options.kIntakeOn)
 					c = new RunIntake(1.0);
 				else if (a.options == IntakeAction.Options.kIntakeUntil)
-					c = new IntakeAndClampCube();
+					c = new CubeAndLiftIntake();
 			}
 
 			// Output

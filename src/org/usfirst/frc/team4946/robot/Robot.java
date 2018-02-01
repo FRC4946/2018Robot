@@ -9,7 +9,6 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4946.robot.subsystems.ElevatorClamp;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmission;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntake;
@@ -35,7 +34,6 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmission elevatorTransmissionSubsystem;
-	public static ElevatorClamp elevatorClampSubsystem;
 	public static ExternalIntake externalIntakeSubsystem;
 	public static UpperOutput upperOutputSubsystem;
 	public static Transmission transmissionSubsystem;
@@ -63,7 +61,6 @@ public class Robot extends IterativeRobot {
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmission();
-		elevatorClampSubsystem = new ElevatorClamp();
 		externalIntakeSubsystem = new ExternalIntake();
 		upperOutputSubsystem = new UpperOutput();
 		transmissionSubsystem = new Transmission();
@@ -92,8 +89,6 @@ public class Robot extends IterativeRobot {
 		// though.
 		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
-
-			// TODO: Load from file
 		}
 	}
 

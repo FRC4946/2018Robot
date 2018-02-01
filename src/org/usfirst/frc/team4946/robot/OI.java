@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.clamp.ChangeClamp;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
@@ -37,18 +36,13 @@ public class OI {
 
 	// Button-command linking:
 	public OI() {
+		
 		intakeButtonIn.whileHeld(new RunIntake(-1.0)); // Pulls in cube
 		intakeButtonOut.whileHeld(new RunIntake(1.0)); // Pushes out cube
 		outputButtonOut.whileHeld(new RunOutput(-1.0)); //Pushes out cube from above
 
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
-		
-		clampButtonOpen.whenPressed(new ChangeClamp(false));
-		clampButtonClosed.whenPressed(new ChangeClamp(true));
-		
 		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));
-		
-		
 	}
 
 	public Joystick getDriveStick() {
