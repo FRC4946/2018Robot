@@ -6,12 +6,10 @@ public class RobotConstants {
 
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 6;
-	public static final double GEARBOX_REDUCTION_HIGH = 1; // dummy
-	public static final double GEARBOX_REDUCTION_LOW = 1; // dummy
+	public static final double DRIVETRAIN_GEARBOX_REDUCTION_HIGH = 1/1.1; // dummy
+	public static final double DRIVETRAIN_GEARBOX_REDUCTION_LOW = 1/2.5; // dummy
 	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; //dummy (inches per second squared)
 	public static final double ROBOT_SAMPLE_TIME = 0.020; //(seconds)
-	// public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI
-	// / ENCODER_PPR * GEARBOX_REDUCTION;
 
 	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; // Dummy

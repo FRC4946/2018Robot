@@ -233,14 +233,14 @@ public class DriveTrain extends Subsystem {
 		if(Robot.transmissionSubsystem.getGearState()) {
 			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
-					/ RobotConstants.ENCODER_PPR * RobotConstants.GEARBOX_REDUCTION_HIGH;
+					/ RobotConstants.ENCODER_PPR * RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
 
 		} else {
 
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
-					* RobotConstants.GEARBOX_REDUCTION_LOW;
+					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_LOW;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
 
