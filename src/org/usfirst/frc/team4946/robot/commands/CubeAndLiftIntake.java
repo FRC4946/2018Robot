@@ -12,8 +12,9 @@ public class CubeAndLiftIntake extends CommandGroup {
 
     public CubeAndLiftIntake() {
     	
-    	addParallel(new IntakeUntilCube(0.7)); //The 1.0 argument may need to be inverted
-    	addParallel(new InnerIntakeUntilCube(0.7));
+    	addParallel(new IntakeUntilCube(0.7), 1.5); //The 1.0 argument may need to be inverted
+    	addParallel(new InnerIntakeUntilCube(0.7), 1.5);
     	//AddParallel (new LiftIntake());
+    	addSequential(new RumbleJoystickLeft(), 0.5);
     }
 }

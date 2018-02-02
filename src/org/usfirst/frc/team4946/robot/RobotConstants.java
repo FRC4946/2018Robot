@@ -19,7 +19,6 @@ public class RobotConstants {
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
 
-
 	public static double leftDriveP = 0.0;
 	public static double leftDriveI = 0.0;
 	public static double leftDriveD = 0.0;
