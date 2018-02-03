@@ -1,31 +1,29 @@
-package org.usfirst.frc.team4946.robot.commands.intake;
+package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RunIntake extends Command {
-	
-	double speed = 1.0;
+public class RumbleJoystickRight extends Command {
 
-    public RunIntake(double speed) {
+    public RumbleJoystickRight() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.externalIntakeSubsystem);
-    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.externalIntakeSubsystem.set(speed);
+    	
+    	Robot.m_oi.getDriveStick().setRumble(RumbleType.kRightRumble, 0.5);
+    	Robot.m_oi.getOperatorStick().setRumble(RumbleType.kRightRumble, 0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,12 +33,10 @@ public class RunIntake extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.externalIntakeSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
