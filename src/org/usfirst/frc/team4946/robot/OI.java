@@ -44,10 +44,9 @@ public class OI {
 			cubeInButton.whileHeld(new RunOutput(-0.7));
 			cubeOutButton.whileHeld(new RunOutput(0.7));
 		}
-		
-		cubeOutButton.whileHeld(new RunOutput(0.7));
-		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
-		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));
+
+		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
+		gearshiftButton.whenPressed(new ElevatorGearShift());
 	}
 
 	public Joystick getDriveStick() {
