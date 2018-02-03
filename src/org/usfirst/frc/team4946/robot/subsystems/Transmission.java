@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Transmission extends Subsystem {
 
-	// Create Solenoid
+	
 	private Solenoid m_gearShift;
 
 	public void initDefaultCommand() {
@@ -23,8 +23,16 @@ public class Transmission extends Subsystem {
 	public void toggleGear() {
 		m_gearShift.set(!getGearState());
 	}
+/**
+ * @param sets the gearShift to whatever it is at at the moment
+ */
+
 
 	public boolean getGearState() {
 		return m_gearShift.get();
-	}
-}
+	}}
+/**
+ * @return the value of the gear shift, true or false
+ */
+
+	

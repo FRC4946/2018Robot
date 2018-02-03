@@ -17,20 +17,30 @@ public class UpperOutput extends Subsystem {
 	
 	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_SWITCH);
 	
-	public void disableMechanism() { //Disables both motors
+	public void disableMechanism() { 
 		m_leftMotor.set(0);
 		m_rightMotor.set(0); //Equivalent to .disable
-	}
+	}/**
+	 * disables the left and right motors
+	 */
 	
-	public void set(double d_speed) { //Takes values from -1.0 to 1.0. Spins the motors, positive is forwards, negative is backwards (Maybe, or it might be the other way around).
+	public void set(double d_speed) { 
 		m_leftMotor.set(d_speed);
 		m_rightMotor.set(-1.0*d_speed);		
-	}
+	} 
+	/**
+	 * @param  
+	 *  sets the motor speed and spins the motors forwards(+)and backwards (-)
+	 */
+
 	
 	public boolean getHasCube() {
 		return m_cubeSwitch.get();
 	}
-
+/**
+*@return true if the cube is there an false if the cube is not there
+*
+ */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

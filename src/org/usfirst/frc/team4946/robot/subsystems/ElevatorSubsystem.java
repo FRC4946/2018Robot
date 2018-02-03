@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
- */
+ * 
+ */ 
 public class ElevatorSubsystem extends Subsystem {
 
 	WPI_TalonSRX m_elevatorMotorTopLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPLEFT);
