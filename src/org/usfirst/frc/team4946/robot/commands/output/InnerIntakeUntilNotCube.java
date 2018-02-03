@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.intake;
+package org.usfirst.frc.team4946.robot.commands.output;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,15 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OuterIntakeUntilCube extends Command {
+public class InnerIntakeUntilNotCube extends Command {
 
 	double m_speed;
 	
-    public OuterIntakeUntilCube(double speed) {
+    public InnerIntakeUntilNotCube(double m_speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.externalIntakeSubsystem);
-    	m_speed = speed;
+    	requires(Robot.upperOutputSubsystem);
+    	
+    	this.m_speed = m_speed;
+    	
     }
 
     // Called just before this Command runs the first time
@@ -24,17 +26,17 @@ public class OuterIntakeUntilCube extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.externalIntakeSubsystem.set(m_speed);
+    	Robot.upperOutputSubsystem.set(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.externalIntakeSubsystem.getHasCube();
+        return !Robot.upperOutputSubsystem.getHasCube();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.externalIntakeSubsystem.stop();
+    	Robot.upperOutputSubsystem.disableMechanism();
     }
 
     // Called when another command which requires one or more of the same

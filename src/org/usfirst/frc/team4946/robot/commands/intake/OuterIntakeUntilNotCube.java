@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OuterIntakeUntilCube extends Command {
+public class OuterIntakeUntilNotCube extends Command {
 
 	double m_speed;
 	
-    public OuterIntakeUntilCube(double speed) {
+    public OuterIntakeUntilNotCube(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.externalIntakeSubsystem);
@@ -29,7 +29,7 @@ public class OuterIntakeUntilCube extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.externalIntakeSubsystem.getHasCube();
+        return !Robot.externalIntakeSubsystem.getHasCube();
     }
 
     // Called once after isFinished returns true

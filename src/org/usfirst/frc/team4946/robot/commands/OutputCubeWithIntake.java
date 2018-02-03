@@ -1,7 +1,8 @@
 package org.usfirst.frc.team4946.robot.commands;
 
-import org.usfirst.frc.team4946.robot.commands.intake.OuterIntakeUntilCube;
-import org.usfirst.frc.team4946.robot.commands.output.InnerIntakeUntilCube;
+import org.usfirst.frc.team4946.robot.commands.elbow.ElbowDown;
+import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
+import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,8 +12,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class OutputCubeWithIntake extends CommandGroup {
 
     public OutputCubeWithIntake() {
-    	addParallel(new OuterIntakeUntilCube(0.7)); //The 1.0 argument may need to be inverted
-    	addSequential(new InnerIntakeUntilCube(0.7));
-    	addSequential(new RumbleJoystickRight());
+    	
+    	addSequential(new ElbowDown());
+    	addParallel(new RunOutput(-0.7)); //The 1.0 argument may need to be inverted
+    	addSequential(new RunIntake(-0.7));
     }
 }

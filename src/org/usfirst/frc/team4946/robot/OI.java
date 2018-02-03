@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
+import org.usfirst.frc.team4946.robot.commands.OutputCubeWithIntake;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
@@ -36,7 +37,14 @@ public class OI {
 	// Button-command linking:
 	public OI() {
 		
-		cubeInButton.whileHeld(new CubeAndLiftIntake());
+		if(RobotConstants.getElevatorIsLowest()) {
+			cubeInButton.whileHeld(new CubeAndLiftIntake());
+			cubeOutButton.whileHeld(new OutputCubeWithIntake());
+		} else {
+			cubeInButton.whileHeld(new RunOutput(-0.7));
+			cubeOutButton.whileHeld(new RunOutput(0.7));
+		}
+		
 		cubeOutButton.whileHeld(new RunOutput(0.7));
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
 		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));

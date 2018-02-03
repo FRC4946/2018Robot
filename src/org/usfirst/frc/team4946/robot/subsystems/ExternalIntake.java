@@ -20,7 +20,6 @@ public class ExternalIntake extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-
 	}
 
 	// TODO: Add javadoc
