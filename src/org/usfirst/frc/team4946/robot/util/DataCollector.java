@@ -2,12 +2,14 @@ package org.usfirst.frc.team4946.robot.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 	
 public class DataCollector {
+	
 	
 	static Scanner m_dataReader;
 	static BufferedWriter m_dataWriter;
@@ -20,7 +22,7 @@ public class DataCollector {
 	public DataCollector() throws IOException {
 			
 		m_file = new File(Path);
-		m_dataWriter = new BufferedWriter(new FileWriter(Path));
+		
 		
 		if(!m_file.exists()) {
 			m_file.createNewFile();
@@ -57,16 +59,14 @@ public class DataCollector {
 			
 		String[] m_firstValueArray = {"", "", "", "", ""};
 		String[] m_secondValueArray = {"", "", "", "", ""};
-				
-		File m_file = new File(Path);
-		System.out.println(m_file.exists());
 		
-		m_dataReader = new Scanner(new File (Path));
+		m_dataReader = new Scanner(new FileReader(new File(Path)));
 		m_dataReader.nextLine();
 		m_line = m_dataReader.nextLine();
 			
-		while((m_secondLine = m_dataReader.nextLine()) != null) {
+		while(m_dataReader.hasNextLine()) {
 					
+			m_secondLine = m_dataReader.nextLine();
 			m_firstValueArray = m_line.split(" ");
 			m_secondValueArray = m_secondLine.split(" ");
 					
@@ -83,15 +83,16 @@ public class DataCollector {
 				
 			m_firstValueArray = m_secondValueArray;
 		}
-				
+		
+		m_dataWriter = new BufferedWriter(new FileWriter(Path, true));
 		m_dataWriter.newLine();
 		m_dataWriter.write("");
 		m_dataWriter.newLine();
 		m_dataWriter.write("Left Vel, Right Vel, Left Accel, "
 		+ "Right Accel, Left Jerk, Right Jerk, Avg Vel, Avg Accel, Avg Jerk");
 					
-		for(int i = 1; i < m_velList.size(); i += 2) {
-						
+		for(int i = 2; i < m_velList.size() - 1; i += 2) {
+			m_dataWriter.newLine();
 			m_dataWriter.write(m_velList.get(i) + " " + m_velList.get(i + 1) + " " //Left and right velocity
 			+ m_accelList.get(i) + " " + m_accelList.get(i + 1) + " " //Left and right accel
 			+ m_jerkList.get(i) + " " + m_jerkList.get(i + 1) + " " //Left and right jerk
@@ -100,6 +101,7 @@ public class DataCollector {
 			+ (((m_jerkList.get(i) + m_jerkList.get(i + 1))/2.0)) + " ");
 		}
 		
+		m_dataWriter.flush();
 		m_dataWriter.close();
 		m_dataReader.close();
 	}
