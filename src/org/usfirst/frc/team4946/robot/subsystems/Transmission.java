@@ -24,7 +24,7 @@ public class Transmission extends Subsystem {
 		m_gearShift.set(!getGearState());
 	}
 /**
- * @param sets the gearShift to whatever it is at at the moment
+ * @param sets the gearShift to the returned value 
  */
 
 
