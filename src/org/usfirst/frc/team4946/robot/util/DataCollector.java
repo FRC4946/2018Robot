@@ -17,11 +17,10 @@ public class DataCollector {
 	static String m_line;
 	static String m_secondLine;
 	static double m_deltaTime;
-	static String Path;
 		
-	public DataCollector() throws IOException {
+	public DataCollector(String path) throws IOException {
 			
-		m_file = new File(Path);
+		m_file = new File(path);
 		
 		
 		if(!m_file.exists()) {
@@ -29,12 +28,6 @@ public class DataCollector {
 		}
 			
 		m_dataWriter.write("Left Raw Enc, Right Raw Enc, Time, Left Dist Enc, Right Dist Enc");
-	}
-		
-	public static void main(String args[]) throws IOException {
-		
-		Path = "C:\\Users\\zheng\\eclipse-workspace\\MotionProfileTester\\src\\test1.txt";
-		writeSecData();
 	}
 		
 	public void writeRawEnc(double leftRawEnc, double rightRawEnc, double time, double leftDistEnc, double rightDistEnc) throws IOException {
@@ -60,7 +53,7 @@ public class DataCollector {
 		String[] m_firstValueArray = {"", "", "", "", ""};
 		String[] m_secondValueArray = {"", "", "", "", ""};
 		
-		m_dataReader = new Scanner(new FileReader(new File(Path)));
+		m_dataReader = new Scanner(new FileReader(m_file));
 		m_dataReader.nextLine();
 		m_line = m_dataReader.nextLine();
 			
@@ -84,7 +77,7 @@ public class DataCollector {
 			m_firstValueArray = m_secondValueArray;
 		}
 		
-		m_dataWriter = new BufferedWriter(new FileWriter(Path, true));
+		m_dataWriter = new BufferedWriter(new FileWriter(m_file, true));
 		m_dataWriter.newLine();
 		m_dataWriter.write("");
 		m_dataWriter.newLine();
