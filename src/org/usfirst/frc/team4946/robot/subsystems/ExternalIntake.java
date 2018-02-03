@@ -15,36 +15,32 @@ public class ExternalIntake extends Subsystem {
 
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
-	
-	DoubleSolenoid m_pistons = new DoubleSolenoid(1, 2);
-	
 	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH);
 
 	@Override
 	protected void initDefaultCommand() {
-		
-		
-		m_pistons.set(DoubleSolenoid.Value.kForward);
-		m_pistons.set(DoubleSolenoid.Value.kReverse);
-		m_pistons.set(DoubleSolenoid.Value.kOff);
+
 		
 	}
-
-	// TODO: Add javadoc
-	public void set(double d_speed) { // Takes values from -1.0 to 1.0. Spins the motors, positive is forwards,
-										// negative is backwards (Maybe, or it might be the other way around).
+	public void set(double d_speed) { 
 		m_leftMotor.set(d_speed);
 		m_rightMotor.set(-1.0 * d_speed);
 	}
+/**
+ * @param takes the values of -1.0 and 1.0 and spins the motor forwards if + and backwards if -
+ */
 
-	// TODO: Add javadoc
-	public void stop() { // Disables both motors
+	public void stop() { 		
 		m_leftMotor.set(0);
-		m_rightMotor.set(0); // Equivalent to .disable
-	}
+		m_rightMotor.set(0); 
+	}/**
+	 * @param sets the motor speeds to 0 and stops both motors
+	 */
 
 	public boolean getHasCube() {
 		return m_cubeSwitch.get();
 	}
-
+	/**
+	 * @returns true if the cube is in the intake spot, or false if the cube is not in the intake spot
+	 */
 }
