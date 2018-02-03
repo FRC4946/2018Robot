@@ -7,9 +7,9 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
-import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,9 +26,8 @@ public class OI {
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
 	// Button creation:
-	Button intakeButtonIn = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
-	Button intakeButtonOut = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
-	Button outputButtonOut = new JoystickButton(driveStick, 3); //Button to output from upper output subsystem
+	Button cubeInButton = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
+	Button cubeOutButton = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
 	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
 	Button clampButtonClosed = new JoystickButton(operatorStick, 2); //Closes clamp on elevator
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
@@ -37,10 +36,8 @@ public class OI {
 	// Button-command linking:
 	public OI() {
 		
-		intakeButtonIn.whileHeld(new RunIntake(-1.0)); // Pulls in cube
-		intakeButtonOut.whileHeld(new RunIntake(1.0)); // Pushes out cube
-		outputButtonOut.whileHeld(new RunOutput(-1.0)); //Pushes out cube from above
-
+		cubeInButton.whileHeld(new CubeAndLiftIntake());
+		cubeOutButton.whileHeld(new RunOutput(0.7));
 		toggleElevatorOpenLoop.whenPressed(new ElevatorJoystickCtrl());
 		gearshiftButton.toggleWhenPressed(new ElevatorGearShift(false));
 	}

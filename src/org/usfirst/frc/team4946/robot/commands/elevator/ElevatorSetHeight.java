@@ -29,13 +29,17 @@ public class ElevatorSetHeight extends Command {
     	}
     	
     	Robot.elevatorSubsystem.set(m_elevatorSpeed);
-    	Robot.elevatorSubsystem.setSetpoint(m_height);
-    	
+    	Robot.elevatorSubsystem.setSetpoint(m_height);	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	if (Robot.elevatorSubsystem.getElevatorPos() < 1.0) {
+    		RobotConstants.setElevatorIsLowest(true);
+    	} else {
+    		RobotConstants.setElevatorIsLowest(false);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -9,6 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmission;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntake;
@@ -32,6 +33,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrainSubsystem;
+	public static ElbowSubsystem elbowSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmission elevatorTransmissionSubsystem;
 	public static ExternalIntake externalIntakeSubsystem;

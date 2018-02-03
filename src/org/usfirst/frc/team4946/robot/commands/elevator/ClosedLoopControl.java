@@ -35,13 +35,17 @@ public class ClosedLoopControl extends Command {
     			
     	if ((m_currentPos + m_move) > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
     		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
-    	}else if((m_currentPos + m_move) < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
+    	} else if ((m_currentPos + m_move) < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
     		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MINIMUM_HEIGHT);
-    	}else{
+    	} else {
         	Robot.elevatorSubsystem.setSetpoint(m_currentPos + m_move);		
     	}
 
-    	
+    	if (m_currentPos < 1.0) {
+    		RobotConstants.setElevatorIsLowest(true);
+    	} else {
+    		RobotConstants.setElevatorIsLowest(false);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
