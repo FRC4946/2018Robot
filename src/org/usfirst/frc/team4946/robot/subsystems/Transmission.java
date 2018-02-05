@@ -20,10 +20,15 @@ public class Transmission extends Subsystem {
 		m_gearShift = new Solenoid(RobotMap.PCM_DRIVE_GEAR);
 	}
 
+
 	public void toggleGear() {
 		m_gearShift.set(!getGearState());
 	}
 
+	/**
+	 * 
+	 * @return 
+	 */
 	public boolean getGearState() {
 		return m_gearShift.get();
 	}
