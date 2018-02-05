@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -85,6 +86,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 
 		// Every 3 seconds, update the robot preferences
 		// No idea if this is a good idea or not. Worth experimenting with
@@ -92,6 +94,7 @@ public class Robot extends IterativeRobot {
 		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
 		}
+
 	}
 
 	/**
@@ -126,6 +129,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	@Override
@@ -145,12 +149,30 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
+	public void updateSmartDashboard () {
+		
+		
+		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
+		
+		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
+		SmartDashboard.putBoolean("Elevator Soldnoid Position", elevatorTransmissionSubsystem.getSolenoidPos());
+		
+		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
+		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
+		
+		
+		
+	
+	}
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }
