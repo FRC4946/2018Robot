@@ -21,8 +21,9 @@ public class PIDSourceGroup implements PIDSource {
 
 	@Override
 	public void setPIDSourceType(PIDSourceType pidSource) {
-		// TODO Auto-generated method stub
+		
 		pidType = pidSource;
+		
 		for(int i = 0; i < pidArray.size(); i++) {
 			pidArray.get(i).setPIDSourceType(pidType);
 		}
@@ -30,16 +31,17 @@ public class PIDSourceGroup implements PIDSource {
 
 	@Override
 	public PIDSourceType getPIDSourceType() {
-		// TODO Auto-generated method stub
 		return pidType;
 	}
 
 	@Override
 	public double pidGet() {
-		// TODO Auto-generated method stub
+		
 		for(int i = 0; i < pidArray.size(); i++) {
+			
 			pidSum += pidArray.get(i).pidGet();
 		}
+		
 		return (pidSum/((double)pidArray.size()));
 	}
 

@@ -30,7 +30,13 @@ public class TurnPID extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.driveTrainSubsystem.getGyroOnTarget();
+    	
+    	for(int i = 0; i <= 20; i++) {
+        	if(!Robot.driveTrainSubsystem.getGyroOnTarget()) {
+        		return false;
+        	}
+    	}
+    	return true;
     }
 
     // Called once after isFinished returns true

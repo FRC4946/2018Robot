@@ -56,6 +56,7 @@ public class RobotMap {
 
 	public static final int PCM_DRIVE_GEAR = 0;
 	public static final int PCM_ELEVATOR_GEAR = 1;
-	public static final int PCM_CLAMP_SOLENOID = 2;
+	public static final int PCM_ELBOW_LEFT = 2;
+	public static final int PCM_ELBOW_RIGHT = 3;
 
 }

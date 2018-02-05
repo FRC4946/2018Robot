@@ -22,6 +22,25 @@ public class RobotConstants {
 	public static double leftDriveP = 0.0;
 	public static double leftDriveI = 0.0;
 	public static double leftDriveD = 0.0;
+	
+	private static boolean elevatorIsLowest = true;
+	private static boolean outerIntakeIsDown = true;
+	
+	public static boolean getElevatorIsLowest() {
+		return elevatorIsLowest;
+	}
+	
+	public static void setElevatorIsLowest(boolean setting) {
+		elevatorIsLowest = setting;
+	}
+	
+	public static boolean getOuterIntakeIsDown() {
+		return outerIntakeIsDown;
+	}
+	
+	public static void setOuterIntakeIsDown(boolean setting) {
+		outerIntakeIsDown = setting;
+	}
 
 	/**
 	 * Load all of the preferences from the file saved on the roboRIO. These

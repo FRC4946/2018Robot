@@ -40,6 +40,12 @@ public class ElevatorJoystickCtrl extends Command {
     		
     	}
     	
+    	if (Robot.elevatorSubsystem.getElevatorPos() < 1.0) {
+    		RobotConstants.setElevatorIsLowest(true);
+    	} else {
+    		RobotConstants.setElevatorIsLowest(false);
+    	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

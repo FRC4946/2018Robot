@@ -1,6 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.drivetrain;
-
-import java.nio.file.Path;
+package org.usfirst.frc.team4946.robot.commands.output;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -9,37 +7,41 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DrivePathPID extends Command {
-	
-	Path m_leftPath;
-	Path m_rightPath;
-	double m_pathLength;
+public class InnerIntakeUntilNotCube extends Command {
 
-    public DrivePathPID(Path leftPath, Path rightPath) {
-    	requires(Robot.driveTrainSubsystem);
-    	m_leftPath = leftPath;
-    	m_rightPath = rightPath;
+	double m_speed;
+	
+    public InnerIntakeUntilNotCube(double m_speed) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.upperOutputSubsystem);
+    	
+    	this.m_speed = m_speed;
+    	
     }
 
+    // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.upperOutputSubsystem.set(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !Robot.upperOutputSubsystem.getHasCube();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.upperOutputSubsystem.disableMechanism();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
