@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ChangeClamp extends Command {
-
 	boolean position;
 	
     public ChangeClamp(boolean position) {
@@ -18,15 +17,16 @@ public class ChangeClamp extends Command {
     	
     	this.position = position;
     }
-
-    // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	/**
+    	 * @param sets the solenoid position to the imputed position 
+    	 */
     	Robot.elevatorClampSubsystem.moveSolenoid(position);
+    	
     	
     }
 

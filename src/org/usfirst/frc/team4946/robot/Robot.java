@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -130,7 +131,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+										
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
@@ -139,15 +140,43 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (m_autoCommand != null) {
 			m_autoCommand.cancel();
+		
 		}
 	}
-
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**
