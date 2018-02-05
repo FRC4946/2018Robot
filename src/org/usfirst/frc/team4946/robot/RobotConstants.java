@@ -22,6 +22,8 @@ public class RobotConstants {
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
 	
 	public static double turningPoint  = 0.0; //Dummy
+	
+	public static final double[] AUTO_DROP_OFF_END_POINT = {42.723, 165.494};
 
 
 	public static double leftDriveP = 0.0;
