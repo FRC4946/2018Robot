@@ -17,6 +17,8 @@ public class ThreePointCurveDrive extends Command {
 	double m_radius;
 	double m_distToGo;
 	double m_distInit;
+	double m_rightSpeed;
+	double m_leftSpeed;
 	
     public ThreePointCurveDrive(NDimensionalPoint point1, NDimensionalPoint point2, 
     		NDimensionalPoint point3, double speed) {
@@ -32,7 +34,7 @@ public class ThreePointCurveDrive extends Command {
     protected void initialize() {
     	
     	double slope1, slope2, xintercept1, xintercept2, yintercept1, yintercept2, midpointx1, midpointy1, 
-    		midpointx2, midpointy2, xintersection, yintersection, angle, point1to3dist, angleTraveled, distToTravel = 0.0;
+    		midpointx2, midpointy2, xintersection, yintersection, angle, point1to3dist, angleTraveled = 0.0;
     	
     	slope1 = -1/((m_point2.getDimension(2) - m_point1.getDimension(2))/
     			(m_point2.getDimension(1) - m_point1.getDimension(1)));
@@ -61,15 +63,19 @@ public class ThreePointCurveDrive extends Command {
     	
     	m_distToGo = m_radius*angleTraveled;
     	
+    	m_rightSpeed = m_speed*(1 - ((m_distToGo)/(2*m_radius)));
+    	m_leftSpeed = m_speed*(1 + ((m_distToGo)/(2*m_radius)));
+    	
     	m_distInit = Robot.driveTrainSubsystem.getEncoderDistance();
     }
 
     protected void execute() {
-    	
+    	Robot.driveTrainSubsystem.arcadeDrive(m_speed, m_speed - m_leftSpeed);
     }
 
     protected boolean isFinished() {
-        return false;
+    	
+        return (Robot.driveTrainSubsystem.getEncoderDistance() >= m_distInit + m_distToGo);
     }
 
     protected void end() {
