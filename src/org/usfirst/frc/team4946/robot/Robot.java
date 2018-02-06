@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 
 		// Every 3 seconds, update the robot preferences
 		// No idea if this is a good idea or not. Worth experimenting with
@@ -93,6 +94,7 @@ public class Robot extends TimedRobot {
 		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
 		}
+
 	}
 
 	/**
@@ -127,6 +129,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	@Override
@@ -146,12 +149,30 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
+	public void updateSmartDashboard () {
+		
+		
+		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
+		
+		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
+		SmartDashboard.putBoolean("Elevator Soldnoid Position", elevatorTransmissionSubsystem.getSolenoidPos());
+		
+		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
+		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
+		
+		
+		
+	
+	}
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }
