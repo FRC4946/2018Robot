@@ -38,7 +38,6 @@ public class PIDSourceGroup implements PIDSource {
 	public double pidGet() {
 		
 		for(int i = 0; i < pidArray.size(); i++) {
-			
 			pidSum += pidArray.get(i).pidGet();
 		}
 		

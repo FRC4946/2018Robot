@@ -10,6 +10,7 @@ public class RobotConstants {
 	public static final double DRIVETRAIN_GEARBOX_REDUCTION_LOW = 1/2.5; // dummy
 	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; //dummy (inches per second squared)
 	public static final double ROBOT_SAMPLE_TIME = 0.020; //(seconds)
+	public static final double ROBOT_WIDTH = 38; //inches
 
 	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; // Dummy

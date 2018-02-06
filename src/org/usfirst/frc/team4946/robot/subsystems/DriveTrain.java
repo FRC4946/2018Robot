@@ -101,6 +101,7 @@ public class DriveTrain extends Subsystem {
 	 *            the scaling factor
 	 */
 	public void arcadeDrive(double speed, double rotate, double throttle) {
+	
 		speed *= (0.5 + (0.5 * throttle));
 		rotate *= (0.5 + (0.5 * throttle));
 

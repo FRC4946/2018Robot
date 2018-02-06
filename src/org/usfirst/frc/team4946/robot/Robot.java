@@ -17,11 +17,12 @@ import org.usfirst.frc.team4946.robot.subsystems.Transmission;
 import org.usfirst.frc.team4946.robot.subsystems.UpperOutput;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
 	public static DriveTrain driveTrainSubsystem;
 	public static ElbowSubsystem elbowSubsystem;
