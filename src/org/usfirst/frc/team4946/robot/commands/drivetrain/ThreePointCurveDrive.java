@@ -5,9 +5,6 @@ import org.usfirst.frc.team4946.robot.util.NDimensionalPoint;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * Uses three points to generate a circle encompassing all three points and drive along the generated curvature.
- */
 public class ThreePointCurveDrive extends Command {
 
 	NDimensionalPoint m_point1;
@@ -20,6 +17,17 @@ public class ThreePointCurveDrive extends Command {
 	double m_rightSpeed;
 	double m_leftSpeed;
 	
+	/**
+	 * Uses three (x, y) coordinates to generate a circle encompassing 
+	 * all three points and drive along the generated curvature.
+	 * 
+	 * @param point1
+	 * 			   The first point.
+	 * @param point2
+	 * 			   The second point.
+	 * @param point3
+	 *             The third point.
+	 */
     public ThreePointCurveDrive(NDimensionalPoint point1, NDimensionalPoint point2, 
     		NDimensionalPoint point3, double speed) {
     	

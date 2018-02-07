@@ -19,8 +19,11 @@ public class DriveStraightPID extends Command {
 	
 	/**
 	 * Drives the robot forwards in a straight line using PID to control acceleration
-	 * @param speed the speed the robot employs while traversing the set distance
+	 * 
+	 * @param speed 
+	 * 			  the speed the robot employs while traversing the set distance
 	 * @param distance
+	 * 			  the distance to drive in inches
 	 */
     public DriveStraightPID(double speed, double distance) {
     	requires(Robot.driveTrainSubsystem); 
