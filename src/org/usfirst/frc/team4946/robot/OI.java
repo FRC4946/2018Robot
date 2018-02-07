@@ -26,7 +26,6 @@ public class OI {
 	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
-	// Button creation:
 	Button cubeInButton = new JoystickButton(driveStick, 1); // 1 is the button number for the cube intake Button
 	Button cubeOutButton = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
 	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
@@ -34,13 +33,14 @@ public class OI {
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
 	Button gearshiftButton = new JoystickButton(operatorStick, 4); //Shifts gears on the elevator
 
-	// Button-command linking:
 	public OI() {
 		
 		if(RobotConstants.getElevatorIsLowest()) {
+			
 			cubeInButton.whileHeld(new CubeAndLiftIntake());
 			cubeOutButton.whileHeld(new OutputCubeWithIntake());
 		} else {
+			
 			cubeInButton.whileHeld(new RunOutput(-0.7));
 			cubeOutButton.whileHeld(new RunOutput(0.7));
 		}
@@ -49,10 +49,16 @@ public class OI {
 		gearshiftButton.whenPressed(new ElevatorGearShift());
 	}
 
+	/**
+	 * @return the driver joystick.
+	 */
 	public Joystick getDriveStick() {
 		return driveStick;
 	}
 
+	/**
+	 * @return the operator joystick.
+	 */
 	public Joystick getOperatorStick() {
 		return operatorStick;
 	}
