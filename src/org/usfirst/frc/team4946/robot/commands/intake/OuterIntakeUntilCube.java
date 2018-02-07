@@ -11,6 +11,11 @@ public class OuterIntakeUntilCube extends Command {
 
 	double m_speed;
 	
+	/**
+	 * 
+	 * Runs the intake at a specified velocity until a cube is detected
+	 * @param speed the velocity to run the intake at
+	 */
     public OuterIntakeUntilCube(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
