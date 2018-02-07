@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveTrainGearShift extends Command {
 
-	
     public DriveTrainGearShift() {
-    	
     	requires(Robot.transmissionSubsystem);
     }
 
@@ -28,10 +26,10 @@ public class DriveTrainGearShift extends Command {
     }
 
     protected void end() {
-    	
+    
     }
 
     protected void interrupted() {
-    	end();
+    	
     }
 }
