@@ -5,7 +5,7 @@ import org.usfirst.frc.team4946.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Turns to an absolute angle with the PID.
  */
 public class TurnPID extends Command {
 	

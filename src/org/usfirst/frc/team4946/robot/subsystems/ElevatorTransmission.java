@@ -5,9 +5,6 @@ import org.usfirst.frc.team4946.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class ElevatorTransmission extends Subsystem {
 
 	Solenoid m_transmissionSolenoid = new Solenoid (RobotMap.PCM_ELEVATOR_GEAR);
@@ -16,8 +13,8 @@ public class ElevatorTransmission extends Subsystem {
         
     }
    
-    /**Moves solenoid to change gear of elevator
-     * 
+    /**
+     * Moves solenoid to change gear of elevator
      * @param position true is closed, false is open
      */
     public void moveSolenoid (boolean position) { //True Is Closed, False is Open
