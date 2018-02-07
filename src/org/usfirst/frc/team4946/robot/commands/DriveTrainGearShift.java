@@ -4,11 +4,12 @@ import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * Toggles the state of the drivetrain gearshift.
- */
+
 public class DriveTrainGearShift extends Command {
 
+	/**
+	 * Toggles the state of the drivetrain gearshift.
+	 */
     public DriveTrainGearShift() {
     	requires(Robot.transmissionSubsystem);
     }

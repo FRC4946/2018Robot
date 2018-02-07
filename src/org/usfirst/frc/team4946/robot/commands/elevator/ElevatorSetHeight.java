@@ -5,21 +5,21 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
+
 public class ElevatorSetHeight extends Command {
 
 	double m_elevatorSpeed;
 	double m_height;
 	
+	/**
+	 * Sets the elevator to a certain height using PID.
+	 */
     public ElevatorSetHeight(double height, double speed) {
     	requires(Robot.elevatorSubsystem);
     	m_height = height;
     	m_elevatorSpeed = speed;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	
     	if(m_height > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {

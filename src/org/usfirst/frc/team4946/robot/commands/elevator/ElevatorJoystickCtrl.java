@@ -18,13 +18,10 @@ public class ElevatorJoystickCtrl extends Command {
 
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	j_joy = Robot.m_oi.getOperatorStick();
-//    	Robot.elbowSubsystem.setElbowUp();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
     	Robot.elevatorSubsystem.set(j_joy.getRawAxis(0));
@@ -49,18 +46,14 @@ public class ElevatorJoystickCtrl extends Command {
     	
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return Robot.elevatorSubsystem.getOnTarget();
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }

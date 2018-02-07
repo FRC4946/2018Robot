@@ -5,11 +5,12 @@ import org.usfirst.frc.team4946.robot.Robot;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * Rumbles the driver and operator controllers on their right side. 
- */
+
 public class RumbleJoystickRight extends Command {
 
+	/**
+	 * Rumbles the driver and operator controllers on their right side. 
+	 */
     public RumbleJoystickRight() {
         
     }

@@ -15,10 +15,11 @@ public class RunOutput extends Command {
 	boolean m_hasCube;
 	Timer m_timer = new Timer();
 	
-	/**Runs the intake at a specified velocity
+	/**
+	 * Runs the intake at a specified velocity
 	 * 
-	 * 
-	 * @param speed the velocity at which to run the intake
+	 * @param speed 
+	 * 			  the velocity at which to run the intake
 	 */
     public RunOutput(double speed) {
     	
@@ -26,13 +27,12 @@ public class RunOutput extends Command {
     	this.speed = speed;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	m_hasCube = Robot.upperOutputSubsystem.getHasCube();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	Robot.upperOutputSubsystem.set(speed);
     	
     	if (m_hasCube != Robot.upperOutputSubsystem.getHasCube()) {
@@ -55,18 +55,15 @@ public class RunOutput extends Command {
     	}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.upperOutputSubsystem.disableMechanism();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+
     protected void interrupted() {
     	end();
     }

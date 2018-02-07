@@ -16,7 +16,6 @@ public class DriveStraightPID extends Command {
 	double m_distanceInit;
 	TrapezoidMotionProfile m_motionProfiler;
 	
-	
 	/**
 	 * Drives the robot forwards in a straight line using PID to control acceleration
 	 * 

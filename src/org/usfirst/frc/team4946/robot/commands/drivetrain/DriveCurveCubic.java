@@ -5,13 +5,9 @@ import org.usfirst.frc.team4946.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * ROUGH: Given a destination point, the robot calculates a cubic path assuming its current position is the origin.
- * The destination point is defined by two values: the first of which defines the distance to travel along the y-axis,
- * and the second of which defines the distance to travel along the x-axis. They y-axis is arbitrarily defined as whatever axis the 
- * robot first travels on, and the x-axis is that which the robot travels on after turning 90 degrees. Because the starting point 
- * is defined as the origin, the cubic equation follows the general form ax^3 + bx^2. Every cycle, the robot travels an arbitrarily
- * defined unit of distance and turns based on the 
+ * 
  */
+
 public class DriveCurveCubic extends Command {
 	//https://www.chiefdelphi.com/forums/showthread.php?t=105211
 	double m_speed;

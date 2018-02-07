@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -17,8 +18,15 @@ public class ElevatorTransmission extends Subsystem {
      * Moves solenoid to change gear of elevator
      * @param position true is closed, false is open
      */
-    public void moveSolenoid (boolean position) { //True Is Closed, False is Open
+    public void moveSolenoid (boolean position) { 
     	m_transmissionSolenoid.set(position);
+    }
+    
+    /**
+     * Toggles the position of the elevator gearshift.
+     */
+    public void toggleSolenoid() {
+    	m_transmissionSolenoid.set(!getSolenoidPos());
     }
     
     /**

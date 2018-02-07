@@ -6,11 +6,12 @@ import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
+
 public class OutputCubeWithIntake extends CommandGroup {
 
+	/**
+	 * Runs both intake motors - external and internal
+	 */
     public OutputCubeWithIntake() {
     	
     	addSequential(new ElbowDown());
