@@ -32,7 +32,6 @@ public class ElevatorSetHeight extends Command {
     	Robot.elevatorSubsystem.setSetpoint(m_height);	
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
     	if (Robot.elevatorSubsystem.getElevatorPos() < 1.0) {
@@ -42,18 +41,14 @@ public class ElevatorSetHeight extends Command {
     	}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return Robot.elevatorSubsystem.getOnTarget();
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }
