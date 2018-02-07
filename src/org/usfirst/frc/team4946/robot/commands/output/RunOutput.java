@@ -15,6 +15,11 @@ public class RunOutput extends Command {
 	boolean m_hasCube;
 	Timer m_timer = new Timer();
 	
+	/**Runs the intake at a specified velocity
+	 * 
+	 * 
+	 * @param speed the velocity at which to run the intake
+	 */
     public RunOutput(double speed) {
     	
     	requires(Robot.upperOutputSubsystem);

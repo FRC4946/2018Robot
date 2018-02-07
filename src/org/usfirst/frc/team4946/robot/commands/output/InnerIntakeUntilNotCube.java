@@ -11,6 +11,10 @@ public class InnerIntakeUntilNotCube extends Command {
 
 	double m_speed;
 	
+	/**Runs the inner intake at a specified velocity until a cube is not detected
+	 * 
+	 * @param m_speed the velocity at which to run the inner intake
+	 */
     public InnerIntakeUntilNotCube(double m_speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
