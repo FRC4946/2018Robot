@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElbowDown extends Command {
 
+	/**
+	 * Moves the elbow to the downwards facing position
+	 */
     public ElbowDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
