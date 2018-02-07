@@ -19,30 +19,30 @@ public class RobotConstants {
 	public static final double ELEVATOR_OFFSET_VALUE = 5.0; // Dummy
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
-
-	public static double leftDriveP = 0.0; //Dummy
-	public static double leftDriveI = 0.0; //Dummy
-	public static double leftDriveD = 0.0; //Dummy
 	
 	private static boolean elevatorIsLowest = true;
-	private static boolean outerIntakeIsDown = true;
 	
-	public static boolean getElevatorIsLowest() {
-		return elevatorIsLowest;
-	}
-	
+	/**
+	 * Sets whether or not the elevator is at its lowest height.
+	 * 
+	 * @param setting
+	 * 				whether or not the elevator is at its lowest height. True means it is, false means it's not.
+	 */
 	public static void setElevatorIsLowest(boolean setting) {
 		elevatorIsLowest = setting;
 	}
 	
-	//public static boolean getOuterIntakeIsDown() {
-		//return outerIntakeIsDown;
-	//}
+	/**
+	 * @return whether or not the elevator is at its lowest height.
+	 */
+	public static boolean getElevatorIsLowest() {
+		return elevatorIsLowest;
+	}
 	
-	//public static void setOuterIntakeIsDown(boolean setting) {
-		//outerIntakeIsDown = setting;
-	//}
-
+	public static double leftDriveP;
+	public static double leftDriveI;
+	public static double leftDriveD;
+	
 	/**
 	 * Load all of the preferences from the file saved on the roboRIO. These
 	 * preferences are editable using the RobotPreferences widget on the
@@ -75,7 +75,12 @@ public class RobotConstants {
 		prefs.putDouble("Drive I", leftDriveI);
 		prefs.putDouble("Drive D", leftDriveD);
 	}
-
+	
+	/**
+	 * Updates the preferences.
+	 * @param prefs
+	 * 			  the {@link Preferences} to update the values of
+	 */
 	public static void updatePrefs(Preferences prefs) {
 		loadPrefs(prefs);
 		repopulatePrefs(prefs);
