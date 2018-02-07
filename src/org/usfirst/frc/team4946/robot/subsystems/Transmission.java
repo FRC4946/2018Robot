@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Transmission extends Subsystem {
 
-	// Create Solenoid
 	private Solenoid m_gearShift;
 
 	public void initDefaultCommand() {
@@ -19,15 +18,16 @@ public class Transmission extends Subsystem {
 	public Transmission() {
 		m_gearShift = new Solenoid(RobotMap.PCM_DRIVE_GEAR);
 	}
-
-
+	
+	/**
+	 * Toggles between low and high gear on the robot.
+	 */
 	public void toggleGear() {
 		m_gearShift.set(!getGearState());
 	}
 
 	/**
-	 * 
-	 * @return 
+	 * @return the state of the gear-shifting solenoid. 
 	 */
 	public boolean getGearState() {
 		return m_gearShift.get();

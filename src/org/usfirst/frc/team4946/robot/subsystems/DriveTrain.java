@@ -20,16 +20,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-	// Create motors, controller groups, and drives
 	private WPI_TalonSRX m_frontLeft, m_midLeft, m_rearLeft, m_frontRight, m_midRight, m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
 
-	// Create encoders and gyro
 	private Encoder m_leftEnc, m_rightEnc;
 
 	private ADXRS450_Gyro m_driveGyro;
 
-	// PID stuff
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
 	private double distancePerPulse;
@@ -73,6 +70,7 @@ public class DriveTrain extends Subsystem {
 		m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
 	}
 
+	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
@@ -110,6 +108,27 @@ public class DriveTrain extends Subsystem {
 	}
 
 	/**
+	 * @return the average speed of both drivetrain MotorControllerGroups
+	 */
+	public double getAvgSpeed() {
+		return ((m_left.get() + m_right.get())/2);
+	}
+	
+	/**
+	 * @return the speed of the left drivetrain MotorControllerGroup
+	 */
+	public double getSpeedLeft() {
+		return m_left.get();
+	}
+	
+	/**
+	 * @return the speed of the right drivetrain MotorControllerGroup
+	 */
+	public double getSpeedRight() {
+		return m_right.get();
+	}
+	
+	/**
 	 * Calibrates the gyro
 	 */
 	public void calibrateGyro() {
@@ -117,7 +136,6 @@ public class DriveTrain extends Subsystem {
 	}
 
 	/**
-	 * 
 	 * @return fetches the angle of gyro
 	 */
 	public double getGyroAngle() {
@@ -126,8 +144,7 @@ public class DriveTrain extends Subsystem {
 
 	
 	/**
-	 * 
-	 * @returns the PID output of the gyro
+	 * @return the PID output of the gyro
 	 */
 	public double getGyroPIDOutput() {
 		return m_gyroPIDOutput.getOutput();
@@ -175,62 +192,98 @@ public class DriveTrain extends Subsystem {
 		m_leftEnc.reset();
 		m_rightEnc.reset();
 	}
-
+	
+	/**
+	 * Stop the robot completely by setting speed to 0.0.
+	 */
 	public void stop() {
 		m_left.set(0.0);
 		m_right.set(0.0);
 	}
 
+	/**
+	 * Sets the encoder distance setpoint.
+	 * 
+	 * @param distSetpoint
+	 * 					 The distance for the robot to drive in inches.
+	 */
 	public void setDistSetpoint(double distSetpoint) {
 		m_leftPID.setSetpoint(distSetpoint);
 		m_rightPID.setSetpoint(distSetpoint);
 	}
 
+	/**
+	 * @return The current encoder setpoint.
+	 */
 	public double getDistSetpoint() {
 		return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint()) / 2;
 	}
 
+	/**
+	 * @return Whether or not the current distance matches the distance setpoint on both sides.
+	 */
 	public boolean getDistOnTarget() {
 		return m_leftPID.onTarget() && m_rightPID.onTarget();
 	}
 
-	public boolean getEncOnTarget() {
-		return m_leftPID.onTarget() && m_rightPID.onTarget();
-	}
-
+	/**
+	 * @return Whether or not the current angle matches the gyro setpoint.
+	 */
 	public boolean getGyroOnTarget() {
 		return m_gyroPID.onTarget();
 	}
 
+	/**
+	 * Resets the encoders.
+	 */
 	public void resetEncs() {
 		m_leftEnc.reset();
 		m_rightEnc.reset();
 	}
 
+	/**
+	 * Resets the gyro.
+	 */
 	public void resetGyro() {
 		m_driveGyro.reset();
 	}
 
+	/**
+	 * Resets the gyroPID object.
+	 */
 	public void resetGyroPID() {
 		m_gyroPID.reset();
 	}
 
+	/**
+	 * Enables the drivetrain PID objects.
+	 */
 	public void enablePID() {
 		m_leftPID.enable();
 		m_rightPID.enable();
 	}
 
+	/**
+	 * Disables the drivetrain PID objects.
+	 */
 	public void disablePID() {
 		m_leftPID.disable();
 		m_rightPID.disable();
 	}
 
+	/**
+	 * Resets the drivetrain PID objects.
+	 */
 	public void resetPID() {
 		m_leftPID.reset();
 		m_rightPID.reset();
 	}
 	
-	public void setEncoderDPP() {	
+	/**
+	 * Sets the encoder count to distance conversion, based on the gear settings.
+	 */
+	public void setEncoderDPP() {
+		
 		if(Robot.transmissionSubsystem.getGearState()) {
 			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
@@ -244,14 +297,22 @@ public class DriveTrain extends Subsystem {
 					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_LOW;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
-
 		}
 	}
 
+	/**
+	 * @return the average distance traveled between both encoders
+	 */
 	public double getEncoderDistance() {
 		return (m_leftEnc.getDistance() + m_rightEnc.getDistance()) / 2.0;
 	}
 
+	/**
+	 * Sets the maximum speed output for both PID objects
+	 * 
+	 * @param speed
+	 * 			  The upper bound for the output range of the PIDObjects. The negative speed is set as the lower bound.
+	 */
 	public void setMaxSpeed(double speed) {
 		m_leftPID.setOutputRange(-speed, speed);
 		m_rightPID.setOutputRange(-speed, speed);

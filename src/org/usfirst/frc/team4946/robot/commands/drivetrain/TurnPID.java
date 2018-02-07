@@ -10,25 +10,23 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TurnPID extends Command {
 	
 	double m_setAngle;
-
-    public TurnPID(double angle) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	double m_speed;
+	
+    public TurnPID(double angle, double speed) {
+    	
     	requires(Robot.driveTrainSubsystem);
     	m_setAngle = angle;
+    	m_speed = speed;
     }
-    
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrainSubsystem.setGyroSetpoint(m_setAngle);
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrainSubsystem.arcadeDrive(m_speed, Robot.driveTrainSubsystem.getGyroPIDOutput());
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
     	for(int i = 0; i <= 20; i++) {
@@ -39,13 +37,10 @@ public class TurnPID extends Command {
     	return true;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrainSubsystem.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }

@@ -92,14 +92,39 @@ public class ElevatorSubsystem extends Subsystem {
 
 	}
 
+	/**
+	 * @return the average speed of both elevator MotorControllerGroups
+	 */
 	public double getSpeed() {
-		return (Math.abs(m_elevatorMotorGroupLeft.get()) + Math.abs(m_elevatorMotorGroupRight.get())) / 2;
+		return (m_elevatorMotorGroupLeft.get() + m_elevatorMotorGroupRight.get()) / 2;
 	}
-
+	
+	/**
+	 * @return the speed of the left elevator MotorControllerGroup
+	 */
+	public double getLeftSpeed() {
+		return m_elevatorMotorGroupLeft.get();
+	}
+	
+	/**
+	 * @return the speed of the right elevator MotorControllerGroup
+	 */
+	public double getRightSpeed() {
+		return m_elevatorMotorGroupRight.get();
+	}
+	
+	/**
+	 * Sets the elevator height setpoint.
+	 * @param d_point
+	 * 				the height setpoint in inches.
+	 */
 	public void setSetpoint(double d_point) {
 		m_elevatorPIDController.setSetpoint(d_point);
 	}
 
+	/**
+	 * @return Whether or not the current height matches the height setpoint.
+	 */
 	public boolean getOnTarget() {
 		return m_elevatorPIDController.onTarget();
 	}

@@ -19,7 +19,7 @@ public class ExternalIntake extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -27,8 +27,8 @@ public class ExternalIntake extends Subsystem {
 	 * @param d_speed
 	 * 			Speed of the motors
 	 */
-	public void set(double d_speed) { // Takes values from -1.0 to 1.0. Spins the motors, positive is forwards,
-										// negative is backwards (Maybe, or it might be the other way around).
+	public void set(double d_speed) { 
+										
 		m_leftMotor.set(d_speed);
 		m_rightMotor.set(-1.0 * d_speed);
 	}

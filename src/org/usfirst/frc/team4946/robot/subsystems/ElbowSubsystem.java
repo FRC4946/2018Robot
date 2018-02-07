@@ -22,14 +22,23 @@ public class ElbowSubsystem extends Subsystem {
         setDefaultCommand(new ManageElbowPos());
     }
     
+    /**
+	 * Sets the external intake to the down position
+	 */
     public void setElbowDown() {
     	m_elbowSwitch.set(Value.kOff);
     }
     
+    /**
+	 * Lifts the external intake up
+	 */
     public void setElbowUp() {
     	m_elbowSwitch.set(Value.kForward);
     }
     
+    /**
+	 * @return the current elbow position. kOff indicates the down position. kForward indicates the up position
+	 */
     public Value getElbowValue() {
     	return m_elbowSwitch.get();
     }
