@@ -22,6 +22,8 @@ public class RobotConstants {
 	
 	private static boolean elevatorIsLowest = true;
 	
+	public static final double[] AUTO_DROP_OFF_END_POINT = {42.723, 165.494};
+	
 	/**
 	 * Sets whether or not the elevator is at its lowest height.
 	 * 
