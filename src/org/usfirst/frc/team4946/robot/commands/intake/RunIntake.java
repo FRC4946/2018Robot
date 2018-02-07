@@ -15,6 +15,12 @@ public class RunIntake extends Command {
 	boolean m_hasCube;
 	Timer m_timer;
 
+	/**
+	 * 
+	 * Runs the intake at a specified velocity
+	 * 
+	 * @param speed the velocity (not speed) to run the intake at
+	 */
     public RunIntake(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
