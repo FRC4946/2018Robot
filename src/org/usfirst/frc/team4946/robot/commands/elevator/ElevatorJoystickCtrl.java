@@ -28,6 +28,7 @@ public class ElevatorJoystickCtrl extends Command {
     protected void execute() {
     	
     	Robot.elevatorSubsystem.set(j_joy.getRawAxis(0));
+    	
     	if((RobotConstants.ELEVATOR_MAXIMUM_HEIGHT - Robot.elevatorSubsystem.getElevatorPos()) 
     			<= 6*(1 + Robot.elevatorSubsystem.getSpeed())) {
     		
