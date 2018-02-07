@@ -9,6 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveWithJoystick extends Command {
 
+	/**
+	 * Controls the robot's movement using the drivestick
+	 * 
+	 */
 	public DriveWithJoystick() {
 		requires(Robot.driveTrainSubsystem);
 	}

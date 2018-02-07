@@ -17,6 +17,11 @@ public class DriveStraightPID extends Command {
 	TrapezoidMotionProfile m_motionProfiler;
 	
 	
+	/**
+	 * Drives the robot forwards in a straight line using PID to control acceleration
+	 * @param speed the speed the robot employs while traversing the set distance
+	 * @param distance
+	 */
     public DriveStraightPID(double speed, double distance) {
     	requires(Robot.driveTrainSubsystem); 
     	m_speed = speed;

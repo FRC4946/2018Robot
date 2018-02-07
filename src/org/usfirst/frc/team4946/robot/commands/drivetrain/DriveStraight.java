@@ -13,6 +13,14 @@ public class DriveStraight extends Command {
 	double m_distanceToGo;
 	double m_distanceInit;
 	
+	
+	/*
+	 * @param distance the distance the robot drives
+	 * @param speed the speed the robot employs while traversing the specified distance
+	 * 
+	 * moves the robot in a straight line
+	 * 
+	 */
     public DriveStraight(double distance, double speed) {
         
     	requires(Robot.driveTrainSubsystem);
