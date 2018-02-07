@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ManageElbowPos extends Command {
 
+	/**
+	 * Toggles the elbow position
+	 */
     public ManageElbowPos() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
