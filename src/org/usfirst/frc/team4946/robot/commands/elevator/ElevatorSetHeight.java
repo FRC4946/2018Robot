@@ -13,6 +13,11 @@ public class ElevatorSetHeight extends Command {
 	
 	/**
 	 * Sets the elevator to a certain height using PID.
+	 * 
+	 * @param height
+	 * 			   the height setpoint in inches
+	 * @param speed
+	 * 			   the speed to set the motors to, ranging from -1.0 to 1.0 
 	 */
     public ElevatorSetHeight(double height, double speed) {
     	requires(Robot.elevatorSubsystem);

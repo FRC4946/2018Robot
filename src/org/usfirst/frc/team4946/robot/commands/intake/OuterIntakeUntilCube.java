@@ -15,7 +15,7 @@ public class OuterIntakeUntilCube extends Command {
 	 * Runs the intake at a specified velocity until a cube is detected
 	 * 
 	 * @param speed 
-	 * 			  the velocity to run the intake at
+	 * 			  the velocity to run the intake at, ranging from -1.0 to 1.0.
 	 */
     public OuterIntakeUntilCube(double speed) {
     	requires(Robot.externalIntakeSubsystem);

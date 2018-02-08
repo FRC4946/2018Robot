@@ -19,6 +19,6 @@ public class CubeAndLiftIntake extends CommandGroup {
     	addSequential(new InnerIntakeUntilCube(0.7));
     	addParallel(new ElbowUp());
     	addSequential(new ElevatorSetHeight(1.0, 0.4), 0.5);
-    	addSequential(new RumbleJoystickLeft(), 0.5);
+    	addSequential(new RumbleJoysticks(), 0.5);
     }
 }

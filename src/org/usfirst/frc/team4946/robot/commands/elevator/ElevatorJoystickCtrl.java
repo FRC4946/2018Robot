@@ -13,6 +13,9 @@ public class ElevatorJoystickCtrl extends Command {
 
 	Joystick j_joy;
 	
+	/**
+	 * Uses the operator joystick to control the elevator height
+	 */
     public ElevatorJoystickCtrl() {
     	requires(Robot.elevatorSubsystem);
 

@@ -17,25 +17,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	WPI_TalonSRX m_elevatorMotorTopLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPLEFT);
-	WPI_TalonSRX m_elevatorMotorTopRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPRIGHT);
-	WPI_TalonSRX m_elevatorMotorBottomLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_BOTLEFT);
-	WPI_TalonSRX m_elevatorMotorBottomRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_BOTRIGHT);
+	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
+	WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
 
-	SpeedControllerGroup m_elevatorMotorGroupLeft = new SpeedControllerGroup(
-			Robot.elevatorSubsystem.m_elevatorMotorTopLeft, Robot.elevatorSubsystem.m_elevatorMotorBottomLeft);
-
-	SpeedControllerGroup m_elevatorMotorGroupRight = new SpeedControllerGroup(
-			Robot.elevatorSubsystem.m_elevatorMotorTopRight, Robot.elevatorSubsystem.m_elevatorMotorBottomRight);
-
-	SpeedControllerGroup m_elevatorMotorGroupAll = new SpeedControllerGroup(
-			Robot.elevatorSubsystem.m_elevatorMotorGroupLeft, Robot.elevatorSubsystem.m_elevatorMotorGroupRight);
+	SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup(m_elevatorMotorLeft, m_elevatorMotorRight);
 
 	AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
 	public PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
-			m_elevatorMotorGroupAll);
+			m_elevatorMotorGroup);
 
 	public ElevatorSubsystem() {
 		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT,
@@ -68,11 +59,11 @@ public class ElevatorSubsystem extends Subsystem {
 		double pos = m_elevatorAnalogPotentiometer.get();
 
 		if (pos > RobotConstants.ELEVATOR_MINIMUM_HEIGHT && pos < RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_elevatorMotorGroupAll.set(move);
+			m_elevatorMotorGroup.set(move);
 		} else if (pos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-			m_elevatorMotorGroupAll.set(0.2);
+			m_elevatorMotorGroup.set(0.2);
 		} else if (pos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_elevatorMotorGroupAll.set(-0.2);
+			m_elevatorMotorGroup.set(-0.2);
 		}
 
 	}
@@ -87,30 +78,32 @@ public class ElevatorSubsystem extends Subsystem {
 	 * 
 	 */
 	public void set(double d_speed) {
-		m_elevatorMotorGroupLeft.set(0.2);
-		m_elevatorMotorGroupRight.set(-0.2);
-
+		
+		m_elevatorMotorLeft.set(d_speed);
+		m_elevatorMotorRight.set(-d_speed);
 	}
 
 	/**
 	 * @return the average speed of both elevator MotorControllerGroups
 	 */
 	public double getSpeed() {
-		return (m_elevatorMotorGroupLeft.get() + m_elevatorMotorGroupRight.get()) / 2;
+		
+		return (m_elevatorMotorGroup.get());
 	}
 	
 	/**
 	 * @return the speed of the left elevator MotorControllerGroup
 	 */
 	public double getLeftSpeed() {
-		return m_elevatorMotorGroupLeft.get();
+		return m_elevatorMotorGroup.get();
 	}
 	
 	/**
 	 * @return the speed of the right elevator MotorControllerGroup
 	 */
 	public double getRightSpeed() {
-		return m_elevatorMotorGroupRight.get();
+		//return m_elevatorMotorGroupRight.get();
+		return 1.0;
 	}
 	
 	/**

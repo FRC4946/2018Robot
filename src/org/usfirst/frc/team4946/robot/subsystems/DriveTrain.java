@@ -25,7 +25,7 @@ public class DriveTrain extends Subsystem {
 
 	private Encoder m_leftEnc, m_rightEnc;
 
-	private ADXRS450_Gyro m_driveGyro;
+	//private ADXRS450_Gyro m_driveGyro;
 
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
@@ -46,20 +46,20 @@ public class DriveTrain extends Subsystem {
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
 
-		m_driveGyro = new ADXRS450_Gyro();
+		//m_driveGyro = new ADXRS450_Gyro();
 
 		m_gyroPIDOutput = new NullPIDOutput();
 
 		m_leftEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
-		m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
+		//m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
 		m_leftPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI,
 				RobotConstants.leftDriveD, m_leftEnc, m_left);
 		m_rightPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI,
 				RobotConstants.leftDriveD, m_rightEnc, m_right);
-		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
-		m_gyroPID.setContinuous();
+		//m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
+		//m_gyroPID.setContinuous();
 
 		calibrateGyro();
 		resetPID();
@@ -67,7 +67,7 @@ public class DriveTrain extends Subsystem {
 
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
-		m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
+		//m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
 	}
 
 	
@@ -132,14 +132,15 @@ public class DriveTrain extends Subsystem {
 	 * Calibrates the gyro
 	 */
 	public void calibrateGyro() {
-		m_driveGyro.calibrate();
+		//m_driveGyro.calibrate();
 	}
 
 	/**
 	 * @return fetches the angle of gyro
 	 */
 	public double getGyroAngle() {
-		return m_driveGyro.getAngle();
+		//return m_driveGyro.getAngle();
+		return 1.0;
 	}
 
 	
@@ -245,7 +246,7 @@ public class DriveTrain extends Subsystem {
 	 * Resets the gyro.
 	 */
 	public void resetGyro() {
-		m_driveGyro.reset();
+		//m_driveGyro.reset();
 	}
 
 	/**

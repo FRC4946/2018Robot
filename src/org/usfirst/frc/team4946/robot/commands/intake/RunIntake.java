@@ -16,7 +16,8 @@ public class RunIntake extends Command {
 	 * 
 	 * Runs the intake at a specified velocity
 	 * 
-	 * @param speed the velocity (not speed) to run the intake at
+	 * @param speed 
+	 * 		      the velocity to run the intake at, ranging from -1.0 to 1.0.
 	 */
     public RunIntake(double speed) {
     	requires(Robot.externalIntakeSubsystem);

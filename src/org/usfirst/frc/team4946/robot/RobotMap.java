@@ -42,10 +42,8 @@ public class RobotMap {
 
 	public static final int CAN_INTAKE_LEFTMOTOR = 6;
 	public static final int CAN_INTAKE_RIGHTMOTOR = 7;
-	public static final int CAN_ELEVATOR_TOPLEFT = 8;
-	public static final int CAN_ELEVATOR_TOPRIGHT = 9;
-	public static final int CAN_ELEVATOR_BOTLEFT = 10;
-	public static final int CAN_ELEVATOR_BOTRIGHT = 11;
+	public static final int CAN_ELEVATOR_LEFT = 8;
+	public static final int CAN_ELEVATOR_RIGHT = 9;
 
 	public static final int DIO_DRIVE_LEFTENC1 = 0;
 	public static final int DIO_DRIVE_LEFTENC2 = 1;

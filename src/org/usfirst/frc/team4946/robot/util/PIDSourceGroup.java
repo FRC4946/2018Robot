@@ -11,14 +11,24 @@ public class PIDSourceGroup implements PIDSource {
 	PIDSourceType pidType;
 	double pidSum = 0.0;
 	
+	/**
+	 * Combines multiple PIDSources.
+	 * @param pids
+	 * 			The PIDSources
+	 */
 	public PIDSourceGroup(PIDSource... pids) {
 		
 		for(int i = 0; i < pids.length; i++) {
 			pidArray.add(pids[i]);
 		}
-		
 	}
 
+	/**
+	 * Sets the PIDSourceType
+	 * 
+	 * @param pidSource
+	 * 			The PIDSourceType, which can be kDisplacement or kRate
+	 */
 	@Override
 	public void setPIDSourceType(PIDSourceType pidSource) {
 		

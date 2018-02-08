@@ -49,7 +49,7 @@ public class ThreePointCurveDrive extends Command {
     	slope2 = -1/((m_point3.getDimension(2) - m_point2.getDimension(2))/
     			(m_point3.getDimension(1) - m_point2.getDimension(1)));
     	
-    	midpointx1 = (m_point1.getDimension(1) + m_point2.getDimension(2))/2;
+    	midpointx1 = (m_point1.getDimension(1) + m_point2.getDimension(1))/2;
     	midpointy1 = (m_point1.getDimension(2) + m_point2.getDimension(2))/2;
     	
     	midpointx2 = (m_point2.getDimension(1) + m_point3.getDimension(1))/2;
@@ -67,7 +67,8 @@ public class ThreePointCurveDrive extends Command {
     	point1to3dist = Math.sqrt(Math.pow(m_point3.getDimension(0) - m_point1.getDimension(0),  2) + 
     			(Math.pow(m_point3.getDimension(1) - m_point1.getDimension(1), 2)));
     	
-    	angleTraveled = Math.acos((Math.pow(point1to3dist, 2) - 2*Math.pow(m_radius, 2))/(-2*Math.pow(m_radius, 2))); //radians
+    	angleTraveled = Math.acos((Math.pow(point1to3dist, 2) - 
+    			2*Math.pow(m_radius, 2))/(-2*Math.pow(m_radius, 2))); //radians
     	
     	m_distToGo = m_radius*angleTraveled;
     	

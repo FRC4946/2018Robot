@@ -15,7 +15,7 @@ public class OuterIntakeUntilNotCube extends Command {
 	 * Runs the intake at a certain velocity until a cube is detected
 	 * 
 	 * @param speed 
-	 * 			  velocity to run the intake at
+	 * 			  velocity to run the intake at, ranging from -1.0 to 1.0.
 	 */
     public OuterIntakeUntilNotCube(double speed) {
     	

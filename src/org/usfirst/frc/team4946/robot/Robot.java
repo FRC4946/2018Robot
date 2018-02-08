@@ -17,7 +17,7 @@ import org.usfirst.frc.team4946.robot.subsystems.Transmission;
 import org.usfirst.frc.team4946.robot.subsystems.UpperOutput;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrainSubsystem;
 	public static ElbowSubsystem elbowSubsystem;
@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
 
 	public static OI m_oi;
 
-	private CommandGroup m_autoCommand;
-	private ScriptBundle m_script;
+	private CommandGroup m_autoCommand = new CommandGroup();
+	private ScriptBundle m_script = new ScriptBundle();
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 
 		driveTrainSubsystem = new DriveTrain();
+		elbowSubsystem = new ElbowSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmission();
 		externalIntakeSubsystem = new ExternalIntake();
