@@ -1,5 +1,9 @@
 package org.usfirst.team4946.robot.commands.autonomous;
 
+import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.commands.DriveStraightPID;
+import org.usfirst.frc.team4946.robot.commands.TurnPID;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -24,5 +28,24 @@ public class Autonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    }
+    
+    public void Auto_FirstStage ()
+    {
+    	//Move from start position to scale and place cube
+    	
+    	//Position LeftBottom, Left Scale
+    	addSequential(new DriveStraightPID(0.2, 58.2223));
+    	addSequential(new TurnPID(-90.00));
+    }
+    
+    public void Auto_SecondStage ()
+    {
+    	//Move from scale to collect one of six cubes at front
+    }
+    
+    public void Auto_ThirdStage ()
+    {
+    	//Move to switch and place cube
     }
 }
