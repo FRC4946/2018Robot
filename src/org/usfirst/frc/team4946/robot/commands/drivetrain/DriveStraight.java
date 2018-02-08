@@ -1,20 +1,15 @@
-package org.usfirst.frc.team4946.robot.commands;
-
-import org.usfirst.frc.team4946.robot.OI;
-import org.usfirst.frc.team4946.robot.Robot;
+package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveWithJoysticks extends Command {
+public class DriveStraight extends Command {
 
-	
-    public DriveWithJoysticks() {
+    public DriveStraight() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.DriveTrain); 
     }
 
     // Called just before this Command runs the first time
@@ -23,9 +18,6 @@ public class DriveWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
-    	Robot.DriveTrain.arcadeDrive(Robot.OI.getDriveJoystick().getRawAxis(1)/5.0, 
-    			Robot.OI.getDriveJoystick().getRawAxis(0)/5.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

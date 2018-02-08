@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -14,13 +14,14 @@ public class TurnPID extends Command {
     public TurnPID(double angle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.DriveTrain);
+    	requires(Robot.driveTrainSubsystem);
     	m_setAngle = angle;
     }
+    
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.DriveTrain.setGyroSetpoint(m_setAngle);
+    	Robot.driveTrainSubsystem.setGyroSetpoint(m_setAngle);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,12 +30,12 @@ public class TurnPID extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.DriveTrain.getGyroOnTarget();
+        return Robot.driveTrainSubsystem.getGyroOnTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.DriveTrain.stop();
+    	Robot.driveTrainSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same

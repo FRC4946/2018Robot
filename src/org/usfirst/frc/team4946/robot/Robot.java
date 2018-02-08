@@ -7,15 +7,22 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorClamp;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmission;
+import org.usfirst.frc.team4946.robot.subsystems.ExternalIntake;
 import org.usfirst.frc.team4946.robot.subsystems.Transmission;
+import org.usfirst.frc.team4946.robot.subsystems.UpperOutput;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,68 +32,96 @@ import org.usfirst.frc.team4946.robot.subsystems.Transmission;
  * project.
  */
 public class Robot extends IterativeRobot {
-	
-	public static final ExampleSubsystem ExampleSubsystem = new ExampleSubsystem();
-	public static final DriveTrain DriveTrain = new DriveTrain(); //drivetrain object
-	public static final Transmission transmission = new Transmission();
-	public static OI OI;
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	public static DriveTrain driveTrainSubsystem;
+	public static ElevatorSubsystem elevatorSubsystem;
+	public static ElevatorTransmission elevatorTransmissionSubsystem;
+	public static ElevatorClamp elevatorClampSubsystem;
+	public static ExternalIntake externalIntakeSubsystem;
+	public static UpperOutput upperOutputSubsystem;
+	public static Transmission transmissionSubsystem;
+
+	public static OI m_oi;
+
+	private CommandGroup m_autoCommand;
+	private ScriptBundle m_script;
+
+	private Timer m_prefsUpdateTimer = new Timer();
+	private Preferences m_robotPrefs;
 
 	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		OI = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		// Load all of the robot preferences from the NetworkTables,
+		// and then repopulate them to ensure they are visible on the
+		// SmartDashboard
+		m_robotPrefs = Preferences.getInstance();
+		RobotConstants.updatePrefs(m_robotPrefs);
+
+		driveTrainSubsystem = new DriveTrain();
+		elevatorSubsystem = new ElevatorSubsystem();
+		elevatorTransmissionSubsystem = new ElevatorTransmission();
+		elevatorClampSubsystem = new ElevatorClamp();
+		externalIntakeSubsystem = new ExternalIntake();
+		upperOutputSubsystem = new UpperOutput();
+		transmissionSubsystem = new Transmission();
+
+		// This MUST occur AFTER the subsystems and instantiated
+		m_oi = new OI();
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+	 * This function is called once each time the robot enters Disabled mode. You
+	 * can use it to reset any subsystem information you want to clear when the
+	 * robot is disabled.
 	 */
 	@Override
 	public void disabledInit() {
-
+		m_prefsUpdateTimer.reset();
+		m_prefsUpdateTimer.start();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+
+		// Every 3 seconds, update the robot preferences
+		// No idea if this is a good idea or not. Worth experimenting with
+		// though.
+		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
+			RobotConstants.updatePrefs(m_robotPrefs);
+
+			// TODO: Load from file
+		}
 	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
+	 * between different autonomous modes using the dashboard. The sendable chooser
+	 * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+	 * remove all of the chooser code and uncomment the getString code to get the
+	 * auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
+	 * <p>
+	 * You can add additional auto modes by adding additional commands to the
+	 * chooser code above (like the commented example) or additional comparisons to
+	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		driveTrainSubsystem.resetEncoders();
+		RobotConstants.updatePrefs(m_robotPrefs);
+		driveTrainSubsystem.updatePIDTunings();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		String data = DriverStation.getInstance().getGameSpecificMessage();
 
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		// Load the auto
+		m_autoCommand = m_script.getAuto(data);
+		if (m_autoCommand != null)
+			m_autoCommand.start();
 	}
 
 	/**
@@ -96,24 +131,52 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+										
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (m_autoCommand != null) {
+			m_autoCommand.cancel();
+		
 		}
 	}
-
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**
