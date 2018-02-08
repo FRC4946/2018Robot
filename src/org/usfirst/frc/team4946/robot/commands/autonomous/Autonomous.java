@@ -1,5 +1,9 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
+import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveStraightPID;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.intake.IntakeUntilCube;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -33,6 +37,100 @@ public class Autonomous extends CommandGroup {
     
     public void Auto_SecondStage()
     {
+    	
+    	//cubes are listed in order from left to right
+    	
+    	//speed is always 0.2
+    	
+    
+    	//right side, cube 6
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 51.4278));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//right side, cube 5
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 ,75.9172));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//right side, cube 4
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 ,100.4066));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//right side, cube 3
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 ,124.896));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//right side, cube 2
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 ,149.3854));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//right side, cube 1
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 ,173.8748));
+    	addSequential(new TurnPID(-90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	
+    	//LEFT SIDE//
+    	
+    	//left side, cube 1
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 51.4278));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//left side, cube 2
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 ,75.9172));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//left side, cube 3
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 ,100.4066));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//left side, cube 4
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 ,124.896));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//left side, cube 5
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 ,149.3854));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    	
+    	//left side, cube 6
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 ,173.8748));
+    	addSequential(new TurnPID(90));
+    	addSequential(new DriveStraightPID(0.2 , 24.203));
+    	addSequential(new IntakeUntilCube(0.2));
+    
+    	
     	//Move from scale and fetch new cube
     }
     
