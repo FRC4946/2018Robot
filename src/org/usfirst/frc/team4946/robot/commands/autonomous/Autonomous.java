@@ -82,6 +82,24 @@ public class Autonomous extends CommandGroup {
     		//Place Cube
     	
     	//Case 5, Start Mid, Scale Right
+    	addSequential(new DriveStraightPID(speedDrive_var, 29.1111));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 88.1620));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 29.1112));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3760));
+    		//Place Cube
+    	
+    	//Case 6, start right, scale right
+    	addSequential(new DriveStraightPID(speedDrive_var, 58.2223));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3760));
+    		//Place Cube
     }
     
     public void Auto_SecondStage()
@@ -186,5 +204,42 @@ public class Autonomous extends CommandGroup {
     public void Auto_ThirdStage()
     {
     	//Move to switch and place new cube
+    	
+    	//Case 1, Right side, close
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 66.5605));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 16.1630));
+    		//Place Cube
+    	
+    	//Case 2, Right side, long
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 82.4083));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 215.9959));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 92.4581));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 23.9472));
+    		//Place Cube
+    	
+    	//Case 3, Left side, close
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 66.5605));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 16.1630));
+    		//Place cube
+    	
+    	//Case 4, Left Side, long
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 82.4083));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 215.9959));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 92.4581));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 23.9472));
+    		//Place Cube
+    	
     }
 }
