@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class Autonomous extends CommandGroup {
 
+	private double speedDrive_var = 0.2;
+	private double speedIntake_var = 0.2;
+	
     public Autonomous() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -33,6 +36,52 @@ public class Autonomous extends CommandGroup {
     public void Auto_FirstStage()
     {
     	//Move From Start to scale and place cube
+    	
+    	//Case 1, Start Left, Scale Left
+    	addSequential(new DriveStraightPID(speedDrive_var, 58.2223));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3780));
+    		//Place Cube
+    	
+    	//Case 2, Start Mid, Scale Left
+    	addSequential(new DriveStraightPID(speedDrive_var, 27.1111));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 88.1620));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 31.1112));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3780));
+    		//Place Cube
+    	
+    	//Case 3, Start Right, Scale Left
+    	addSequential(new DriveStraightPID(speedDrive_var, 27.1111));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 176.3258));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 31.1112));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3780));
+    		//Place Cube
+    	
+    	//Case 4, Start Left, Scale Right
+    	addSequential(new DriveStraightPID(speedDrive_var, 27.1111));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 176.3258));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 31.1112));
+    	addSequential(new TurnPID(90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 36.7341));
+    	addSequential(new TurnPID(-90.0000));
+    	addSequential(new DriveStraightPID(speedDrive_var, 151.3780));
+    		//Place Cube
+    	
+    	//Case 5, Start Mid, Scale Right
     }
     
     public void Auto_SecondStage()
@@ -45,10 +94,10 @@ public class Autonomous extends CommandGroup {
     
     	//right side, cube 6
     	addSequential(new TurnPID(-90));
-    	addSequential(new DriveStraightPID(0.2 , 51.4278));
+    	addSequential(new DriveStraightPID(speedDrive_var , 51.4278));
     	addSequential(new TurnPID(-90));
-    	addSequential(new DriveStraightPID(0.2 , 24.203));
-    	addSequential(new IntakeUntilCube(0.2));
+    	addSequential(new DriveStraightPID(speedDrive_var , 24.203));
+    	addParallel(new IntakeUntilCube(speedIntake_var));
     	
     	//right side, cube 5
     	addSequential(new TurnPID(-90));
