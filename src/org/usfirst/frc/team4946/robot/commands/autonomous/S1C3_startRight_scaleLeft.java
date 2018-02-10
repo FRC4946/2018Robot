@@ -9,16 +9,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class S1C2_startMid_scaleLeft extends CommandGroup {
+public class S1C3_startRight_scaleLeft extends CommandGroup {
 
 	private double speedDrive_var = RobotConstants.ROBOT_DRIVE_AUTO_SPEED;
 	
-    public S1C2_startMid_scaleLeft() {
+    public S1C3_startRight_scaleLeft() {
     	
-    	//Case 2, Start Mid, Scale Left
+    	//Case 3, Start Right, Scale Left
     	addSequential(new DriveStraightPID(speedDrive_var, 27.1111));
     	addSequential(new TurnPID(-90.0000));
-    	addSequential(new DriveStraightPID(speedDrive_var, 88.1620));
+    	addSequential(new DriveStraightPID(speedDrive_var, 176.3258));
     	addSequential(new TurnPID(90.0000));
     	addSequential(new DriveStraightPID(speedDrive_var, 31.1112));
     	addSequential(new TurnPID(-90.0000));
