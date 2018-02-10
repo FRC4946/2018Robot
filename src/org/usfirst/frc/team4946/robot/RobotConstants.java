@@ -10,6 +10,7 @@ public class RobotConstants {
 	public static final double GEARBOX_REDUCTION_LOW = 1.0; // dummy
 	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; //dummy (inches per second squared)
 	public static final double ROBOT_SAMPLE_TIME = 0.020; //(seconds)
+	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
 	// public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI
 	// / ENCODER_PPR * GEARBOX_REDUCTION;
 
