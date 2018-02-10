@@ -14,7 +14,13 @@ public class GrabCubeAtStart extends CommandGroup {
 	int cube;
 	double move;
 	
-    public GrabCubeAtStart(int cube) {
+	/**
+	 * Grabs a specific cube after reaching a starting position
+	 * 
+	 * @param cube cube to grab from the side that the goLeft boolean is set to, to the other side
+	 * @param goLeft, tell the robot whether it should go left or right
+	 */
+    public GrabCubeAtStart(int cube, boolean goLeft) {
     	
         this.cube = cube;
         
@@ -24,7 +30,11 @@ public class GrabCubeAtStart extends CommandGroup {
         
         addSequential(new DriveStraightPID(0.6, 79.24));
         
-        addSequential(new TurnPID(90.0)); // may need to be changed to -90
+        if (goLeft) {
+        	addSequential(new TurnPID(90.0)); // may need to be changed to -90	
+        } else {
+        	addSequential(new TurnPID(-90.0)); // may need to be changed to 90	
+        }
         
         addSequential(new DriveStraightPID(0.6, 42.723 + move));
         
