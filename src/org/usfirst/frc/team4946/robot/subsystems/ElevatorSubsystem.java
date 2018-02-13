@@ -3,7 +3,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+import org.usfirst.frc.team4946.robot.commands.elevator.ClosedLoopControl;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
- */
+ * 
+ */ 
 public class ElevatorSubsystem extends Subsystem {
 
 	WPI_TalonSRX m_elevatorMotorTopLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_TOPLEFT);
@@ -44,7 +44,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorJoystickCtrl());
+		setDefaultCommand(new ClosedLoopControl());
 	}
 
 	/**
@@ -103,4 +103,5 @@ public class ElevatorSubsystem extends Subsystem {
 	public boolean getOnTarget() {
 		return m_elevatorPIDController.onTarget();
 	}
+	
 }

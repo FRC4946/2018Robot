@@ -3,13 +3,14 @@ package org.usfirst.frc.team4946.robot;
 import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
-
+	public static final double TURNING_POINT = 0.0; //Dummy
 	public static final int ENCODER_PPR = 128;
-	public static final double WHEEL_DIA = 6;
-	public static final double GEARBOX_REDUCTION_HIGH = 1; // dummy
-	public static final double GEARBOX_REDUCTION_LOW = 1; // dummy
+	public static final double WHEEL_DIA = 6.0;
+	public static final double GEARBOX_REDUCTION_HIGH = 1.0; // dummy
+	public static final double GEARBOX_REDUCTION_LOW = 1.0; // dummy
 	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; //dummy (inches per second squared)
 	public static final double ROBOT_SAMPLE_TIME = 0.020; //(seconds)
+	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
 	// public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI
 	// / ENCODER_PPR * GEARBOX_REDUCTION;
 
@@ -18,6 +19,13 @@ public class RobotConstants {
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; // Dummy
 	public static final double ELEVATOR_SCALING_VALUE = 67.1; // Dummy
 	public static final double ELEVATOR_OFFSET_VALUE = 5.0; // Dummy
+	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
+	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
+	
+	public static double turningPoint  = 0.0; //Dummy
+	
+	public static final double[] AUTO_DROP_OFF_END_POINT = {42.723, 165.494};
+
 
 	public static double leftDriveP = 0.0;
 	public static double leftDriveI = 0.0;

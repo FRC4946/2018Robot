@@ -7,19 +7,21 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorClamp;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.OutputSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmission;
+import org.usfirst.frc.team4946.robot.subsystems.ExternalIntake;
 import org.usfirst.frc.team4946.robot.subsystems.Transmission;
+import org.usfirst.frc.team4946.robot.subsystems.UpperOutput;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,16 +33,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static IntakeSubsystem intakeSubsystem;
 	public static DriveTrain driveTrainSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
-	public static OutputSubsystem outputsubsystem;
-	public static ElbowSubsystem elbowSubsystem;
-	public static Transmission transmission;
+	public static ElevatorTransmission elevatorTransmissionSubsystem;
+	public static ElevatorClamp elevatorClampSubsystem;
+	public static ExternalIntake externalIntakeSubsystem;
+	public static UpperOutput upperOutputSubsystem;
+	public static Transmission transmissionSubsystem;
+
 	public static OI m_oi;
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	private CommandGroup m_autoCommand;
+	private ScriptBundle m_script;
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
@@ -57,18 +61,16 @@ public class Robot extends IterativeRobot {
 		m_robotPrefs = Preferences.getInstance();
 		RobotConstants.updatePrefs(m_robotPrefs);
 
-		intakeSubsystem = new IntakeSubsystem();
 		driveTrainSubsystem = new DriveTrain();
 		elevatorSubsystem = new ElevatorSubsystem();
-		outputsubsystem = new OutputSubsystem();
-		elbowSubsystem = new ElbowSubsystem();
-		transmission = new Transmission()
+		elevatorTransmissionSubsystem = new ElevatorTransmission();
+		elevatorClampSubsystem = new ElevatorClamp();
+		externalIntakeSubsystem = new ExternalIntake();
+		upperOutputSubsystem = new UpperOutput();
+		transmissionSubsystem = new Transmission();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
-		// m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		// SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
 	/**
@@ -89,8 +91,11 @@ public class Robot extends IterativeRobot {
 		// Every 3 seconds, update the robot preferences
 		// No idea if this is a good idea or not. Worth experimenting with
 		// though.
-		if (m_prefsUpdateTimer.hasPeriodPassed(3))
+		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
+
+			// TODO: Load from file
+		}
 	}
 
 	/**
@@ -111,19 +116,12 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 
-		m_autonomousCommand = m_chooser.getSelected();
+		String data = DriverStation.getInstance().getGameSpecificMessage();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
-		 * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-		 * ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		// Load the auto
+		m_autoCommand = m_script.getAuto(data);
+		if (m_autoCommand != null)
+			m_autoCommand.start();
 	}
 
 	/**
@@ -133,24 +131,52 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+										
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (m_autoCommand != null) {
+			m_autoCommand.cancel();
+		
 		}
 	}
-
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

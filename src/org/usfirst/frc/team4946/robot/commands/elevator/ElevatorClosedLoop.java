@@ -1,18 +1,15 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
-
-import org.usfirst.frc.team4946.robot.Robot;
+package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElbowDown extends Command {
+public class ElevatorClosedLoop extends Command {
 
-    public ElbowDown() {
+    public ElevatorClosedLoop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.elbowSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +18,6 @@ public class ElbowDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	Robot.elbowSubsystem.setElbowDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()

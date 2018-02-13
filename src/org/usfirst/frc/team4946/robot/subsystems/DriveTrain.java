@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -24,9 +23,6 @@ public class DriveTrain extends Subsystem {
 	// Create motors, controller groups, and drives
 	private WPI_TalonSRX m_frontLeft, m_midLeft, m_rearLeft, m_frontRight, m_midRight, m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
-
-	// Create Solenoid
-	private Solenoid m_gearShift;
 
 	// Create encoders and gyro
 	private Encoder m_leftEnc, m_rightEnc;
@@ -49,8 +45,6 @@ public class DriveTrain extends Subsystem {
 
 		m_left = new SpeedControllerGroup(m_frontLeft, m_midLeft, m_rearLeft);
 		m_right = new SpeedControllerGroup(m_frontRight, m_midRight, m_rearRight);
-
-		m_gearShift = new Solenoid(RobotMap.PCM_DRIVE_GEAR);
 
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
@@ -114,18 +108,34 @@ public class DriveTrain extends Subsystem {
 		m_right.set(speed + rotate);
 	}
 
+	/**
+	 * Calibrates the gyro
+	 */
 	public void calibrateGyro() {
 		m_driveGyro.calibrate();
 	}
 
+	/**
+	 * 
+	 * @return fetches the angle of gyro
+	 */
 	public double getGyroAngle() {
 		return m_driveGyro.getAngle();
 	}
 
+	
+	/**
+	 * 
+	 * @returns the PID output of the gyro
+	 */
 	public double getGyroPIDOutput() {
 		return m_gyroPIDOutput.getOutput();
 	}
 
+	/**Sets a set point for the gyro
+	 * 
+	 * @param setpoint to set the point of the gyro to
+	 */
 	public void setGyroSetpoint(double setpoint) {
 		m_gyroPID.setSetpoint(setpoint);
 	}
@@ -220,7 +230,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void setEncoderDPP() {	
-		if(Robot.transmission.getGearState()) {
+		if(Robot.transmissionSubsystem.getGearState()) {
 			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
 					/ RobotConstants.ENCODER_PPR * RobotConstants.GEARBOX_REDUCTION_HIGH;

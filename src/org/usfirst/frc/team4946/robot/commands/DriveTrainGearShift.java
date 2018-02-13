@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
+package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,13 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElbowUp extends Command {
+public class DriveTrainGearShift extends Command {
 
-    public ElbowUp() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.elbowSubsystem);
-    	
+	boolean position;
+	
+    public DriveTrainGearShift(boolean position) {
+    	requires(Robot.transmissionSubsystem);
+        
+    	this.position = position;
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +23,8 @@ public class ElbowUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	Robot.elbowSubsystem.setElbowUp();
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,5 +39,6 @@ public class ElbowUp extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
