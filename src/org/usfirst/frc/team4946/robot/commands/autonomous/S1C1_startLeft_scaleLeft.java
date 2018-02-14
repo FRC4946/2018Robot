@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveStraightPID;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.TurnPID;

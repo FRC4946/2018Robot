@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4946.robot.commands.autoscripts;
 
+import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveStraightPID;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.TurnPID;
-import org.usfirst.frc.team4946.robot.commands.intake.IntakeUntilCube;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -40,7 +40,7 @@ public class GrabCubeAtStart extends CommandGroup {
         
         addSequential(new TurnPID(180)); // Turn values may need to be changed
         
-        addParallel(new IntakeUntilCube(-1.0)); //Argument may need to be changed
+        addParallel(new CubeAndLiftIntake(-1.0)); //Argument may need to be changed
         
         addSequential(new DriveStraightPID(0.6, 51.24));
         

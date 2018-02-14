@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands.elbow;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,11 +24,11 @@ public class ManageElbowPos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(RobotConstants.getElevatorIsLowest()) {
-    		Robot.elbowSubsystem.setElbowDown();
-    	} else {
-    		Robot.elbowSubsystem.setElbowUp();
-    	}
+//    	if(RobotConstants.getElevatorIsLowest()) {
+//    		Robot.elbowSubsystem.setElbowDown();
+//    	} else {
+//    		Robot.elbowSubsystem.setElbowUp();
+//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

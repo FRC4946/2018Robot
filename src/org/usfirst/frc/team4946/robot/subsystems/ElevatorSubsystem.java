@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.elevator.ClosedLoopControl;

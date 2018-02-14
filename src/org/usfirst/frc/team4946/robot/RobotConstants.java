@@ -23,33 +23,11 @@ public class RobotConstants {
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
 
-	private static boolean elevatorIsLowest = true;
-
 	public static final double[] AUTO_DROP_OFF_END_POINT = { 42.723, 165.494 };
-
-	/**
-	 * Sets whether or not the elevator is at its lowest height.
-	 * 
-	 * @param setting
-	 *            whether or not the elevator is at its lowest height. True means it
-	 *            is, false means it's not.
-	 */
-	public static void setElevatorIsLowest(boolean setting) {
-		elevatorIsLowest = setting;
-	}
-
-	/**
-	 * @return whether or not the elevator is at its lowest height.
-	 */
-	public static boolean getElevatorIsLowest() {
-		return elevatorIsLowest;
-	}
 
 	public static double leftDriveP;
 	public static double leftDriveI;
 	public static double leftDriveD;
-
-	public static final double[] AUTO_DROP_OFF_END_POINT = { 42.723, 165.494 };
 
 	/**
 	 * Load all of the preferences from the file saved on the roboRIO. These

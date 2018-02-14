@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.pathplanning.TrapezoidMotionProfile;
 
 import edu.wpi.first.wpilibj.command.Command;

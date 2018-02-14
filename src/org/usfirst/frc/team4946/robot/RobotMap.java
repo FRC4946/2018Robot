@@ -35,7 +35,7 @@ public class RobotMap {
 	public static final int CAN_DRIVE_LEFTFRONT = 3;
 	public static final int CAN_DRIVE_LEFTMID = 12;
 	public static final int CAN_DRIVE_LEFTBACK = 13;
-	
+
 	public static final int CAN_DRIVE_RIGHTFRONT = 0;
 	public static final int CAN_DRIVE_RIGHTMID = 1;
 	public static final int CAN_DRIVE_RIGHTBACK = 2;
@@ -56,6 +56,4 @@ public class RobotMap {
 	public static final int PCM_ELEVATOR_GEAR = 1;
 	public static final int PCM_ELBOW_LEFT = 2;
 	public static final int PCM_ELBOW_RIGHT = 3;
-	public static final int PCM_CLAMP_SOLENOID = 2;
-	public static final int PCM_PISTONS = 1;
 }

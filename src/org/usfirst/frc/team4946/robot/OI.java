@@ -13,10 +13,8 @@ import org.usfirst.frc.team4946.robot.commands.OutputCubeWithIntake;
 import org.usfirst.frc.team4946.robot.commands.RumbleJoysticks;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
-import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -32,23 +30,23 @@ public class OI {
 	Button cubeInButton = new JoystickButton(driveStick, 3); // 1 is the button number for the cube intake Button
 	Button cubeOutButton = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
 	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
-	Button clampButtonClosed = new JoystickButton(operatorStick, 2); //Closes clamp on elevator
+	Button clampButtonClosed = new JoystickButton(operatorStick, 2); // Closes clamp on elevator
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
-	Button elevatorGearshiftButton = new JoystickButton(operatorStick, 4); //Shifts gears on the elevator
-	Button driveGearshiftButton = new JoystickButton(driveStick, 5); //Shifts gears on the drivetrain
+	Button elevatorGearshiftButton = new JoystickButton(operatorStick, 4); // Shifts gears on the elevator
+	Button driveGearshiftButton = new JoystickButton(driveStick, 5); // Shifts gears on the drivetrain
 	Button shaketest = new JoystickButton(driveStick, 1);
 
 	public OI() {
-		
-		if(RobotConstants.getElevatorIsLowest()) {
-			
-			cubeInButton.whileHeld(new CubeAndLiftIntake());
-			cubeOutButton.whileHeld(new OutputCubeWithIntake());
-		} else {
-			
-			cubeInButton.whileHeld(new RunOutput(-0.7));
-			cubeOutButton.whileHeld(new RunOutput(0.7));
-		}
+
+		// if(RobotConstants.getElevatorIsLowest()) {
+
+		cubeInButton.whileHeld(new CubeAndLiftIntake());
+		cubeOutButton.whileHeld(new OutputCubeWithIntake());
+		// } else {
+		//
+		// cubeInButton.whileHeld(new RunOutput(-0.7));
+		// cubeOutButton.whileHeld(new RunOutput(0.7));
+		// }
 
 		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
 		elevatorGearshiftButton.whenPressed(new ElevatorGearShift());
@@ -69,5 +67,5 @@ public class OI {
 	public Joystick getOperatorStick() {
 		return operatorStick;
 	}
-	
+
 }
