@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * 
- */ 
+ */
 public class ElevatorSubsystem extends Subsystem {
 
 	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
@@ -73,11 +73,9 @@ public class ElevatorSubsystem extends Subsystem {
 	 * @param d_speed
 	 *            The fraction of the motor's maximum speed the motors are to spin
 	 *            at. Ranges between -1.0 and 1.0
-	 * 
-	 * 
 	 */
 	public void set(double d_speed) {
-		
+
 		m_elevatorMotorLeft.set(d_speed);
 		m_elevatorMotorRight.set(-d_speed);
 	}
@@ -86,29 +84,30 @@ public class ElevatorSubsystem extends Subsystem {
 	 * @return the average speed of both elevator MotorControllerGroups
 	 */
 	public double getSpeed() {
-		
+
 		return (m_elevatorMotorGroup.get());
 	}
-	
+
 	/**
 	 * @return the speed of the left elevator MotorControllerGroup
 	 */
 	public double getLeftSpeed() {
 		return m_elevatorMotorGroup.get();
 	}
-	
+
 	/**
 	 * @return the speed of the right elevator MotorControllerGroup
 	 */
 	public double getRightSpeed() {
-		//return m_elevatorMotorGroupRight.get();
+		// return m_elevatorMotorGroupRight.get();
 		return 1.0;
 	}
-	
+
 	/**
 	 * Sets the elevator height setpoint.
+	 * 
 	 * @param d_point
-	 * 				the height setpoint in inches.
+	 *            the height setpoint in inches.
 	 */
 	public void setSetpoint(double d_point) {
 		m_elevatorPIDController.setSetpoint(d_point);
@@ -120,5 +119,5 @@ public class ElevatorSubsystem extends Subsystem {
 	public boolean getOnTarget() {
 		return m_elevatorPIDController.onTarget();
 	}
-	
+
 }

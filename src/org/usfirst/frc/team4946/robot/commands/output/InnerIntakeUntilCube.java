@@ -10,33 +10,35 @@ import edu.wpi.first.wpilibj.command.Command;
 public class InnerIntakeUntilCube extends Command {
 
 	double m_speed;
-	
-	/**Runs the inner intake at a specified velocity until a cube is detected
+
+	/**
+	 * Runs the inner intake at a specified velocity until a cube is detected
 	 * 
-	 * @param m_speed the velocity at which to run the inner intake
+	 * @param m_speed
+	 *            the velocity at which to run the inner intake
 	 */
-    public InnerIntakeUntilCube(double speed) {
-    	
-    	requires(Robot.upperOutputSubsystem);
-    	m_speed = speed;
-    }
+	public InnerIntakeUntilCube(double speed) {
 
-    protected void initialize() {
-    }
+		requires(Robot.upperOutputSubsystem);
+		m_speed = speed;
+	}
 
-    protected void execute() {
-    	Robot.upperOutputSubsystem.set(m_speed);
-    }
+	protected void initialize() {
+	}
 
-    protected boolean isFinished() {
-        return Robot.upperOutputSubsystem.getHasCube();
-    }
+	protected void execute() {
+		Robot.upperOutputSubsystem.set(m_speed);
+	}
 
-    protected void end() {
-    	Robot.upperOutputSubsystem.disableMechanism();
-    }
+	protected boolean isFinished() {
+		return Robot.upperOutputSubsystem.getHasCube();
+	}
 
-    protected void interrupted() {
-    	end();
-    }
+	protected void end() {
+		Robot.upperOutputSubsystem.stop();
+	}
+
+	protected void interrupted() {
+		end();
+	}
 }
