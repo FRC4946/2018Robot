@@ -52,12 +52,6 @@ public class Transmission extends Subsystem {
 	public void setGearOff() {
 		
 		m_gearShift.set(Value.kOff);
-		
-		if (m_gearShift.get() == Value.kForward || m_gearShift.get() == Value.kOff) {
-			m_gearShift.set(Value.kReverse);
-		} else {
-			m_gearShift.set(Value.kForward);
-		}
 	}
 
 	/**
