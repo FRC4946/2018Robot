@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
- 
+
 	String switchAndScale;
 
 	/**
@@ -73,8 +73,8 @@ public class Robot extends IterativeRobot {
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
-		
-		//switchAndScale = DriverStation.getInstance().getGameSpecificMessage();
+
+		switchAndScale = DriverStation.getInstance().getGameSpecificMessage();
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
@@ -146,6 +146,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (m_autoCommand != null) {
 			m_autoCommand.cancel();
+
 		}
 	}
 
@@ -158,24 +159,22 @@ public class Robot extends IterativeRobot {
 		updateSmartDashboard();
 	}
 
-	public void updateSmartDashboard () {
-		
-		
+	public void updateSmartDashboard() {
+
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
-		
+
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
-		
-		
+
 		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
 		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
-		
+
 	}
-	
+
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
-		
+
 	}
 }

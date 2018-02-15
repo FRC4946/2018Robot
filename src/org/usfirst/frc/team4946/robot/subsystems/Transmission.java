@@ -32,11 +32,19 @@ public class Transmission extends Subsystem {
     		m_gearShift.set(Value.kForward);
     	}
 	}
+/**
+ * @param sets the gearShift to the returned value 
+ */
+
 
 	/**
 	 * @return the state of the gear-shifting solenoid. 
 	 */
 	public Value getGearState() {
 		return m_gearShift.get();
-	}
-}
+	}}
+/**
+ * @return the value of the gear shift, true or false
+ */
+
+	

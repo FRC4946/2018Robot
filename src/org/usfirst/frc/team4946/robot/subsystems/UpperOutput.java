@@ -15,12 +15,12 @@ public class UpperOutput extends Subsystem {
 	
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_LEFT);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_RIGHT);
-	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_SWITCH);
-	
 
-    public void initDefaultCommand() {
-    	
-    }
+	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_SWITCH);
+
+	public void initDefaultCommand() {
+	
+	}
 
 	/**
 	 * Manually sets the speed of the motors.
@@ -44,34 +44,34 @@ public class UpperOutput extends Subsystem {
 		m_leftMotor.set(-d_speed);
 		m_rightMotor.set(-d_speed*1.1);
 	}
-	
+
 	/**
 	 * Sets the speed of both motors to 0
 	 */
-	public void stop() { 
+	public void stop() {
 		m_leftMotor.set(0);
-		m_rightMotor.set(0); 
+		m_rightMotor.set(0);
 	}
-	
+
 	/**
 	 * Disables both motors.
 	 */
 	public void disableMechanism() {
 		m_leftMotor.set(0);
-		m_rightMotor.set(0); 
+		m_rightMotor.set(0);
 	}
-	
+
 	/**
 	 * Manually sets the speed of the motors.
+	 * 
 	 * @param d_speed
-	 * 			Speed of the motors
+	 *            Speed of the motors
 	 */
-	public void set(double d_speed) { 
-		
+	public void set(double d_speed) {
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(-1.0*d_speed);		
+		m_rightMotor.set(-1.0 * d_speed);
 	}
-	
+
 	/**
 	 * 
 	 * @return true if detects the cube, false for no cube
@@ -80,4 +80,3 @@ public class UpperOutput extends Subsystem {
 		return m_cubeSwitch.get();
 	}
 }
-

@@ -23,5 +23,6 @@ public class CubeAndLiftIntake extends CommandGroup {
 		addSequential(new InnerIntakeUntilCube(intakeSpeed));
 		// addParallel(new ElbowUp());
 		addSequential(new ElevatorSetHeight(1.0, 0.4), 0.5);
+
 	}
 }

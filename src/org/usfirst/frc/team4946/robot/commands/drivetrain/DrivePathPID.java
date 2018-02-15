@@ -1,31 +1,32 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
+package org.usfirst.frc.team4946.robot.commands.drivetrain;
+
+import java.nio.file.Path;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElbowDown extends Command {
+public class DrivePathPID extends Command {
+	
+	Path m_leftPath;
+	Path m_rightPath;
+	double m_pathLength;																			
 
-	/**
-	 * Moves the elbow to the downwards facing position
-	 */
-    public ElbowDown() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.elbowSubsystem);
+    public DrivePathPID(Path leftPath, Path rightPath) {
+    	requires(Robot.driveTrainSubsystem);
+    	m_leftPath = leftPath;
+    	m_rightPath = rightPath;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elbowSubsystem.setElbowDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands.drivetrain;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.pathplanning.TrapezoidMotionProfile;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +24,7 @@ public class DriveStraightPID extends Command {
 	 * 			  the distance to drive in inches
 	 */
     public DriveStraightPID(double speed, double distance) {
+
     	requires(Robot.driveTrainSubsystem); 
     	m_speed = speed;
     	m_distanceToGo = distance;
@@ -34,8 +34,6 @@ public class DriveStraightPID extends Command {
     	
     	m_distanceInit = Robot.driveTrainSubsystem.getEncoderDistance();
     	Robot.driveTrainSubsystem.setMaxSpeed(m_speed);
-    	m_motionProfiler = new TrapezoidMotionProfile(m_distanceToGo, m_speed, 
-    			RobotConstants.DRIVETRAIN_MAX_ACCEL, RobotConstants.ROBOT_SAMPLE_TIME, Robot.driveTrainSubsystem.getEncoderDistance());
     	
     	Robot.driveTrainSubsystem.setGyroSetpoint(Robot.driveTrainSubsystem.getGyroAngle());
     	Robot.driveTrainSubsystem.setDistSetpoint(m_distanceInit + m_distanceToGo);

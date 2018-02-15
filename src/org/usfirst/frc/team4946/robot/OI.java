@@ -7,10 +7,13 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
+import org.usfirst.frc.team4946.robot.commands.OutputCubeWithIntake;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+
 import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
@@ -38,7 +41,10 @@ public class OI {
 	Button elevatorGearToggle = new JoystickButton(operatorStick, 4); 
 
 	public OI() {
-		
+
+		cubeInButton.whileHeld(new CubeAndLiftIntake());
+		cubeOutButton.whileHeld(new OutputCubeWithIntake());
+
 		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
 		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
 		triggerDiagonalCube.whenReleased(new RunIntake(0.0));
@@ -73,5 +79,5 @@ public class OI {
 	public Joystick getOperatorStick() {
 		return operatorStick;
 	}
-	
+
 }

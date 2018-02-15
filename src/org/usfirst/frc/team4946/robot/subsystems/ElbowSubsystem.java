@@ -18,7 +18,7 @@ public class ElbowSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		
+
 	}
 
 	public void set(boolean isDown) {
@@ -62,4 +62,5 @@ public class ElbowSubsystem extends Subsystem {
 			m_elbowValve.set(Value.kForward);
 		}
 	}
+
 }
