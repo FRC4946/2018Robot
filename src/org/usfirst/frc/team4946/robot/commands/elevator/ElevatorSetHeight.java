@@ -39,11 +39,6 @@ public class ElevatorSetHeight extends Command {
 
     protected void execute() {
     	
-    	if (Robot.elevatorSubsystem.getElevatorPos() < 1.0) {
-    		RobotConstants.setElevatorIsLowest(true);
-    	} else {
-    		RobotConstants.setElevatorIsLowest(false);
-    	}
     }
 
     protected boolean isFinished() {

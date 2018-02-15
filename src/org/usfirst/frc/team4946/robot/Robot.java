@@ -48,8 +48,9 @@ public class Robot extends IterativeRobot {
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
-	
+ 
 	String switchAndScale;
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -73,7 +74,7 @@ public class Robot extends IterativeRobot {
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 		
-		switchAndScale = DriverStation.getInstance().getGameSpecificMessage();
+		//switchAndScale = DriverStation.getInstance().getGameSpecificMessage();
 	}
 
 	/**
@@ -163,14 +164,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
-		SmartDashboard.putBoolean("Elevator Soldnoid Position", elevatorTransmissionSubsystem.getSolenoidPos());
+		
 		
 		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
 		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
 		
-		
-		
-	
 	}
 	
 	/**

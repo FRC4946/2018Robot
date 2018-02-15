@@ -41,11 +41,11 @@ public class ClosedLoopControl extends Command {
         	Robot.elevatorSubsystem.setSetpoint(m_currentPos + m_move);		
     	}
 
-    	if (m_currentPos < 1.0) {
-    		RobotConstants.setElevatorIsLowest(true);
-    	} else {
-    		RobotConstants.setElevatorIsLowest(false);
-    	}
+//    	if (m_currentPos < 1.0) {
+//    		RobotConstants.setElevatorIsLowest(true);
+//    	} else {
+//    		RobotConstants.setElevatorIsLowest(false);
+//    	}
     }
 
     protected boolean isFinished() {
@@ -60,3 +60,4 @@ public class ClosedLoopControl extends Command {
     	end();
     }
 }
+

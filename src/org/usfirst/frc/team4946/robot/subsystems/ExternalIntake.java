@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.RunBothIntakes;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -19,7 +20,7 @@ public class ExternalIntake extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		
+
 	}
 
 	/**
@@ -28,9 +29,19 @@ public class ExternalIntake extends Subsystem {
 	 * 			Speed of the motors
 	 */
 	public void set(double d_speed) { 
-										
+									
+		d_speed *= 0.8;
+		
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(-1.0 * d_speed);
+		m_rightMotor.set(-d_speed*1.1);
+	}
+	
+	public void diagonalSpin(double d_speed) {
+		
+		d_speed *= 0.8;
+		
+		m_leftMotor.set(d_speed);
+		m_rightMotor.set(d_speed*1.1);
 	}
 
 	/**

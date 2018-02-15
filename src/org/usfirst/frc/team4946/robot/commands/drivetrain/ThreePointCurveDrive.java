@@ -10,6 +10,7 @@ public class ThreePointCurveDrive extends Command {
 	NDimensionalPoint m_point1;
 	NDimensionalPoint m_point2;
 	NDimensionalPoint m_point3;
+	
 	double m_speed;
 	double m_radius;
 	double m_distToGo;
@@ -42,7 +43,7 @@ public class ThreePointCurveDrive extends Command {
     protected void initialize() {
     	
     	double slope1, slope2, yintercept1, yintercept2, midpointx1, midpointy1, midpointx2, 
-    		midpointy2, xintersection, yintersection, angle, point1to3dist, angleTraveled = 0.0;
+    		midpointy2, xintersection, yintersection, point1to3dist, angleTraveled = 0.0;
     	
     	slope1 = -1/((m_point2.getDimension(2) - m_point1.getDimension(2))/
     			(m_point2.getDimension(1) - m_point1.getDimension(1)));

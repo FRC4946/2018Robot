@@ -9,6 +9,8 @@ import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -30,6 +32,7 @@ public class DriveTrain extends Subsystem {
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
 	private double distancePerPulse;
+	//private AnalogGyro m_driveGyro;
 
 	public DriveTrain() {
 
@@ -46,7 +49,7 @@ public class DriveTrain extends Subsystem {
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
 
-		//m_driveGyro = new ADXRS450_Gyro();
+		//m_driveGyro = new AnalogGyro(0);
 
 		m_gyroPIDOutput = new NullPIDOutput();
 
@@ -61,10 +64,10 @@ public class DriveTrain extends Subsystem {
 		//m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
 		//m_gyroPID.setContinuous();
 
-		calibrateGyro();
+		//calibrateGyro();
 		resetPID();
-		enablePID();
-
+		disablePID();
+		
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
 		//m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
@@ -85,7 +88,7 @@ public class DriveTrain extends Subsystem {
 	 *            the turning speed
 	 */
 	public void arcadeDrive(double speed, double rotate) {
-		arcadeDrive(speed, rotate, 1.0);
+		arcadeDrive(speed, rotate, 0.8);
 	}
 
 	/**
@@ -102,9 +105,15 @@ public class DriveTrain extends Subsystem {
 	
 		speed *= (0.5 + (0.5 * throttle));
 		rotate *= (0.5 + (0.5 * throttle));
-
-		m_left.set(speed - rotate);
-		m_right.set(speed + rotate);
+		
+		if(Math.abs(speed) < 0.125) 
+			speed = 0.0;
+		
+		if(Math.abs(rotate) < 0.125) 
+			rotate = 0.0;
+		
+		m_left.set(speed + rotate); 
+		m_right.set(speed - rotate);
 	}
 
 	/**
@@ -285,7 +294,7 @@ public class DriveTrain extends Subsystem {
 	 */
 	public void setEncoderDPP() {
 		
-		if(Robot.transmissionSubsystem.getGearState()) {
+		if(Robot.transmissionSubsystem.getGearState() == Value.kReverse) {
 			
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
 					/ RobotConstants.ENCODER_PPR * RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;

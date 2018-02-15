@@ -35,15 +35,19 @@ public class RobotMap {
 	public static final int CAN_DRIVE_LEFTFRONT = 3;
 	public static final int CAN_DRIVE_LEFTMID = 12;
 	public static final int CAN_DRIVE_LEFTBACK = 13;
-	
+
 	public static final int CAN_DRIVE_RIGHTFRONT = 0;
 	public static final int CAN_DRIVE_RIGHTMID = 1;
 	public static final int CAN_DRIVE_RIGHTBACK = 2;
 
-	public static final int CAN_INTAKE_LEFTMOTOR = 6;
-	public static final int CAN_INTAKE_RIGHTMOTOR = 7;
+	public static final int CAN_INTAKE_LEFTMOTOR = 4;
+	public static final int CAN_INTAKE_RIGHTMOTOR = 5;
+	
 	public static final int CAN_ELEVATOR_LEFT = 8;
 	public static final int CAN_ELEVATOR_RIGHT = 9;
+	
+	public static final int CAN_OUTPUT_LEFT = 10;
+	public static final int CAN_OUTPUT_RIGHT = 11;
 
 	public static final int DIO_DRIVE_LEFTENC1 = 0;
 	public static final int DIO_DRIVE_LEFTENC2 = 1;
@@ -52,9 +56,11 @@ public class RobotMap {
 	public static final int DIO_INTAKE_SWITCH = 4;
 	public static final int DIO_OUTPUT_SWITCH = 5;
 
-	public static final int PCM_DRIVE_GEAR = 0;
-	public static final int PCM_ELEVATOR_GEAR = 1;
-	public static final int PCM_ELBOW_LEFT = 2;
-	public static final int PCM_ELBOW_RIGHT = 3;
-
+	public static final int PCM_DRIVE_GEARLEFT = 0;
+	public static final int PCM_DRIVE_GEARRIGHT = 5;
+	public static final int PCM_ELEVATOR_GEARLEFT = 1;
+	public static final int PCM_ELEVATOR_GEARRIGHT=2;
+	public static final int PCM_ELBOW_LEFT = 3;
+	public static final int PCM_ELBOW_RIGHT = 4;
 }
+
