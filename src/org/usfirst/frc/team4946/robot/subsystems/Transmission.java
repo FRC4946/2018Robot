@@ -32,7 +32,6 @@ public class Transmission extends Subsystem {
 	 * Toggles between low and high gear on the robot.
 	 */
 	public void toggleGear() {
-<<<<<<< HEAD
 		setGear(!m_isHigh);
 	}
 	
@@ -53,20 +52,13 @@ public class Transmission extends Subsystem {
 	public void setGearOff() {
 		
 		m_gearShift.set(Value.kOff);
-=======
-
+		
 		if (m_gearShift.get() == Value.kForward || m_gearShift.get() == Value.kOff) {
 			m_gearShift.set(Value.kReverse);
 		} else {
 			m_gearShift.set(Value.kForward);
 		}
->>>>>>> branch 'master' of https://github.com/FRC4946/2018Robot.git
 	}
-
-	/**
-	 * @param sets
-	 *            the gearShift to the returned value
-	 */
 
 	/**
 	 * @return the state of the gear-shifting solenoid.
