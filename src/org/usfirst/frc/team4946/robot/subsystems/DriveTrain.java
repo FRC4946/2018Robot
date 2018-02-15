@@ -5,6 +5,7 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
 import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
+import org.usfirst.frc.team4946.robot.util.imu.SkewIMU;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -28,7 +30,7 @@ public class DriveTrain extends Subsystem {
 
 	private Encoder m_leftEnc, m_rightEnc;
 
-	//private ADXRS450_Gyro m_driveGyro;
+	private GyroBase m_driveGyro;
 
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
@@ -50,20 +52,20 @@ public class DriveTrain extends Subsystem {
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
 
-		//m_driveGyro = new AnalogGyro(0);
+		m_driveGyro = new SkewIMU();
 
 		m_gyroPIDOutput = new NullPIDOutput();
 
 		m_leftEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
-		//m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
+		m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
-		m_leftPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI,
-				RobotConstants.leftDriveD, m_leftEnc, m_left);
-		m_rightPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI,
-				RobotConstants.leftDriveD, m_rightEnc, m_right);
-		//m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
-		//m_gyroPID.setContinuous();
+		m_leftPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI, RobotConstants.leftDriveD,
+				m_leftEnc, m_left);
+		m_rightPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI, RobotConstants.leftDriveD,
+				m_rightEnc, m_right);
+		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
+		m_gyroPID.setContinuous();
 
 		//calibrateGyro();
 		resetPID();
@@ -71,10 +73,9 @@ public class DriveTrain extends Subsystem {
 		
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
-		//m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
+		m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
 	}
 
-	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
@@ -103,7 +104,7 @@ public class DriveTrain extends Subsystem {
 	 *            the scaling factor
 	 */
 	public void arcadeDrive(double speed, double rotate, double throttle) {
-	
+
 		speed *= (0.5 + (0.5 * throttle));
 		rotate *= (0.5 + (0.5 * throttle));
 		
@@ -121,39 +122,37 @@ public class DriveTrain extends Subsystem {
 	 * @return the average speed of both drivetrain MotorControllerGroups
 	 */
 	public double getAvgSpeed() {
-		return ((m_left.get() + m_right.get())/2);
+		return ((m_left.get() + m_right.get()) / 2);
 	}
-	
+
 	/**
 	 * @return the speed of the left drivetrain MotorControllerGroup
 	 */
 	public double getSpeedLeft() {
 		return m_left.get();
 	}
-	
+
 	/**
 	 * @return the speed of the right drivetrain MotorControllerGroup
 	 */
 	public double getSpeedRight() {
 		return m_right.get();
 	}
-	
+
 	/**
 	 * Calibrates the gyro
 	 */
 	public void calibrateGyro() {
-		//m_driveGyro.calibrate();
+		m_driveGyro.calibrate();
 	}
 
 	/**
 	 * @return fetches the angle of gyro
 	 */
 	public double getGyroAngle() {
-		//return m_driveGyro.getAngle();
-		return 1.0;
+		return m_driveGyro.getAngle();
 	}
 
-	
 	/**
 	 * @return the PID output of the gyro
 	 */
@@ -161,9 +160,11 @@ public class DriveTrain extends Subsystem {
 		return m_gyroPIDOutput.getOutput();
 	}
 
-	/**Sets a set point for the gyro
+	/**
+	 * Sets a set point for the gyro
 	 * 
-	 * @param setpoint to set the point of the gyro to
+	 * @param setpoint
+	 *            to set the point of the gyro to
 	 */
 	public void setGyroSetpoint(double setpoint) {
 		m_gyroPID.setSetpoint(setpoint);
@@ -203,7 +204,7 @@ public class DriveTrain extends Subsystem {
 		m_leftEnc.reset();
 		m_rightEnc.reset();
 	}
-	
+
 	/**
 	 * Stop the robot completely by setting speed to 0.0.
 	 */
@@ -216,7 +217,7 @@ public class DriveTrain extends Subsystem {
 	 * Sets the encoder distance setpoint.
 	 * 
 	 * @param distSetpoint
-	 * 					 The distance for the robot to drive in inches.
+	 *            The distance for the robot to drive in inches.
 	 */
 	public void setDistSetpoint(double distSetpoint) {
 		m_leftPID.setSetpoint(distSetpoint);
@@ -231,7 +232,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	/**
-	 * @return Whether or not the current distance matches the distance setpoint on both sides.
+	 * @return Whether or not the current distance matches the distance setpoint on
+	 *         both sides.
 	 */
 	public boolean getDistOnTarget() {
 		return m_leftPID.onTarget() && m_rightPID.onTarget();
@@ -256,7 +258,7 @@ public class DriveTrain extends Subsystem {
 	 * Resets the gyro.
 	 */
 	public void resetGyro() {
-		//m_driveGyro.reset();
+		 m_driveGyro.reset();
 	}
 
 	/**
@@ -289,7 +291,7 @@ public class DriveTrain extends Subsystem {
 		m_leftPID.reset();
 		m_rightPID.reset();
 	}
-	
+
 	/**
 	 * Sets the encoder count to distance conversion, based on the gear settings.
 	 */
@@ -322,7 +324,8 @@ public class DriveTrain extends Subsystem {
 	 * Sets the maximum speed output for both PID objects
 	 * 
 	 * @param speed
-	 * 			  The upper bound for the output range of the PIDObjects. The negative speed is set as the lower bound.
+	 *            The upper bound for the output range of the PIDObjects. The
+	 *            negative speed is set as the lower bound.
 	 */
 	public void setMaxSpeed(double speed) {
 		m_leftPID.setOutputRange(-speed, speed);
