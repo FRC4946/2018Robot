@@ -60,7 +60,7 @@ public class RunOutput extends Command {
     }
 
     protected void end() {
-    	Robot.upperOutputSubsystem.disableMechanism();
+    	Robot.upperOutputSubsystem.stop();
     }
 
 

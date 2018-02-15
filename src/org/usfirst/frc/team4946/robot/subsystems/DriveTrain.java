@@ -9,10 +9,7 @@ import org.usfirst.frc.team4946.robot.util.imu.SkewIMU;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.PIDController;
@@ -35,7 +32,6 @@ public class DriveTrain extends Subsystem {
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
 	private double distancePerPulse;
-	//private AnalogGyro m_driveGyro;
 
 	public DriveTrain() {
 
@@ -67,10 +63,10 @@ public class DriveTrain extends Subsystem {
 		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
 		m_gyroPID.setContinuous();
 
-		//calibrateGyro();
+		calibrateGyro();
 		resetPID();
 		disablePID();
-		
+
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
 		m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
@@ -107,14 +103,14 @@ public class DriveTrain extends Subsystem {
 
 		speed *= (0.5 + (0.5 * throttle));
 		rotate *= (0.5 + (0.5 * throttle));
-		
-		if(Math.abs(speed) < 0.125) 
+
+		if (Math.abs(speed) < 0.125)
 			speed = 0.0;
-		
-		if(Math.abs(rotate) < 0.125) 
+
+		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
-		
-		m_left.set(speed + rotate); 
+
+		m_left.set(speed + rotate);
 		m_right.set(speed - rotate);
 	}
 
@@ -258,7 +254,7 @@ public class DriveTrain extends Subsystem {
 	 * Resets the gyro.
 	 */
 	public void resetGyro() {
-		 m_driveGyro.reset();
+		m_driveGyro.reset();
 	}
 
 	/**
@@ -296,11 +292,11 @@ public class DriveTrain extends Subsystem {
 	 * Sets the encoder count to distance conversion, based on the gear settings.
 	 */
 	public void setEncoderDPP() {
-		
-		if(Robot.transmissionSubsystem.getGearState() == Value.kReverse) {
-			
-			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI
-					/ RobotConstants.ENCODER_PPR * RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;
+
+		if (Robot.transmissionSubsystem.getGearState() == Value.kReverse) {
+
+			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
+					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;
 			m_leftEnc.setDistancePerPulse(distancePerPulse);
 			m_rightEnc.setDistancePerPulse(distancePerPulse);
 
