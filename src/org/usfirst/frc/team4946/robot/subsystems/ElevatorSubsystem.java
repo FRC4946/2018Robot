@@ -2,7 +2,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elevator.ClosedLoopControl;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -34,7 +34,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ClosedLoopControl());
+		setDefaultCommand(new ElevatorJoystickCtrl());
 	}
 
 	/**

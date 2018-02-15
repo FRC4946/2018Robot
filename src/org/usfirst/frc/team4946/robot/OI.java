@@ -8,11 +8,15 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
-import org.usfirst.frc.team4946.robot.commands.DriveTrainGearShift;
 import org.usfirst.frc.team4946.robot.commands.OutputCubeWithIntake;
-import org.usfirst.frc.team4946.robot.commands.RumbleJoysticks;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
+import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+
+import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
+import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
+import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,31 +31,39 @@ public class OI {
 	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
-	Button cubeInButton = new JoystickButton(driveStick, 3); // 1 is the button number for the cube intake Button
-	Button cubeOutButton = new JoystickButton(driveStick, 2); // 2 is the button number for the cube output button
-	Button clampButtonOpen = new JoystickButton(operatorStick, 1); // Opens clamp on elevator
-	Button clampButtonClosed = new JoystickButton(operatorStick, 2); // Closes clamp on elevator
+	Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button number for the cube intake Button
+	Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button number for the cube output button
+	Button triggerDiagonalCube = new JoystickButton(driveStick, 4);
+	
+	Button togglePneumaticArms = new JoystickButton(operatorStick, 1);
+	Button driveGearToggle = new JoystickButton(operatorStick, 2);
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
-	Button elevatorGearshiftButton = new JoystickButton(operatorStick, 4); // Shifts gears on the elevator
-	Button driveGearshiftButton = new JoystickButton(driveStick, 5); // Shifts gears on the drivetrain
-	Button shaketest = new JoystickButton(driveStick, 1);
+	Button elevatorGearToggle = new JoystickButton(operatorStick, 4); 
 
 	public OI() {
 
-		// if(RobotConstants.getElevatorIsLowest()) {
-
 		cubeInButton.whileHeld(new CubeAndLiftIntake());
 		cubeOutButton.whileHeld(new OutputCubeWithIntake());
-		// } else {
-		//
-		// cubeInButton.whileHeld(new RunOutput(-0.7));
-		// cubeOutButton.whileHeld(new RunOutput(0.7));
-		// }
 
 		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
-		elevatorGearshiftButton.whenPressed(new ElevatorGearShift());
-		driveGearshiftButton.whenPressed(new DriveTrainGearShift());
-		shaketest.whenPressed(new RumbleJoysticks());
+		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
+		triggerDiagonalCube.whenReleased(new RunIntake(0.0));
+		
+		cubeInButton.whenPressed(new RunIntake(0.5));
+		cubeInButton.whenPressed(new RunOutput(0.4));
+		
+		cubeInButton.whenReleased(new RunIntake(0.0));
+		cubeInButton.whenReleased(new RunOutput(0.0));
+		
+		cubeOutButton.whenPressed(new RunIntake(-0.5));
+		cubeOutButton.whenPressed(new RunOutput(-0.4));
+		
+		cubeOutButton.whenReleased(new RunIntake(0.0));
+		cubeOutButton.whenReleased(new RunOutput(0.0));
+		
+		togglePneumaticArms.whenPressed(new ToggleElbowPos());
+		driveGearToggle.whenPressed(new ToggleDriveGear());
+		elevatorGearToggle.whenPressed(new ElevatorGearShift());
 	}
 
 	/**
