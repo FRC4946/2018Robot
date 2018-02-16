@@ -26,8 +26,6 @@ public class RobotConstants {
 	
 	public static final boolean ELEVATOR_SAFETY = false;
 
-	public static final double[] AUTO_DROP_OFF_END_POINT = { 42.723, 165.494 }; //Probably useless but maybe we should keep ?? *Thinking Emoji*
-
 	public static double leftDriveP;
 	public static double leftDriveI;
 	public static double leftDriveD;
