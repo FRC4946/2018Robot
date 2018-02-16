@@ -39,6 +39,10 @@ public class OI {
 	Button driveGearToggle = new JoystickButton(operatorStick, 2);
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
 	Button elevatorGearToggle = new JoystickButton(operatorStick, 4); 
+	
+	Button elevatorPreset1 = new JoystickButton(operatorStick, 5); // moves elevator to preset height
+	Button elevatorPreset2 = new JoystickButton(operatorStick, 6); // moves elevator to preset height
+	Button elevatorPreset3 = new JoystickButton(operatorStick, 7); // moves elevator to preset height
 
 	public OI() {
 
@@ -64,6 +68,8 @@ public class OI {
 		togglePneumaticArms.whenPressed(new ToggleElbowPos());
 		driveGearToggle.whenPressed(new ToggleDriveGear());
 		elevatorGearToggle.whenPressed(new ElevatorGearShift());
+		
+		elevatorPreset1.whenHeld(new ElevatorSetHeight(RobotConstants.ELEVATOR));
 	}
 
 	/**
