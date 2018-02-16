@@ -66,6 +66,12 @@ public class ElevatorSubsystem extends Subsystem {
 		}
 
 	}
+	
+	public boolean isAtBottom() {
+		
+		
+		
+	}
 
 	/**
 	 * Manually sets the speed of the motors.
