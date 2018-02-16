@@ -10,9 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/CTRE Phoenix"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
-<<<<<<< HEAD
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-=======
->>>>>>> branch 'master' of https://github.com/FRC4946/2018Robot.git
 	<classpathentry kind="output" path="bin"/>
 </classpath>
