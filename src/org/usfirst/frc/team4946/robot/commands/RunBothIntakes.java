@@ -13,6 +13,12 @@ public class RunBothIntakes extends CommandGroup {
 	double speed;
 	
 	
+	/**
+	 * Runs both the input and output at a desired speed
+	 * 
+	 * 
+	 * @param speed the speed for the intakes to run at
+	 */
 	public RunBothIntakes(double speed) {
 		
 		this.speed = speed;
