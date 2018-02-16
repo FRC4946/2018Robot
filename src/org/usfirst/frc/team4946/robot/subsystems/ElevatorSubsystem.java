@@ -68,8 +68,13 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
 	public boolean isAtBottom() {
+		boolean atBottom = false;
 		
+		if (getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
+			atBottom = true;
+		}
 		
+		return atBottom;
 		
 	}
 
