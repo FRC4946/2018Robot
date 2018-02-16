@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class DriveTrain extends Subsystem {
+public class DriveTrainSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_frontLeft, m_midLeft, m_rearLeft, m_frontRight, m_midRight, m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
@@ -33,7 +33,7 @@ public class DriveTrain extends Subsystem {
 	private NullPIDOutput m_gyroPIDOutput;
 	private double distancePerPulse;
 
-	public DriveTrain() {
+	public DriveTrainSubsystem() {
 
 		m_frontLeft = new WPI_TalonSRX(RobotMap.CAN_DRIVE_LEFTFRONT);
 		m_midLeft = new WPI_TalonSRX(RobotMap.CAN_DRIVE_LEFTMID);

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class UpperOutput extends Subsystem {
+public class UpperOutputSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_LEFT);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_RIGHT);
@@ -18,6 +18,7 @@ public class UpperOutput extends Subsystem {
 	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_SWITCH);
 
 	public void initDefaultCommand() {
+		
 	}
 
 	/**
@@ -36,7 +37,7 @@ public class UpperOutput extends Subsystem {
 	 */
 	public void set(double d_speed) {
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(-1.0 * d_speed);
+		m_rightMotor.set(-d_speed);
 	}
 
 	/**
