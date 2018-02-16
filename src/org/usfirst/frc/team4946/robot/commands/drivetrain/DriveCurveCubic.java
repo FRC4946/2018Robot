@@ -45,6 +45,7 @@ public class DriveCurveCubic extends Command {
     	Robot.driveTrainSubsystem.setGyroSetpoint(m_angleInit + 5);
     	Robot.driveTrainSubsystem.setDistSetpoint(m_distanceInit + 6);
     	m_distXTraveled += Math.cos(m_angleToGo)*(Robot.driveTrainSubsystem.getEncoderDistance() - m_distanceInit);
+    	Robot.driveTrainSubsystem.enablePID();
     }
 
     protected void execute() {
@@ -70,6 +71,7 @@ public class DriveCurveCubic extends Command {
     }
 
     protected void end() {
+    	Robot.driveTrainSubsystem.disablePID();
     }
 
     // Called when another command which requires one or more of the same

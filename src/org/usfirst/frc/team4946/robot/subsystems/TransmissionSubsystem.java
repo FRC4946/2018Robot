@@ -32,10 +32,10 @@ public class TransmissionSubsystem extends Subsystem {
 	 * Toggles between low and high gear on the robot.
 	 */
 	public void toggleGear() {
-		setGear(!m_isHigh);
+		set(!m_isHigh);
 	}
 	
-	public void setGear(boolean high) {
+	public void set(boolean high) {
 		
 		if(high)
 			m_gearShift.set(Value.kReverse);

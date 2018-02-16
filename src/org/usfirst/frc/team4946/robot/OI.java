@@ -87,5 +87,4 @@ public class OI {
 	public Joystick getOperatorStick() {
 		return operatorStick;
 	}
-
 }
