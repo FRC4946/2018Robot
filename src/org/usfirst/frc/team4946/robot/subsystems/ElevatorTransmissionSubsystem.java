@@ -28,8 +28,10 @@ public class ElevatorTransmissionSubsystem extends Subsystem {
     public void toggleSolenoid() {
     	
     	if(m_transmissionSolenoid1.get() == Value.kForward || m_transmissionSolenoid1.get() == Value.kOff) {
+    		
     		m_transmissionSolenoid1.set(Value.kReverse);
     	} else {
+    		
     		m_transmissionSolenoid1.set(Value.kForward);
     	}
     }

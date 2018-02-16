@@ -81,7 +81,7 @@ public class ScriptBundle {
 				if (a.options == IntakeAction.Options.kIntakeOn)
 					c = new RunIntake(1.0);
 				else if (a.options == IntakeAction.Options.kIntakeUntil)
-					c = new CubeAndLiftIntake();
+					c = new CubeAndLiftIntake(0.5);
 			}
 
 			// Output

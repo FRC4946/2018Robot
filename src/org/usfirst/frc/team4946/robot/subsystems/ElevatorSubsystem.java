@@ -28,12 +28,14 @@ public class ElevatorSubsystem extends Subsystem {
 			m_elevatorMotorGroup);
 
 	public ElevatorSubsystem() {
+		
 		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT,
 				RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
 		m_elevatorPIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT, RobotConstants.ELEVATOR_MAX_OUTPUT);
 	}
 
 	public void initDefaultCommand() {
+		
 		setDefaultCommand(new ElevatorJoystickCtrl());
 	}
 

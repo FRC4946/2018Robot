@@ -14,7 +14,6 @@ public class ExternalIntakeSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
-	private DigitalInput m_cubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH);
 
 	@Override
 	protected void initDefaultCommand() {
@@ -47,13 +46,5 @@ public class ExternalIntakeSubsystem extends Subsystem {
 	public void stop() {
 		m_leftMotor.set(0);
 		m_rightMotor.set(0);
-	}
-
-	/**
-	 * 
-	 * @return true if it detects a cube, false if there is no cube
-	 */
-	public boolean getHasCube() {
-		return m_cubeSwitch.get();
 	}
 }

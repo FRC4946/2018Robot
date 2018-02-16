@@ -163,7 +163,6 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
-		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
 		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
 	}
 
