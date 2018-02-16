@@ -2,7 +2,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+import org.usfirst.frc.team4946.robot.commands.elevator.ClosedLoopControl;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -34,7 +34,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorJoystickCtrl());
+		setDefaultCommand(new ClosedLoopControl());
 	}
 
 	/**
@@ -45,14 +45,14 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getElevatorPos() {
 		return m_elevatorAnalogPotentiometer.get();
 	}
-	
+
 	public boolean isAtBottom() {
 		boolean atBottom = false;
-		
+
 		if (getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
 			atBottom = true;
 		}
-		
+
 		return atBottom;
 	}
 
@@ -60,8 +60,8 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Manually sets the speed of the motors.
 	 * 
 	 * @param d_speed
-	 *            The fraction of the motor's maximum speed the motors are to spin
-	 *            at. Ranges between -1.0 and 1.0
+	 *            The fraction of the motor's maximum speed the motors are to
+	 *            spin at. Ranges between -1.0 and 1.0
 	 */
 	public void set(double d_speed) {
 
