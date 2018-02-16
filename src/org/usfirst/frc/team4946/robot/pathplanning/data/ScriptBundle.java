@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
@@ -73,7 +73,7 @@ public class ScriptBundle {
 				else if (a.options == ElevatorAction.Options.kMoveToCustom)
 					height = a.data;
 
-				c = new ElevatorSetHeight(height, 0.5);
+				c = new MoveToHeight(height, 0.5);
 			}
 
 			// Intake

@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands;
 
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.InnerIntakeUntilCube;
 
@@ -22,7 +22,7 @@ public class CubeAndLiftIntake extends CommandGroup {
 		addSequential(new InnerIntakeUntilCube(intakeSpeed));
 		addParallel(new RunIntake(intakeSpeed));
 		// addParallel(new ElbowUp());
-		addSequential(new ElevatorSetHeight(1.0, 0.4), 0.5);
+		addSequential(new MoveToHeight(1.0, 0.4), 0.5);
 
 	}
 }
