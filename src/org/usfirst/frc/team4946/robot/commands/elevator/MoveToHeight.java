@@ -5,7 +5,7 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorSetHeight extends Command {
+public class MoveToHeight extends Command {
 
 	double m_elevatorSpeed;
 	double m_height;
@@ -18,7 +18,7 @@ public class ElevatorSetHeight extends Command {
 	 * @param speed
 	 *            the speed to set the motors to, ranging from -1.0 to 1.0
 	 */
-	public ElevatorSetHeight(double height, double speed) {
+	public MoveToHeight(double height, double speed) {
 		requires(Robot.elevatorSubsystem);
 		m_height = height;
 		m_elevatorSpeed = speed;
