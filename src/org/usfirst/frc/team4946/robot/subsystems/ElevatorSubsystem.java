@@ -47,14 +47,14 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getElevatorPos() {
 		return m_elevatorAnalogPotentiometer.get();
 	}
-	
+
 	public boolean isAtBottom() {
 		boolean atBottom = false;
-		
+
 		if (getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
 			atBottom = true;
 		}
-		
+
 		return atBottom;
 	}
 
@@ -62,8 +62,8 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Manually sets the speed of the motors.
 	 * 
 	 * @param d_speed
-	 *            The fraction of the motor's maximum speed the motors are to spin
-	 *            at. Ranges between -1.0 and 1.0
+	 *            The fraction of the motor's maximum speed the motors are to
+	 *            spin at. Ranges between -1.0 and 1.0
 	 */
 	public void set(double d_speed) {
 

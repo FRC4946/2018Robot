@@ -19,7 +19,7 @@ public class UpperOutputSubsystem extends Subsystem {
 	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_RIGHTSWITCH);
 
 	public void initDefaultCommand() {
-		
+
 	}
 
 	/**
@@ -46,6 +46,7 @@ public class UpperOutputSubsystem extends Subsystem {
 	 * @return true if detects the cube, false for no cube
 	 */
 	public boolean getHasCube() {
+
 		return m_leftCubeSwitch.get() && m_rightCubeSwitch.get();
 	}
 }

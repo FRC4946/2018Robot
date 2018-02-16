@@ -10,8 +10,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class RunBothIntakes extends CommandGroup {
 
-	public RunBothIntakes() {
-		addParallel(new RunIntake(0.5));
-		addSequential(new RunOutput(0.5));
+	double speed;
+	
+	
+	/**
+	 * Runs both the input and output at a desired speed
+	 * 
+	 * 
+	 * @param speed the speed for the intakes to run at
+	 */
+	public RunBothIntakes(double speed) {
+		
+		this.speed = speed;
+		
+		addSequential(new RunOutput(speed));
+		addParallel(new RunIntake(speed));
 	}
 }

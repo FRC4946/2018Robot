@@ -23,8 +23,8 @@ public class RobotConstants {
 	public static final double ELEVATOR_OFFSET_VALUE = 5.0; // Dummy
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
-
-	public static final double[] AUTO_DROP_OFF_END_POINT = { 42.723, 165.494 };
+	
+	public static final boolean ELEVATOR_SAFETY = false;
 
 	public static double leftDriveP;
 	public static double leftDriveI;
