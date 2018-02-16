@@ -146,7 +146,6 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (m_autoCommand != null) {
 			m_autoCommand.cancel();
-
 		}
 	}
 
@@ -163,8 +162,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
-		SmartDashboard.putBoolean("Ex.Intake Cube", externalIntakeSubsystem.getHasCube());
-		SmartDashboard.putBoolean("Up.Output Cube", upperOutputSubsystem.getHasCube());
+		SmartDashboard.putBoolean("Intake Cube", upperOutputSubsystem.getHasCube());
 	}
 
 	/**
