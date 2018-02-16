@@ -35,7 +35,7 @@ public class InnerIntakeUntilNotCube extends Command {
     }
 
     protected void end() {
-    	Robot.upperOutputSubsystem.disableMechanism();
+    	Robot.upperOutputSubsystem.stop();
     }
 
     protected void interrupted() {
