@@ -27,7 +27,7 @@ public class ElevatorGearShift extends Command {
     }
 
     protected void end() {
-    	Robot.elevatorTransmissionSubsystem.moveSolenoid(Value.kOff);
+    	Robot.elevatorTransmissionSubsystem.set(Value.kOff);
     }
 
     protected void interrupted() {

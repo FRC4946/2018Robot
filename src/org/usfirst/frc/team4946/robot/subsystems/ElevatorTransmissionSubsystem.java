@@ -18,7 +18,7 @@ public class ElevatorTransmissionSubsystem extends Subsystem {
      * Moves solenoid to change gear of elevator
      * @param position true is closed, false is open
      */
-    public void moveSolenoid (Value position) { 
+    public void set(Value position) { 
     	m_transmissionSolenoid1.set(position);
     }
     
