@@ -13,7 +13,6 @@ import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
-
 import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
