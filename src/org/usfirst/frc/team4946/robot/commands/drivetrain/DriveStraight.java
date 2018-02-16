@@ -29,6 +29,7 @@ public class DriveStraight extends Command {
 
     protected void initialize() {
     	m_distanceInit = Robot.driveTrainSubsystem.getEncoderDistance();
+    	Robot.driveTrainSubsystem.enablePID();
     }
 
     protected void execute() {
@@ -42,6 +43,7 @@ public class DriveStraight extends Command {
 
     protected void end() {
     	Robot.driveTrainSubsystem.stop();
+    	Robot.driveTrainSubsystem.disablePID();
     }
 
     protected void interrupted() {

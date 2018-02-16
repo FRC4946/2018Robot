@@ -37,6 +37,7 @@ public class DriveStraightPID extends Command {
     	
     	Robot.driveTrainSubsystem.setGyroSetpoint(Robot.driveTrainSubsystem.getGyroAngle());
     	Robot.driveTrainSubsystem.setDistSetpoint(m_distanceInit + m_distanceToGo);
+    	Robot.driveTrainSubsystem.enablePID();
     }
 
     protected void execute() {
@@ -50,6 +51,7 @@ public class DriveStraightPID extends Command {
 
     protected void end() {
     	Robot.driveTrainSubsystem.stop();
+    	Robot.driveTrainSubsystem.disablePID();
     }
 
     protected void interrupted() {

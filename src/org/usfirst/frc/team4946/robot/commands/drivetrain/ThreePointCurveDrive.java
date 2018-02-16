@@ -77,6 +77,8 @@ public class ThreePointCurveDrive extends Command {
     	m_leftSpeed = m_speed*(1 + ((m_distToGo)/(2*m_radius)));
     	
     	m_distInit = Robot.driveTrainSubsystem.getEncoderDistance();
+    	
+    	Robot.driveTrainSubsystem.enablePID();
     }
 
     protected void execute() {
@@ -93,5 +95,6 @@ public class ThreePointCurveDrive extends Command {
 
     protected void interrupted() {
     	Robot.driveTrainSubsystem.stop();
+    	Robot.driveTrainSubsystem.disablePID();
     }
 }

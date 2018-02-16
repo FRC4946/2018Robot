@@ -26,6 +26,7 @@ public class TurnPID extends Command {
     }
 
     protected void initialize() {
+    	Robot.driveTrainSubsystem.enablePID();
     	Robot.driveTrainSubsystem.setGyroSetpoint(m_setAngle);
     }
 
@@ -45,6 +46,7 @@ public class TurnPID extends Command {
 
     protected void end() {
     	Robot.driveTrainSubsystem.stop();
+    	Robot.driveTrainSubsystem.disablePID();
     }
 
     protected void interrupted() {
