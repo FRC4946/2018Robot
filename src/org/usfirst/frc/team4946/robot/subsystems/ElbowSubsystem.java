@@ -51,16 +51,16 @@ public class ElbowSubsystem extends Subsystem {
 	 *         kForward indicates the up position
 	 */
 	public Value getElbowValue() {
+		
 		return m_elbowValve.get();
 	}
 	
 	public void toggleSolenoid() {
 		
-		if(m_elbowValve.get() == Value.kOff || m_elbowValve.get() == Value.kForward) {
+		if(m_elbowValve.get() == Value.kForward) {
 			m_elbowValve.set(Value.kReverse);
 		} else {
 			m_elbowValve.set(Value.kForward);
 		}
 	}
-
 }

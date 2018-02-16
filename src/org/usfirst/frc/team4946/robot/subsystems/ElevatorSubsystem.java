@@ -45,27 +45,6 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getElevatorPos() {
 		return m_elevatorAnalogPotentiometer.get();
 	}
-
-	/**
-	 * Manually moves the elevator without employing any form of PID.
-	 * 
-	 * 
-	 * @param move
-	 *            the velocity the elevator is intended to move at. Accepts values
-	 *            between -1.0 and 1.0.
-	 */
-	public void manualMoveElevator(double move) {
-		double pos = m_elevatorAnalogPotentiometer.get();
-
-		if (pos > RobotConstants.ELEVATOR_MINIMUM_HEIGHT && pos < RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_elevatorMotorGroup.set(move);
-		} else if (pos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-			m_elevatorMotorGroup.set(0.2);
-		} else if (pos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_elevatorMotorGroup.set(-0.2);
-		}
-
-	}
 	
 	public boolean isAtBottom() {
 		boolean atBottom = false;
@@ -75,7 +54,6 @@ public class ElevatorSubsystem extends Subsystem {
 		}
 		
 		return atBottom;
-		
 	}
 
 	/**
