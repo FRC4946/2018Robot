@@ -16,15 +16,16 @@ public class RobotConstants {
 	// / ENCODER_PPR * GEARBOX_REDUCTION;
 
 	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
-	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; // Dummy
-	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; // Dummy
-	public static final double ELEVATOR_BOTTOM_THRESHOLD = 0.0; //Dummy
 	public static final double ELEVATOR_SCALING_VALUE = 67.1; // Dummy
 	public static final double ELEVATOR_OFFSET_VALUE = 5.0; // Dummy
+
+	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; // Dummy
+	public static final double ELEVATOR_BOTTOM_THRESHOLD = 10.0; //Dummy
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
-	
-	public static final boolean ELEVATOR_SAFETY = false;
+	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; // Dummy
+
+	public static boolean elevatorSafety = false;
 
 	public static double leftDriveP;
 	public static double leftDriveI;
