@@ -83,9 +83,24 @@ public class autoScript_1 extends CommandGroup {
     		if (scaleLeft) {
     			
     			//Auto for is the scale is on the left
-
+    			
+    			addSequential(new DriveStraight(autoSpeed, 120));
+    			
+    		} else {
+    			
+    			//Auto for if the scale is on the right
+    			
+    			addSequential(new DriveStraight(autoSpeed, 96));
+    			addSequential(new TurnPID(90));
+    			addSequential(new DriveStraight(autoSpeed, 96));
+    			addSequential(new TurnPID(-90));
+    			addSequential(new DriveStraight(autoSpeed, 24));
     			
     		}
+    		
+    		addParallel(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
+			addSequential(new IntakeWithTimer(-1.0, 0.5));
+
     		
 
     	}
@@ -95,7 +110,24 @@ public class autoScript_1 extends CommandGroup {
     		addSequential(new TurnPID(90));
     		addSequential(new DriveStraight(autoSpeed, 48));
     		addSequential(new TurnPID(-90));
-    		addSequential(new DriveStraight(autoSpeed, 120));
+    		
+    		if (scaleLeft) {
+    			
+    			//auto code for if the scale is on the left
+    			
+    			addSequential(new DriveStraight(autoSpeed, 96));
+    			addSequential(new TurnPID(-90));
+    			addSequential(new DriveStraight(autoSpeed, 96));
+    			addSequential(new TurnPID(90));
+    			addSequential(new DriveStraight(autoSpeed, 24));
+    			
+    		} else {
+    			
+    			//auto code for if the scale is on the right
+    			
+    			addSequential(new DriveStraight(autoSpeed, 120));
+    		}
+    		
     		addParallel(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
     		addSequential(new IntakeWithTimer(-1.0, 0.5));
     	}
