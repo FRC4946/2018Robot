@@ -7,33 +7,52 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ElevatorTransmissionSubsystem extends Subsystem {
-	DoubleSolenoid m_transmissionSolenoid1 = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_GEARLEFT,
-			RobotMap.PCM_ELEVATOR_GEARRIGHT);
+	private DoubleSolenoid m_transmissionSolenoid;
+	private boolean m_isClimb;
+
+	public ElevatorTransmissionSubsystem() {
+		m_transmissionSolenoid = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_GEARLEFT, RobotMap.PCM_ELEVATOR_GEARRIGHT);
+		m_isClimb = false;
+	}
 
 	public void initDefaultCommand() {
-
 	}
 
 	/**
-	 * Moves solenoid to change gear of elevator
+	 * Set the gear of the elevator
 	 * 
-	 * @param position
-	 *            true is closed, false is open
+	 * @param isHigh
+	 *            low gear/climb ({@code true}) or high gear/elevator
+	 *            ({@code false})
 	 */
-	public void set(Value position) {
-		m_transmissionSolenoid1.set(position);
+	public void set(boolean isClimb) {
+		if (isClimb)
+			m_transmissionSolenoid.set(Value.kForward);
+		else
+			m_transmissionSolenoid.set(Value.kReverse);
+
+		m_isClimb = isClimb;
 	}
 
 	/**
-	 * Toggles the position of the elevator gearshift.
+	 * @return {@code true} if the gear is low (climb)
 	 */
-	public void toggleSolenoid() {
+	public boolean getIsClimb() {
+		return m_isClimb;
+	}
 
-		if (m_transmissionSolenoid1.get() == Value.kForward || m_transmissionSolenoid1.get() == Value.kOff) {
-			m_transmissionSolenoid1.set(Value.kReverse);
-		} else {
-			m_transmissionSolenoid1.set(Value.kForward);
-		}
+	/**
+	 * Toggle between low and high gear
+	 */
+	public void toggle() {
+		set(!m_isClimb);
+	}
+
+	/**
+	 * Turn off the solenoid
+	 */
+	public void off() {
+		m_transmissionSolenoid.set(Value.kOff);
 	}
 
 }

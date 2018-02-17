@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElbowSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_elbowValve;
-	private boolean m_isHigh;
+	private boolean m_isUp;
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_LEFT, RobotMap.PCM_ELBOW_RIGHT);
@@ -23,43 +23,53 @@ public class ElbowSubsystem extends Subsystem {
 		setDefaultCommand(new ManageElbowPos());
 	}
 
-	public void set(boolean isHigh) {
-		if (isHigh)
+	/**
+	 * Set the elbow position
+	 * 
+	 * @param isUp
+	 *            up position ({@code true}) or down position ({@code false})
+	 */
+	public void set(boolean isUp) {
+		if (isUp)
 			m_elbowValve.set(Value.kReverse);
 		else
 			m_elbowValve.set(Value.kForward);
 
-		m_isHigh = isHigh;
-	}
-
-	public void off() {
-		m_elbowValve.set(Value.kOff);
+		m_isUp = isUp;
 	}
 
 	/**
-	 * Sets the external intake to the down position
+	 * Set the intake to the down position
 	 */
 	public void setElbowDown() {
 		set(false);
 	}
 
 	/**
-	 * Lifts the external intake up
+	 * Set the intake to the up position
 	 */
 	public void setElbowUp() {
 		set(true);
 	}
 
 	/**
-	 * @return the current elbow position. kOff indicates the down position.
-	 *         kForward indicates the up position
+	 * Toggle between up and down position
 	 */
-	public boolean getElbowValue() {
-
-		return m_isHigh;
+	public void toggleSolenoid() {
+		set(!m_isUp);
 	}
 
-	public void toggleSolenoid() {
-		set(!m_isHigh);
+	/**
+	 * @return {@code true} if the elevator is upright
+	 */
+	public boolean getElbowIsUp() {
+		return m_isUp;
+	}
+
+	/**
+	 * Turn off the solenoid
+	 */
+	public void off() {
+		m_elbowValve.set(Value.kOff);
 	}
 }

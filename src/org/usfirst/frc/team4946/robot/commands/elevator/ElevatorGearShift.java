@@ -2,7 +2,6 @@ package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -19,7 +18,7 @@ public class ElevatorGearShift extends Command {
     }
 
     protected void execute() {
-    	Robot.elevatorTransmissionSubsystem.toggleSolenoid();
+    	Robot.elevatorTransmissionSubsystem.toggle();
     }
 
     protected boolean isFinished() {
@@ -27,7 +26,7 @@ public class ElevatorGearShift extends Command {
     }
 
     protected void end() {
-    	Robot.elevatorTransmissionSubsystem.set(Value.kOff);
+    	Robot.elevatorTransmissionSubsystem.off();
     }
 
     protected void interrupted() {

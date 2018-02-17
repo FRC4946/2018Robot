@@ -14,50 +14,53 @@ public class DriveTrainTransmissionSubsystem extends Subsystem {
 	private DoubleSolenoid m_gearShift;
 	private boolean m_isHigh;
 
-	public void initDefaultCommand() {
-		
-	}
-
 	public DriveTrainTransmissionSubsystem() {
-		
+
 		m_gearShift = new DoubleSolenoid(RobotMap.PCM_DRIVE_GEARLEFT, RobotMap.PCM_DRIVE_GEARRIGHT);
-		
-		if(m_gearShift.get() == Value.kForward)
+
+		if (m_gearShift.get() == Value.kForward)
 			m_isHigh = true;
 		else
 			m_isHigh = false;
 	}
 
-	/**
-	 * Toggles between low and high gear on the robot.
-	 */
-	public void toggleGear() {
-		set(!m_isHigh);
-	}
-	
-	public void set(boolean high) {
-		
-		if(high)
-			m_gearShift.set(Value.kReverse);
-		else
-			m_gearShift.set(Value.kForward);
-		
-		m_isHigh = high;
-	}
-	
-	public boolean getGearIsHigh() {
-		return m_isHigh;
-	}
-	
-	public void setGearOff() {
-		
-		m_gearShift.set(Value.kOff);
+	public void initDefaultCommand() {
 	}
 
 	/**
-	 * @return the state of the gear-shifting solenoid.
+	 * Set the gear of the drive train
+	 * 
+	 * @param isHigh
+	 *            high gear ({@code true}) or low gear ({@code false})
 	 */
-	public Value getGearState() {
-		return m_gearShift.get();
+	public void set(boolean isHigh) {
+
+		if (isHigh)
+			m_gearShift.set(Value.kReverse);
+		else
+			m_gearShift.set(Value.kForward);
+
+		m_isHigh = isHigh;
+	}
+
+	/**
+	 * @return {@code true} if the gear is high (fast)
+	 */
+	public boolean getGearIsHigh() {
+		return m_isHigh;
+	}
+
+	/**
+	 * Toggle between low and high gear
+	 */
+	public void toggle() {
+		set(!m_isHigh);
+	}
+
+	/**
+	 * Turn off the solenoid
+	 */
+	public void off() {
+		m_gearShift.set(Value.kOff);
 	}
 }

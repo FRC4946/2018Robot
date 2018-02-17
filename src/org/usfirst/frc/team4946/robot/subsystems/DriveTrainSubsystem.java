@@ -9,7 +9,6 @@ import org.usfirst.frc.team4946.robot.util.imu.SkewIMU;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.PIDController;
@@ -295,7 +294,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 */
 	public void setEncoderDPP() {
 
-		if (Robot.driveTransmissionSubsystem.getGearState() == Value.kReverse) {
+		if (Robot.driveTransmissionSubsystem.getGearIsHigh()) {
 
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
 					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;
