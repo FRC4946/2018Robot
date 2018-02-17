@@ -29,7 +29,14 @@ public class IntakeWithTrigger extends Command {
 			Robot.m_oi.setDriveStickRumble(1.0);
 			Robot.m_oi.setOperateStickRumble(1.0);
 		} else {
-			Robot.externalIntakeSubsystem.set(speed * 0.6);
+
+			// Only run the external intake if the elevator is low to the ground
+			// TODO: Find this value
+			if (Robot.elevatorSubsystem.getElevatorPos() < 10)
+				Robot.externalIntakeSubsystem.set(speed * 0.6);
+			else
+				Robot.externalIntakeSubsystem.set(0.0);
+
 			Robot.internalIntakeSubsystem.set(speed);
 			Robot.m_oi.setDriveStickRumble(0.0);
 			Robot.m_oi.setOperateStickRumble(0.0);
