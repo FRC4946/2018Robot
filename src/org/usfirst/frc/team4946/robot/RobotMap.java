@@ -52,8 +52,9 @@ public class RobotMap {
 	public static final int DIO_DRIVE_LEFTENC2 = 1;
 	public static final int DIO_DRIVE_RIGHTENC1 = 2;
 	public static final int DIO_DRIVE_RIGHTENC2 = 3;
-	public static final int DIO_INTAKE_SWITCH_A = 4;
-	public static final int DIO_INTAKE_SWITCH_B = 5;
+
+	public static final int DIO_OUTPUT_LEFTSWITCH = 4;
+	public static final int DIO_OUTPUT_RIGHTSWITCH = 5;
 
 	public static final int PCM_DRIVE_GEARLEFT = 6;
 	public static final int PCM_DRIVE_GEARRIGHT = 1;

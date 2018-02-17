@@ -52,7 +52,15 @@ public class OI {
 		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
 		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
 		triggerDiagonalCube.whenReleased(new RunIntake(0.0));
-
+		
+//		cubeInButton.whenPressed(new IntakeCommandGroup());
+//		
+//		cubeOutButton.whenPressed(new RunIntake(-0.5));
+//		cubeOutButton.whenPressed(new RunOutput(-0.4));
+//		
+//		cubeOutButton.whenReleased(new RunIntake(0.0));
+//		cubeOutButton.whenReleased(new RunOutput(0.0));
+		
 		togglePneumaticArms.whenPressed(new ToggleElbowPos());
 		driveGearToggle.whenPressed(new ToggleDriveGear());
 		elevatorGearToggle.whenPressed(new ElevatorGearShift());

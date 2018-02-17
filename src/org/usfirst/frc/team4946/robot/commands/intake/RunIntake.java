@@ -11,19 +11,20 @@ public class RunIntake extends Command {
 	Timer m_timer;
 
 	/**
-	 * 
 	 * Runs the intake at a specified velocity
 	 * 
 	 * @param speed
 	 *            the velocity to run the intake at, ranging from -1.0 to 1.0.
 	 */
+
 	public RunIntake(double speed) {
 		requires(Robot.externalIntakeSubsystem);
 		this.speed = speed;
 	}
 
-	protected void initialize() {
-	}
+    protected void initialize() {
+
+    }
 
 	protected void execute() {
 		Robot.externalIntakeSubsystem.set(speed);

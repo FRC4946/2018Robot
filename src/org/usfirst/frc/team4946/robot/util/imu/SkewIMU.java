@@ -51,12 +51,11 @@ public class SkewIMU extends GyroBase {
 				m_angle.addAndGet(dRate * kSamplePeriod / 1000000);
 			}
 		}, 0, kSamplePeriod, TimeUnit.MICROSECONDS);
-
 	}
 
 	@Override
 	public void calibrate() {
-		
+
 		// TODO: The navX itself doesn't need calibration I think
 		
 		// Redefine the 'down' direction

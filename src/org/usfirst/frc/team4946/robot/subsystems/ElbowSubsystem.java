@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.elbow.ManageElbowPos;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -19,7 +20,7 @@ public class ElbowSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new ManageElbowPos());
 	}
 
 	public void set(boolean isHigh) {

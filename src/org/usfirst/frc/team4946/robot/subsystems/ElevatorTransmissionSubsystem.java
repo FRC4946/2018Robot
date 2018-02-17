@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ElevatorTransmissionSubsystem extends Subsystem {
-
 	DoubleSolenoid m_transmissionSolenoid1 = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_GEARLEFT,
 			RobotMap.PCM_ELEVATOR_GEARRIGHT);
 
