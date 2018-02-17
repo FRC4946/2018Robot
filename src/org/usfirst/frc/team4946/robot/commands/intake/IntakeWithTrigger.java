@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -31,8 +32,7 @@ public class IntakeWithTrigger extends Command {
 		} else {
 
 			// Only run the external intake if the elevator is low to the ground
-			// TODO: Find this value
-			if (Robot.elevatorSubsystem.getElevatorPos() < 10)
+			if (Robot.elevatorSubsystem.getElevatorPos() < RobotConstants.ELEVATOR_BOTTOM_THRESHOLD)
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
 			else
 				Robot.externalIntakeSubsystem.set(0.0);
