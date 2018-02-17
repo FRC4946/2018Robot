@@ -3,61 +3,45 @@ package org.usfirst.frc.team4946.robot.commands.elevator;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorWithJoystick_PID extends Command {
 
-	Joystick m_joy;
-	double m_currentPos;double m_move;
-	
 	/**
-	 * Uses PID in conjunction with input from the operator stick to control the height of the elevator. 
+	 * Uses PID in conjunction with input from the operator stick to control the
+	 * height of the elevator.
 	 */
-    public ElevatorWithJoystick_PID() {
-    	
-    	requires(Robot.elevatorSubsystem);
-    	m_joy = Robot.m_oi.getOperatorStick();
-    }
+	public ElevatorWithJoystick_PID() {
 
-    protected void initialize() {
-    }
+		requires(Robot.elevatorSubsystem);
+	}
 
-    protected void execute() {
-    	
-    	m_currentPos = Robot.elevatorSubsystem.getElevatorPos();
-    	m_move = 10*m_joy.getRawAxis(1);
-    			
-    	if ((m_currentPos + m_move) > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-    		
-    		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
-    		
-    	} else if ((m_currentPos + m_move) < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-    		
-    		Robot.elevatorSubsystem.setSetpoint(RobotConstants.ELEVATOR_MINIMUM_HEIGHT);
-    		
-    	} else {
-    		
-        	Robot.elevatorSubsystem.setSetpoint(m_currentPos + m_move);		
-    	}
+	protected void initialize() {
+		Robot.elevatorSubsystem.enablePID();
+	}
 
-//    	if (m_currentPos < 1.0) {
-//    		RobotConstants.setElevatorIsLowest(true);
-//    	} else {
-//    		RobotConstants.setElevatorIsLowest(false);
-//    	}
-    }
+	protected void execute() {
+		double setpoint = Robot.elevatorSubsystem.getElevatorPos();
+		setpoint += 10 * Robot.m_oi.getOperatorStick().getRawAxis(1);
 
-    protected boolean isFinished() {
-        return false;
-    }
+		double max = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
+		double min = Robot.internalIntakeSubsystem.getHasCube() ? RobotConstants.ELEVATOR_CARRY_HEIGHT
+				: RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
 
-    protected void end() {
-    	Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
-    }
+		setpoint = Math.min(setpoint, max);
+		setpoint = Math.max(setpoint, min);
+		Robot.elevatorSubsystem.setSetpoint(setpoint);
+	}
 
-    protected void interrupted() {
-    	end();
-    }
+	protected boolean isFinished() {
+		return false;
+	}
+
+	protected void end() {
+		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
+	}
+
+	protected void interrupted() {
+		end();
+	}
 }
-

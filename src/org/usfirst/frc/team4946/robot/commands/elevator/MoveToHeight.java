@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveToHeight extends Command {
 
-	double m_elevatorSpeed;
 	double m_height;
 
 	/**
@@ -15,34 +14,31 @@ public class MoveToHeight extends Command {
 	 * 
 	 * @param height
 	 *            the height setpoint in inches
-	 * @param speed
-	 *            the speed to set the motors to, ranging from -1.0 to 1.0
 	 */
-	public MoveToHeight(double height, double speed) {
+	public MoveToHeight(double height) {
 		requires(Robot.elevatorSubsystem);
 		m_height = height;
-		m_elevatorSpeed = speed;
 	}
 
 	protected void initialize() {
+		Robot.elevatorSubsystem.enablePID();
 
 		if (m_height > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
 			m_height = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
 		} else if (m_height < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
 			m_height = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
 		}
+		// Alternatively, consider using Math.min() and max(). Functionaly identical,
+		// just gives you some options for your toolbelt.
 
-		Robot.elevatorSubsystem.set(m_elevatorSpeed);
-		Robot.elevatorSubsystem.setSetpoint(m_height);
 	}
 
 	protected void execute() {
 
-		// if (Robot.elevatorSubsystem.getElevatorPos() < 1.0) {
-		// RobotConstants.setElevatorIsLowest(true);
-		// } else {
-		// RobotConstants.setElevatorIsLowest(false);
-		// }
+		// I'm pretty sure this should be here in execute so that we're constantly
+		// feeding the controller so the watchdog doesn't starve. This might constantly
+		// reset the integral term though in which case this should go in initialize
+		Robot.elevatorSubsystem.setSetpoint(m_height);
 	}
 
 	protected boolean isFinished() {

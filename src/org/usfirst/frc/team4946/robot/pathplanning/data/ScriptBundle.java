@@ -72,7 +72,7 @@ public class ScriptBundle {
 				else if (a.options == ElevatorAction.Options.kMoveToCustom)
 					height = a.data;
 
-				c = new MoveToHeight(height, 0.5);
+				c = new MoveToHeight(height);
 			}
 
 			// Intake

@@ -25,19 +25,31 @@ public class ElevatorSubsystem extends Subsystem {
 	private AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
-	public PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
+	private PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
 			m_elevatorMotorGroup);
 
 	public ElevatorSubsystem() {
-		
 		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT,
 				RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
 		m_elevatorPIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT, RobotConstants.ELEVATOR_MAX_OUTPUT);
 	}
 
 	public void initDefaultCommand() {
-		
 		setDefaultCommand(new ElevatorWithJoystick_Open());
+	}
+
+	/**
+	 * Enables the drivetrain PID objects.
+	 */
+	public void enablePID() {
+		m_elevatorPIDController.enable();
+	}
+
+	/**
+	 * Disables the drivetrain PID objects.
+	 */
+	public void disablePID() {
+		m_elevatorPIDController.disable();
 	}
 
 	/**
