@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
-import org.usfirst.frc.team4946.robot.commands.OutputCubeWithIntake;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
@@ -16,8 +14,8 @@ import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
 import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
-import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -31,44 +29,34 @@ public class OI {
 	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
-	Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button number for the cube intake Button
-	Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button number for the cube output button
+	// Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button
+	// number for the cube intake Button
+	// Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button
+	// number for the cube output button
 	Button triggerDiagonalCube = new JoystickButton(driveStick, 4);
-	
-	Button togglePneumaticArms = new JoystickButton(operatorStick, 1);
+
+	Button togglePneumaticArms = new JoystickButton(driveStick, 1);
 	Button driveGearToggle = new JoystickButton(operatorStick, 2);
 	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
-	Button elevatorGearToggle = new JoystickButton(operatorStick, 4); 
-	
+	Button elevatorGearToggle = new JoystickButton(operatorStick, 4);
+
 	Button elevatorPreset1 = new JoystickButton(operatorStick, 5); // moves elevator to preset height
 	Button elevatorPreset2 = new JoystickButton(operatorStick, 6); // moves elevator to preset height
 	Button elevatorPreset3 = new JoystickButton(operatorStick, 7); // moves elevator to preset height
 
 	public OI() {
 
-		cubeInButton.whileHeld(new CubeAndLiftIntake());
-		cubeOutButton.whileHeld(new OutputCubeWithIntake());
+		// cubeInButton.whileHeld(new CubeAndLiftIntake());
+		// cubeOutButton.whileHeld(new OutputCubeWithIntake());
 
 		toggleElevatorOpenLoop.whileHeld(new ElevatorJoystickCtrl());
 		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
 		triggerDiagonalCube.whenReleased(new RunIntake(0.0));
-		
-		cubeInButton.whenPressed(new RunIntake(0.5));
-		cubeInButton.whenPressed(new RunOutput(0.4));
-		
-		cubeInButton.whenReleased(new RunIntake(0.0));
-		cubeInButton.whenReleased(new RunOutput(0.0));
-		
-		cubeOutButton.whenPressed(new RunIntake(-0.5));
-		cubeOutButton.whenPressed(new RunOutput(-0.4));
-		
-		cubeOutButton.whenReleased(new RunIntake(0.0));
-		cubeOutButton.whenReleased(new RunOutput(0.0));
-		
+
 		togglePneumaticArms.whenPressed(new ToggleElbowPos());
 		driveGearToggle.whenPressed(new ToggleDriveGear());
 		elevatorGearToggle.whenPressed(new ElevatorGearShift());
-		
+
 		elevatorPreset1.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_BOTTOM_THRESHOLD, 0.8));
 		elevatorPreset2.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_SWITCH_HEIGHT, 0.8));
 		elevatorPreset3.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT, 0.8));
@@ -81,10 +69,20 @@ public class OI {
 		return driveStick;
 	}
 
+	public void setDriveStickRumble(double rumble) {
+		driveStick.setRumble(RumbleType.kLeftRumble, rumble);
+		driveStick.setRumble(RumbleType.kRightRumble, rumble);
+	}
+
 	/**
 	 * @return the operator joystick.
 	 */
 	public Joystick getOperatorStick() {
 		return operatorStick;
+	}
+
+	public void setOperateStickRumble(double rumble) {
+		operatorStick.setRumble(RumbleType.kLeftRumble, rumble);
+		operatorStick.setRumble(RumbleType.kRightRumble, rumble);
 	}
 }

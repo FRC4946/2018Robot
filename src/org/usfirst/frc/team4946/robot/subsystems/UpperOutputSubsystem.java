@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.IntakeWithTrigger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -19,7 +20,7 @@ public class UpperOutputSubsystem extends Subsystem {
 	private DigitalInput m_cubeSwitchB = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH_B);
 
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new IntakeWithTrigger());
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class UpperOutputSubsystem extends Subsystem {
 	 */
 	public void set(double d_speed) {
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(-d_speed);
+		m_rightMotor.set(d_speed);
 	}
 
 	/**
@@ -46,6 +47,6 @@ public class UpperOutputSubsystem extends Subsystem {
 	 * @return true if detects the cube, false for no cube
 	 */
 	public boolean getHasCube() {
-		return m_cubeSwitchA.get() && m_cubeSwitchB.get();
+		return !m_cubeSwitchA.get() && !m_cubeSwitchB.get();
 	}
 }

@@ -9,32 +9,36 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleElbowPos extends Command {
 
-    public ToggleElbowPos() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.elbowSubsystem);
-    }
+	int m_count;
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.elbowSubsystem.toggleSolenoid();
-    }
+	public ToggleElbowPos() {
+		requires(Robot.elbowSubsystem);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Robot.elbowSubsystem.toggleSolenoid();
+		m_count = 0;
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		m_count++;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return m_count > 5;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		Robot.elbowSubsystem.off();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

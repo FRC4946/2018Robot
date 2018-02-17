@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.IntakeWithTrigger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -16,7 +17,7 @@ public class ExternalIntakeSubsystem extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-
+		setDefaultCommand(new IntakeWithTrigger());
 	}
 
 	/**
