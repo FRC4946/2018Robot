@@ -12,7 +12,6 @@ public class ElevatorWithJoystick_PID extends Command {
 	 * height of the elevator.
 	 */
 	public ElevatorWithJoystick_PID() {
-
 		requires(Robot.elevatorSubsystem);
 	}
 

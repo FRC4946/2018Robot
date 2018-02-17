@@ -2,7 +2,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick_Open;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -35,21 +35,28 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorWithJoystick_Open());
+		setDefaultCommand(new ElevatorWithJoystick());
 	}
 
 	/**
-	 * Enables the drivetrain PID objects.
+	 * Enable the PID controller
 	 */
 	public void enablePID() {
 		m_elevatorPIDController.enable();
 	}
 
 	/**
-	 * Disables the drivetrain PID objects.
+	 * Disable the PID controller
 	 */
 	public void disablePID() {
 		m_elevatorPIDController.disable();
+	}
+
+	/**
+	 * @return {@code true} if the controller is enabled
+	 */
+	public boolean getPIDEnabled() {
+		return m_elevatorPIDController.isEnabled();
 	}
 
 	/**

@@ -28,7 +28,7 @@ public class RobotConstants {
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; // Dummy
 
-	public static boolean elevatorSafety = false;
+	public static boolean elevatorSafetyEnabled = false;
 
 	public static double leftDriveP;
 	public static double leftDriveI;
