@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.commands.elbow;
 
 import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleElbowPos extends Command {
 
-	int m_count;
+	private int m_count;
 
 	public ToggleElbowPos() {
 		requires(Robot.elbowSubsystem);
@@ -28,7 +29,7 @@ public class ToggleElbowPos extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return m_count > 5;
+		return m_count > RobotConstants.PNEUMATIC_FIRING_COUNT;
 	}
 
 	// Called once after isFinished returns true

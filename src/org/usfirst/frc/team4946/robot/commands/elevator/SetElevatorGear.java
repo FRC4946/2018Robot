@@ -1,24 +1,22 @@
-package org.usfirst.frc.team4946.robot.commands.drivetrain;
+package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class ToggleDriveGear extends Command {
-
+public class SetElevatorGear extends Command {
+	private boolean m_gearIsClimb;
 	private int m_count;
 
-	public ToggleDriveGear() {
-		requires(Robot.driveTransmissionSubsystem);
+	public SetElevatorGear(boolean isClimb) {
+		requires(Robot.elevatorTransmissionSubsystem);
+		m_gearIsClimb = isClimb;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTransmissionSubsystem.toggle();
+		Robot.elevatorTransmissionSubsystem.set(m_gearIsClimb);
 		m_count = 0;
 	}
 
@@ -34,7 +32,7 @@ public class ToggleDriveGear extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.driveTransmissionSubsystem.off();
+		Robot.elevatorTransmissionSubsystem.off();
 	}
 
 	// Called when another command which requires one or more of the same

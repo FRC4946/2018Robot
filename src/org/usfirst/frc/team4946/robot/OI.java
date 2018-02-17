@@ -9,7 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
+import org.usfirst.frc.team4946.robot.commands.elevator.ToggleElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.externalIntake.RunDiagonalIntake;
@@ -63,7 +63,7 @@ public class OI {
 		
 		togglePneumaticArms.whenPressed(new ToggleElbowPos());
 		driveGearToggle.whenPressed(new ToggleDriveGear());
-		elevatorGearToggle.whenPressed(new ElevatorGearShift());
+		elevatorGearToggle.whenPressed(new ToggleElevatorGear());
 
 		elevatorPreset1.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_BOTTOM_THRESHOLD, 0.8));
 		elevatorPreset2.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_SWITCH_HEIGHT, 0.8));

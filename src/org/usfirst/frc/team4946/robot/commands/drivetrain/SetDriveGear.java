@@ -8,17 +8,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ToggleDriveGear extends Command {
-
+public class SetDriveGear extends Command {
+	private boolean m_isHigh;
 	private int m_count;
 
-	public ToggleDriveGear() {
+	public SetDriveGear(boolean isHigh) {
 		requires(Robot.driveTransmissionSubsystem);
+		m_isHigh = isHigh;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTransmissionSubsystem.toggle();
+		Robot.driveTransmissionSubsystem.set(m_isHigh);
 		m_count = 0;
 	}
 
