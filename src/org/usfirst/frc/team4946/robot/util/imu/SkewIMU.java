@@ -33,6 +33,7 @@ public class SkewIMU extends GyroBase {
 		m_angle = new AtomicDouble();
 		m_lastRate = new AtomicDouble();
 		m_rate = new AtomicDouble();
+		m_down = new Vec3D();
 
 		ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
 		exec.scheduleAtFixedRate(() -> {
