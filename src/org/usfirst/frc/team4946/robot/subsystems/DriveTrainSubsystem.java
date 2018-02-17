@@ -55,9 +55,9 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
-		m_leftPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI, RobotConstants.leftDriveD,
+		m_leftPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD,
 				m_leftEnc, m_left);
-		m_rightPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI, RobotConstants.leftDriveD,
+		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD,
 				m_rightEnc, m_right);
 		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
 		m_gyroPID.setInputRange(0, 360);
@@ -184,12 +184,12 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Update the PID tunings on the DriveTrain
 	 */
 	public void updatePIDTunings() {
-		m_leftPID.setP(RobotConstants.leftDriveP);
-		m_leftPID.setI(RobotConstants.leftDriveI);
-		m_leftPID.setD(RobotConstants.leftDriveD);
-		m_rightPID.setP(RobotConstants.leftDriveP);
-		m_rightPID.setI(RobotConstants.leftDriveI);
-		m_rightPID.setD(RobotConstants.leftDriveD);
+		m_leftPID.setP(RobotConstants.driveP);
+		m_leftPID.setI(RobotConstants.driveI);
+		m_leftPID.setD(RobotConstants.driveD);
+		m_rightPID.setP(RobotConstants.driveP);
+		m_rightPID.setI(RobotConstants.driveI);
+		m_rightPID.setD(RobotConstants.driveD);
 	}
 
 	/**

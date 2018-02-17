@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
 	public static final int PNEUMATIC_FIRING_COUNT = 5;
-	
+
 	public static final double TURNING_POINT = 0.0; // Dummy
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 6.0;
@@ -23,16 +23,19 @@ public class RobotConstants {
 
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.0; // Dummy
 	public static final double ELEVATOR_CARRY_HEIGHT = 9.0; // Dummy
-	public static final double ELEVATOR_BOTTOM_THRESHOLD = 10.0; //Dummy
+	public static final double ELEVATOR_BOTTOM_THRESHOLD = 10.0; // Dummy
 	public static final double ELEVATOR_SWITCH_HEIGHT = 15.0; // Dummy
 	public static final double ELEVATOR_SCALE_HEIGHT = 20.0; // Dummy
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 24.0; // Dummy
 
 	public static boolean elevatorSafetyEnabled = false;
 
-	public static double leftDriveP;
-	public static double leftDriveI;
-	public static double leftDriveD;
+	public static double driveP;
+	public static double driveI;
+	public static double driveD;
+	public static double elevatorP;
+	public static double elevatorI;
+	public static double elevatorD;
 
 	/**
 	 * Load all of the preferences from the file saved on the roboRIO. These
@@ -46,9 +49,12 @@ public class RobotConstants {
 	public static void loadPrefs(Preferences prefs) {
 
 		// Remember to put your default values here!
-		leftDriveP = prefs.getDouble("Drive P", 0.1);
-		leftDriveI = prefs.getDouble("Drive I", 0.0001);
-		leftDriveD = prefs.getDouble("Drive D", 0.0);
+		driveP = prefs.getDouble("Drive P", 0.1);
+		driveI = prefs.getDouble("Drive I", 0.0001);
+		driveD = prefs.getDouble("Drive D", 0.0);
+		elevatorP = prefs.getDouble("Elevator P", 0.1);
+		elevatorI = prefs.getDouble("Elevator I", 0.0001);
+		elevatorD = prefs.getDouble("Elevator D", 0.0);
 	}
 
 	/**
@@ -62,9 +68,12 @@ public class RobotConstants {
 	 *            the {@link Preferences} to write the values to
 	 */
 	public static void repopulatePrefs(Preferences prefs) {
-		prefs.putDouble("Drive P", leftDriveP);
-		prefs.putDouble("Drive I", leftDriveI);
-		prefs.putDouble("Drive D", leftDriveD);
+		prefs.putDouble("Drive P", driveP);
+		prefs.putDouble("Drive I", driveI);
+		prefs.putDouble("Drive D", driveD);
+		prefs.putDouble("Elevator P", elevatorP);
+		prefs.putDouble("Elevator I", elevatorI);
+		prefs.putDouble("Elevator D", elevatorD);
 	}
 
 	/**

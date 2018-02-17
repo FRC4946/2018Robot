@@ -120,6 +120,7 @@ public class Robot extends IterativeRobot {
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
+		elevatorSubsystem.updatePIDTunings();
 
 		String data = DriverStation.getInstance().getGameSpecificMessage();
 

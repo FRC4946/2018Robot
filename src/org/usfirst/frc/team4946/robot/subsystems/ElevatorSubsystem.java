@@ -25,8 +25,8 @@ public class ElevatorSubsystem extends Subsystem {
 	private AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
-	private PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
-			m_elevatorMotorGroup);
+	private PIDController m_elevatorPIDController = new PIDController(RobotConstants.elevatorP,
+			RobotConstants.elevatorI, RobotConstants.elevatorD, m_elevatorAnalogPotentiometer, m_elevatorMotorGroup);
 
 	public ElevatorSubsystem() {
 		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT,
@@ -57,6 +57,15 @@ public class ElevatorSubsystem extends Subsystem {
 	 */
 	public boolean getPIDEnabled() {
 		return m_elevatorPIDController.isEnabled();
+	}
+
+	/**
+	 * Update the PID tunings on the elevator
+	 */
+	public void updatePIDTunings() {
+		m_elevatorPIDController.setP(RobotConstants.elevatorP);
+		m_elevatorPIDController.setI(RobotConstants.elevatorI);
+		m_elevatorPIDController.setD(RobotConstants.elevatorD);
 	}
 
 	/**
