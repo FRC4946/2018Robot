@@ -295,7 +295,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 */
 	public void setEncoderDPP() {
 
-		if (Robot.transmissionSubsystem.getGearState() == Value.kReverse) {
+		if (Robot.driveTransmissionSubsystem.getGearState() == Value.kReverse) {
 
 			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
 					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;

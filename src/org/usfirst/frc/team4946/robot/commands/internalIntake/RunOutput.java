@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.output;
+package org.usfirst.frc.team4946.robot.commands.internalIntake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -23,26 +23,26 @@ public class RunOutput extends Command {
 	 */
     public RunOutput(double speed) {
     	
-    	requires(Robot.upperOutputSubsystem);
+    	requires(Robot.internalIntakeSubsystem);
     	this.speed = speed;
     }
 
     protected void initialize() {
-    	m_hasCube = Robot.upperOutputSubsystem.getHasCube();
+    	m_hasCube = Robot.internalIntakeSubsystem.getHasCube();
     }
 
     protected void execute() {
     	
-    	Robot.upperOutputSubsystem.set(speed);
+    	Robot.internalIntakeSubsystem.set(speed);
     	
-    	if (m_hasCube != Robot.upperOutputSubsystem.getHasCube()) {
+    	if (m_hasCube != Robot.internalIntakeSubsystem.getHasCube()) {
     		
     		m_timer.reset();
         	m_timer.start();
         	
         	while(m_timer.get() <= 0.5) {
         		
-        		if(Robot.upperOutputSubsystem.getHasCube()) {
+        		if(Robot.internalIntakeSubsystem.getHasCube()) {
         			Robot.m_oi.getDriveStick().setRumble(RumbleType.kLeftRumble, 0.7);
         			Robot.m_oi.getOperatorStick().setRumble(RumbleType.kLeftRumble, 0.7);
         		} else {
@@ -60,7 +60,7 @@ public class RunOutput extends Command {
     }
 
     protected void end() {
-    	Robot.upperOutputSubsystem.stop();
+    	Robot.internalIntakeSubsystem.stop();
     }
 
 

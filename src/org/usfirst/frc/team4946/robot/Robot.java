@@ -13,8 +13,8 @@ import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.TransmissionSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.UpperOutputSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -34,12 +34,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrainSubsystem driveTrainSubsystem;
+	public static DriveTrainTransmissionSubsystem driveTransmissionSubsystem;
 	public static ElbowSubsystem elbowSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static ExternalIntakeSubsystem externalIntakeSubsystem;
-	public static UpperOutputSubsystem upperOutputSubsystem;
-	public static TransmissionSubsystem transmissionSubsystem;
+	public static InternalIntakeSubsystem internalIntakeSubsystem;
 
 	public static OI m_oi;
 
@@ -64,12 +64,12 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 
 		driveTrainSubsystem = new DriveTrainSubsystem();
+		driveTransmissionSubsystem = new DriveTrainTransmissionSubsystem();
 		elbowSubsystem = new ElbowSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		externalIntakeSubsystem = new ExternalIntakeSubsystem();
-		upperOutputSubsystem = new UpperOutputSubsystem();
-		transmissionSubsystem = new TransmissionSubsystem();
+		internalIntakeSubsystem = new InternalIntakeSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
@@ -162,7 +162,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
-		SmartDashboard.putBoolean("Intake Cube", upperOutputSubsystem.getHasCube());
+		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
 	}
 
 	/**

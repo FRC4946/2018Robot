@@ -11,7 +11,7 @@ public class IntakeWithTrigger extends Command {
 
 	public IntakeWithTrigger() {
 		requires(Robot.externalIntakeSubsystem);
-		requires(Robot.upperOutputSubsystem);
+		requires(Robot.internalIntakeSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,14 +23,14 @@ public class IntakeWithTrigger extends Command {
 
 		double speed = Robot.m_oi.getDriveStick().getRawAxis(2) - Robot.m_oi.getDriveStick().getRawAxis(3);
 
-		if (speed > 1 && Robot.upperOutputSubsystem.getHasCube()) {
+		if (speed > 1 && Robot.internalIntakeSubsystem.getHasCube()) {
 			Robot.externalIntakeSubsystem.set(0.0);
-			Robot.upperOutputSubsystem.set(0.0);
+			Robot.internalIntakeSubsystem.set(0.0);
 			Robot.m_oi.setDriveStickRumble(1.0);
 			Robot.m_oi.setOperateStickRumble(1.0);
 		} else {
 			Robot.externalIntakeSubsystem.set(speed * 0.6);
-			Robot.upperOutputSubsystem.set(speed);
+			Robot.internalIntakeSubsystem.set(speed);
 			Robot.m_oi.setDriveStickRumble(0.0);
 			Robot.m_oi.setOperateStickRumble(0.0);
 		}
@@ -45,7 +45,7 @@ public class IntakeWithTrigger extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.externalIntakeSubsystem.set(0.0);
-		Robot.upperOutputSubsystem.set(0.0);
+		Robot.internalIntakeSubsystem.set(0.0);
 		Robot.m_oi.setDriveStickRumble(0.0);
 		Robot.m_oi.setOperateStickRumble(0.0);
 	}
@@ -53,5 +53,6 @@ public class IntakeWithTrigger extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

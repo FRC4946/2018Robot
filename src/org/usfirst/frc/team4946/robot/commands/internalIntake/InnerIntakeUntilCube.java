@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.output;
+package org.usfirst.frc.team4946.robot.commands.internalIntake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -19,7 +19,7 @@ public class InnerIntakeUntilCube extends Command {
 	 */
 	public InnerIntakeUntilCube(double speed) {
 
-		requires(Robot.upperOutputSubsystem);
+		requires(Robot.internalIntakeSubsystem);
 		m_speed = speed;
 	}
 
@@ -27,15 +27,15 @@ public class InnerIntakeUntilCube extends Command {
 	}
 
 	protected void execute() {
-		Robot.upperOutputSubsystem.set(m_speed);
+		Robot.internalIntakeSubsystem.set(m_speed);
 	}
 
 	protected boolean isFinished() {
-		return Robot.upperOutputSubsystem.getHasCube();
+		return Robot.internalIntakeSubsystem.getHasCube();
 	}
 
 	protected void end() {
-		Robot.upperOutputSubsystem.stop();
+		Robot.internalIntakeSubsystem.stop();
 	}
 
 	protected void interrupted() {

@@ -2,8 +2,8 @@ package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
-import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
-import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
+import org.usfirst.frc.team4946.robot.commands.externalIntake.RunIntake;
+import org.usfirst.frc.team4946.robot.commands.internalIntake.RunOutput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -21,7 +21,7 @@ public class CubeAndLiftIntake extends CommandGroup {
       
     	m_speed *= 0.8;
     	
-    	while(!Robot.upperOutputSubsystem.getHasCube()) {
+    	while(!Robot.internalIntakeSubsystem.getHasCube()) {
     		
     		addParallel(new RunIntake(m_speed));
     		addParallel(new RunOutput(m_speed));

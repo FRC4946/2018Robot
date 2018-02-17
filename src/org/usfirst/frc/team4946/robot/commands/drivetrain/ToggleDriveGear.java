@@ -10,14 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ToggleDriveGear extends Command {
 
     public ToggleDriveGear() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.transmissionSubsystem);
+    	requires(Robot.driveTransmissionSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.transmissionSubsystem.toggleGear();
+    	Robot.driveTransmissionSubsystem.toggleGear();
     }
 
     // Called repeatedly when this Command is scheduled to run

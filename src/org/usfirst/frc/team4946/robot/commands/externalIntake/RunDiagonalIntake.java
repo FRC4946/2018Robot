@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.intake;
+package org.usfirst.frc.team4946.robot.commands.externalIntake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -26,7 +26,7 @@ public class RunDiagonalIntake extends Command {
 		m_timer.reset();
 		m_timer.start();
 
-		m_hasCube = Robot.upperOutputSubsystem.getHasCube();
+		m_hasCube = Robot.internalIntakeSubsystem.getHasCube();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

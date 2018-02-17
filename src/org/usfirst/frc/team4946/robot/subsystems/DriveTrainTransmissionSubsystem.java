@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class TransmissionSubsystem extends Subsystem {
+public class DriveTrainTransmissionSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_gearShift;
 	private boolean m_isHigh;
@@ -18,7 +18,7 @@ public class TransmissionSubsystem extends Subsystem {
 		
 	}
 
-	public TransmissionSubsystem() {
+	public DriveTrainTransmissionSubsystem() {
 		
 		m_gearShift = new DoubleSolenoid(RobotMap.PCM_DRIVE_GEARLEFT, RobotMap.PCM_DRIVE_GEARRIGHT);
 		

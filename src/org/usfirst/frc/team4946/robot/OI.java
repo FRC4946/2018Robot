@@ -12,8 +12,8 @@ import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorGearShift;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
-import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
-import org.usfirst.frc.team4946.robot.commands.intake.RunIntake;
+import org.usfirst.frc.team4946.robot.commands.externalIntake.RunDiagonalIntake;
+import org.usfirst.frc.team4946.robot.commands.externalIntake.RunIntake;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
