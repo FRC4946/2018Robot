@@ -61,6 +61,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightPID = new PIDController(RobotConstants.leftDriveP, RobotConstants.leftDriveI, RobotConstants.leftDriveD,
 				m_rightEnc, m_right);
 		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
+		m_gyroPID.setInputRange(0, 360);
+		m_gyroPID.setOutputRange(-1.0, 1.0);
 		m_gyroPID.setContinuous();
 
 		calibrateGyro();
@@ -86,7 +88,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 *            the turning speed
 	 */
 	public void arcadeDrive(double speed, double rotate) {
-		arcadeDrive(speed, rotate, 0.8);
+		arcadeDrive(speed, rotate, 1.0);
 	}
 
 	/**
@@ -110,8 +112,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		m_left.set(speed + rotate);
-		m_right.set(speed - rotate);
+		m_left.set(-(speed + rotate));
+		m_right.set(-(speed - rotate));
 	}
 
 	/**

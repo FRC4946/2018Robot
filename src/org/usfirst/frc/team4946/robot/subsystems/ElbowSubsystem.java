@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElbowSubsystem extends Subsystem {
 
-	DoubleSolenoid m_elbowValve;
+	private DoubleSolenoid m_elbowValve;
+	private boolean m_isHigh;
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_LEFT, RobotMap.PCM_ELBOW_RIGHT);
@@ -21,11 +22,13 @@ public class ElbowSubsystem extends Subsystem {
 
 	}
 
-	public void set(boolean isDown) {
-		if (isDown)
+	public void set(boolean isHigh) {
+		if (isHigh)
 			m_elbowValve.set(Value.kReverse);
 		else
 			m_elbowValve.set(Value.kForward);
+
+		m_isHigh = isHigh;
 	}
 
 	public void off() {
@@ -36,31 +39,26 @@ public class ElbowSubsystem extends Subsystem {
 	 * Sets the external intake to the down position
 	 */
 	public void setElbowDown() {
-		m_elbowValve.set(Value.kReverse);
+		set(false);
 	}
 
 	/**
 	 * Lifts the external intake up
 	 */
 	public void setElbowUp() {
-		m_elbowValve.set(Value.kForward);
+		set(true);
 	}
 
 	/**
 	 * @return the current elbow position. kOff indicates the down position.
 	 *         kForward indicates the up position
 	 */
-	public Value getElbowValue() {
-		
-		return m_elbowValve.get();
+	public boolean getElbowValue() {
+
+		return m_isHigh;
 	}
-	
+
 	public void toggleSolenoid() {
-		
-		if(m_elbowValve.get() == Value.kForward) {
-			m_elbowValve.set(Value.kReverse);
-		} else {
-			m_elbowValve.set(Value.kForward);
-		}
+		set(!m_isHigh);
 	}
 }
