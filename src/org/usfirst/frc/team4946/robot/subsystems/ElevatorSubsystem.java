@@ -16,12 +16,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
-	WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
+	private WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
+	private WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
 
-	SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup(m_elevatorMotorLeft, m_elevatorMotorRight);
+	private SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup(m_elevatorMotorLeft,
+			m_elevatorMotorRight);
 
-	AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
+	private AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
 	public PIDController m_elevatorPIDController = new PIDController(0.0, 0.0, 0.0, m_elevatorAnalogPotentiometer,
@@ -49,24 +50,17 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public boolean isAtBottom() {
-		boolean atBottom = false;
-
-		if (getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
-			atBottom = true;
-		}
-
-		return atBottom;
+		return getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD;
 	}
 
 	/**
 	 * Manually sets the speed of the motors.
 	 * 
 	 * @param d_speed
-	 *            The fraction of the motor's maximum speed the motors are to
-	 *            spin at. Ranges between -1.0 and 1.0
+	 *            The fraction of the motor's maximum speed the motors are to spin
+	 *            at. Ranges between -1.0 and 1.0
 	 */
 	public void set(double d_speed) {
-
 		m_elevatorMotorLeft.set(d_speed);
 		m_elevatorMotorRight.set(-d_speed);
 	}
@@ -75,23 +69,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 * @return the average speed of both elevator MotorControllerGroups
 	 */
 	public double getSpeed() {
-
-		return (m_elevatorMotorGroup.get());
-	}
-
-	/**
-	 * @return the speed of the left elevator MotorControllerGroup
-	 */
-	public double getLeftSpeed() {
 		return m_elevatorMotorGroup.get();
-	}
-
-	/**
-	 * @return the speed of the right elevator MotorControllerGroup
-	 */
-	public double getRightSpeed() {
-		// return m_elevatorMotorGroupRight.get();
-		return 1.0;
 	}
 
 	/**
