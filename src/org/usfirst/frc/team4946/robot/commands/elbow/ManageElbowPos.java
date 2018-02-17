@@ -24,7 +24,7 @@ public class ManageElbowPos extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.elevatorSubsystem.getElevatorPos() > RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
+		if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_BOTTOM_THRESHOLD) {
 			Robot.elbowSubsystem.setElbowDown();
 		} else {
 			Robot.elbowSubsystem.setElbowUp();

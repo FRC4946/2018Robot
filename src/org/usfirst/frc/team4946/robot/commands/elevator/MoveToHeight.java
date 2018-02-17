@@ -46,7 +46,7 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void end() {
-		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
+		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
 	}
 
 	protected void interrupted() {

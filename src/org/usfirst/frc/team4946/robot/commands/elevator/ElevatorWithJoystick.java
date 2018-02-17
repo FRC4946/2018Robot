@@ -24,7 +24,7 @@ public class ElevatorWithJoystick extends Command {
 			if (!Robot.elevatorSubsystem.getPIDEnabled())
 				Robot.elevatorSubsystem.enablePID();
 
-			double setpoint = Robot.elevatorSubsystem.getElevatorPos();
+			double setpoint = Robot.elevatorSubsystem.getHeight();
 			setpoint += 10 * Robot.m_oi.getOperatorStick().getRawAxis(1);
 
 			double max = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
@@ -51,7 +51,7 @@ public class ElevatorWithJoystick extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.elevatorSubsystem.set(0.0);
-		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getElevatorPos());
+		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
 	}
 
 	// Called when another command which requires one or more of the same

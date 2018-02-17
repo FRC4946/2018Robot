@@ -162,7 +162,7 @@ public class Robot extends IterativeRobot {
 	public void updateSmartDashboard() {
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
-		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getElevatorPos());
+		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
 		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
 	}
 

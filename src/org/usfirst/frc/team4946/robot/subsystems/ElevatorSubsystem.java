@@ -22,16 +22,15 @@ public class ElevatorSubsystem extends Subsystem {
 	private SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup(m_elevatorMotorLeft,
 			m_elevatorMotorRight);
 
-	private AnalogPotentiometer m_elevatorAnalogPotentiometer = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
+	private AnalogPotentiometer m_analogPot = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
-	private PIDController m_elevatorPIDController = new PIDController(RobotConstants.elevatorP,
-			RobotConstants.elevatorI, RobotConstants.elevatorD, m_elevatorAnalogPotentiometer, m_elevatorMotorGroup);
+	private PIDController m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
+			RobotConstants.elevatorD, m_analogPot, m_elevatorMotorGroup);
 
 	public ElevatorSubsystem() {
-		m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT,
-				RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
-		m_elevatorPIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT, RobotConstants.ELEVATOR_MAX_OUTPUT);
+		m_PIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
+		m_PIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT, RobotConstants.ELEVATOR_MAX_OUTPUT);
 	}
 
 	public void initDefaultCommand() {
@@ -42,30 +41,30 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Enable the PID controller
 	 */
 	public void enablePID() {
-		m_elevatorPIDController.enable();
+		m_PIDController.enable();
 	}
 
 	/**
 	 * Disable the PID controller
 	 */
 	public void disablePID() {
-		m_elevatorPIDController.disable();
+		m_PIDController.disable();
 	}
 
 	/**
 	 * @return {@code true} if the controller is enabled
 	 */
 	public boolean getPIDEnabled() {
-		return m_elevatorPIDController.isEnabled();
+		return m_PIDController.isEnabled();
 	}
 
 	/**
 	 * Update the PID tunings on the elevator
 	 */
 	public void updatePIDTunings() {
-		m_elevatorPIDController.setP(RobotConstants.elevatorP);
-		m_elevatorPIDController.setI(RobotConstants.elevatorI);
-		m_elevatorPIDController.setD(RobotConstants.elevatorD);
+		m_PIDController.setP(RobotConstants.elevatorP);
+		m_PIDController.setI(RobotConstants.elevatorI);
+		m_PIDController.setD(RobotConstants.elevatorD);
 	}
 
 	/**
@@ -73,12 +72,12 @@ public class ElevatorSubsystem extends Subsystem {
 	 * 
 	 * @return the position of the elevator
 	 */
-	public double getElevatorPos() {
-		return m_elevatorAnalogPotentiometer.get();
+	public double getHeight() {
+		return m_analogPot.get();
 	}
 
 	public boolean isAtBottom() {
-		return getElevatorPos() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD;
+		return getHeight() <= RobotConstants.ELEVATOR_BOTTOM_THRESHOLD;
 	}
 
 	/**
@@ -107,14 +106,14 @@ public class ElevatorSubsystem extends Subsystem {
 	 *            the height setpoint in inches.
 	 */
 	public void setSetpoint(double d_point) {
-		m_elevatorPIDController.setSetpoint(d_point);
+		m_PIDController.setSetpoint(d_point);
 	}
 
 	/**
 	 * @return Whether or not the current height matches the height setpoint.
 	 */
 	public boolean getOnTarget() {
-		return m_elevatorPIDController.onTarget();
+		return m_PIDController.onTarget();
 	}
 
 }

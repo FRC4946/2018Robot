@@ -32,7 +32,7 @@ public class IntakeWithTrigger extends Command {
 		} else {
 
 			// Only run the external intake if the elevator is low to the ground
-			if (Robot.elevatorSubsystem.getElevatorPos() < RobotConstants.ELEVATOR_BOTTOM_THRESHOLD)
+			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_BOTTOM_THRESHOLD)
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
 			else
 				Robot.externalIntakeSubsystem.set(0.0);
