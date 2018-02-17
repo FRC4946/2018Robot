@@ -3,7 +3,7 @@ package org.usfirst.frc.team4946.robot.commands.intake;
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.RumbleJoysticks;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorSetHeight;
+import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.output.RunOutput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -32,7 +32,7 @@ public class IntakeCommandGroup extends CommandGroup {
 	    		
 	    		addParallel(new RunIntake(0.0));
 	    		addParallel(new RunOutput(0.0));
-	    		addSequential(new ElevatorSetHeight(2.0, 0.4));
+	    		addSequential(new MoveToHeight(2.0, 0.4));
 	    		
 	    	} else {
 	    		

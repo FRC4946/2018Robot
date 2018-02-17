@@ -16,27 +16,15 @@ public class RunIntake extends Command {
 	 * @param speed
 	 *            the velocity to run the intake at, ranging from -1.0 to 1.0.
 	 */
-<<<<<<< HEAD
-    public RunIntake(double speed) {
-    	
-    	requires(Robot.externalIntakeSubsystem);
-    	this.speed = speed;
-    }
-=======
+
 	public RunIntake(double speed) {
 		requires(Robot.externalIntakeSubsystem);
 		this.speed = speed;
 	}
->>>>>>> branch 'master' of https://github.com/FRC4946/2018Robot.git
 
-<<<<<<< HEAD
     protected void initialize() {
-    	m_hasCube = Robot.upperOutputSubsystem.getHasCube();
+
     }
-=======
-	protected void initialize() {
-	}
->>>>>>> branch 'master' of https://github.com/FRC4946/2018Robot.git
 
 	protected void execute() {
 		Robot.externalIntakeSubsystem.set(speed);
