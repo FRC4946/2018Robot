@@ -6,7 +6,7 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClosedLoopControl extends Command {
+public class ElevatorWithJoystick_PID extends Command {
 
 	Joystick m_joy;
 	double m_currentPos;double m_move;
@@ -14,7 +14,7 @@ public class ClosedLoopControl extends Command {
 	/**
 	 * Uses PID in conjunction with input from the operator stick to control the height of the elevator. 
 	 */
-    public ClosedLoopControl() {
+    public ElevatorWithJoystick_PID() {
     	
     	requires(Robot.elevatorSubsystem);
     	m_joy = Robot.m_oi.getOperatorStick();

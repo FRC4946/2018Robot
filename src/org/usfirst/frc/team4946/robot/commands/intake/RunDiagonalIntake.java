@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.externalIntake;
+package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 

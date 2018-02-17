@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.drivetrain;
+package org.usfirst.frc.team4946.robot.commands.drivetrain.auto;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.pathplanning.TrapezoidMotionProfile;

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4946.robot.commands.autoscripts;
 
-import org.usfirst.frc.team4946.robot.commands.CubeAndLiftIntake;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveStraightPID;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.DriveStraightPID;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.intake.CubeAndLiftIntake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

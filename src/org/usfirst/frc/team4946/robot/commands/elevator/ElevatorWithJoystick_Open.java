@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorJoystickCtrl extends Command {
+public class ElevatorWithJoystick_Open extends Command {
 
 	Joystick j_joy;
 	
 	/**
 	 * Uses the operator joystick to control the elevator height
 	 */
-    public ElevatorJoystickCtrl() {
+    public ElevatorWithJoystick_Open() {
     	requires(Robot.elevatorSubsystem);
 
     }

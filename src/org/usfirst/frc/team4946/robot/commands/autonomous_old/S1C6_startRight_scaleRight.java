@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveStraightPID;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.DriveStraightPID;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
-import org.usfirst.frc.team4946.robot.commands.internalIntake.RunOutput;
+import org.usfirst.frc.team4946.robot.commands.internalIntake.SetIntIntake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -24,14 +24,14 @@ public class S1C6_startRight_scaleRight extends CommandGroup {
     	addSequential(new TurnPID(-90.0000));
     	addSequential(new DriveStraightPID(speedDrive_var, 151.3760));
     	addParallel(new MoveToHeight(RobotConstants.ELEVATOR_MAXIMUM_HEIGHT, 0.8));
-    	addSequential(new RunOutput(-1.0));
+    	addSequential(new SetIntIntake(-1.0));
     	try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	addSequential(new RunOutput(0.0));
+    	addSequential(new SetIntIntake(0.0));
     	addParallel(new MoveToHeight(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, 0.8));
     	
     }

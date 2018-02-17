@@ -2,7 +2,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorJoystickCtrl;
+import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick_Open;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -37,7 +37,7 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public void initDefaultCommand() {
 		
-		setDefaultCommand(new ElevatorJoystickCtrl());
+		setDefaultCommand(new ElevatorWithJoystick_Open());
 	}
 
 	/**

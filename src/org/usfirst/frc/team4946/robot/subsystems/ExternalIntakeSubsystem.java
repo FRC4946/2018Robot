@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.IntakeWithTrigger;
+import org.usfirst.frc.team4946.robot.commands.intake.IntakeWithTrigger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 

@@ -1,10 +1,9 @@
-package org.usfirst.frc.team4946.robot.commands.externalIntake;
+package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.RumbleJoysticks;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
-import org.usfirst.frc.team4946.robot.commands.internalIntake.RunOutput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -26,22 +25,20 @@ public class IntakeCommandGroup extends CommandGroup {
 	    		
 	    		while(!Robot.internalIntakeSubsystem.getHasCube()) {
 	    			
-		    		addParallel(new RunIntake(0.5));
-		    		addSequential(new RunOutput(0.4));
+		    		addSequential(new SetIntake(0.4));
 	    		}
 	    		
-	    		addParallel(new RunIntake(0.0));
-	    		addParallel(new RunOutput(0.0));
+	    		addParallel(new SetIntake(0.0));
 	    		addSequential(new MoveToHeight(2.0, 0.4));
 	    		
 	    	} else {
 	    		
 	    		while(!Robot.internalIntakeSubsystem.getHasCube()) {
 	    			
-		    		addSequential(new RunOutput(0.4));
+		    		addSequential(new SetIntake(0.4));
 	    		}
 	    		
-	    		addSequential(new RunOutput(0.0));
+	    		addSequential(new SetIntake(0.0));
 	    	}
     	}
     }
