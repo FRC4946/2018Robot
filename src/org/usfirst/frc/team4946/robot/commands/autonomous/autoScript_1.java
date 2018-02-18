@@ -101,8 +101,6 @@ public class autoScript_1 extends CommandGroup {
     		addParallel(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
 			addSequential(new IntakeWithTimer(-1.0, 0.5));
 
-    		
-
     	}
     	else
     	{
