@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class autoScript_1 extends CommandGroup {
 
 	private double autoSpeed = RobotConstants.ROBOT_DRIVE_AUTO_SPEED;
+	private double elevatorMaxHeight = RobotConstants.ELEVATOR_SCALE_HEIGHT;
+	private double elevatorMinHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
 	
 	private int startPosition = 1; //1 - 3
 	private boolean scaleLeft = false;
@@ -60,6 +62,8 @@ public class autoScript_1 extends CommandGroup {
     			addSequential(new TurnPID(-90));
     			addSequential(new DriveStraightPID(autoSpeed, 78.00));
     			addSequential(new TurnPID(90));
+    			
+    			//Eject CUbse
     			addSequential(new IntakeWithTimer(-1.00, 0.50));
     		}
     		else
@@ -69,6 +73,8 @@ public class autoScript_1 extends CommandGroup {
     			addSequential(new TurnPID(90));
     			addSequential(new DriveStraightPID(autoSpeed, 78.00));
     			addSequential(new TurnPID(-90));
+    			
+    			//Eject Cube
     			addSequential(new IntakeWithTimer(-1.00, 0.50));
     			
     		}
@@ -76,9 +82,6 @@ public class autoScript_1 extends CommandGroup {
     	else if(startPosition == 1)
     	{
     		//Left Auto
-    		addSequential(new TurnPID(-90));
-    		addSequential(new DriveStraight(autoSpeed, 48));
-    		addSequential(new TurnPID(90));
     		
     		if (scaleLeft) {
     			
@@ -98,16 +101,14 @@ public class autoScript_1 extends CommandGroup {
     			
     		}
     		
-    		addParallel(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
+    		//Move Elevator and then Eject Cube
+    		addParallel(new MoveToHeight(elevatorMaxHeight));
 			addSequential(new IntakeWithTimer(-1.0, 0.5));
 
     	}
     	else
     	{
     		//Right Auto
-    		addSequential(new TurnPID(90));
-    		addSequential(new DriveStraight(autoSpeed, 48));
-    		addSequential(new TurnPID(-90));
     		
     		if (scaleLeft) {
     			
@@ -126,7 +127,8 @@ public class autoScript_1 extends CommandGroup {
     			addSequential(new DriveStraight(autoSpeed, 120));
     		}
     		
-    		addParallel(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
+    		//Move Elevator and then Eject Cube
+    		addParallel(new MoveToHeight(elevatorMaxHeight));
     		addSequential(new IntakeWithTimer(-1.0, 0.5));
     	}
     	
