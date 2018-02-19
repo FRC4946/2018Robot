@@ -82,9 +82,6 @@ public class autoScript_1 extends CommandGroup {
     	else if(startPosition == 1)
     	{
     		//Left Auto
-    		addSequential(new TurnPID(-90));
-    		addSequential(new DriveStraight(autoSpeed, 48));
-    		addSequential(new TurnPID(90));
     		
     		if (scaleLeft) {
     			
@@ -112,9 +109,6 @@ public class autoScript_1 extends CommandGroup {
     	else
     	{
     		//Right Auto
-    		addSequential(new TurnPID(90));
-    		addSequential(new DriveStraight(autoSpeed, 48));
-    		addSequential(new TurnPID(-90));
     		
     		if (scaleLeft) {
     			
