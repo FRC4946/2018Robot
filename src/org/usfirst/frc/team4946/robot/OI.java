@@ -10,8 +10,8 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.ToggleElevatorGear;
-import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
-import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
+import org.usfirst.frc.team4946.robot.commands.intake.SetDiagonalIntake;
+import org.usfirst.frc.team4946.robot.commands.intake.SetBothIntakes;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick_Open;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 
@@ -29,10 +29,10 @@ public class OI {
 	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
-	// Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button
+	Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button
 	// number for the cube intake Button
-	// Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button
-	// number for the cube output button
+	Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button
+	//number for the cube output button
 	Button triggerDiagonalCube = new JoystickButton(driveStick, 4);
 
 	Button togglePneumaticArms = new JoystickButton(driveStick, 1);
@@ -50,16 +50,16 @@ public class OI {
 		// cubeOutButton.whileHeld(new OutputCubeWithIntake());
 
 		toggleElevatorOpenLoop.whileHeld(new ElevatorWithJoystick_Open());
-		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
-		triggerDiagonalCube.whenReleased(new SetIntake(0.0));
+		triggerDiagonalCube.whenPressed(new SetDiagonalIntake(0.5));
+		triggerDiagonalCube.whenReleased(new SetBothIntakes(0.0));
 
 		// cubeInButton.whenPressed(new IntakeCommandGroup());
-		//
-		// cubeOutButton.whenPressed(new RunIntake(-0.5));
-		// cubeOutButton.whenPressed(new RunOutput(-0.4));
-		//
-		// cubeOutButton.whenReleased(new RunIntake(0.0));
-		// cubeOutButton.whenReleased(new RunOutput(0.0));
+		
+		cubeInButton.whenPressed(new SetBothIntakes(0.45));
+		cubeInButton.whenReleased(new SetBothIntakes(0.0));
+		
+		cubeOutButton.whenPressed(new SetBothIntakes(-0.45));
+		cubeOutButton.whenReleased(new SetBothIntakes(0.0));
 
 		togglePneumaticArms.whenPressed(new ToggleElbowPos());
 		driveGearToggle.whenPressed(new ToggleDriveGear());

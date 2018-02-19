@@ -2,35 +2,29 @@ package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SetIntake extends Command {
+public class SetDiagonalIntake extends Command {
 
-	private double m_internalSpeed;
-	private double m_externalSpeed;
+	double m_speed;
 
-	public SetIntake(double speed) {
-		this(speed * 0.6, speed);
-	}
-
-	public SetIntake(double extSpeed, double intSpeed) {
+	public SetDiagonalIntake(double speed) {
 		requires(Robot.externalIntakeSubsystem);
-		requires(Robot.internalIntakeSubsystem);
-		m_externalSpeed = extSpeed;
-		m_internalSpeed = intSpeed;
+		m_speed = speed;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.externalIntakeSubsystem.set(m_externalSpeed);
-		Robot.internalIntakeSubsystem.set(m_internalSpeed);
+			Robot.externalIntakeSubsystem.diagonalSpin(m_speed / 2);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -40,8 +34,7 @@ public class SetIntake extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.externalIntakeSubsystem.set(0.0);
-		Robot.internalIntakeSubsystem.set(0.0);
+
 	}
 
 	// Called when another command which requires one or more of the same

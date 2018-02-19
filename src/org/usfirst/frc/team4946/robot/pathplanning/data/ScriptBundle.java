@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.IntakeUntilCube;
-import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
+import org.usfirst.frc.team4946.robot.commands.intake.SetBothIntakes;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action.Behaviour;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DelayAction;
@@ -78,14 +78,14 @@ public class ScriptBundle {
 			// Intake
 			else if (a instanceof IntakeAction) {
 				if (a.options == IntakeAction.Options.kIntakeOn)
-					c = new SetIntake(1.0);
+					c = new SetBothIntakes(1.0);
 				else if (a.options == IntakeAction.Options.kIntakeUntil)
 					c = new IntakeUntilCube();
 			}
 
 			// Output
 			else if (a instanceof OutputAction) {
-				c = new SetIntake(-1.0);
+				c = new SetBothIntakes(-1.0);
 			}
 
 			if (a.timeout < 0.0001)
