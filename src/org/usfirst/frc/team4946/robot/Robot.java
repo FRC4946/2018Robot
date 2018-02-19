@@ -15,6 +15,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.RobotMeatball;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static ExternalIntakeSubsystem externalIntakeSubsystem;
 	public static InternalIntakeSubsystem internalIntakeSubsystem;
+	public static RobotMeatball meatball;
 
 	public static OI m_oi;
 
@@ -70,7 +72,10 @@ public class Robot extends IterativeRobot {
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		externalIntakeSubsystem = new ExternalIntakeSubsystem();
 		internalIntakeSubsystem = new InternalIntakeSubsystem();
-
+		meatball = new RobotMeatball();
+		
+		meatball.isRobotMeatball = true;
+		
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 
