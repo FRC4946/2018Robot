@@ -3,6 +3,7 @@ package org.usfirst.frc.team4946.robot.commands.autonomous;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.DriveStraightPID;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.intake.IntakeWithTimer;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -41,6 +42,8 @@ public class autoScript_2 extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
+    	addSequential(new MoveToHeight(elevatorMinHeight));
     	
     	if(startPosition == 1)	    	//Start from scale left
     	{
