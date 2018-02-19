@@ -50,21 +50,74 @@ public class autoScript_2 extends CommandGroup {
     		addSequential(new TurnPID(180));
     		addSequential(new DriveStraightPID(autoSpeed, 180));
     		addSequential(new TurnPID(-90));
-    		addParallel(new DriveStraightPID(autoSpeed, 2.00));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
     		addSequential(new IntakeWithTimer(1.00, 0.50));
+    		
+    		addSequential(new TurnPID(-180));
+    		addSequential(new DriveStraightPID(autoSpeed, 48));
+    		addSequential(new TurnPID(-90));
+    		addSequential(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new TurnPID(-90));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new IntakeWithTimer(1.00, 0.50));
+    		
     	}
     	else if(startPosition == 2)	    	//Start from switch left
     	{
-    		addSequential(new TurnPID(180));	
+    		addSequential(new TurnPID(-90));
+    		addSequential(new DriveStraightPID(autoSpeed, 60.00));
+    		addSequential(new TurnPID(90));
+    		addSequential(new DriveStraightPID(autoSpeed, 60.00));
+    		addSequential(new TurnPID(90));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new IntakeWithTimer(1.00, 0.50));
+    		
+    		addSequential(new TurnPID(-90));
+    		addSequential(new DriveStraightPID(autoSpeed, 96));
+    		addSequential(new TurnPID(-90));
+    		addSequential(new DriveStraightPID(autoSpeed, 12));
+    		addSequential(new TurnPID(90));
+    		
+    		//Output cube into scale
+    		
     	}
     	else if(startPosition == 3)	    	//Start from switch right
     	{
-    		addSequential(new TurnPID(180));
+    		addSequential(new TurnPID(90));
+    		addSequential(new DriveStraightPID(autoSpeed, 60.00));
+    		addSequential(new TurnPID(-90));
+    		addSequential(new DriveStraightPID(autoSpeed, 60.00));
+    		addSequential(new TurnPID(-90));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new IntakeWithTimer(1.00, 0.50));
     	}
     	else	    	//Start from scale right
     	{
     		addSequential(new TurnPID(180));
-    		addSequential(new DriveStraightPID(autoSpeed, 200));
+    		addSequential(new DriveStraightPID(autoSpeed, 180));
+    		addSequential(new TurnPID(90));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new IntakeWithTimer(1.00, 0.50));
+    		
+    		addSequential(new TurnPID(180));
+    		addSequential(new DriveStraightPID(autoSpeed, 48));
+    		addSequential(new TurnPID(90));
+    		addSequential(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new TurnPID(90));
+    		
+    		//Drive Forwards and Intake Cube
+    		addParallel(new DriveStraightPID(autoSpeed, 24));
+    		addSequential(new IntakeWithTimer(1.00, 0.50));
     	}
     	
     }
