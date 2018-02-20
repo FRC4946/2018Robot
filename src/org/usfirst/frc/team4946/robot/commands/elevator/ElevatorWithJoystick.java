@@ -16,31 +16,25 @@ public class ElevatorWithJoystick extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.elevatorSubsystem.enablePID();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (RobotConstants.elevatorSafetyEnabled) {
-			if (!Robot.elevatorSubsystem.getPIDEnabled())
-				Robot.elevatorSubsystem.enablePID();
 
-			double setpoint = Robot.elevatorSubsystem.getHeight();
-			setpoint += 10 * Robot.m_oi.getOperatorStick().getRawAxis(1);
+		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
+		if (Math.abs(speed) < 0.1)
+			return;
 
-			double max = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-			double min = Robot.internalIntakeSubsystem.getHasCube() ? RobotConstants.ELEVATOR_CARRY_HEIGHT
-					: RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
+		double setpoint = Robot.elevatorSubsystem.getHeight();
+		setpoint += 12 * speed;
 
-			setpoint = Math.min(setpoint, max);
-			setpoint = Math.max(setpoint, min);
-			Robot.elevatorSubsystem.setSetpoint(setpoint);
-		} else {
+		double max = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
+		double min = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
 
-			if (Robot.elevatorSubsystem.getPIDEnabled())
-				Robot.elevatorSubsystem.disablePID();
-			Robot.elevatorSubsystem.set(Robot.m_oi.getOperatorStick().getRawAxis(0));
-		}
-
+		setpoint = Math.min(setpoint, max);
+		setpoint = Math.max(setpoint, min);
+		Robot.elevatorSubsystem.setSetpoint(setpoint);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -57,5 +51,6 @@ public class ElevatorWithJoystick extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

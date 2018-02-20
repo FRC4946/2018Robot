@@ -42,7 +42,7 @@ public class MoveToHeight extends Command {
 	}
 
 	protected boolean isFinished() {
-		return Robot.elevatorSubsystem.getOnTarget();
+		return Robot.elevatorSubsystem.getOnTarget() && Robot.elevatorSubsystem.getSpeed() < 0.1 && Robot.isAutonomous;
 	}
 
 	protected void end() {

@@ -27,37 +27,36 @@ public class RobotMap {
 	// RELAY_VISION_LED
 	//
 
-	public static final int ANALOG_ELEVATOR_POT = 1;
+	public static final int ANALOG_ELEVATOR_POT = 0;
 
 	public static final int USB_DS_DRIVESTICK = 0;
 	public static final int USB_DS_OPERATORSTICK = 1;
 
-	public static final int CAN_DRIVE_LEFTFRONT = 13;
-	public static final int CAN_DRIVE_LEFTMID = 14;
-	public static final int CAN_DRIVE_LEFTBACK = 15;
-	public static final int CAN_DRIVE_RIGHTFRONT = 0;
-	public static final int CAN_DRIVE_RIGHTMID = 1;
-	public static final int CAN_DRIVE_RIGHTBACK = 2;
+	public static final int CAN_DRIVE_LEFTFRONT = 0;
+	public static final int CAN_DRIVE_LEFTMID = 1;
+	public static final int CAN_DRIVE_LEFTBACK = 2;
+	public static final int CAN_DRIVE_RIGHTFRONT = 13;
+	public static final int CAN_DRIVE_RIGHTMID = 14;
+	public static final int CAN_DRIVE_RIGHTBACK = 15;
 
 	public static final int CAN_INTAKE_LEFTMOTOR = 4;
 	public static final int CAN_INTAKE_RIGHTMOTOR = 5;
 
-	public static final int CAN_ELEVATOR_LEFT = 8;
-	public static final	 int CAN_ELEVATOR_RIGHT = 9;
+	public static final int CAN_ELEVATOR_LEFT = 12;
+	public static final int CAN_ELEVATOR_RIGHT = 3;
 
 	public static final int CAN_OUTPUT_LEFT = 10;
 	public static final int CAN_OUTPUT_RIGHT = 11;
 
-	public static final int DIO_DRIVE_LEFTENC1 = 0;
-	public static final int DIO_DRIVE_LEFTENC2 = 1;
-	public static final int DIO_DRIVE_RIGHTENC1 = 2;
-	public static final int DIO_DRIVE_RIGHTENC2 = 3;
+	public static final int DIO_DRIVE_LEFTENC1 = 2;
+	public static final int DIO_DRIVE_LEFTENC2 = 3;
+	public static final int DIO_DRIVE_RIGHTENC1 = 0;
+	public static final int DIO_DRIVE_RIGHTENC2 = 1;
+	public static final int DIO_INTAKE_SWITCH1 = 8;
+	public static final int DIO_INTAKE_SWITCH2 = 9;
 
-	public static final int DIO_OUTPUT_LEFTSWITCH = 4;
-	public static final int DIO_OUTPUT_RIGHTSWITCH = 5;
-
-	public static final int PCM_DRIVE_GEARLEFT = 6;
-	public static final int PCM_DRIVE_GEARRIGHT = 1;
+	public static final int PCM_DRIVE_GEARHIGH = 1;
+	public static final int PCM_DRIVE_GEARLOW = 5;
 	public static final int PCM_ELEVATOR_GEARLEFT = 2;
 	public static final int PCM_ELEVATOR_GEARRIGHT = 3;
 	public static final int PCM_ELBOW_LEFT = 0;

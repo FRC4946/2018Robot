@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4946.robot.pathplanning;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -11,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
+import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ArmAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DelayAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ElevatorAction;
@@ -23,6 +26,38 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class FileIO {
+
+	public static DecimalFormat f = new DecimalFormat("0.00");
+
+	public static File lastFileModified(String dir) {
+		return lastFileModified(dir, ".xml");
+	}
+
+	public static File lastFileModified(String dir, String extension) {
+
+		// List all the xml files in the directory
+		File fl = new File(dir);
+		File[] files = fl.listFiles(new FileFilter() {
+			public boolean accept(File file) {
+				return file.isFile() && file.toString().toLowerCase().endsWith(extension);
+			}
+		});
+
+		// If there are no valid files, return null
+		if (files == null)
+			return null;
+
+		// Get the last modified file
+		long lastMod = Long.MIN_VALUE;
+		File choice = null;
+		for (File file : files) {
+			if (file.lastModified() > lastMod) {
+				choice = file;
+				lastMod = file.lastModified();
+			}
+		}
+		return choice;
+	}
 
 	public static ScriptBundle loadScript(File file) throws ParserConfigurationException, SAXException, IOException {
 		ScriptBundle scripts = new ScriptBundle();
@@ -75,6 +110,9 @@ public class FileIO {
 				case "Elevator":
 					curAction = new ElevatorAction();
 					break;
+				case "Arm":
+					curAction = new ArmAction();
+					break;
 				case "Intake":
 					curAction = new IntakeAction();
 					break;
@@ -92,6 +130,7 @@ public class FileIO {
 				curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(), curEl.getAttribute("options"));
 				curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
 						curEl.getAttribute("behaviour"));
+				curAction.delay = Double.parseDouble(curEl.getAttribute("delay"));
 				curAction.data = Double.parseDouble(curEl.getAttribute("data"));
 				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
 
@@ -137,4 +176,5 @@ public class FileIO {
 
 		return s;
 	}
+
 }

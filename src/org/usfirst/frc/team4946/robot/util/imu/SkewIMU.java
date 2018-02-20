@@ -49,6 +49,8 @@ public class SkewIMU extends GyroBase {
 
 				double dRate = m_lastRate.get() - m_rate.get();
 				m_angle.addAndGet(dRate * kSamplePeriod / 1000000);
+				
+//				System.out.println(dRate * kSamplePeriod / 1000000);
 			}
 		}, 0, kSamplePeriod, TimeUnit.MICROSECONDS);
 	}

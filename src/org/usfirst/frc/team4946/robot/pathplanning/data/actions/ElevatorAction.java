@@ -3,7 +3,7 @@ package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 public class ElevatorAction extends Action<ElevatorAction.Options> {
 
 	public static enum Options implements Action.ActionOptions {
-		kMoveToBottom, kMoveToSwitch, kMoveToScale, kMoveToCustom
+		kMoveToBottom, kMoveToSwitch, kMoveToScaleLow, kMoveToScaleHigh, kMoveToCustom
 	}
 
 	public ElevatorAction() {

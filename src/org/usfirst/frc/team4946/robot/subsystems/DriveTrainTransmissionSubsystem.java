@@ -15,13 +15,7 @@ public class DriveTrainTransmissionSubsystem extends Subsystem {
 	private boolean m_isHigh;
 
 	public DriveTrainTransmissionSubsystem() {
-
-		m_gearShift = new DoubleSolenoid(RobotMap.PCM_DRIVE_GEARLEFT, RobotMap.PCM_DRIVE_GEARRIGHT);
-
-		if (m_gearShift.get() == Value.kForward)
-			m_isHigh = true;
-		else
-			m_isHigh = false;
+		m_gearShift = new DoubleSolenoid(RobotMap.PCM_DRIVE_GEARHIGH, RobotMap.PCM_DRIVE_GEARLOW);
 	}
 
 	public void initDefaultCommand() {
@@ -36,9 +30,9 @@ public class DriveTrainTransmissionSubsystem extends Subsystem {
 	public void set(boolean isHigh) {
 
 		if (isHigh)
-			m_gearShift.set(Value.kReverse);
-		else
 			m_gearShift.set(Value.kForward);
+		else
+			m_gearShift.set(Value.kReverse);
 
 		m_isHigh = isHigh;
 	}

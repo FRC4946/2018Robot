@@ -7,14 +7,21 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.xml.sax.SAXException;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -43,13 +50,13 @@ public class Robot extends IterativeRobot {
 
 	public static OI m_oi;
 
+	public static boolean isAutonomous = false;
+
 	private CommandGroup m_autoCommand = new CommandGroup();
 	private ScriptBundle m_script = new ScriptBundle();
 
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
-
-	String switchAndScale;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -73,8 +80,6 @@ public class Robot extends IterativeRobot {
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
-
-		switchAndScale = DriverStation.getInstance().getGameSpecificMessage();
 	}
 
 	/**
@@ -84,8 +89,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		elevatorTransmissionSubsystem.set(true);
+		elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
+
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
+		isAutonomous = false;
 	}
 
 	@Override
@@ -93,11 +102,24 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 
-		// Every 3 seconds, update the robot preferences
-		// No idea if this is a good idea or not. Worth experimenting with
-		// though.
-		if (m_prefsUpdateTimer.hasPeriodPassed(3)) {
+		// Every 3 seconds, update the robot preferences and the loaded xml file
+		if (m_prefsUpdateTimer.hasPeriodPassed(2)) {
 			RobotConstants.updatePrefs(m_robotPrefs);
+
+			File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
+			if (file == null)
+				SmartDashboard.putString("Script", "No script!");
+			else {
+				try {
+					m_script = FileIO.loadScript(file);
+					SmartDashboard.putString("Script", m_script.name);
+				} catch (ParserConfigurationException | SAXException | IOException e) {
+					m_script = null;
+					SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+					e.printStackTrace();
+				}
+			}
+
 		}
 
 	}
@@ -116,18 +138,27 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		isAutonomous = true;
 
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 		elevatorSubsystem.updatePIDTunings();
+		elevatorSubsystem.disablePID();
+		driveTransmissionSubsystem.set(true);
 
 		String data = DriverStation.getInstance().getGameSpecificMessage();
 
+		if (m_script == null)
+			return;
+
 		// Load the auto
 		m_autoCommand = m_script.getAuto(data);
-		if (m_autoCommand != null)
+		if (m_autoCommand != null) {
+
+			System.out.println("Starting auto");
 			m_autoCommand.start();
+		}
 	}
 
 	/**
@@ -141,13 +172,18 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autoCommand != null) {
+		if (m_autoCommand != null)
 			m_autoCommand.cancel();
-		}
+
+		isAutonomous = false;
+
+		driveTrainSubsystem.resetEncoders();
+		RobotConstants.updatePrefs(m_robotPrefs);
+		driveTrainSubsystem.updatePIDTunings();
+		elevatorSubsystem.updatePIDTunings();
+		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
+		elevatorTransmissionSubsystem.set(false);
+		driveTransmissionSubsystem.set(true);
 	}
 
 	/**
@@ -163,7 +199,14 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
+		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
 		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
+
+		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
+		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
+		SmartDashboard.putData(elevatorSubsystem);
+		SmartDashboard.putBoolean("Lock", elevatorSubsystem.isLocked());
+
 	}
 
 	/**
@@ -172,5 +215,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 
+	}
+
+	public boolean isAuto() {
+		return isAutonomous();
+	}
+
+	public boolean isTeleop() {
+		return isOperatorControl();
 	}
 }

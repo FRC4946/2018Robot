@@ -18,7 +18,7 @@ public class ToggleElbowPos extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.elbowSubsystem.toggleSolenoid();
+		Robot.elbowSubsystem.toggle();
 		m_count = 0;
 	}
 

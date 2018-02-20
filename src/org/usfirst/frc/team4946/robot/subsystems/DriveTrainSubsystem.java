@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
@@ -30,7 +29,7 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
-	private double distancePerPulse;
+	// private double distancePerPulse;
 
 	public DriveTrainSubsystem() {
 
@@ -47,6 +46,10 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
 
+		m_leftEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
+		m_rightEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
+		m_rightEnc.setReverseDirection(true);
+
 		m_driveGyro = new SkewIMU();
 
 		m_gyroPIDOutput = new NullPIDOutput();
@@ -55,10 +58,10 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
-		m_leftPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD,
-				m_leftEnc, m_left);
-		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD,
-				m_rightEnc, m_right);
+		m_leftPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_leftEnc,
+				m_left);
+		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_rightEnc,
+				m_right);
 		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
 		m_gyroPID.setInputRange(0, 360);
 		m_gyroPID.setOutputRange(-1.0, 1.0);
@@ -111,8 +114,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		m_left.set(-(speed + rotate));
-		m_right.set(-(speed - rotate));
+		m_left.set(speed + rotate);
+		m_right.set(speed - rotate);
 	}
 
 	/**
@@ -176,7 +179,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 *            the speed for the right side
 	 */
 	public void tankDrive(double left, double right) {
-		m_left.set(left);
+		m_left.set(-left);
 		m_right.set(right);
 	}
 
@@ -290,31 +293,18 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 
 	/**
-	 * Sets the encoder count to distance conversion, based on the gear settings.
-	 */
-	public void setEncoderDPP() {
-
-		if (Robot.driveTransmissionSubsystem.getGearIsHigh()) {
-
-			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
-					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_HIGH;
-			m_leftEnc.setDistancePerPulse(distancePerPulse);
-			m_rightEnc.setDistancePerPulse(distancePerPulse);
-
-		} else {
-
-			distancePerPulse = RobotConstants.WHEEL_DIA * Math.PI / RobotConstants.ENCODER_PPR
-					* RobotConstants.DRIVETRAIN_GEARBOX_REDUCTION_LOW;
-			m_leftEnc.setDistancePerPulse(distancePerPulse);
-			m_rightEnc.setDistancePerPulse(distancePerPulse);
-		}
-	}
-
-	/**
 	 * @return the average distance traveled between both encoders
 	 */
 	public double getEncoderDistance() {
 		return (m_leftEnc.getDistance() + m_rightEnc.getDistance()) / 2.0;
+	}
+
+	public double getLeftEncDist() {
+		return m_leftEnc.getDistance();
+	}
+
+	public double getRightEncDist() {
+		return m_rightEnc.getDistance();
 	}
 
 	/**

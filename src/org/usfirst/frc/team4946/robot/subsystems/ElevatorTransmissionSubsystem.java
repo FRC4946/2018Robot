@@ -27,9 +27,9 @@ public class ElevatorTransmissionSubsystem extends Subsystem {
 	 */
 	public void set(boolean isClimb) {
 		if (isClimb)
-			m_transmissionSolenoid.set(Value.kForward);
-		else
 			m_transmissionSolenoid.set(Value.kReverse);
+		else
+			m_transmissionSolenoid.set(Value.kForward);
 
 		m_isClimb = isClimb;
 	}
@@ -52,7 +52,7 @@ public class ElevatorTransmissionSubsystem extends Subsystem {
 	 * Turn off the solenoid
 	 */
 	public void off() {
-		m_transmissionSolenoid.set(Value.kOff);
+		// m_transmissionSolenoid.set(Value.kOff);
 	}
 
 }

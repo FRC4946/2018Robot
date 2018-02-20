@@ -16,8 +16,8 @@ public class InternalIntakeSubsystem extends Subsystem {
 	private WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_LEFT);
 	private WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_OUTPUT_RIGHT);
 
-	private DigitalInput m_leftCubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_LEFTSWITCH);
-	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_OUTPUT_RIGHTSWITCH);
+	private DigitalInput m_leftCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH1);
+	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH2);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new IntakeWithTrigger());
@@ -47,6 +47,6 @@ public class InternalIntakeSubsystem extends Subsystem {
 	 * @return true if detects the cube, false for no cube
 	 */
 	public boolean getHasCube() {
-		return !m_leftCubeSwitch.get() && !m_rightCubeSwitch.get();
+		return !m_leftCubeSwitch.get() || !m_rightCubeSwitch.get();
 	}
 }

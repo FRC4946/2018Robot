@@ -7,13 +7,14 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.drivetrain.ToggleDriveGear;
-import org.usfirst.frc.team4946.robot.commands.elbow.ToggleElbowPos;
-import org.usfirst.frc.team4946.robot.commands.elevator.ToggleElevatorGear;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
+import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
+import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.LiftRobot;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToRung;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
 import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
-import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
-import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick_Open;
-import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -29,45 +30,44 @@ public class OI {
 	private Joystick driveStick = new Joystick(RobotMap.USB_DS_DRIVESTICK);
 	private Joystick operatorStick = new Joystick(RobotMap.USB_DS_OPERATORSTICK);
 
-	// Button cubeInButton = new JoystickButton(driveStick, 5); // 1 is the button
-	// number for the cube intake Button
-	// Button cubeOutButton = new JoystickButton(driveStick, 6); // 2 is the button
-	// number for the cube output button
-	Button triggerDiagonalCube = new JoystickButton(driveStick, 4);
+	Button driveA = new JoystickButton(driveStick, 1);
+	Button driveB = new JoystickButton(driveStick, 2);
+	Button driveX = new JoystickButton(driveStick, 3);
+	Button driveY = new JoystickButton(driveStick, 4);
 
-	Button togglePneumaticArms = new JoystickButton(driveStick, 1);
-	Button driveGearToggle = new JoystickButton(operatorStick, 2);
-	Button toggleElevatorOpenLoop = new JoystickButton(operatorStick, 3); // Activates open loop controls for elevator
-	Button elevatorGearToggle = new JoystickButton(operatorStick, 4);
+	Button driveLB = new JoystickButton(driveStick, 5);
+	Button driveRB = new JoystickButton(driveStick, 6);
 
-	Button elevatorPreset1 = new JoystickButton(operatorStick, 5); // moves elevator to preset height
-	Button elevatorPreset2 = new JoystickButton(operatorStick, 6); // moves elevator to preset height
-	Button elevatorPreset3 = new JoystickButton(operatorStick, 7); // moves elevator to preset height
+	Button operatorA = new JoystickButton(operatorStick, 1);
+	Button operatorB = new JoystickButton(operatorStick, 2);
+	Button operatorX = new JoystickButton(operatorStick, 3);
+	Button operatorY = new JoystickButton(operatorStick, 4);
+	Button operatorLB = new JoystickButton(operatorStick, 5);
+	Button operatorRB = new JoystickButton(operatorStick, 6);
+	Button operatorBack = new JoystickButton(operatorStick, 7);
+	Button operatorStart = new JoystickButton(operatorStick, 8);
+	// Button operatorL3 = new JoystickButton(operatorStick, 9);
 
 	public OI() {
 
-		// cubeInButton.whileHeld(new CubeAndLiftIntake());
-		// cubeOutButton.whileHeld(new OutputCubeWithIntake());
+		driveA.whileHeld(new MoveToSwitch());
+		driveX.whileHeld(new MoveToScale(true));
+		driveB.whileHeld(new MoveToScale(false));
+		driveY.whileHeld(new RunDiagonalIntake());
 
-		toggleElevatorOpenLoop.whileHeld(new ElevatorWithJoystick_Open());
-		triggerDiagonalCube.whenPressed(new RunDiagonalIntake(0.5));
-		triggerDiagonalCube.whenReleased(new SetIntake(0.0));
+		driveRB.whenPressed(new OverrideElbowPos());
+		driveLB.whenPressed(new SetDriveGear(false));
+		driveLB.whenReleased(new SetDriveGear(true));
 
-		// cubeInButton.whenPressed(new IntakeCommandGroup());
-		//
-		// cubeOutButton.whenPressed(new RunIntake(-0.5));
-		// cubeOutButton.whenPressed(new RunOutput(-0.4));
-		//
-		// cubeOutButton.whenReleased(new RunIntake(0.0));
-		// cubeOutButton.whenReleased(new RunOutput(0.0));
+		operatorA.whileHeld(new MoveToSwitch());
+		operatorX.whileHeld(new MoveToScale(true));
+		operatorB.whileHeld(new MoveToScale(false));
+		operatorRB.whileHeld(new MoveToRung());
+		operatorLB.whileHeld(new LiftRobot());
 
-		togglePneumaticArms.whenPressed(new ToggleElbowPos());
-		driveGearToggle.whenPressed(new ToggleDriveGear());
-		elevatorGearToggle.whenPressed(new ToggleElevatorGear());
-
-		elevatorPreset1.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_BOTTOM_THRESHOLD));
-		elevatorPreset2.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_SWITCH_HEIGHT));
-		elevatorPreset3.whileHeld(new MoveToHeight(RobotConstants.ELEVATOR_SCALE_HEIGHT));
+		operatorBack.whenPressed(new SetElevatorGear(false));
+		operatorStart.whenPressed(new SetElevatorGear(true));
+//		operatorL3.whenPressed(new OverrideElbowPos());
 	}
 
 	/**

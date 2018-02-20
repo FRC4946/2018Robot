@@ -29,15 +29,12 @@ public class ExternalIntakeSubsystem extends Subsystem {
 	public void set(double d_speed) {
 
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(-d_speed * 1.1);
+		m_rightMotor.set(-d_speed);
 	}
 
 	public void diagonalSpin(double d_speed) {
-
-		d_speed *= 0.8;
-
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(d_speed * 1.1);
+		m_rightMotor.set(d_speed);
 	}
 
 	/**

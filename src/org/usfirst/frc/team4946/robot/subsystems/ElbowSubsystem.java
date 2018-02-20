@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elbow.ManageElbowPos;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -20,7 +19,6 @@ public class ElbowSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ManageElbowPos());
 	}
 
 	/**
@@ -30,10 +28,11 @@ public class ElbowSubsystem extends Subsystem {
 	 *            up position ({@code true}) or down position ({@code false})
 	 */
 	public void set(boolean isUp) {
-		if (isUp)
-			m_elbowValve.set(Value.kReverse);
-		else
+		if (isUp) {
 			m_elbowValve.set(Value.kForward);
+		} else {
+			m_elbowValve.set(Value.kReverse);
+		}
 
 		m_isUp = isUp;
 	}
@@ -55,7 +54,7 @@ public class ElbowSubsystem extends Subsystem {
 	/**
 	 * Toggle between up and down position
 	 */
-	public void toggleSolenoid() {
+	public void toggle() {
 		set(!m_isUp);
 	}
 
