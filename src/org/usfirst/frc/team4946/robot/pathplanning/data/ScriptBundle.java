@@ -108,7 +108,6 @@ public class ScriptBundle {
 			if (c == null)
 				continue;
 
-			
 			// If it's negative, no timeout
 			if (a.timeout < 0) {
 				if (a.behaviour == Behaviour.kParallel)

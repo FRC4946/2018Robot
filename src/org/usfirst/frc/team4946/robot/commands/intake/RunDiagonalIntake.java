@@ -2,12 +2,12 @@ package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class RunDiagonalIntake extends Command {
+public class RunDiagonalIntake extends CommandGroup {
 
 	public RunDiagonalIntake() {
 		requires(Robot.externalIntakeSubsystem);
