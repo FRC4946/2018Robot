@@ -21,12 +21,13 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void initialize() {
+		Robot.elevatorSubsystem.unlock();
 		Robot.elevatorSubsystem.enablePID();
 
 		if (m_height > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
 			m_height = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-		} else if (m_height < RobotConstants.ELEVATOR_MINIMUM_HEIGHT) {
-			m_height = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
+		} else if (m_height < Robot.elevatorSubsystem.getMinHeight()) {
+			m_height = Robot.elevatorSubsystem.getMinHeight();
 		}
 		// Alternatively, consider using Math.min() and max(). Functionaly identical,
 		// just gives you some options for your toolbelt.
@@ -46,6 +47,7 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void end() {
+		Robot.elevatorSubsystem.lock();
 		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
 	}
 

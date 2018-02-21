@@ -7,9 +7,11 @@ import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,17 +19,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	private WPI_TalonSRX m_elevatorMotorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
-	private WPI_TalonSRX m_elevatorMotorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
-
-	private SpeedControllerGroup m_elevatorMotorGroup = new SpeedControllerGroup(m_elevatorMotorLeft,
-			m_elevatorMotorRight);
+	private WPI_TalonSRX m_motorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
+	private WPI_TalonSRX m_motorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
+	private SpeedControllerGroup m_motorGroup = new SpeedControllerGroup(m_motorLeft, m_motorRight);
+	private DoubleSolenoid m_break = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_BREAK, RobotMap.PCM_ELEVATOR_UNLOCK);
 
 	private AnalogPotentiometer m_analogPot = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
 			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
 
 	private PIDController m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
-			RobotConstants.elevatorD, m_analogPot, m_elevatorMotorGroup);
+			RobotConstants.elevatorD, m_analogPot, m_motorGroup);
 
 	private double minHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
 	private boolean m_isLocked = false;
@@ -39,7 +40,7 @@ public class ElevatorSubsystem extends Subsystem {
 				RobotConstants.ELEVATOR_MAX_OUTPUT + 0.2);
 		m_PIDController.setAbsoluteTolerance(2.5);
 
-		m_elevatorMotorGroup.setInverted(true);
+		m_motorGroup.setInverted(true);
 	}
 
 	public void initDefaultCommand() {
@@ -92,6 +93,17 @@ public class ElevatorSubsystem extends Subsystem {
 		return m_analogPot.get();
 	}
 
+	private void setBrake(boolean isBreak) {
+		if (isBreak)
+			m_break.set(Value.kForward);
+		else
+			m_break.set(Value.kReverse);
+	}
+
+	public void off() {
+		m_break.set(Value.kOff);
+	}
+
 	/**
 	 * Manually sets the speed of the motors.
 	 * 
@@ -101,7 +113,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 */
 	public void set(double speed) {
 		if (m_isLocked) {
-			m_elevatorMotorGroup.set(0.15);
+			m_motorGroup.set(0);
 			return;
 		}
 
@@ -132,14 +144,14 @@ public class ElevatorSubsystem extends Subsystem {
 		// if (getHeight() < minHeight && appliedSpeed < 0)
 		// appliedSpeed = 0.15;
 
-		m_elevatorMotorGroup.set(speed);
+		m_motorGroup.set(speed);
 	}
 
 	/**
 	 * @return the average speed of both elevator MotorControllerGroups
 	 */
 	public double getSpeed() {
-		return m_elevatorMotorGroup.get();
+		return m_motorGroup.get();
 	}
 
 	/**
@@ -167,10 +179,12 @@ public class ElevatorSubsystem extends Subsystem {
 	public void lock() {
 		set(0);
 		setSetpoint(getSetpoint());
+		setBrake(true);
 		m_isLocked = true;
 	}
 
 	public void unlock() {
+		setBrake(false);
 		m_isLocked = false;
 	}
 

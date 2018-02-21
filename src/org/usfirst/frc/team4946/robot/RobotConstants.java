@@ -33,6 +33,9 @@ public class RobotConstants {
 	public static double driveP;
 	public static double driveI;
 	public static double driveD;
+	public static double turnP;
+	public static double turnI;
+	public static double turnD;
 	public static double elevatorP;
 	public static double elevatorI;
 	public static double elevatorD;
@@ -52,6 +55,9 @@ public class RobotConstants {
 		driveP = prefs.getDouble("Drive P", 0.1);
 		driveI = prefs.getDouble("Drive I", 0.0001);
 		driveD = prefs.getDouble("Drive D", 0.0);
+		driveP = prefs.getDouble("Turn P", 0.1);
+		driveI = prefs.getDouble("Turn I", 0.0001);
+		driveD = prefs.getDouble("Turn D", 0.0);
 		elevatorP = prefs.getDouble("Elevator P", 0.1);
 		elevatorI = prefs.getDouble("Elevator I", 0.0001);
 		elevatorD = prefs.getDouble("Elevator D", 0.0);
@@ -71,6 +77,9 @@ public class RobotConstants {
 		prefs.putDouble("Drive P", driveP);
 		prefs.putDouble("Drive I", driveI);
 		prefs.putDouble("Drive D", driveD);
+		prefs.putDouble("Turn P", turnP);
+		prefs.putDouble("Turn I", turnI);
+		prefs.putDouble("Turn D", turnD);
 		prefs.putDouble("Elevator P", elevatorP);
 		prefs.putDouble("Elevator I", elevatorI);
 		prefs.putDouble("Elevator D", elevatorD);

@@ -4,14 +4,14 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
 import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
-import org.usfirst.frc.team4946.robot.util.imu.SkewIMU;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -25,7 +25,7 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private Encoder m_leftEnc, m_rightEnc;
 
-	private GyroBase m_driveGyro;
+	private AHRS m_driveGyro;
 
 	private PIDController m_leftPID, m_rightPID, m_gyroPID;
 	private NullPIDOutput m_gyroPIDOutput;
@@ -50,8 +50,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
 		m_rightEnc.setReverseDirection(true);
 
-		m_driveGyro = new SkewIMU();
-
+		m_driveGyro = new AHRS(Port.kMXP);
 		m_gyroPIDOutput = new NullPIDOutput();
 
 		m_leftEnc.setPIDSourceType(PIDSourceType.kDisplacement);
@@ -62,14 +61,15 @@ public class DriveTrainSubsystem extends Subsystem {
 				m_left);
 		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_rightEnc,
 				m_right);
-		m_gyroPID = new PIDController(0.0, 0.0, 0.0, m_driveGyro, m_gyroPIDOutput);
+		m_gyroPID = new PIDController(RobotConstants.turnP, RobotConstants.turnI, RobotConstants.turnD, m_driveGyro,
+				m_gyroPIDOutput);
 		m_gyroPID.setInputRange(0, 360);
-		m_gyroPID.setOutputRange(-1.0, 1.0);
+		m_gyroPID.setOutputRange(-0.8, 0.8);
 		m_gyroPID.setContinuous();
 
 		calibrateGyro();
 		resetPID();
-		disablePID();
+		disableDrivePID();
 
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
@@ -143,7 +143,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Calibrates the gyro
 	 */
 	public void calibrateGyro() {
-		m_driveGyro.calibrate();
+		// m_driveGyro.calibrate();
 	}
 
 	/**
@@ -271,17 +271,31 @@ public class DriveTrainSubsystem extends Subsystem {
 	/**
 	 * Enables the drivetrain PID objects.
 	 */
-	public void enablePID() {
+	public void enableDrivePID() {
 		m_leftPID.enable();
 		m_rightPID.enable();
 	}
 
 	/**
+	 * Enables the gyro PID objects.
+	 */
+	public void enableGyroPID() {
+		m_gyroPID.enable();
+	}
+
+	/**
 	 * Disables the drivetrain PID objects.
 	 */
-	public void disablePID() {
+	public void disableDrivePID() {
 		m_leftPID.disable();
 		m_rightPID.disable();
+	}
+
+	/**
+	 * Disables the gyro PID objects.
+	 */
+	public void disableGyroPID() {
+		m_gyroPID.disable();
 	}
 
 	/**

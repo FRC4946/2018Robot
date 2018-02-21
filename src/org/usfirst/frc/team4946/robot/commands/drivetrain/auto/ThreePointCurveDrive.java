@@ -78,7 +78,7 @@ public class ThreePointCurveDrive extends Command {
     	
     	m_distInit = Robot.driveTrainSubsystem.getEncoderDistance();
     	
-    	Robot.driveTrainSubsystem.enablePID();
+    	Robot.driveTrainSubsystem.enableDrivePID();
     }
 
     protected void execute() {
@@ -95,6 +95,6 @@ public class ThreePointCurveDrive extends Command {
 
     protected void interrupted() {
     	Robot.driveTrainSubsystem.stop();
-    	Robot.driveTrainSubsystem.disablePID();
+    	Robot.driveTrainSubsystem.disableDrivePID();
     }
 }

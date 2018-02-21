@@ -23,8 +23,24 @@ public class ElevatorWithJoystick extends Command {
 	protected void execute() {
 
 		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
-		if (Math.abs(speed) < 0.1)
+
+		// If the speed is basically zero (w/ deadzone), apply break and turn off PID
+		// (Turn off motors)
+		if (Math.abs(speed) < 0.1) {
+			if (!Robot.elevatorSubsystem.isLocked())
+				Robot.elevatorSubsystem.lock();
+
+			Robot.elevatorSubsystem.disablePID();
 			return;
+		}
+
+		// If the elevator is in break mode, unbreak
+		if (Robot.elevatorSubsystem.isLocked())
+			Robot.elevatorSubsystem.unlock();
+
+		// If the elevator is not in PID mode, enable PID
+		if (!Robot.elevatorSubsystem.getPIDEnabled())
+			Robot.elevatorSubsystem.enablePID();
 
 		double setpoint = Robot.elevatorSubsystem.getHeight();
 		setpoint += 12 * speed;
@@ -44,6 +60,7 @@ public class ElevatorWithJoystick extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.elevatorSubsystem.lock();
 		Robot.elevatorSubsystem.set(0.0);
 		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
 	}
