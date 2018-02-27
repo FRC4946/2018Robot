@@ -21,9 +21,7 @@ public class FollowPath extends Command {
 	private double lastRightErr;
 
 	private double kp;
-	private double ki;
 	private double kd;
-
 	private double kvel;
 	private double kaccel;
 
@@ -41,7 +39,6 @@ public class FollowPath extends Command {
 		lastRightErr = 0;
 
 		kp = RobotConstants.driveP;
-		ki = RobotConstants.driveI;
 		kd = RobotConstants.driveD;
 		kvel = RobotConstants.driveKVel;
 		kaccel = RobotConstants.driveKAccel;

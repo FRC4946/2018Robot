@@ -10,10 +10,8 @@ public class RobotConstants {
 	public static final double WHEEL_DIA = 6.0;
 	public static final double DRIVETRAIN_GEARBOX_REDUCTION = 1;
 	public static final double DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * DRIVETRAIN_GEARBOX_REDUCTION;
-	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; // dummy (inches per second squared)
-	public static final double ROBOT_SAMPLE_TIME = 0.020; // (seconds)
-	public static final double ROBOT_WIDTH = 38; // inches
 	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
+	
 	public static final double ELEVATOR_MAX_OUTPUT = 0.5;
 	public static final double ELEVATOR_SCALING_VALUE = 127.59;
 	public static final double ELEVATOR_OFFSET_VALUE = 0.7349;
@@ -57,8 +55,8 @@ public class RobotConstants {
 		driveP = prefs.getDouble("Drive P", 0.1);
 		driveI = prefs.getDouble("Drive I", 0.0001);
 		driveD = prefs.getDouble("Drive D", 0.0);
-		driveKVel = prefs.getDouble("Drive KVel", 0.0); //TODO: Tune
-		driveKAccel = prefs.getDouble("Drive KAccel", 0.0); //TODO: Tune
+		driveKVel = prefs.getDouble("Drive KVel", 0.0);
+		driveKAccel = prefs.getDouble("Drive KAccel", 0.0);
 		turnP = prefs.getDouble("Turn P", 0.1);
 		turnI = prefs.getDouble("Turn I", 0.0001);
 		turnD = prefs.getDouble("Turn D", 0.0);

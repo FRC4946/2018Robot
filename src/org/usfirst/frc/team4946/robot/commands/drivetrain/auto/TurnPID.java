@@ -18,7 +18,6 @@ public class TurnPID extends Command {
 	 *            to 90 twice moves the robot to 90 degrees, then does nothing)
 	 */
 	public TurnPID(double angle) {
-
 		requires(Robot.driveTrainSubsystem);
 		m_setAngle = angle;
 	}
@@ -34,14 +33,12 @@ public class TurnPID extends Command {
 	}
 
 	protected boolean isFinished() {
-
 		if (Robot.driveTrainSubsystem.getGyroOnTarget())
 			onTargetCount++;
 		else
 			onTargetCount = 0;
 
 		return onTargetCount > 10;
-
 	}
 
 	protected void end() {

@@ -25,10 +25,10 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private Encoder m_leftEnc, m_rightEnc;
 
-	private AHRS m_driveGyro;
+	private AHRS m_gyro;
 
-	private PIDController m_leftPID, m_rightPID, m_gyroPID;
-	private NullPIDOutput m_gyroPIDOutput;
+	private PIDController m_leftPID, m_rightPID, m_turnPID;
+	private NullPIDOutput m_turnPIDOutput;
 	// private double distancePerPulse;
 
 	public DriveTrainSubsystem() {
@@ -50,22 +50,22 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
 		m_rightEnc.setReverseDirection(true);
 
-		m_driveGyro = new AHRS(Port.kMXP);
-		m_gyroPIDOutput = new NullPIDOutput();
+		m_gyro = new AHRS(Port.kMXP);
+		m_turnPIDOutput = new NullPIDOutput();
 
 		m_leftEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
-		m_driveGyro.setPIDSourceType(PIDSourceType.kDisplacement);
+		m_gyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
 		m_leftPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_leftEnc,
 				m_left);
 		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_rightEnc,
 				m_right);
-		m_gyroPID = new PIDController(RobotConstants.turnP, RobotConstants.turnI, RobotConstants.turnD, m_driveGyro,
-				m_gyroPIDOutput);
-		m_gyroPID.setInputRange(0, 360);
-		m_gyroPID.setOutputRange(-0.8, 0.8);
-		m_gyroPID.setContinuous();
+		m_turnPID = new PIDController(RobotConstants.turnP, RobotConstants.turnI, RobotConstants.turnD, m_gyro,
+				m_turnPIDOutput);
+		m_turnPID.setInputRange(0, 360);
+		m_turnPID.setOutputRange(-0.8, 0.8);
+		m_turnPID.setContinuous();
 
 		calibrateGyro();
 		resetPID();
@@ -73,7 +73,7 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
 		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
-		m_gyroPID.setAbsoluteTolerance(1.0); // Dummy
+		m_turnPID.setAbsoluteTolerance(1.0); // Dummy
 	}
 
 	@Override
@@ -150,14 +150,14 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * @return fetches the angle of gyro
 	 */
 	public double getGyroAngle() {
-		return m_driveGyro.getAngle();
+		return m_gyro.getAngle();
 	}
 
 	/**
 	 * @return the PID output of the gyro
 	 */
 	public double getGyroPIDOutput() {
-		return m_gyroPIDOutput.getOutput();
+		return m_turnPIDOutput.getOutput();
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 *            to set the point of the gyro to
 	 */
 	public void setGyroSetpoint(double setpoint) {
-		m_gyroPID.setSetpoint(setpoint);
+		m_turnPID.setSetpoint(setpoint);
 	}
 
 	/**
@@ -193,6 +193,9 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightPID.setP(RobotConstants.driveP);
 		m_rightPID.setI(RobotConstants.driveI);
 		m_rightPID.setD(RobotConstants.driveD);
+		m_turnPID.setP(RobotConstants.turnP);
+		m_turnPID.setI(RobotConstants.turnI);
+		m_turnPID.setD(RobotConstants.turnD);
 	}
 
 	/**
@@ -243,7 +246,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * @return Whether or not the current angle matches the gyro setpoint.
 	 */
 	public boolean getGyroOnTarget() {
-		return m_gyroPID.onTarget();
+		return m_turnPID.onTarget();
 	}
 
 	/**
@@ -258,14 +261,14 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Resets the gyro.
 	 */
 	public void resetGyro() {
-		m_driveGyro.reset();
+		m_gyro.reset();
 	}
 
 	/**
 	 * Resets the gyroPID object.
 	 */
 	public void resetGyroPID() {
-		m_gyroPID.reset();
+		m_turnPID.reset();
 	}
 
 	/**
@@ -280,7 +283,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Enables the gyro PID objects.
 	 */
 	public void enableGyroPID() {
-		m_gyroPID.enable();
+		m_turnPID.enable();
 	}
 
 	/**
@@ -295,7 +298,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Disables the gyro PID objects.
 	 */
 	public void disableGyroPID() {
-		m_gyroPID.disable();
+		m_turnPID.disable();
 	}
 
 	/**
