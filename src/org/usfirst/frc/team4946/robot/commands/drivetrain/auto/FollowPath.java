@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.commands.drivetrain.auto;
 
 import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction.Segment;
 
@@ -20,7 +21,7 @@ public class FollowPath extends Command {
 	private double lastRightErr;
 
 	private double kp;
-	// private double ki;
+	private double ki;
 	private double kd;
 
 	private double kvel;
@@ -39,13 +40,14 @@ public class FollowPath extends Command {
 		lastLeftErr = 0;
 		lastRightErr = 0;
 
-		kp = 0.45;// RobotConstants.driveP;
-		// ki = 0;// RobotConstants.driveI;
-		kd = 0;// RobotConstants.driveD;
+		kp = RobotConstants.driveP;
+		ki = RobotConstants.driveI;
+		kd = RobotConstants.driveD;
+		kvel = RobotConstants.driveKVel;
+		kaccel = RobotConstants.driveKAccel;
 
-		kvel = 1.0 / 60.0;
-		kaccel = 1.0 / 100.0;
-
+		//kvel = 1.0 / 60.0;
+		//kaccel = 1.0 / 100.0;
 	}
 
 	// Called repeatedly when this Command is scheduled to run

@@ -13,7 +13,7 @@ public class RobotConstants {
 	public static final double DRIVETRAIN_MAX_ACCEL = 5.0; // dummy (inches per second squared)
 	public static final double ROBOT_SAMPLE_TIME = 0.020; // (seconds)
 	public static final double ROBOT_WIDTH = 38; // inches
-	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;;
+	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
 	public static final double ELEVATOR_MAX_OUTPUT = 0.5;
 	public static final double ELEVATOR_SCALING_VALUE = 127.59;
 	public static final double ELEVATOR_OFFSET_VALUE = 0.7349;
@@ -33,6 +33,8 @@ public class RobotConstants {
 	public static double driveP;
 	public static double driveI;
 	public static double driveD;
+	public static double driveKVel;
+	public static double driveKAccel;
 	public static double turnP;
 	public static double turnI;
 	public static double turnD;
@@ -55,9 +57,11 @@ public class RobotConstants {
 		driveP = prefs.getDouble("Drive P", 0.1);
 		driveI = prefs.getDouble("Drive I", 0.0001);
 		driveD = prefs.getDouble("Drive D", 0.0);
-		driveP = prefs.getDouble("Turn P", 0.1);
-		driveI = prefs.getDouble("Turn I", 0.0001);
-		driveD = prefs.getDouble("Turn D", 0.0);
+		driveKVel = prefs.getDouble("Drive KVel", 0.0); //TODO: Tune
+		driveKAccel = prefs.getDouble("Drive KAccel", 0.0); //TODO: Tune
+		turnP = prefs.getDouble("Turn P", 0.1);
+		turnI = prefs.getDouble("Turn I", 0.0001);
+		turnD = prefs.getDouble("Turn D", 0.0);
 		elevatorP = prefs.getDouble("Elevator P", 0.1);
 		elevatorI = prefs.getDouble("Elevator I", 0.0001);
 		elevatorD = prefs.getDouble("Elevator D", 0.0);
@@ -77,6 +81,8 @@ public class RobotConstants {
 		prefs.putDouble("Drive P", driveP);
 		prefs.putDouble("Drive I", driveI);
 		prefs.putDouble("Drive D", driveD);
+		prefs.putDouble("Drive KVel", driveKVel);
+		prefs.putDouble("Drive KAccel", driveKAccel);
 		prefs.putDouble("Turn P", turnP);
 		prefs.putDouble("Turn I", turnI);
 		prefs.putDouble("Turn D", turnD);
