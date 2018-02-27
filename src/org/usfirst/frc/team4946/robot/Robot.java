@@ -21,6 +21,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.util.SendableGroupedData;
 import org.xml.sax.SAXException;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -54,9 +55,10 @@ public class Robot extends IterativeRobot {
 
 	private CommandGroup m_autoCommand = new CommandGroup();
 	private ScriptBundle m_script = new ScriptBundle();
-
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
+	private SendableGroupedData m_autoDashboard = new SendableGroupedData("Auto");
+	private int m_count = 0;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -95,6 +97,8 @@ public class Robot extends IterativeRobot {
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
 		isAutonomous = false;
+
+		loadShuffleboard();
 	}
 
 	@Override
@@ -102,26 +106,31 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 
-		// Now and every 2 seconds, update the robot preferences and the loaded xml file
-		loadShuffleboard();
+		// Every 2 seconds, update the robot preferences and the loaded xml file
 		if (m_prefsUpdateTimer.hasPeriodPassed(2))
 			loadShuffleboard();
 
+		// Every 0.1 seconds, increment the count
+		if (m_prefsUpdateTimer.hasPeriodPassed(0.1))
+			m_count = (m_count + 1) % 100;
 	}
 
 	private void loadShuffleboard() {
 		RobotConstants.updatePrefs(m_robotPrefs);
 
 		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
-		if (file == null)
-			SmartDashboard.putString("Script", "No script!");
-		else {
+		if (file == null) {
+			m_autoDashboard.putString("Script", "No script!");
+			m_autoDashboard.putString("Notes", "");
+		} else {
 			try {
 				m_script = FileIO.loadScript(file);
-				SmartDashboard.putString("Script", m_script.name);
+				m_autoDashboard.putString("Script", m_script.name);
+				m_autoDashboard.putString("Notes", m_script.notes);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 				m_script = null;
-				SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+				m_autoDashboard.putString("Script", "ERROR loading " + file.getName());
+				m_autoDashboard.putString("Notes", "");
 				e.printStackTrace();
 			}
 		}
@@ -200,6 +209,9 @@ public class Robot extends IterativeRobot {
 
 	public void updateSmartDashboard() {
 
+		SmartDashboard.putData(m_autoDashboard);
+		SmartDashboard.putNumber("Counter", m_count);
+
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
 		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
@@ -207,8 +219,6 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
-		SmartDashboard.putData(elevatorSubsystem);
-		SmartDashboard.putBoolean("Lock", elevatorSubsystem.isLocked());
 
 	}
 
