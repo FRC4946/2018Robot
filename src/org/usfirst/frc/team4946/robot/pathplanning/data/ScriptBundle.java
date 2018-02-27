@@ -2,9 +2,10 @@ package org.usfirst.frc.team4946.robot.pathplanning.data;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team4946.robot.commands.Wait;
 import org.usfirst.frc.team4946.robot.commands.autonomous.DelayedCommand;
+import org.usfirst.frc.team4946.robot.commands.autonomous.Wait;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.FollowPath;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.elbow.SetElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToBottom;
@@ -20,12 +21,14 @@ import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ElevatorAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.IntakeAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.OutputAction;
+import org.usfirst.frc.team4946.robot.pathplanning.data.actions.TurnAction;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class ScriptBundle {
 	public String name = "";
+	public String notes = "";
 
 	public ArrayList<Action<?>> LL = new ArrayList<>();
 	public ArrayList<Action<?>> LR = new ArrayList<>();
@@ -72,21 +75,21 @@ public class ScriptBundle {
 
 			// Elevator
 			else if (a instanceof ElevatorAction) {
-				if (a.options == ElevatorAction.Options.kMoveToBottom)
+				if (a.options == ElevatorAction.Options.ToBottom)
 					c = new MoveToBottom();
-				else if (a.options == ElevatorAction.Options.kMoveToSwitch)
+				else if (a.options == ElevatorAction.Options.ToSwitch)
 					c = new MoveToSwitch();
-				else if (a.options == ElevatorAction.Options.kMoveToScaleLow)
+				else if (a.options == ElevatorAction.Options.ToScaleLow)
 					c = new MoveToScale(true);
-				else if (a.options == ElevatorAction.Options.kMoveToScaleHigh)
+				else if (a.options == ElevatorAction.Options.ToScaleHigh)
 					c = new MoveToScale(false);
-				else if (a.options == ElevatorAction.Options.kMoveToCustom)
+				else if (a.options == ElevatorAction.Options.ToCustom)
 					c = new MoveToHeight(a.data);
 			}
 
 			// Elbow
 			else if (a instanceof ArmAction) {
-				if (a.options == ArmAction.Options.kArmUp)
+				if (a.options == ArmAction.Options.ArmUp)
 					c = new SetElbowPos(true, a.timeout);
 				else
 					c = new SetElbowPos(false, a.timeout);
@@ -94,15 +97,20 @@ public class ScriptBundle {
 
 			// Intake
 			else if (a instanceof IntakeAction) {
-				if (a.options == IntakeAction.Options.kIntakeOn)
+				if (a.options == IntakeAction.Options.IntakeOn)
 					c = new SetIntake(a.data);
-				else if (a.options == IntakeAction.Options.kIntakeUntil)
+				else if (a.options == IntakeAction.Options.IntakeUntil)
 					c = new IntakeUntilCube(a.data);
 			}
 
 			// Output
 			else if (a instanceof OutputAction) {
 				c = new SetIntake(-a.data);
+			}
+			
+			// Turn PID
+			else if (a instanceof TurnAction) {
+				c = new TurnPID(a.data);
 			}
 
 			if (c == null)

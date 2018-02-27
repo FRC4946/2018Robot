@@ -1,29 +1,29 @@
 package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 
-public class IntakeAction extends Action<IntakeAction.Options> {
+public class TurnAction extends Action<TurnAction.Options> {
 
 	public static enum Options implements Action.ActionOptions {
-		IntakeOn, IntakeUntil
+		TurnOnSpot
 	}
 
-	public IntakeAction() {
-		this(Options.IntakeOn);
+	public TurnAction() {
+		this(Options.TurnOnSpot);
 	}
 
-	public IntakeAction(Options options) {
+	public TurnAction(Options options) {
 		super(options);
-		data = 1;
+		data = 90;
 		timeout = 1;
 	}
 
 	@Override
 	public String getName() {
-		return "Intake";
+		return "Turn";
 	}
 
 	@Override
 	public Options getDefaultOption() {
-		return Options.IntakeOn;
+		return Options.TurnOnSpot;
 	}
 
 }

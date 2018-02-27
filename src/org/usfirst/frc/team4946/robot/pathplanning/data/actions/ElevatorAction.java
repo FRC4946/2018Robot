@@ -3,24 +3,25 @@ package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 public class ElevatorAction extends Action<ElevatorAction.Options> {
 
 	public static enum Options implements Action.ActionOptions {
-		kMoveToBottom, kMoveToSwitch, kMoveToScaleLow, kMoveToScaleHigh, kMoveToCustom
+		ToBottom, ToSwitch, ToScaleLow, ToScaleHigh, ToCustom
 	}
 
 	public ElevatorAction() {
-		this(Options.kMoveToCustom);
+		this(Options.ToBottom);
 	}
 
 	public ElevatorAction(Options options) {
-		this(options, 0);
-	}
-
-	public ElevatorAction(Options options, int timeout) {
 		super(options);
-		this.timeout = timeout;
+		data = 12;
 	}
 
 	@Override
 	public String getName() {
 		return "Elevator";
+	}
+	
+	@Override
+	public Options getDefaultOption() {
+		return Options.ToBottom;
 	}
 }

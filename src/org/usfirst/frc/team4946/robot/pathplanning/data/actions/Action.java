@@ -22,4 +22,5 @@ public abstract class Action<T extends Enum<T> & ActionOptions> {
 	public double data = 0.0;
 
 	public abstract String getName();
+	public abstract T getDefaultOption();
 }

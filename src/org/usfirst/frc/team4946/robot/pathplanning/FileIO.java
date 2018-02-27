@@ -13,12 +13,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
+import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action.Behaviour;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ArmAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DelayAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ElevatorAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.IntakeAction;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.OutputAction;
+import org.usfirst.frc.team4946.robot.pathplanning.data.actions.TurnAction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -71,6 +73,7 @@ public class FileIO {
 		doc.getDocumentElement().normalize();
 
 		scripts.name = ((Element) doc.getElementsByTagName("script").item(0)).getAttribute("name");
+		scripts.notes = ((Element) doc.getElementsByTagName("script").item(0)).getAttribute("notes");
 
 		// // All of the nodes of the main element (the "script" element)
 		// NodeList nodeList = doc.getFirstChild().getChildNodes();
@@ -80,10 +83,10 @@ public class FileIO {
 		Element rl = (Element) doc.getElementsByTagName("rl").item(0);
 		Element rr = (Element) doc.getElementsByTagName("rr").item(0);
 
-		scripts.LL = loadScript(ll);
-		scripts.LR = loadScript(lr);
-		scripts.RL = loadScript(rl);
-		scripts.RR = loadScript(rr);
+		scripts.LL = (ll == null) ? new ArrayList<>() : loadScript(ll);
+		scripts.LR = (lr == null) ? new ArrayList<>() : loadScript(lr);
+		scripts.RL = (rl == null) ? new ArrayList<>() : loadScript(rl);
+		scripts.RR = (rr == null) ? new ArrayList<>() : loadScript(rr);
 
 		// Return the newly-read data
 		return scripts;
@@ -122,18 +125,41 @@ public class FileIO {
 				case "Drive":
 					curAction = new DriveAction();
 					break;
+				case "Turn":
+					curAction = new TurnAction();
+					break;
 				}
 
 				if (curAction == null)
 					continue;
 
-				curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(), curEl.getAttribute("options"));
-				curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
-						curEl.getAttribute("behaviour"));
-				curAction.delay = Double.parseDouble(curEl.getAttribute("delay"));
-				curAction.data = Double.parseDouble(curEl.getAttribute("data"));
-				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
+//				curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(), curEl.getAttribute("options"));
+//				curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
+//						curEl.getAttribute("behaviour"));
+//				curAction.delay = Double.parseDouble(curEl.getAttribute("delay"));
+//				curAction.data = Double.parseDouble(curEl.getAttribute("data"));
+//				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
 
+				try {
+					curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(),
+							curEl.getAttribute("options"));
+				} catch (IllegalArgumentException e) {
+					System.out.println("ERROR LOADING SCRIPT!");
+					curAction.options = curAction.getDefaultOption();
+				}
+
+				try {
+					curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
+							curEl.getAttribute("behaviour"));
+				} catch (IllegalArgumentException e) {
+					System.out.println("ERROR LOADING SCRIPT!");
+					curAction.behaviour = Behaviour.kSequential;
+				}
+				curAction.delay = Double.parseDouble(curEl.getAttribute("delay") + "0");
+				curAction.data = Double.parseDouble(curEl.getAttribute("data") + "0");
+				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout") + "0");
+				
+				
 				if (curAction instanceof DriveAction) {
 					StringTokenizer fileReader = new StringTokenizer(curEl.getTextContent());
 

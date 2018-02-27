@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class DriveAction extends Action<DriveAction.Options> {
 
 	public static enum Options implements Action.ActionOptions {
-		kDrive
+		FollowPath
 	}
 
 	public ArrayList<Segment> left;
 	public ArrayList<Segment> right;
 
 	public DriveAction() {
-		this(Options.kDrive);
+		this(Options.FollowPath);
 	}
 
 	public DriveAction(Options options) {
@@ -31,6 +31,11 @@ public class DriveAction extends Action<DriveAction.Options> {
 	@Override
 	public String getName() {
 		return "Drive";
+	}
+
+	@Override
+	public Options getDefaultOption() {
+		return Options.FollowPath;
 	}
 
 	public static class Segment {

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
-import org.usfirst.frc.team4946.robot.commands.Wait;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
