@@ -102,26 +102,29 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 
-		// Every 3 seconds, update the robot preferences and the loaded xml file
-		if (m_prefsUpdateTimer.hasPeriodPassed(2)) {
-			RobotConstants.updatePrefs(m_robotPrefs);
+		// Now and every 2 seconds, update the robot preferences and the loaded xml file
+		loadShuffleboard();
+		if (m_prefsUpdateTimer.hasPeriodPassed(2))
+			loadShuffleboard();
 
-			File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
-			if (file == null)
-				SmartDashboard.putString("Script", "No script!");
-			else {
-				try {
-					m_script = FileIO.loadScript(file);
-					SmartDashboard.putString("Script", m_script.name);
-				} catch (ParserConfigurationException | SAXException | IOException e) {
-					m_script = null;
-					SmartDashboard.putString("Script", "ERROR loading " + file.getName());
-					e.printStackTrace();
-				}
+	}
+
+	private void loadShuffleboard() {
+		RobotConstants.updatePrefs(m_robotPrefs);
+
+		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
+		if (file == null)
+			SmartDashboard.putString("Script", "No script!");
+		else {
+			try {
+				m_script = FileIO.loadScript(file);
+				SmartDashboard.putString("Script", m_script.name);
+			} catch (ParserConfigurationException | SAXException | IOException e) {
+				m_script = null;
+				SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+				e.printStackTrace();
 			}
-
 		}
-
 	}
 
 	/**
