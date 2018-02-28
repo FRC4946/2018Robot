@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -22,35 +21,27 @@ public class ElevatorWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
+		// Get the current setpoint
 		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
+		if (speed < 0.1)
+			speed = 0;
+		double setpoint = Robot.elevatorSubsystem.getHeight() + 12 * speed;
 
-		// If the speed is basically zero (w/ deadzone), apply break and turn off PID
-		// (Turn off motors)
-		if (Math.abs(speed) < 0.1) {
-			if (!Robot.elevatorSubsystem.isLocked())
-				Robot.elevatorSubsystem.lock();
+		// Limit the setpoint to the bounds, and apply it to the elevator
+		setpoint = Math.min(setpoint, Robot.elevatorSubsystem.getMaxHeight());
+		setpoint = Math.max(setpoint, Robot.elevatorSubsystem.getMinHeight());
+		Robot.elevatorSubsystem.setSetpoint(setpoint);
 
+		// If PID is done, apply break and turn off PID (PID off, brake on)
+		if (Robot.elevatorSubsystem.getOnTarget()) {
 			Robot.elevatorSubsystem.disablePID();
 			return;
 		}
 
-		// If the elevator is in break mode, unbreak
-		if (Robot.elevatorSubsystem.isLocked())
-			Robot.elevatorSubsystem.unlock();
-
-		// If the elevator is not in PID mode, enable PID
+		// Otherwise, the PID is not on target and has some moving to do.
+		// Ensure it is enabled (PID on, Brake off)
 		if (!Robot.elevatorSubsystem.getPIDEnabled())
 			Robot.elevatorSubsystem.enablePID();
-
-		double setpoint = Robot.elevatorSubsystem.getHeight();
-		setpoint += 12 * speed;
-
-		double max = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-		double min = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
-
-		setpoint = Math.min(setpoint, max);
-		setpoint = Math.max(setpoint, min);
-		Robot.elevatorSubsystem.setSetpoint(setpoint);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -60,9 +51,7 @@ public class ElevatorWithJoystick extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.elevatorSubsystem.lock();
-		Robot.elevatorSubsystem.set(0.0);
-		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
+		Robot.elevatorSubsystem.disablePID();
 	}
 
 	// Called when another command which requires one or more of the same

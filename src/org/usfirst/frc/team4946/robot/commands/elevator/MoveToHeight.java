@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,16 +20,18 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void initialize() {
-		Robot.elevatorSubsystem.unlock();
 		Robot.elevatorSubsystem.enablePID();
 
-		if (m_height > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT) {
-			m_height = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-		} else if (m_height < Robot.elevatorSubsystem.getMinHeight()) {
-			m_height = Robot.elevatorSubsystem.getMinHeight();
-		}
+		// if (m_height > Robot.elevatorSubsystem.getMaxHeight()) {
+		// m_height = Robot.elevatorSubsystem.getMaxHeight();
+		// } else if (m_height < Robot.elevatorSubsystem.getMinHeight()) {
+		// m_height = Robot.elevatorSubsystem.getMinHeight();
+		// }
+
 		// Alternatively, consider using Math.min() and max(). Functionaly identical,
 		// just gives you some options for your toolbelt.
+		m_height = Math.min(m_height, Robot.elevatorSubsystem.getMaxHeight());
+		m_height = Math.max(m_height, Robot.elevatorSubsystem.getMinHeight());
 
 	}
 
@@ -47,8 +48,7 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void end() {
-		Robot.elevatorSubsystem.lock();
-		Robot.elevatorSubsystem.setSetpoint(Robot.elevatorSubsystem.getHeight());
+		Robot.elevatorSubsystem.disablePID();
 	}
 
 	protected void interrupted() {

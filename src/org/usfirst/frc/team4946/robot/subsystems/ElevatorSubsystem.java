@@ -8,10 +8,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,28 +19,42 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 
-	private WPI_TalonSRX m_motorLeft = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT);
-	private WPI_TalonSRX m_motorRight = new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT);
-	private SpeedControllerGroup m_motorGroup = new SpeedControllerGroup(m_motorLeft, m_motorRight);
-	private DoubleSolenoid m_break = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_BREAK, RobotMap.PCM_ELEVATOR_UNLOCK);
+	private SpeedControllerGroup m_motors;
+	private DoubleSolenoid m_brake;
+	private AnalogPotentiometer m_analogPot;
 
-	private AnalogPotentiometer m_analogPot = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT,
-			RobotConstants.ELEVATOR_SCALING_VALUE, RobotConstants.ELEVATOR_OFFSET_VALUE);
+	private PIDController m_PIDController;
 
-	private PIDController m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
-			RobotConstants.elevatorD, m_analogPot, m_motorGroup);
+	private boolean m_isBrake = false;
 
+	// Min and max height are used for changing the bounds of the elevator when the
+	// robot is in certain configurations:
+	//
+	// 1. When elevator is above arms and arms are up, minimum = interference_max
+	// 2. When elevator is below arms and arms are up, maximum = interference_min
+	// 3. Whenever the arms are down, full range
+	private double maxHeight = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
 	private double minHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
-	private boolean m_isLocked = false;
 
 	public ElevatorSubsystem() {
+
+		// Setup the acutators and sensors
+		m_motors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT),
+				new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT));
+		m_brake = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_BREAK, RobotMap.PCM_ELEVATOR_UNLOCK);
+		m_analogPot = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT, RobotConstants.ELEVATOR_SCALING_VALUE,
+				RobotConstants.ELEVATOR_OFFSET_VALUE);
 		m_analogPot.setPIDSourceType(PIDSourceType.kDisplacement);
+
+		// Setup the PID controller
+		m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
+				RobotConstants.elevatorD, m_analogPot, m_motors);
 		m_PIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
 		m_PIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT + 0.3,
 				RobotConstants.ELEVATOR_MAX_OUTPUT + 0.2);
 		m_PIDController.setAbsoluteTolerance(2.5);
 
-		m_motorGroup.setInverted(true);
+		m_motors.setInverted(true);
 	}
 
 	public void initDefaultCommand() {
@@ -51,6 +65,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Enable the PID controller
 	 */
 	public void enablePID() {
+		setBrake(false);
 		m_PIDController.enable();
 	}
 
@@ -58,7 +73,9 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Disable the PID controller
 	 */
 	public void disablePID() {
+		setBrake(true);
 		m_PIDController.disable();
+		m_motors.set(0);
 	}
 
 	/**
@@ -77,11 +94,26 @@ public class ElevatorSubsystem extends Subsystem {
 		m_PIDController.setD(RobotConstants.elevatorD);
 	}
 
-	public void setMinimumIsUpper(boolean isUpper) {
-		if (isUpper)
+	public void limitMinHeight(boolean shouldLimit) {
+		if (shouldLimit)
 			minHeight = RobotConstants.ELEVATOR_INTERFERE_MAX;
 		else
 			minHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
+	}
+
+	public void limitMaxHeight(boolean shouldLimit) {
+		if (shouldLimit)
+			maxHeight = RobotConstants.ELEVATOR_INTERFERE_MIN;
+		else
+			maxHeight = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
+	}
+
+	public double getMaxHeight() {
+		return maxHeight;
+	}
+
+	public double getMinHeight() {
+		return minHeight;
 	}
 
 	/**
@@ -93,15 +125,16 @@ public class ElevatorSubsystem extends Subsystem {
 		return m_analogPot.get();
 	}
 
-	private void setBrake(boolean isBreak) {
-		if (isBreak)
-			m_break.set(Value.kForward);
+	private void setBrake(boolean isBrake) {
+		m_isBrake = isBrake;
+		if (m_isBrake)
+			m_brake.set(Value.kForward);
 		else
-			m_break.set(Value.kReverse);
+			m_brake.set(Value.kReverse);
 	}
 
 	public void off() {
-		m_break.set(Value.kOff);
+		m_brake.set(Value.kOff);
 	}
 
 	/**
@@ -112,11 +145,6 @@ public class ElevatorSubsystem extends Subsystem {
 	 *            at. Ranges between -1.0 and 1.0
 	 */
 	public void set(double speed) {
-		if (m_isLocked) {
-			m_motorGroup.set(0);
-			return;
-		}
-
 		speed *= 0.8;
 
 		// // Limit the rate of changing elevator speed
@@ -144,14 +172,15 @@ public class ElevatorSubsystem extends Subsystem {
 		// if (getHeight() < minHeight && appliedSpeed < 0)
 		// appliedSpeed = 0.15;
 
-		m_motorGroup.set(speed);
+		m_motors.set(speed);
+
 	}
 
 	/**
-	 * @return the average speed of both elevator MotorControllerGroups
+	 * @return the speed of the elevator motors
 	 */
 	public double getSpeed() {
-		return m_motorGroup.get();
+		return m_motors.get();
 	}
 
 	/**
@@ -161,8 +190,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 *            the height setpoint in inches.
 	 */
 	public void setSetpoint(double d_point) {
-		if (!m_isLocked)
-			m_PIDController.setSetpoint(d_point);
+		m_PIDController.setSetpoint(d_point);
 	}
 
 	/**
@@ -175,25 +203,4 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getSetpoint() {
 		return m_PIDController.getSetpoint();
 	}
-
-	public void lock() {
-		set(0);
-		setSetpoint(getSetpoint());
-		setBrake(true);
-		m_isLocked = true;
-	}
-
-	public void unlock() {
-		setBrake(false);
-		m_isLocked = false;
-	}
-
-	public boolean isLocked() {
-		return m_isLocked;
-	}
-
-	public double getMinHeight() {
-		return minHeight;
-	}
-
 }

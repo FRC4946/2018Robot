@@ -20,7 +20,7 @@ public class RobotConstants {
 	public static final double ELEVATOR_SWITCH_HEIGHT = 40.0;
 	public static final double ELEVATOR_SCALE_LOWHEIGHT = 60.0;
 	public static final double ELEVATOR_SCALE_HIGHHEIGHT = 88.0;
-	public static final double ELEVATOR_RUNG_HEIGHT = 60.0;
+	public static final double ELEVATOR_RUNG_HEIGHT = 60.0; // TODO: Set
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 90;
 
 	public static final double ELEVATOR_INTERFERE_MIN = 14;
