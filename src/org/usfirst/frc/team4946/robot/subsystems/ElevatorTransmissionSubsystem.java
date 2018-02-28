@@ -11,7 +11,7 @@ public class ElevatorTransmissionSubsystem extends Subsystem {
 	private boolean m_isClimb;
 
 	public ElevatorTransmissionSubsystem() {
-		m_transmissionSolenoid = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_GEARLEFT, RobotMap.PCM_ELEVATOR_GEARRIGHT);
+		m_transmissionSolenoid = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_GEARLOW, RobotMap.PCM_ELEVATOR_GEARHIGH);
 		m_isClimb = false;
 	}
 
