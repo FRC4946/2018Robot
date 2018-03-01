@@ -114,7 +114,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		m_left.set(speed + rotate);
+		m_left.set(-speed + rotate);
 		m_right.set(speed - rotate);
 	}
 

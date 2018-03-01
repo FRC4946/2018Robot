@@ -23,8 +23,8 @@ public class DriveWithJoystick extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrainSubsystem.arcadeDrive(-Robot.m_oi.getDriveStick().getRawAxis(0),
-				Robot.m_oi.getDriveStick().getRawAxis(1) * 0.8);
+		Robot.driveTrainSubsystem.arcadeDrive(Robot.m_oi.getDriveStick().getRawAxis(1),
+				-Robot.m_oi.getDriveStick().getRawAxis(0) * 0.8);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
