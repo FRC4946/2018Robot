@@ -91,8 +91,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		elevatorTransmissionSubsystem.set(true);
-		elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
+
+		// Turn off the motors and engage the brake when we enter disabled
+		elevatorSubsystem.disablePID();
 
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
