@@ -2,13 +2,13 @@ package org.usfirst.frc.team4946.robot.util;
 
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SendableGroupedData implements Sendable {
 
 	private String subsystem = "";
 	private String name = "";
-	private SendableBuilder builder;
-	private String stupid = " ";
+	private SendableBuilder builder = null;
 
 	public SendableGroupedData(String name) {
 		this(name, "Ungrouped");
@@ -40,27 +40,27 @@ public class SendableGroupedData implements Sendable {
 	}
 
 	public void putBoolean(String key, boolean value) {
-		builder.addBooleanProperty(key, () -> value, null);//null);
+		if (builder == null)
+			SmartDashboard.putData(this);
+		builder.addBooleanProperty(key, () -> value, null);
 	}
-	
+
 	public void putString(String key, String value) {
+		if (builder == null)
+			SmartDashboard.putData(this);
 		builder.addStringProperty(key, () -> value, null);
 	}
-	
+
 	public void putDouble(String key, double value) {
-		builder.addDoubleProperty(key, () -> value, null/*e -> value = e*/);
-	}
-	
-	public void tempWorkaround(String s) {
-		stupid = s;
+		if (builder == null)
+			SmartDashboard.putData(this);
+		builder.addDoubleProperty(key, () -> value, null);
 	}
 
 	@Override
 	public void initSendable(SendableBuilder builder) {
-		
-			this.builder = builder;
-			this.builder.setSmartDashboardType("Subsystem");
+		this.builder = builder;
+		this.builder.setSmartDashboardType("Subsystem"); // TODO: Don't think this should really be a subsystem
 	}
 
-	
 }

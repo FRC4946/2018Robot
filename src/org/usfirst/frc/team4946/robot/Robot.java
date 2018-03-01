@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
 	private ScriptBundle m_script = new ScriptBundle();
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
-	private SendableGroupedData m_autoDashboard = new SendableGroupedData("Auto");
+	private SendableGroupedData m_autoDashboard;
 	private int m_count = 0;
 
 	/**
@@ -82,6 +82,9 @@ public class Robot extends IterativeRobot {
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
+
+		m_autoDashboard = new SendableGroupedData("Auto");
+		SmartDashboard.putData(m_autoDashboard);
 	}
 
 	/**
@@ -121,17 +124,23 @@ public class Robot extends IterativeRobot {
 
 		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
 		if (file == null) {
-			SmartDashboard.putString("Script", "No script!");
-			SmartDashboard.putString("Notes", "");
+			m_autoDashboard.putString("Script", "No script!");
+			m_autoDashboard.putString("Notes", "");
+			// SmartDashboard.putString("Script", "No script!");
+			// SmartDashboard.putString("Notes", "");
 		} else {
 			try {
 				m_script = FileIO.loadScript(file);
-				SmartDashboard.putString("Script", m_script.name);
-				SmartDashboard.putString("Notes", m_script.notes);
+				m_autoDashboard.putString("Script", m_script.name);
+				m_autoDashboard.putString("Notes", m_script.notes);
+				// SmartDashboard.putString("Script", m_script.name);
+				// SmartDashboard.putString("Notes", m_script.notes);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 				m_script = null;
-				SmartDashboard.putString("Script", "ERROR loading " + file.getName());
-				SmartDashboard.putString("Notes", "");
+				m_autoDashboard.putString("Script", "ERROR loading " + file.getName());
+				m_autoDashboard.putString("Notes", "");
+				// SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+				// SmartDashboard.putString("Notes", "");
 				e.printStackTrace();
 			}
 		}
@@ -210,7 +219,6 @@ public class Robot extends IterativeRobot {
 
 	public void updateSmartDashboard() {
 
-		SmartDashboard.putData(m_autoDashboard);
 		SmartDashboard.putNumber("Counter", m_count);
 
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
