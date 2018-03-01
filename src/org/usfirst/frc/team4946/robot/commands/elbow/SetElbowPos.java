@@ -26,6 +26,30 @@ public class SetElbowPos extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.elbowSubsystem.set(m_posIsUp);
+
+		// If we're flipping the arms down, ensure that we have full range of movement
+		// of the elevator
+		if (!m_posIsUp) {
+			Robot.elevatorSubsystem.limitMinHeight(false);
+			Robot.elevatorSubsystem.limitMaxHeight(false);
+		}
+
+		// If the arms are being flipped up AND the elevator is near the bottom, limit
+		// the upwards movement
+		else {
+			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN) {
+				Robot.elevatorSubsystem.limitMinHeight(false);
+				Robot.elevatorSubsystem.limitMaxHeight(true);
+			}
+
+			// If the arms are being flipped up AND the elevator is near the top, limit
+			// the downwards movement
+			else {
+				Robot.elevatorSubsystem.limitMinHeight(true);
+				Robot.elevatorSubsystem.limitMaxHeight(false);
+			}
+		}
+
 		m_count = 0;
 
 		m_timer.reset();
