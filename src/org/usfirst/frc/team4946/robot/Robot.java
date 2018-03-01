@@ -121,17 +121,17 @@ public class Robot extends IterativeRobot {
 
 		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
 		if (file == null) {
-			m_autoDashboard.putString("Script", "No script!");
-			m_autoDashboard.putString("Notes", "");
+			SmartDashboard.putString("Script", "No script!");
+			SmartDashboard.putString("Notes", "");
 		} else {
 			try {
 				m_script = FileIO.loadScript(file);
-				m_autoDashboard.putString("Script", m_script.name);
-				m_autoDashboard.putString("Notes", m_script.notes);
+				SmartDashboard.putString("Script", m_script.name);
+				SmartDashboard.putString("Notes", m_script.notes);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 				m_script = null;
-				m_autoDashboard.putString("Script", "ERROR loading " + file.getName());
-				m_autoDashboard.putString("Notes", "");
+				SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+				SmartDashboard.putString("Notes", "");
 				e.printStackTrace();
 			}
 		}
@@ -217,6 +217,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
 		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
 		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
+		SmartDashboard.putNumber("Operator Axis 5", m_oi.getOperatorStick().getRawAxis(5));
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
