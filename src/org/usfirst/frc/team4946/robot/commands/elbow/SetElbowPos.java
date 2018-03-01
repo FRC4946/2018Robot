@@ -26,6 +26,12 @@ public class SetElbowPos extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.elbowSubsystem.set(m_posIsUp);
+		
+		if(!m_posIsUp) {
+			Robot.elevatorSubsystem.limitMinHeight(false);
+			Robot.elevatorSubsystem.limitMaxHeight(false);
+		}
+		
 		m_count = 0;
 
 		m_timer.reset();

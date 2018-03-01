@@ -8,6 +8,7 @@ public class SendableGroupedData implements Sendable {
 	private String subsystem = "";
 	private String name = "";
 	private SendableBuilder builder;
+	private String stupid = " ";
 
 	public SendableGroupedData(String name) {
 		this(name, "Ungrouped");
@@ -39,21 +40,27 @@ public class SendableGroupedData implements Sendable {
 	}
 
 	public void putBoolean(String key, boolean value) {
-		builder.addBooleanProperty(key, () -> value, null/*e -> value = e*/);
+		builder.addBooleanProperty(key, () -> value, null);//null);
 	}
 	
 	public void putString(String key, String value) {
-		builder.addStringProperty(key, () -> value, null/*e -> value = e*/);
+		builder.addStringProperty(key, () -> value, null);
 	}
 	
 	public void putDouble(String key, double value) {
 		builder.addDoubleProperty(key, () -> value, null/*e -> value = e*/);
 	}
+	
+	public void tempWorkaround(String s) {
+		stupid = s;
+	}
 
 	@Override
 	public void initSendable(SendableBuilder builder) {
-		this.builder = builder;
-		this.builder.setSmartDashboardType("Subsystem");
+		
+			this.builder = builder;
+			this.builder.setSmartDashboardType("Subsystem");
 	}
 
+	
 }

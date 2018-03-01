@@ -16,6 +16,7 @@ public class ElbowSubsystem extends Subsystem {
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
+		m_isUp = false;
 	}
 
 	public void initDefaultCommand() {

@@ -23,7 +23,7 @@ public class ElevatorWithJoystick extends Command {
 
 		// Get the current setpoint
 		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
-		if (speed < 0.1)
+		if (Math.abs(speed) < 0.1)
 			speed = 0;
 		double setpoint = Robot.elevatorSubsystem.getHeight() + 12 * speed;
 
@@ -34,6 +34,13 @@ public class ElevatorWithJoystick extends Command {
 
 		// If PID is done, apply break and turn off PID (PID off, brake on)
 		if (Robot.elevatorSubsystem.getOnTarget()) {
+			
+			for(int i = 0; i <= 20; i++) {
+				if(!Robot.elevatorSubsystem.getOnTarget()) {
+					return;
+				}
+			}
+			
 			Robot.elevatorSubsystem.disablePID();
 			return;
 		}
