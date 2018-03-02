@@ -25,12 +25,14 @@ public class TurnPID extends Command {
 
 	protected void initialize() {
 		Robot.driveTrainSubsystem.enableGyroPID();
-		Robot.driveTrainSubsystem.setGyroSetpoint(m_setAngle);
+		Robot.driveTrainSubsystem.setGyroSetpoint(m_setAngle + Robot.driveTrainSubsystem.getGyroAngle());
+		Robot.driveTransmissionSubsystem.set(false);
 		onTargetCount = 0;
+		
 	}
 
 	protected void execute() {
-		SmartDashboard.putNumber("Gyro Setpoint", m_setAngle);
+		SmartDashboard.putNumber("Gyro Setpoint", m_setAngle + Robot.driveTrainSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Gyro Output", Robot.driveTrainSubsystem.getGyroPIDOutput());
 
 		Robot.driveTrainSubsystem.arcadeDrive(0, Robot.driveTrainSubsystem.getGyroPIDOutput());
