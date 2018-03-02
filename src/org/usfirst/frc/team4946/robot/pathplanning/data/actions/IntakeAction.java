@@ -1,16 +1,43 @@
 package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 
-public class IntakeAction extends Action<IntakeAction.Options> {
+/**
+ * An {@link Action} describing running an intake
+ * 
+ * @author Matthew Reynolds
+ *
+ */
+public class IntakeAction extends Action<IntakeAction.Option> {
 
-	public static enum Options implements Action.ActionOptions {
+	/**
+	 * <li>{@link Option#IntakeOn} turns on the intake until the action times out
+	 * <li>{@link Option#IntakeUntil} turns on the intake until the robot recognizes
+	 * that it has successfully intaked a game element
+	 *
+	 * @author Matthew Reynolds
+	 * @see Action.ActionOption
+	 */
+	public static enum Option implements Action.ActionOption {
 		IntakeOn, IntakeUntil
 	}
 
+	/**
+	 * Create an {@code IntakeAction} with:
+	 * <li>Default {@link Option} of {@link Option#IntakeOn}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 */
 	public IntakeAction() {
-		this(Options.IntakeOn);
+		this(Option.IntakeOn);
 	}
 
-	public IntakeAction(Options options) {
+	/**
+	 * Create a {@code IntakeAction} with:
+	 * <li>The specified {@link Option}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 * 
+	 * @param options
+	 *            the desired {@code Option}
+	 */
+	public IntakeAction(Option options) {
 		super(options);
 		data = 1;
 		timeout = 1;
@@ -22,8 +49,12 @@ public class IntakeAction extends Action<IntakeAction.Options> {
 	}
 
 	@Override
-	public Options getDefaultOption() {
-		return Options.IntakeOn;
+	public String getDataLabel() {
+		return "Speed";
 	}
 
+	@Override
+	public Option getDefaultOption() {
+		return Option.IntakeOn;
+	}
 }

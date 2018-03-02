@@ -1,16 +1,41 @@
 package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 
-public class OutputAction extends Action<OutputAction.Options> {
+/**
+ * An {@link Action} describing running an output
+ * 
+ * @author Matthew Reynolds
+ *
+ */
+public class OutputAction extends Action<OutputAction.Option> {
 
-	public static enum Options implements Action.ActionOptions {
+	/**
+	 * <li>{@link Option#Output} turns on the intake until the action times out
+	 *
+	 * @author Matthew Reynolds
+	 * @see Action.ActionOption
+	 */
+	public static enum Option implements Action.ActionOption {
 		Output
 	}
 
+	/**
+	 * Create an {@code OutputAction} with:
+	 * <li>Default {@link Option} of {@link Option#Output}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 */
 	public OutputAction() {
-		this(Options.Output);
+		this(Option.Output);
 	}
 
-	public OutputAction(Options options) {
+	/**
+	 * Create a {@code OutputAction} with:
+	 * <li>The specified {@link Option}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 * 
+	 * @param options
+	 *            the desired {@code Option}
+	 */
+	public OutputAction(Option options) {
 		super(options);
 		data = 1;
 		timeout = 1;
@@ -22,8 +47,13 @@ public class OutputAction extends Action<OutputAction.Options> {
 	}
 
 	@Override
-	public Options getDefaultOption() {
-		return Options.Output;
+	public String getDataLabel() {
+		return "Speed";
+	}
+
+	@Override
+	public Option getDefaultOption() {
+		return Option.Output;
 	}
 
 }

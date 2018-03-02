@@ -1,16 +1,48 @@
 package org.usfirst.frc.team4946.robot.pathplanning.data.actions;
 
-public class ElevatorAction extends Action<ElevatorAction.Options> {
+/**
+ * An {@link Action} describing elevator movement to specified heights
+ * 
+ * @author Matthew Reynolds
+ *
+ */
+public class ElevatorAction extends Action<ElevatorAction.Option> {
 
-	public static enum Options implements Action.ActionOptions {
+	/**
+	 * <li>{@link Option#ToBottom} moves the elevator to its minimum height
+	 * <li>{@link Option#ToSwitch} moves the elevator to the height needed to score
+	 * on the switch
+	 * <li>{@link Option#ToScaleLow} moves the elevator to the height needed to
+	 * score on the scale when it is tipped down
+	 * <li>{@link Option#ToScaleHigh} moves the elevator to the height needed to
+	 * score on the scale when it is tipped up
+	 * <li>{@link Option#ToCustom} moves the elevator to a custom height
+	 * 
+	 * @author Matthew Reynolds
+	 * @see Action.ActionOption
+	 */
+	public static enum Option implements Action.ActionOption {
 		ToBottom, ToSwitch, ToScaleLow, ToScaleHigh, ToCustom
 	}
 
+	/**
+	 * Create an {@code ElevatorAction} with:
+	 * <li>Default {@link Option} of {@link Option#ToBottom}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 */
 	public ElevatorAction() {
-		this(Options.ToBottom);
+		this(Option.ToBottom);
 	}
 
-	public ElevatorAction(Options options) {
+	/**
+	 * Create a {@code ElevatorAction} with:
+	 * <li>The specified {@link Option}
+	 * <li>Default {@link Behaviour} of {@link Behaviour#kSequential}
+	 * 
+	 * @param options
+	 *            the desired {@code Option}
+	 */
+	public ElevatorAction(Option options) {
 		super(options);
 		data = 12;
 	}
@@ -19,9 +51,17 @@ public class ElevatorAction extends Action<ElevatorAction.Options> {
 	public String getName() {
 		return "Elevator";
 	}
-	
+
 	@Override
-	public Options getDefaultOption() {
-		return Options.ToBottom;
+	public String getDataLabel() {
+		if (option == Option.ToCustom)
+			return "Height:";
+
+		return "";
+	}
+
+	@Override
+	public Option getDefaultOption() {
+		return Option.ToBottom;
 	}
 }

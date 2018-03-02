@@ -75,21 +75,21 @@ public class ScriptBundle {
 
 			// Elevator
 			else if (a instanceof ElevatorAction) {
-				if (a.options == ElevatorAction.Options.ToBottom)
+				if (a.option == ElevatorAction.Option.ToBottom)
 					c = new MoveToBottom();
-				else if (a.options == ElevatorAction.Options.ToSwitch)
+				else if (a.option == ElevatorAction.Option.ToSwitch)
 					c = new MoveToSwitch();
-				else if (a.options == ElevatorAction.Options.ToScaleLow)
+				else if (a.option == ElevatorAction.Option.ToScaleLow)
 					c = new MoveToScale(true);
-				else if (a.options == ElevatorAction.Options.ToScaleHigh)
+				else if (a.option == ElevatorAction.Option.ToScaleHigh)
 					c = new MoveToScale(false);
-				else if (a.options == ElevatorAction.Options.ToCustom)
+				else if (a.option == ElevatorAction.Option.ToCustom)
 					c = new MoveToHeight(a.data);
 			}
 
 			// Elbow
 			else if (a instanceof ArmAction) {
-				if (a.options == ArmAction.Options.ArmUp)
+				if (a.option == ArmAction.Option.ArmUp)
 					c = new SetElbowPos(true, a.timeout);
 				else
 					c = new SetElbowPos(false, a.timeout);
@@ -97,9 +97,9 @@ public class ScriptBundle {
 
 			// Intake
 			else if (a instanceof IntakeAction) {
-				if (a.options == IntakeAction.Options.IntakeOn)
+				if (a.option == IntakeAction.Option.IntakeOn)
 					c = new SetIntake(a.data);
-				else if (a.options == IntakeAction.Options.IntakeUntil)
+				else if (a.option == IntakeAction.Option.IntakeUntil)
 					c = new IntakeUntilCube(a.data);
 			}
 
@@ -107,7 +107,7 @@ public class ScriptBundle {
 			else if (a instanceof OutputAction) {
 				c = new SetIntake(-a.data);
 			}
-			
+
 			// Turn PID
 			else if (a instanceof TurnAction) {
 				c = new TurnPID(a.data);

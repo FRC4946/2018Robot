@@ -2,8 +2,8 @@ package org.usfirst.frc.team4946.robot.commands.drivetrain.auto;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.pathplanning.data.Segment;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
-import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction.Segment;
 
 import edu.wpi.first.wpilibj.command.Command;
 

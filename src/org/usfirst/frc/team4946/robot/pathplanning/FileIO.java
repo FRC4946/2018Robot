@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
+import org.usfirst.frc.team4946.robot.pathplanning.data.Segment;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.Action.Behaviour;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.ArmAction;
@@ -133,19 +134,20 @@ public class FileIO {
 				if (curAction == null)
 					continue;
 
-//				curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(), curEl.getAttribute("options"));
-//				curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
-//						curEl.getAttribute("behaviour"));
-//				curAction.delay = Double.parseDouble(curEl.getAttribute("delay"));
-//				curAction.data = Double.parseDouble(curEl.getAttribute("data"));
-//				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
+				// curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(),
+				// curEl.getAttribute("options"));
+				// curAction.behaviour = Enum.valueOf(curAction.behaviour.getDeclaringClass(),
+				// curEl.getAttribute("behaviour"));
+				// curAction.delay = Double.parseDouble(curEl.getAttribute("delay"));
+				// curAction.data = Double.parseDouble(curEl.getAttribute("data"));
+				// curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout"));
 
 				try {
-					curAction.options = Enum.valueOf(curAction.options.getDeclaringClass(),
+					curAction.option = Enum.valueOf(curAction.option.getDeclaringClass(),
 							curEl.getAttribute("options"));
 				} catch (IllegalArgumentException e) {
 					System.out.println("ERROR LOADING SCRIPT!");
-					curAction.options = curAction.getDefaultOption();
+					curAction.option = curAction.getDefaultOption();
 				}
 
 				try {
@@ -158,14 +160,13 @@ public class FileIO {
 				curAction.delay = Double.parseDouble(curEl.getAttribute("delay") + "0");
 				curAction.data = Double.parseDouble(curEl.getAttribute("data") + "0");
 				curAction.timeout = Double.parseDouble(curEl.getAttribute("timeout") + "0");
-				
-				
+
 				if (curAction instanceof DriveAction) {
 					StringTokenizer fileReader = new StringTokenizer(curEl.getTextContent());
 
 					int numLeft = Integer.parseInt(fileReader.nextToken());
 					for (int j = 0; j < numLeft; j++) {
-						DriveAction.Segment segment = new DriveAction.Segment();
+						Segment segment = new Segment();
 
 						segment.pos = Double.parseDouble(fileReader.nextToken());
 						segment.vel = Double.parseDouble(fileReader.nextToken());
@@ -181,7 +182,7 @@ public class FileIO {
 
 					int numRight = Integer.parseInt(fileReader.nextToken());
 					for (int j = 0; j < numRight; j++) {
-						DriveAction.Segment segment = new DriveAction.Segment();
+						Segment segment = new Segment();
 
 						segment.pos = Double.parseDouble(fileReader.nextToken());
 						segment.vel = Double.parseDouble(fileReader.nextToken());
