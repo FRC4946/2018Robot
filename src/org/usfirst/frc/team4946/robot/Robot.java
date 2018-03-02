@@ -21,7 +21,6 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
-import org.usfirst.frc.team4946.robot.util.SendableGroupedData;
 import org.xml.sax.SAXException;
 
 import edu.wpi.first.wpilibj.DriverStation;

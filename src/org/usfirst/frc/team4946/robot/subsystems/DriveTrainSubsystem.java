@@ -159,6 +159,13 @@ public class DriveTrainSubsystem extends Subsystem {
 	public double getGyroPIDOutput() {
 		return m_turnPIDOutput.getOutput();
 	}
+	
+	/**
+	 * @return the setpoint of the PID controller
+	 */
+	public double getGyroPIDSetpoint() {
+		return m_turnPID.getSetpoint();
+	}
 
 	/**
 	 * Sets a set point for the gyro
