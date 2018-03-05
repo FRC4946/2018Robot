@@ -84,6 +84,10 @@ public class Robot extends IterativeRobot {
 
 		// m_autoDashboard = new SendableGroupedData("Auto");
 		// SmartDashboard.putData(m_autoDashboard);
+
+		// USB camera
+		// UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		// camera.setResolution(640, 480);
 	}
 
 	/**
@@ -110,12 +114,11 @@ public class Robot extends IterativeRobot {
 		updateSmartDashboard();
 
 		// Every 2 seconds, update the robot preferences and the loaded xml file
-		if (m_prefsUpdateTimer.hasPeriodPassed(2))
+		if (m_prefsUpdateTimer.hasPeriodPassed(2)) {
 			loadShuffleboard();
+		}
 
-		// Every 0.1 seconds, increment the count
-		if (m_prefsUpdateTimer.hasPeriodPassed(0.1))
-			m_count = (m_count + 1) % 100;
+		m_count = (m_count + 1) % 1000;
 	}
 
 	private void loadShuffleboard() {
@@ -129,6 +132,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putString("Notes", "");
 		} else {
 			try {
+
 				m_script = FileIO.loadScript(file);
 				// m_autoDashboard.putString("Script", m_script.name);
 				// m_autoDashboard.putString("Notes", m_script.notes);
@@ -202,6 +206,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 		elevatorSubsystem.updatePIDTunings();
+		elevatorSubsystem.disablePID();
 		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
 		elevatorTransmissionSubsystem.set(false);
 		driveTransmissionSubsystem.set(true);
@@ -220,12 +225,13 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("Counter", m_count);
 
-		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle());
+		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
 
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
 		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
+		SmartDashboard.putNumber("Elevator Out", Robot.elevatorSubsystem.getSpeed());
+
 		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
-		SmartDashboard.putNumber("Operator Axis 5", m_oi.getOperatorStick().getRawAxis(5));
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
