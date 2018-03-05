@@ -4,13 +4,12 @@ import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
 	public static final int PNEUMATIC_FIRING_COUNT = 20;
-
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 6.0;
 	public static final double DRIVETRAIN_GEARBOX_REDUCTION = 1;
 	public static final double DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * DRIVETRAIN_GEARBOX_REDUCTION;
 	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
-	
+
 	public static final double ELEVATOR_MAX_OUTPUT = 0.5;
 	public static final double ELEVATOR_SCALING_VALUE = 127.59;
 	public static final double ELEVATOR_OFFSET_VALUE = 0.7349;
@@ -19,11 +18,11 @@ public class RobotConstants {
 	public static final double ELEVATOR_SWITCH_HEIGHT = 40.0;
 	public static final double ELEVATOR_SCALE_LOWHEIGHT = 60.0;
 	public static final double ELEVATOR_SCALE_HIGHHEIGHT = 88.0;
-	public static final double ELEVATOR_RUNG_HEIGHT = 60.0; // TODO: Set
-	public static final double ELEVATOR_MAXIMUM_HEIGHT = 90;
+	public static final double ELEVATOR_RUNG_HEIGHT = 78.0;
+	public static final double ELEVATOR_MAXIMUM_HEIGHT = 96;
 
 	public static final double ELEVATOR_INTERFERE_MIN = 14;
-	public static final double ELEVATOR_INTERFERE_MAX = 30;
+	public static final double ELEVATOR_INTERFERE_MAX = 32;
 
 	public static boolean elevatorSafetyEnabled = false;
 
