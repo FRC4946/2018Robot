@@ -64,7 +64,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID = new PIDController(RobotConstants.turnP, RobotConstants.turnI, RobotConstants.turnD, m_gyro,
 				m_turnPIDOutput);
 		m_turnPID.setInputRange(0, 360);
-		m_turnPID.setOutputRange(-0.8, 0.8);
+		m_turnPID.setOutputRange(-0.4, 0.4);
 		m_turnPID.setContinuous();
 
 		calibrateGyro();
@@ -114,8 +114,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		m_left.set(-speed -rotate);
-		m_right.set(speed -rotate);
+		m_left.set(-speed - rotate);
+		m_right.set(speed - rotate);
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	public double getGyroPIDOutput() {
 		return m_turnPIDOutput.getOutput();
 	}
-	
+
 	/**
 	 * @return the setpoint of the PID controller
 	 */
