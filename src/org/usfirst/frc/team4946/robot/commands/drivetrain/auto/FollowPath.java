@@ -32,6 +32,8 @@ public class FollowPath extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTransmissionSubsystem.set(true);
+
 		initLeftEnc = Robot.driveTrainSubsystem.getLeftEncDist();
 		initRightEnc = Robot.driveTrainSubsystem.getRightEncDist();
 
@@ -43,8 +45,8 @@ public class FollowPath extends Command {
 		kvel = RobotConstants.driveKVel;
 		kaccel = RobotConstants.driveKAccel;
 
-		//kvel = 1.0 / 60.0;
-		//kaccel = 1.0 / 100.0;
+		// kvel = 1.0 / 60.0;
+		// kaccel = 1.0 / 100.0;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
