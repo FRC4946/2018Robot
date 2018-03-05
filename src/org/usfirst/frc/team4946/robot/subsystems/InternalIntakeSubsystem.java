@@ -39,7 +39,7 @@ public class InternalIntakeSubsystem extends Subsystem {
 	 */
 	public void set(double d_speed) {
 		m_leftMotor.set(d_speed);
-		m_rightMotor.set(d_speed);
+		m_rightMotor.set(-d_speed);
 	}
 
 	/**
