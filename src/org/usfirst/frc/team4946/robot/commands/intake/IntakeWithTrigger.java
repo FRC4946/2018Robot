@@ -23,15 +23,6 @@ public class IntakeWithTrigger extends Command {
 	protected void execute() {
 		double speed = Robot.m_oi.getDriveStick().getRawAxis(2) - Robot.m_oi.getDriveStick().getRawAxis(3);
 
-		// // If the safety is disabled, just run the motors blindly
-		// if (!RobotConstants.elevatorSafetyEnabled) {
-		// Robot.externalIntakeSubsystem.set(speed * 0.6);
-		// Robot.internalIntakeSubsystem.set(speed);
-		// }
-		//
-		// // If the safety is enabled...
-		// else {
-
 		// If we're trying to intake but we have a cube, rumble
 		if (speed > 0 && Robot.internalIntakeSubsystem.getHasCube()) {
 			Robot.externalIntakeSubsystem.set(0.0);
@@ -44,15 +35,26 @@ public class IntakeWithTrigger extends Command {
 		else {
 
 			// Only run the external intake if the elevator is low to the ground
-			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN)
+			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN) {
+				Robot.m_oi.setDriveStickRumble(0.0);
+				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
-			else
-				Robot.externalIntakeSubsystem.set(0.0);
+			} else {
 
+				// If try to intake when the elevator is up, allow the motors to spin but rumble
+				// the joystick to warn the driver
+				if (speed > 0.1) {
+					Robot.m_oi.setDriveStickRumble(1.0);
+					Robot.m_oi.setOperateStickRumble(1.0);
+				} else {
+					Robot.m_oi.setDriveStickRumble(0.0);
+					Robot.m_oi.setOperateStickRumble(0.0);
+				}
+				Robot.externalIntakeSubsystem.set(0.0);
+			}
+
+			// Always run the internal
 			Robot.internalIntakeSubsystem.set(speed + 0.07);
-			Robot.m_oi.setDriveStickRumble(0.0);
-			Robot.m_oi.setOperateStickRumble(0.0);
-			// }
 		}
 
 	}
