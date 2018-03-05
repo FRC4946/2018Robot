@@ -52,7 +52,7 @@ public class ElevatorSubsystem extends Subsystem {
 		m_PIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
 		m_PIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT + 0.3,
 				RobotConstants.ELEVATOR_MAX_OUTPUT + 0.2);
-		m_PIDController.setAbsoluteTolerance(2.5);
+		m_PIDController.setAbsoluteTolerance(3.5);
 
 		m_motors.setInverted(true);
 	}
@@ -125,7 +125,7 @@ public class ElevatorSubsystem extends Subsystem {
 		return m_analogPot.get();
 	}
 
-	private void setBrake(boolean isBrake) {
+	public void setBrake(boolean isBrake) {
 		m_isBrake = isBrake;
 		if (m_isBrake)
 			m_brake.set(Value.kForward);
@@ -145,8 +145,8 @@ public class ElevatorSubsystem extends Subsystem {
 	 *            at. Ranges between -1.0 and 1.0
 	 */
 	public void set(double speed) {
-		speed *= 0.8;
-
+		// speed *= 0.8;
+		//
 		// // Limit the rate of changing elevator speed
 		// double potentialAccel = (speed - getSpeed()) / 0.02;
 		// double appliedAccel = Math.signum(potentialAccel)
