@@ -14,7 +14,7 @@ import org.usfirst.frc.team4946.robot.commands.elevator.preset.LiftRobot;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToRung;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
-import org.usfirst.frc.team4946.robot.commands.intake.RunDiagonalIntake;
+import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -49,11 +49,16 @@ public class OI {
 	// Button operatorL3 = new JoystickButton(operatorStick, 9);
 
 	public OI() {
-
-		driveA.whileHeld(new MoveToSwitch());
-		driveX.whileHeld(new MoveToScale(true));
-		driveB.whileHeld(new MoveToScale(false));
-		driveY.whileHeld(new RunDiagonalIntake());
+		
+		driveA.whileHeld(new SetIntake(-0.2));
+		driveB.whileHeld(new SetIntake(-0.4));
+		driveX.whileHeld(new SetIntake(-0.6));
+		driveY.whileHeld(new SetIntake(-0.8));
+		
+		//driveA.whileHeld(new MoveToSwitch());
+		//driveX.whileHeld(new MoveToScale(true));
+		//driveB.whileHeld(new MoveToScale(false));
+		//driveY.whileHeld(new RunDiagonalIntake());
 
 		driveRB.whenPressed(new OverrideElbowPos());
 		driveLB.whenPressed(new SetDriveGear(false));
