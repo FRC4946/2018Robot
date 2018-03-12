@@ -21,6 +21,8 @@ public class IntakeWithTrigger extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+	
+		//By default speed is controlled with the driver joystick
 		double speed = Robot.m_oi.getDriveStick().getRawAxis(2) - Robot.m_oi.getDriveStick().getRawAxis(3);
 
 		// If we're trying to intake but we have a cube, rumble
@@ -30,17 +32,22 @@ public class IntakeWithTrigger extends Command {
 			Robot.m_oi.setDriveStickRumble(1.0);
 			Robot.m_oi.setOperateStickRumble(1.0);
 		}
-
+		
 		// Otherwise, spin the intakes
 		else {
 
 			// Only run the external intake if the elevator is low to the ground
 			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN) {
+				
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
 			} else {
-
+				
+				// If the height is such that only the inner intake can be used, speed is 
+				// controlled through the operator joystick 
+				speed = -Robot.m_oi.getOperatorStick().getRawAxis(3);
+				
 				// If try to intake when the elevator is up, allow the motors to spin but rumble
 				// the joystick to warn the driver
 				if (speed > 0.1) {
@@ -50,6 +57,7 @@ public class IntakeWithTrigger extends Command {
 					Robot.m_oi.setDriveStickRumble(0.0);
 					Robot.m_oi.setOperateStickRumble(0.0);
 				}
+				
 				Robot.externalIntakeSubsystem.set(0.0);
 			}
 
