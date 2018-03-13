@@ -69,17 +69,17 @@ public class OI {
 		operatorX.whileHeld(new SetIntake(-0.6));
 		operatorY.whileHeld(new SetIntake(-0.8));
 
-		//operatorA.whileHeld(new MoveToSwitch());
-		//operatorX.whileHeld(new MoveToScale(true));
-		//operatorB.whileHeld(new MoveToScale(false));
+		operatorA.whileHeld(new MoveToSwitch());
+		operatorX.whileHeld(new MoveToScale(true));
+		operatorB.whileHeld(new MoveToScale(false));
 		
 		operatorRB.whileHeld(new MoveToRung());
-		operatorLB.whenPressed(new SetDriveGear(false));
-		operatorLB.whenReleased(new SetDriveGear(true));
+		operatorLB.whenPressed(new SetElevatorGear(false));
+		operatorLB.whenReleased(new SetElevatorGear(true));
 		
 		//operatorLB.whileHeld(new LiftRobot());
-		//operatorBack.whenPressed(new SetElevatorGear(false));
-		//operatorStart.whenPressed(new SetElevatorGear(true));
+		operatorBack.whenPressed(new SetElevatorGear(false));
+		operatorStart.whenPressed(new SetElevatorGear(true));
 		
 		// operatorL3.whenPressed(new OverrideElbowPos());
 	}

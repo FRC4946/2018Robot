@@ -20,13 +20,15 @@ public class IntakeWithTrigger extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-	
+	protected void execute() {	
+							
 		//By default speed is controlled with the driver joystick
-		double speed = Robot.m_oi.getDriveStick().getRawAxis(2) - Robot.m_oi.getDriveStick().getRawAxis(3);
+		double speed = Robot.m_oi.getDriveStick().getRawAxis(2) - 
+				(Math.max(Math.abs(Robot.m_oi.getDriveStick().getRawAxis(3)), Math.abs(Robot.m_oi.getOperatorStick().getRawAxis(3))));
 
 		// If we're trying to intake but we have a cube, rumble
 		if (speed > 0 && Robot.internalIntakeSubsystem.getHasCube()) {
+			
 			Robot.externalIntakeSubsystem.set(0.0);
 			Robot.internalIntakeSubsystem.set(0.0);
 			Robot.m_oi.setDriveStickRumble(1.0);
@@ -74,6 +76,7 @@ public class IntakeWithTrigger extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		
 		Robot.externalIntakeSubsystem.set(0.0);
 		Robot.internalIntakeSubsystem.set(0.0);
 		Robot.m_oi.setDriveStickRumble(0.0);
