@@ -24,6 +24,9 @@ public class FollowPath extends Command {
 	private double kd;
 	private double kvel;
 	private double kaccel;
+	private double kTurnP;
+	private double kTurnI;
+	private double kTurnD;
 
 	public FollowPath(DriveAction path) {
 		requires(Robot.driveTrainSubsystem);
@@ -44,6 +47,9 @@ public class FollowPath extends Command {
 		kd = RobotConstants.driveD;
 		kvel = RobotConstants.driveKVel;
 		kaccel = RobotConstants.driveKAccel;
+		kTurnP = RobotConstants.pathTurnP;
+		kTurnI = RobotConstants.pathTurnI;
+		kTurnD = RobotConstants.pathTurnD;
 
 		// kvel = 1.0 / 60.0;
 		// kaccel = 1.0 / 100.0;
@@ -64,14 +70,15 @@ public class FollowPath extends Command {
 				+ (kvel * right.vel + kaccel * right.accel);
 		lastRightErr = rError;
 
-		// double angleError = left.heading - Robot.driveTrainSubsystem.getGyroAngle();
+		double angleError = left.heading - Robot.driveTrainSubsystem.getGyroAngle();
+
+		// TODO: Implement full PID?
+		lOutput += angleError * kTurnP;
+		rOutput -= angleError * kTurnP;
 
 		curSegIndex++;
-		// SmartDashboard.putNumber("Left Enc:", distance_so_far);
-		// SmartDashboard.putNumber("FollowerGoal", segment.pos);
-		// SmartDashboard.putNumber("FollowerError", error);
 
-		System.out.println(left.heading + "\t" + lOutput + "\t" + rOutput);
+		// System.out.println(left.heading + "\t" + lOutput + "\t" + rOutput);
 		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
 	}
 

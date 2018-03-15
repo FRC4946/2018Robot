@@ -31,6 +31,9 @@ public class RobotConstants {
 	public static double driveD;
 	public static double driveKVel;
 	public static double driveKAccel;
+	public static double pathTurnP;
+	public static double pathTurnI;
+	public static double pathTurnD;
 	public static double turnP;
 	public static double turnI;
 	public static double turnD;
@@ -55,6 +58,9 @@ public class RobotConstants {
 		driveD = prefs.getDouble("Drive D", 0.0);
 		driveKVel = prefs.getDouble("Drive KVel", 0.0);
 		driveKAccel = prefs.getDouble("Drive KAccel", 0.0);
+		pathTurnP = prefs.getDouble("Path Turn P", 0.0);
+		pathTurnI = prefs.getDouble("Path Turn I", 0.0);
+		pathTurnD = prefs.getDouble("Path Turn D", 0.0);
 		turnP = prefs.getDouble("Turn P", 0.1);
 		turnI = prefs.getDouble("Turn I", 0.0001);
 		turnD = prefs.getDouble("Turn D", 0.0);
@@ -79,6 +85,9 @@ public class RobotConstants {
 		prefs.putDouble("Drive D", driveD);
 		prefs.putDouble("Drive KVel", driveKVel);
 		prefs.putDouble("Drive KAccel", driveKAccel);
+		prefs.putDouble("Path Turn P", pathTurnP);
+		prefs.putDouble("Path Turn I", pathTurnI);
+		prefs.putDouble("Path Turn D", pathTurnD);
 		prefs.putDouble("Turn P", turnP);
 		prefs.putDouble("Turn I", turnI);
 		prefs.putDouble("Turn D", turnD);
