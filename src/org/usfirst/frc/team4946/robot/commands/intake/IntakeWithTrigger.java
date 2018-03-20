@@ -44,6 +44,7 @@ public class IntakeWithTrigger extends Command {
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
+				
 			} else {
 				
 				// If the height is such that only the inner intake can be used, speed is 
