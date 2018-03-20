@@ -6,6 +6,7 @@ import org.usfirst.frc.team4946.robot.pathplanning.data.Segment;
 import org.usfirst.frc.team4946.robot.pathplanning.data.actions.DriveAction;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,14 +17,21 @@ public class FollowPath extends Command {
 	private int curSegIndex;
 	private double initLeftEnc;
 	private double initRightEnc;
+	private double initAngle;
 
-	private double lastLeftErr;
-	private double lastRightErr;
+	private double lastLErr;
+	private double lastRErr;
+	private double lastAngErr;
 
-	private double kp;
-	private double kd;
-	private double kvel;
-	private double kaccel;
+	private double lIntegral;
+	private double rIntegral;
+	private double angIntegral;
+
+	private double kP;
+	private double kI;
+	private double kD;
+	private double kVel;
+	private double kAccel;
 	private double kTurnP;
 	private double kTurnI;
 	private double kTurnD;
@@ -39,14 +47,21 @@ public class FollowPath extends Command {
 
 		initLeftEnc = Robot.driveTrainSubsystem.getLeftEncDist();
 		initRightEnc = Robot.driveTrainSubsystem.getRightEncDist();
+		initAngle = Robot.driveTrainSubsystem.getGyroAngle();
 
-		lastLeftErr = 0;
-		lastRightErr = 0;
+		lastLErr = 0;
+		lastRErr = 0;
+		lastAngErr = 0;
 
-		kp = RobotConstants.driveP;
-		kd = RobotConstants.driveD;
-		kvel = RobotConstants.driveKVel;
-		kaccel = RobotConstants.driveKAccel;
+		lIntegral = 0;
+		rIntegral = 0;
+		angIntegral = 0;
+
+		kP = RobotConstants.driveP;
+		kI = RobotConstants.driveI;
+		kD = RobotConstants.driveD;
+		kVel = RobotConstants.driveKVel;
+		kAccel = RobotConstants.driveKAccel;
 		kTurnP = RobotConstants.pathTurnP;
 		kTurnI = RobotConstants.pathTurnI;
 		kTurnD = RobotConstants.pathTurnD;
@@ -60,26 +75,43 @@ public class FollowPath extends Command {
 		Segment left = m_path.left.get(curSegIndex);
 		Segment right = m_path.right.get(curSegIndex);
 
-		double lError = left.pos - (Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc);
-		double lOutput = kp * lError + kd * ((lError - lastLeftErr) / left.dt - left.vel)
-				+ (kvel * left.vel + kaccel * left.accel);
-		lastLeftErr = lError;
+		// Calculate the base output speed for the left wheels
+		double lErr = left.pos - (Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc);
+		lIntegral += lErr * kI;
+		double lOutput = kP * lErr + lIntegral + kD * ((lErr - lastLErr) / left.dt - left.vel)
+				+ (kVel * left.vel + kAccel * left.accel);
+		lastLErr = lErr;
 
-		double rError = right.pos - (Robot.driveTrainSubsystem.getRightEncDist() - initRightEnc);
-		double rOutput = kp * rError + kd * ((rError - lastRightErr) / right.dt - right.vel)
-				+ (kvel * right.vel + kaccel * right.accel);
-		lastRightErr = rError;
+		// Calculate the base output speed for the right wheels
+		double rErr = right.pos - (Robot.driveTrainSubsystem.getRightEncDist() - initRightEnc);
+		rIntegral += rErr * kI;
+		double rOutput = kP * rErr + rIntegral + kD * ((rErr - lastRErr) / right.dt - right.vel)
+				+ (kVel * right.vel + kAccel * right.accel);
+		lastRErr = rErr;
 
-		double angleError = left.heading - Robot.driveTrainSubsystem.getGyroAngle();
+		// Calculate the heading correction to apply to the two sides of the drive base
+		double angErr = conformAngle((left.heading - 90) - (Robot.driveTrainSubsystem.getGyroAngle() - initAngle));
+		angIntegral += angErr * kTurnI;
+		double dHeading = m_path.left.get(Math.min(m_path.left.size() - 1, curSegIndex + 1)).heading
+				- m_path.left.get(Math.max(0, curSegIndex - 1)).heading;
+		dHeading /= (curSegIndex == 0 || curSegIndex == m_path.left.size() - 1) ? left.dt : 2 * left.dt;
+		double turnOutput = angErr * kTurnP + angIntegral + kTurnD * ((angErr - lastAngErr) / left.dt - dHeading);
 
-		// TODO: Implement full PID?
-		lOutput += angleError * kTurnP;
-		rOutput -= angleError * kTurnP;
+		// Apply the heading correction
+		lOutput += turnOutput;
+		rOutput -= turnOutput;
 
 		curSegIndex++;
 
 		// System.out.println(left.heading + "\t" + lOutput + "\t" + rOutput);
 		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
+
+		// Logging
+		SmartDashboard.putNumber("Left Out", lOutput);
+		SmartDashboard.putNumber("Right Out", rOutput);
+		SmartDashboard.putNumber("Left Error", lErr);
+		SmartDashboard.putNumber("Right Error", rErr);
+		SmartDashboard.putNumber("Heading Error", angErr);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -96,5 +128,14 @@ public class FollowPath extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
+	}
+
+	private double conformAngle(double angle) {
+		angle %= 360;
+		if (angle > 180)
+			return angle - 360;
+		else if (angle < -180)
+			return angle + 360;
+		return angle;
 	}
 }

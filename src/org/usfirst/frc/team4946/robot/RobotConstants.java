@@ -10,7 +10,8 @@ public class RobotConstants {
 	public static final double DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * DRIVETRAIN_GEARBOX_REDUCTION;
 	public static final double ROBOT_DRIVE_AUTO_SPEED = 0.2;
 
-	public static final double ELEVATOR_MAX_OUTPUT = 0.5;
+	public static final double ELEVATOR_MIN_OUTPUT = -0.2;
+	public static final double ELEVATOR_MAX_OUTPUT = 0.7;
 	public static final double ELEVATOR_SCALING_VALUE = 127.59;
 	public static final double ELEVATOR_OFFSET_VALUE = 0.7349;
 
@@ -23,8 +24,6 @@ public class RobotConstants {
 
 	public static final double ELEVATOR_INTERFERE_MIN = 14;
 	public static final double ELEVATOR_INTERFERE_MAX = 32;
-
-	public static boolean elevatorSafetyEnabled = false;
 
 	public static double driveP;
 	public static double driveI;

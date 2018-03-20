@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -341,5 +342,10 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void setMaxSpeed(double speed) {
 		m_leftPID.setOutputRange(-speed, speed);
 		m_rightPID.setOutputRange(-speed, speed);
+	}
+
+	public double getGyroPIDError() {
+		SmartDashboard.putData(m_turnPID);
+		return m_turnPID.getError();
 	}
 }

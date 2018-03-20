@@ -222,20 +222,25 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void updateSmartDashboard() {
+		// SmartDashboard.putNumber("Counter", m_count);
 
-		SmartDashboard.putNumber("Counter", m_count);
-
+		// Drive Train
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
-
-		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
-		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
-		SmartDashboard.putNumber("Elevator Out", Robot.elevatorSubsystem.getSpeed());
-
-		SmartDashboard.putBoolean("Intake Cube", internalIntakeSubsystem.getHasCube());
+		SmartDashboard.putNumber("Gyro Setpoint", Robot.driveTrainSubsystem.getGyroPIDSetpoint());
+		SmartDashboard.putNumber("Gyro Output", Robot.driveTrainSubsystem.getGyroPIDOutput());
+		SmartDashboard.putNumber("Gyro Error", Robot.driveTrainSubsystem.getGyroPIDError());
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
 
+		// Elevator
+		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
+		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
+		SmartDashboard.putNumber("Elevator Output", Robot.elevatorSubsystem.getSpeed());
+		SmartDashboard.putNumber("Elevator Error", Robot.elevatorSubsystem.getError());
+
+		// Intake
+		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
 	}
 
 	/**

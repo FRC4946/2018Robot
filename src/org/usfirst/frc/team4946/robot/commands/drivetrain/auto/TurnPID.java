@@ -3,7 +3,6 @@ package org.usfirst.frc.team4946.robot.commands.drivetrain.auto;
 import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnPID extends Command {
 
@@ -32,9 +31,6 @@ public class TurnPID extends Command {
 	}
 
 	protected void execute() {
-		SmartDashboard.putNumber("Gyro Setpoint", Robot.driveTrainSubsystem.getGyroPIDSetpoint());
-		SmartDashboard.putNumber("Gyro Output", Robot.driveTrainSubsystem.getGyroPIDOutput());
-
 		Robot.driveTrainSubsystem.arcadeDrive(0, Robot.driveTrainSubsystem.getGyroPIDOutput());
 	}
 

@@ -50,8 +50,8 @@ public class ElevatorSubsystem extends Subsystem {
 		m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
 				RobotConstants.elevatorD, m_analogPot, m_motors);
 		m_PIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
-		m_PIDController.setOutputRange(-RobotConstants.ELEVATOR_MAX_OUTPUT + 0.3,
-				RobotConstants.ELEVATOR_MAX_OUTPUT + 0.2);
+		m_PIDController.setOutputRange(RobotConstants.ELEVATOR_MIN_OUTPUT,
+				RobotConstants.ELEVATOR_MAX_OUTPUT);
 		m_PIDController.setAbsoluteTolerance(3.5);
 
 		m_motors.setInverted(true);
@@ -202,5 +202,9 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public double getSetpoint() {
 		return m_PIDController.getSetpoint();
+	}
+	
+	public double getError() {
+		return m_PIDController.getError();
 	}
 }
