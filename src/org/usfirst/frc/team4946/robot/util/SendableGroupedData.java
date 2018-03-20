@@ -42,25 +42,31 @@ public class SendableGroupedData implements Sendable {
 	public void putBoolean(String key, boolean value) {
 		if (builder == null)
 			SmartDashboard.putData(this);
-		builder.addBooleanProperty(key, () -> value, null);
+		builder.addBooleanProperty(key, () -> {
+			return value;
+		}, null);
 	}
 
 	public void putString(String key, String value) {
 		if (builder == null)
 			SmartDashboard.putData(this);
-		builder.addStringProperty(key, () -> value, null);
+		builder.addStringProperty(key, () -> {
+			return value;
+		}, null);
 	}
 
 	public void putDouble(String key, double value) {
 		if (builder == null)
 			SmartDashboard.putData(this);
-		builder.addDoubleProperty(key, () -> value, null);
+		builder.addDoubleProperty(key, () -> {
+			return value;
+		}, null);
 	}
 
 	@Override
 	public void initSendable(SendableBuilder builder) {
 		this.builder = builder;
-		this.builder.setSmartDashboardType("Subsystem"); // TODO: Don't think this should really be a subsystem
+		this.builder.setSmartDashboardType("Data");
 	}
 
 }

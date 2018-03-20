@@ -10,10 +10,7 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
-import org.usfirst.frc.team4946.robot.commands.elevator.preset.LiftRobot;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToRung;
-import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
-import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -49,39 +46,28 @@ public class OI {
 	// Button operatorL3 = new JoystickButton(operatorStick, 9);
 
 	public OI() {
-		
+
 		driveA.whileHeld(new SetIntake(-0.2));
 		driveB.whileHeld(new SetIntake(-0.4));
 		driveX.whileHeld(new SetIntake(-0.6));
 		driveY.whileHeld(new SetIntake(-0.8));
-		
-		//driveA.whileHeld(new MoveToSwitch());
-		//driveX.whileHeld(new MoveToScale(true));
-		//driveB.whileHeld(new MoveToScale(false));
-		//driveY.whileHeld(new RunDiagonalIntake());
 
 		driveRB.whenPressed(new OverrideElbowPos());
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
-		
+
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));
 		operatorX.whileHeld(new SetIntake(-0.6));
 		operatorY.whileHeld(new SetIntake(-0.8));
 
-		operatorA.whileHeld(new MoveToSwitch());
-		operatorX.whileHeld(new MoveToScale(true));
-		operatorB.whileHeld(new MoveToScale(false));
-		
 		operatorRB.whileHeld(new MoveToRung());
 		operatorLB.whenPressed(new SetElevatorGear(false));
 		operatorLB.whenReleased(new SetElevatorGear(true));
-		
-		//operatorLB.whileHeld(new LiftRobot());
+
+		// operatorLB.whileHeld(new LiftRobot());
 		operatorBack.whenPressed(new SetElevatorGear(false));
 		operatorStart.whenPressed(new SetElevatorGear(true));
-		
-		// operatorL3.whenPressed(new OverrideElbowPos());
 	}
 
 	/**
