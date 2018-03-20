@@ -28,9 +28,8 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private AHRS m_gyro;
 
-	private PIDController m_leftPID, m_rightPID, m_turnPID;
+	private PIDController /* m_leftPID, m_rightPID, */ m_turnPID;
 	private NullPIDOutput m_turnPIDOutput;
-	// private double distancePerPulse;
 
 	public DriveTrainSubsystem() {
 
@@ -58,23 +57,20 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_gyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
-		m_leftPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_leftEnc,
-				m_left);
-		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_rightEnc,
-				m_right);
-		m_turnPID = new PIDController(RobotConstants.turnP, RobotConstants.turnI, RobotConstants.turnD, m_gyro,
-				m_turnPIDOutput);
+		// m_leftPID = new PIDController(0, 0, 0, m_leftEnc, m_left);
+		// m_leftPID.setAbsoluteTolerance(0.5);
+		// m_rightPID = new PIDController(0, 0, 0, m_rightEnc, m_right);
+		// m_rightPID.setAbsoluteTolerance(0.5);
+
+		m_turnPID = new PIDController(0, 0, 0, m_gyro, m_turnPIDOutput);
 		m_turnPID.setInputRange(0, 360);
-		m_turnPID.setOutputRange(-0.4, 0.4);
 		m_turnPID.setContinuous();
+		updatePIDTunings();
 
 		calibrateGyro();
-		resetPID();
-		disableDrivePID();
+		// resetPID();
+		// disableDrivePID();
 
-		m_leftPID.setAbsoluteTolerance(0.5); // Dummy
-		m_rightPID.setAbsoluteTolerance(0.5); // Dummy
-		m_turnPID.setAbsoluteTolerance(1.0); // Dummy
 	}
 
 	@Override
@@ -195,15 +191,18 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * Update the PID tunings on the DriveTrain
 	 */
 	public void updatePIDTunings() {
-		m_leftPID.setP(RobotConstants.driveP);
-		m_leftPID.setI(RobotConstants.driveI);
-		m_leftPID.setD(RobotConstants.driveD);
-		m_rightPID.setP(RobotConstants.driveP);
-		m_rightPID.setI(RobotConstants.driveI);
-		m_rightPID.setD(RobotConstants.driveD);
-		m_turnPID.setP(RobotConstants.turnP);
-		m_turnPID.setI(RobotConstants.turnI);
-		m_turnPID.setD(RobotConstants.turnD);
+		// m_leftPID.setP(RobotConstants.driveP);
+		// m_leftPID.setI(RobotConstants.driveI);
+		// m_leftPID.setD(RobotConstants.driveD);
+		// m_rightPID.setP(RobotConstants.driveP);
+		// m_rightPID.setI(RobotConstants.driveI);
+		// m_rightPID.setD(RobotConstants.driveD);
+
+		m_turnPID.setP(RobotConstants.kTurn.kP);
+		m_turnPID.setI(RobotConstants.kTurn.kI);
+		m_turnPID.setD(RobotConstants.kTurn.kD);
+		m_turnPID.setOutputRange(RobotConstants.kTurn.kMinOutput, RobotConstants.kTurn.kMaxOutput);
+		m_turnPID.setAbsoluteTolerance(RobotConstants.kTurn.kAbsTolerance);
 	}
 
 	/**
@@ -224,31 +223,32 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_right.set(0.0);
 	}
 
-	/**
-	 * Sets the encoder distance setpoint.
-	 * 
-	 * @param distSetpoint
-	 *            The distance for the robot to drive in inches.
-	 */
-	public void setDistSetpoint(double distSetpoint) {
-		m_leftPID.setSetpoint(distSetpoint);
-		m_rightPID.setSetpoint(distSetpoint);
-	}
-
-	/**
-	 * @return The current encoder setpoint.
-	 */
-	public double getDistSetpoint() {
-		return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint()) / 2;
-	}
-
-	/**
-	 * @return Whether or not the current distance matches the distance setpoint on
-	 *         both sides.
-	 */
-	public boolean getDistOnTarget() {
-		return m_leftPID.onTarget() && m_rightPID.onTarget();
-	}
+	// /**
+	// * Sets the encoder distance setpoint.
+	// *
+	// * @param distSetpoint
+	// * The distance for the robot to drive in inches.
+	// */
+	// public void setDistSetpoint(double distSetpoint) {
+	// m_leftPID.setSetpoint(distSetpoint);
+	// m_rightPID.setSetpoint(distSetpoint);
+	// }
+	//
+	// /**
+	// * @return The current encoder setpoint.
+	// */
+	// public double getDistSetpoint() {
+	// return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint()) / 2;
+	// }
+	//
+	// /**
+	// * @return Whether or not the current distance matches the distance setpoint
+	// on
+	// * both sides.
+	// */
+	// public boolean getDistOnTarget() {
+	// return m_leftPID.onTarget() && m_rightPID.onTarget();
+	// }
 
 	/**
 	 * @return Whether or not the current angle matches the gyro setpoint.
@@ -279,13 +279,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.reset();
 	}
 
-	/**
-	 * Enables the drivetrain PID objects.
-	 */
-	public void enableDrivePID() {
-		m_leftPID.enable();
-		m_rightPID.enable();
-	}
+	// /**
+	// * Enables the drivetrain PID objects.
+	// */
+	// public void enableDrivePID() {
+	// m_leftPID.enable();
+	// m_rightPID.enable();
+	// }
 
 	/**
 	 * Enables the gyro PID objects.
@@ -294,13 +294,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.enable();
 	}
 
-	/**
-	 * Disables the drivetrain PID objects.
-	 */
-	public void disableDrivePID() {
-		m_leftPID.disable();
-		m_rightPID.disable();
-	}
+	// /**
+	// * Disables the drivetrain PID objects.
+	// */
+	// public void disableDrivePID() {
+	// m_leftPID.disable();
+	// m_rightPID.disable();
+	// }
 
 	/**
 	 * Disables the gyro PID objects.
@@ -309,13 +309,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.disable();
 	}
 
-	/**
-	 * Resets the drivetrain PID objects.
-	 */
-	public void resetPID() {
-		m_leftPID.reset();
-		m_rightPID.reset();
-	}
+	// /**
+	// * Resets the drivetrain PID objects.
+	// */
+	// public void resetPID() {
+	// m_leftPID.reset();
+	// m_rightPID.reset();
+	// }
 
 	/**
 	 * @return the average distance traveled between both encoders
@@ -331,18 +331,18 @@ public class DriveTrainSubsystem extends Subsystem {
 	public double getRightEncDist() {
 		return m_rightEnc.getDistance();
 	}
-
-	/**
-	 * Sets the maximum speed output for both PID objects
-	 * 
-	 * @param speed
-	 *            The upper bound for the output range of the PIDObjects. The
-	 *            negative speed is set as the lower bound.
-	 */
-	public void setMaxSpeed(double speed) {
-		m_leftPID.setOutputRange(-speed, speed);
-		m_rightPID.setOutputRange(-speed, speed);
-	}
+	//
+	// /**
+	// * Sets the maximum speed output for both PID objects
+	// *
+	// * @param speed
+	// * The upper bound for the output range of the PIDObjects. The
+	// * negative speed is set as the lower bound.
+	// */
+	// public void setMaxSpeed(double speed) {
+	// m_leftPID.setOutputRange(-speed, speed);
+	// m_rightPID.setOutputRange(-speed, speed);
+	// }
 
 	public double getGyroPIDError() {
 		SmartDashboard.putData(m_turnPID);

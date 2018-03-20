@@ -47,12 +47,9 @@ public class ElevatorSubsystem extends Subsystem {
 		m_analogPot.setPIDSourceType(PIDSourceType.kDisplacement);
 
 		// Setup the PID controller
-		m_PIDController = new PIDController(RobotConstants.elevatorP, RobotConstants.elevatorI,
-				RobotConstants.elevatorD, m_analogPot, m_motors);
+		m_PIDController = new PIDController(0, 0, 0, m_analogPot, m_motors);
 		m_PIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
-		m_PIDController.setOutputRange(RobotConstants.ELEVATOR_MIN_OUTPUT,
-				RobotConstants.ELEVATOR_MAX_OUTPUT);
-		m_PIDController.setAbsoluteTolerance(3.5);
+		updatePIDTunings();
 
 		m_motors.setInverted(true);
 	}
@@ -89,9 +86,11 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Update the PID tunings on the elevator
 	 */
 	public void updatePIDTunings() {
-		m_PIDController.setP(RobotConstants.elevatorP);
-		m_PIDController.setI(RobotConstants.elevatorI);
-		m_PIDController.setD(RobotConstants.elevatorD);
+		m_PIDController.setP(RobotConstants.kElevator.kP);
+		m_PIDController.setI(RobotConstants.kElevator.kI);
+		m_PIDController.setD(RobotConstants.kElevator.kD);
+		m_PIDController.setOutputRange(RobotConstants.kElevator.kMinOutput, RobotConstants.kElevator.kMaxOutput);
+		m_PIDController.setAbsoluteTolerance(RobotConstants.kElevator.kAbsTolerance);
 	}
 
 	public void limitMinHeight(boolean shouldLimit) {
@@ -203,7 +202,7 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getSetpoint() {
 		return m_PIDController.getSetpoint();
 	}
-	
+
 	public double getError() {
 		return m_PIDController.getError();
 	}

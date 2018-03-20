@@ -27,15 +27,6 @@ public class FollowPath extends Command {
 	private double rIntegral;
 	private double angIntegral;
 
-	private double kP;
-	private double kI;
-	private double kD;
-	private double kVel;
-	private double kAccel;
-	private double kTurnP;
-	private double kTurnI;
-	private double kTurnD;
-
 	public FollowPath(DriveAction path) {
 		requires(Robot.driveTrainSubsystem);
 		m_path = path;
@@ -57,15 +48,6 @@ public class FollowPath extends Command {
 		rIntegral = 0;
 		angIntegral = 0;
 
-		kP = RobotConstants.driveP;
-		kI = RobotConstants.driveI;
-		kD = RobotConstants.driveD;
-		kVel = RobotConstants.driveKVel;
-		kAccel = RobotConstants.driveKAccel;
-		kTurnP = RobotConstants.pathTurnP;
-		kTurnI = RobotConstants.pathTurnI;
-		kTurnD = RobotConstants.pathTurnD;
-
 		// kvel = 1.0 / 60.0;
 		// kaccel = 1.0 / 100.0;
 	}
@@ -75,36 +57,47 @@ public class FollowPath extends Command {
 		Segment left = m_path.left.get(curSegIndex);
 		Segment right = m_path.right.get(curSegIndex);
 
+		// =*=*=*=*=*=*=*=*= Distance Controllers =*=*=*=*=*=*=*=*=
+
 		// Calculate the base output speed for the left wheels
 		double lErr = left.pos - (Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc);
-		lIntegral += lErr * kI;
-		double lOutput = kP * lErr + lIntegral + kD * ((lErr - lastLErr) / left.dt - left.vel)
-				+ (kVel * left.vel + kAccel * left.accel);
+		lIntegral += lErr * RobotConstants.driveI;
+		double lOutput = RobotConstants.driveP * lErr + lIntegral
+				+ RobotConstants.driveD * ((lErr - lastLErr) / left.dt - left.vel)
+				+ (RobotConstants.driveKVel * left.vel + RobotConstants.driveKAccel * left.accel);
 		lastLErr = lErr;
 
 		// Calculate the base output speed for the right wheels
 		double rErr = right.pos - (Robot.driveTrainSubsystem.getRightEncDist() - initRightEnc);
-		rIntegral += rErr * kI;
-		double rOutput = kP * rErr + rIntegral + kD * ((rErr - lastRErr) / right.dt - right.vel)
-				+ (kVel * right.vel + kAccel * right.accel);
+		rIntegral += rErr * RobotConstants.driveI;
+		double rOutput = RobotConstants.driveP * rErr + rIntegral
+				+ RobotConstants.driveD * ((rErr - lastRErr) / right.dt - right.vel)
+				+ (RobotConstants.driveKVel * right.vel + RobotConstants.driveKAccel * right.accel);
 		lastRErr = rErr;
 
-		// Calculate the heading correction to apply to the two sides of the drive base
+		// =*=*=*=*=*=*=*=*= Heading Controller =*=*=*=*=*=*=*=*=
+
+		// Calculate the error
 		double angErr = conformAngle((left.heading - 90) - (Robot.driveTrainSubsystem.getGyroAngle() - initAngle));
-		angIntegral += angErr * kTurnI;
+
+		// Calculate the slope of the setpoint heading (dheading/dt)
 		double dHeading = m_path.left.get(Math.min(m_path.left.size() - 1, curSegIndex + 1)).heading
 				- m_path.left.get(Math.max(0, curSegIndex - 1)).heading;
 		dHeading /= (curSegIndex == 0 || curSegIndex == m_path.left.size() - 1) ? left.dt : 2 * left.dt;
-		double turnOutput = angErr * kTurnP + angIntegral + kTurnD * ((angErr - lastAngErr) / left.dt - dHeading);
 
-		// Apply the heading correction
+		// Calculate the controller output, and limit it to the max range
+		angIntegral += angErr * RobotConstants.kPathTurn.kI;
+		double turnOutput = angErr * RobotConstants.kPathTurn.kP + angIntegral
+				+ RobotConstants.kPathTurn.kD * ((angErr - lastAngErr) / left.dt - dHeading);
+		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMaxOutput);
+		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMinOutput);
+
+		// Combine the distance and heading controllers to calculate the overall output
 		lOutput += turnOutput;
 		rOutput -= turnOutput;
+		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
 
 		curSegIndex++;
-
-		// System.out.println(left.heading + "\t" + lOutput + "\t" + rOutput);
-		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
 
 		// Logging
 		SmartDashboard.putNumber("Left Out", lOutput);
