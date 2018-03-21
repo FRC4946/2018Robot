@@ -1,7 +1,8 @@
 
 /**
- * This package MUST all be excluded from the build path. These commands are not
- * implemented.
+ * These commands are not implemented.
+ * 
+ * TODO: Rather than comment out, remove from wpilib build path
  * 
  * @author Matthew Reynolds
  *
