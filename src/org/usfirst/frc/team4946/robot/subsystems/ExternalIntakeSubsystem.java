@@ -23,7 +23,7 @@ public class ExternalIntakeSubsystem extends Subsystem {
 	/**
 	 * Manually sets the speed of the motors
 	 * 
-	 * @param d_speed
+	 * @param d_speeandAA
 	 *            Speed of the motors
 	 */
 	public void set(double d_speed) {
