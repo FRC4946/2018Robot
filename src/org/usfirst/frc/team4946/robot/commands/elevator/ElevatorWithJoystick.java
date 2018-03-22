@@ -25,7 +25,13 @@ public class ElevatorWithJoystick extends Command {
 	protected void execute() {
 
 		// Get the current setpoint
-		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
+		// double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
+		double speed = 0;
+		if (Robot.m_oi.getOperatorStick().getRawButton(6))
+			speed += 0.2;
+		if (Robot.m_oi.getOperatorStick().getRawButton(5))
+			speed -= 0.2;
+		
 		if (Math.abs(speed) < 0.1)
 			speed = 0;
 
