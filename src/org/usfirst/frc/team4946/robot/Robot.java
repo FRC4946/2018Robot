@@ -8,7 +8,12 @@
 package org.usfirst.frc.team4946.robot;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -26,6 +31,7 @@ import org.xml.sax.SAXException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,6 +64,9 @@ public class Robot extends IterativeRobot {
 	private Preferences m_robotPrefs;
 	// private SendableGroupedData m_autoDashboard;
 	private int m_count = 0;
+
+	private PrintWriter m_csvFile;
+	private long m_enableTime;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -100,6 +109,9 @@ public class Robot extends IterativeRobot {
 
 		// Turn off the motors and engage the brake when we enter disabled
 		elevatorSubsystem.disablePID();
+
+		if (isAutonomous)
+			m_csvFile.close();
 
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
@@ -184,6 +196,39 @@ public class Robot extends IterativeRobot {
 			System.out.println("Starting auto");
 			m_autoCommand.start();
 		}
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		try {
+			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		m_enableTime = System.currentTimeMillis();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Time");
+		sb.append(',');
+		sb.append("Battery Voltage");
+		sb.append(',');
+		sb.append("Gyro Angle");
+		sb.append(',');
+		sb.append("Gyro SP");
+		sb.append(',');
+		sb.append("Gyro Out");
+		sb.append(',');
+		sb.append("Gyro Err");
+		sb.append(',');
+		sb.append("Elevator Height");
+		sb.append(',');
+		sb.append("Elevator SP");
+		sb.append(',');
+		sb.append("Elevator Out");
+		sb.append(',');
+		sb.append("Elevator Err");
+		sb.append('\n');
+		m_csvFile.write(sb.toString());
 	}
 
 	/**
@@ -226,9 +271,9 @@ public class Robot extends IterativeRobot {
 
 		// Drive Train
 		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
-		SmartDashboard.putNumber("Gyro Setpoint", Robot.driveTrainSubsystem.getGyroPIDSetpoint());
-		SmartDashboard.putNumber("Gyro Output", Robot.driveTrainSubsystem.getGyroPIDOutput());
-		SmartDashboard.putNumber("Gyro Error", Robot.driveTrainSubsystem.getGyroPIDError());
+		SmartDashboard.putNumber("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
+		SmartDashboard.putNumber("Gyro Output", driveTrainSubsystem.getGyroPIDOutput());
+		SmartDashboard.putNumber("Gyro Error", driveTrainSubsystem.getGyroPIDError());
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
@@ -236,11 +281,34 @@ public class Robot extends IterativeRobot {
 		// Elevator
 		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
 		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
-		SmartDashboard.putNumber("Elevator Output", Robot.elevatorSubsystem.getSpeed());
-		SmartDashboard.putNumber("Elevator Error", Robot.elevatorSubsystem.getError());
+		SmartDashboard.putNumber("Elevator Output", elevatorSubsystem.getSpeed());
+		SmartDashboard.putNumber("Elevator Error", elevatorSubsystem.getError());
 
 		// Intake
 		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.currentTimeMillis() - m_enableTime);
+		sb.append(',');
+		sb.append(RobotController.getBatteryVoltage());
+		sb.append(',');
+		sb.append(driveTrainSubsystem.getGyroAngle() % 360);
+		sb.append(',');
+		sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
+		sb.append(',');
+		sb.append(driveTrainSubsystem.getGyroPIDOutput());
+		sb.append(',');
+		sb.append(driveTrainSubsystem.getGyroPIDError());
+		sb.append(',');
+		sb.append(elevatorSubsystem.getHeight());
+		sb.append(',');
+		sb.append(elevatorSubsystem.getSetpoint());
+		sb.append(',');
+		sb.append(elevatorSubsystem.getSpeed());
+		sb.append(',');
+		sb.append(elevatorSubsystem.getError());
+		sb.append('\n');
+		m_csvFile.write(sb.toString());
 	}
 
 	/**
