@@ -175,6 +175,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//Next few lines are temp, to get working directory
+		java.lang.Runtime rt = java.lang.Runtime.getRuntime();
+		try {
+			java.lang.Process p = rt.exec("pwd");
+			System.out.println("Working Directory: " + p.exitValue());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		isAutonomous = true;
 
 		driveTrainSubsystem.resetEncoders();
@@ -200,7 +210,8 @@ public class Robot extends IterativeRobot {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
 		Date date = new Date();
 		try {
-			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
+			m_csvFile = new PrintWriter(new File("/home/lvuser/robotlogs/" + dateFormat.format(date) + ".csv"));
+			System.out.println("CSV succesfully written to:" + new File("/home/lvuser/robotlogs/" + dateFormat.format(date) + ".csv").getAbsolutePath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			m_csvFile = null;
@@ -267,6 +278,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		
+		
 	}
 
 	public void updateSmartDashboard() {
