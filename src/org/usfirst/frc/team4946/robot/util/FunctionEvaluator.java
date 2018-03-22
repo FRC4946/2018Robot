@@ -32,7 +32,7 @@ public class FunctionEvaluator {
 			throw new IllegalArgumentException("Formula is malformed");
 
 		// TODO: Proper formula validation
-		if (Pattern.compile("[^0-9{}()<>=+\\-*\\/\\^x ]").matcher(formula).find())
+		if (Pattern.compile("[^0-9{}()<>=+\\-*\\/\\^x. ]").matcher(formula).find())
 			throw new IllegalArgumentException("Formula '" + formula + "' is malformed, contains illegal characters");
 	}
 
