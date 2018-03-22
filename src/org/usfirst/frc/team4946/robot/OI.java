@@ -61,9 +61,9 @@ public class OI {
 		operatorX.whileHeld(new SetIntake(-0.6));
 		operatorY.whileHeld(new SetIntake(-0.8));
 
-		operatorRB.whileHeld(new MoveToRung());
-		operatorLB.whenPressed(new SetElevatorGear(false));
-		operatorLB.whenReleased(new SetElevatorGear(true));
+//		operatorRB.whileHeld(new MoveToRung());
+//		operatorLB.whenPressed(new SetElevatorGear(false));
+//		operatorLB.whenReleased(new SetElevatorGear(true));
 
 		// operatorLB.whileHeld(new LiftRobot());
 		operatorBack.whenPressed(new SetElevatorGear(false));
