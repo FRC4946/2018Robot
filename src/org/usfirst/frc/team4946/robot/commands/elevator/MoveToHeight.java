@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveToHeight extends Command {
 
 	double m_height;
+	int onTargetCount = 0;
 
 	/**
 	 * Sets the elevator to a certain height using PID.
@@ -38,6 +39,16 @@ public class MoveToHeight extends Command {
 	protected void execute() {
 		Robot.elevatorSubsystem.updatePIDTunings();
 		Robot.elevatorSubsystem.setSetpoint(m_height);
+		
+		
+		// For teleop
+		if(Robot.elevatorSubsystem.getOnTarget())
+			onTargetCount++;
+		else
+			onTargetCount = 0;
+		
+		if(onTargetCount > 5)
+			Robot.elevatorSubsystem.disablePID();
 	}
 
 	protected boolean isFinished() {
