@@ -25,12 +25,12 @@ public class SetElevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.elevatorSubsystem.getHeight() < 20 && m_speed < 0)
-			Robot.elevatorSubsystem.set(0);
-		else if (Robot.elevatorSubsystem.getHeight() > 80 && m_speed > 0)
-			Robot.elevatorSubsystem.set(0);
-		else
-			Robot.elevatorSubsystem.set(m_speed);
+		// if (Robot.elevatorSubsystem.getHeight() < 20 && m_speed < 0)
+		// Robot.elevatorSubsystem.set(0);
+		// else if (Robot.elevatorSubsystem.getHeight() > 80 && m_speed > 0)
+		// Robot.elevatorSubsystem.set(0);
+		// else
+		Robot.elevatorSubsystem.set(m_speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
