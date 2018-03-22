@@ -197,7 +197,7 @@ public class Robot extends IterativeRobot {
 			m_autoCommand.start();
 		}
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
 		Date date = new Date();
 		try {
 			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
