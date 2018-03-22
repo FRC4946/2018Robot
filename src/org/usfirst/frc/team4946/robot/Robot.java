@@ -203,32 +203,35 @@ public class Robot extends IterativeRobot {
 			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			m_csvFile = null;
 		}
 
 		m_enableTime = System.currentTimeMillis();
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Time");
-		sb.append(',');
-		sb.append("Battery Voltage");
-		sb.append(',');
-		sb.append("Gyro Angle");
-		sb.append(',');
-		sb.append("Gyro SP");
-		sb.append(',');
-		sb.append("Gyro Out");
-		sb.append(',');
-		sb.append("Gyro Err");
-		sb.append(',');
-		sb.append("Elevator Height");
-		sb.append(',');
-		sb.append("Elevator SP");
-		sb.append(',');
-		sb.append("Elevator Out");
-		sb.append(',');
-		sb.append("Elevator Err");
-		sb.append('\n');
-		m_csvFile.write(sb.toString());
+
+		if (m_csvFile != null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Time");
+			sb.append(',');
+			sb.append("Battery Voltage");
+			sb.append(',');
+			sb.append("Gyro Angle");
+			sb.append(',');
+			sb.append("Gyro SP");
+			sb.append(',');
+			sb.append("Gyro Out");
+			sb.append(',');
+			sb.append("Gyro Err");
+			sb.append(',');
+			sb.append("Elevator Height");
+			sb.append(',');
+			sb.append("Elevator SP");
+			sb.append(',');
+			sb.append("Elevator Out");
+			sb.append(',');
+			sb.append("Elevator Err");
+			sb.append('\n');
+			m_csvFile.write(sb.toString());
+		}
 	}
 
 	/**
@@ -287,28 +290,30 @@ public class Robot extends IterativeRobot {
 		// Intake
 		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(System.currentTimeMillis() - m_enableTime);
-		sb.append(',');
-		sb.append(RobotController.getBatteryVoltage());
-		sb.append(',');
-		sb.append(driveTrainSubsystem.getGyroAngle() % 360);
-		sb.append(',');
-		sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
-		sb.append(',');
-		sb.append(driveTrainSubsystem.getGyroPIDOutput());
-		sb.append(',');
-		sb.append(driveTrainSubsystem.getGyroPIDError());
-		sb.append(',');
-		sb.append(elevatorSubsystem.getHeight());
-		sb.append(',');
-		sb.append(elevatorSubsystem.getSetpoint());
-		sb.append(',');
-		sb.append(elevatorSubsystem.getSpeed());
-		sb.append(',');
-		sb.append(elevatorSubsystem.getError());
-		sb.append('\n');
-		m_csvFile.write(sb.toString());
+		if (isAutonomous && m_csvFile != null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(System.currentTimeMillis() - m_enableTime);
+			sb.append(',');
+			sb.append(RobotController.getBatteryVoltage());
+			sb.append(',');
+			sb.append(driveTrainSubsystem.getGyroAngle() % 360);
+			sb.append(',');
+			sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
+			sb.append(',');
+			sb.append(driveTrainSubsystem.getGyroPIDOutput());
+			sb.append(',');
+			sb.append(driveTrainSubsystem.getGyroPIDError());
+			sb.append(',');
+			sb.append(elevatorSubsystem.getHeight());
+			sb.append(',');
+			sb.append(elevatorSubsystem.getSetpoint());
+			sb.append(',');
+			sb.append(elevatorSubsystem.getSpeed());
+			sb.append(',');
+			sb.append(elevatorSubsystem.getError());
+			sb.append('\n');
+			m_csvFile.write(sb.toString());
+		}
 	}
 
 	/**
