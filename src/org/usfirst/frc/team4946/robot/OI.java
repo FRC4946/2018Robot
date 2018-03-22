@@ -9,8 +9,8 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
+import org.usfirst.frc.team4946.robot.commands.elevator.SetElevator;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
-import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToRung;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -61,9 +61,12 @@ public class OI {
 		operatorX.whileHeld(new SetIntake(-0.6));
 		operatorY.whileHeld(new SetIntake(-0.8));
 
-//		operatorRB.whileHeld(new MoveToRung());
-//		operatorLB.whenPressed(new SetElevatorGear(false));
-//		operatorLB.whenReleased(new SetElevatorGear(true));
+		// operatorRB.whileHeld(new MoveToRung());
+		// operatorLB.whenPressed(new SetElevatorGear(false));
+		// operatorLB.whenReleased(new SetElevatorGear(true));
+
+		operatorLB.whileHeld(new SetElevator(0.2));
+		operatorLB.whileHeld(new SetElevator(-0.2));
 
 		// operatorLB.whileHeld(new LiftRobot());
 		operatorBack.whenPressed(new SetElevatorGear(false));
