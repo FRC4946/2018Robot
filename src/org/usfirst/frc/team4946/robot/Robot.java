@@ -201,6 +201,7 @@ public class Robot extends IterativeRobot {
 		Date date = new Date();
 		try {
 			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
+			System.out.println("CSV succesfully written to:" + new File(dateFormat.format(date) + ".csv").getAbsolutePath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			m_csvFile = null;
@@ -245,6 +246,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		
 		if (m_autoCommand != null)
 			m_autoCommand.cancel();
 
@@ -254,7 +256,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 		elevatorSubsystem.updatePIDTunings();
-		elevatorSubsystem.disablePID();
+		//elevatorSubsystem.disablePID();
 		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
 		elevatorTransmissionSubsystem.set(false);
 		driveTransmissionSubsystem.set(true);
@@ -267,6 +269,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		
+		
 	}
 
 	public void updateSmartDashboard() {
