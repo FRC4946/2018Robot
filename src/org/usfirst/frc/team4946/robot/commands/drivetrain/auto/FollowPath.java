@@ -77,24 +77,28 @@ public class FollowPath extends Command {
 
 		// =*=*=*=*=*=*=*=*= Heading Controller =*=*=*=*=*=*=*=*=
 
-		// Calculate the error
-		double angErr = conformAngle((left.heading - 90) - (Robot.driveTrainSubsystem.getGyroAngle() - initAngle));
-
-		// Calculate the slope of the setpoint heading (dheading/dt)
-		double dHeading = m_path.left.get(Math.min(m_path.left.size() - 1, curSegIndex + 1)).heading
-				- m_path.left.get(Math.max(0, curSegIndex - 1)).heading;
-		dHeading /= (curSegIndex == 0 || curSegIndex == m_path.left.size() - 1) ? left.dt : 2 * left.dt;
-
-		// Calculate the controller output, and limit it to the max range
-		angIntegral += angErr * RobotConstants.kPathTurn.kI;
-		double turnOutput = angErr * RobotConstants.kPathTurn.kP + angIntegral
-				+ RobotConstants.kPathTurn.kD * ((angErr - lastAngErr) / left.dt - dHeading);
-		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMaxOutput);
-		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMinOutput);
-
-		// Combine the distance and heading controllers to calculate the overall output
-		lOutput += turnOutput;
-		rOutput -= turnOutput;
+		// // Calculate the error
+		// double angErr = conformAngle((left.heading - 90) -
+		// (Robot.driveTrainSubsystem.getGyroAngle() - initAngle));
+		//
+		// // Calculate the slope of the setpoint heading (dheading/dt)
+		// double dHeading = m_path.left.get(Math.min(m_path.left.size() - 1,
+		// curSegIndex + 1)).heading
+		// - m_path.left.get(Math.max(0, curSegIndex - 1)).heading;
+		// dHeading /= (curSegIndex == 0 || curSegIndex == m_path.left.size() - 1) ?
+		// left.dt : 2 * left.dt;
+		//
+		// // Calculate the controller output, and limit it to the max range
+		// angIntegral += angErr * RobotConstants.kPathTurn.kI;
+		// double turnOutput = angErr * RobotConstants.kPathTurn.kP + angIntegral
+		// + RobotConstants.kPathTurn.kD * ((angErr - lastAngErr) / left.dt - dHeading);
+		// turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMaxOutput);
+		// turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMinOutput);
+		//
+		// // Combine the distance and heading controllers to calculate the overall
+		// output
+		// lOutput += turnOutput;
+		// rOutput -= turnOutput;
 		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
 
 		curSegIndex++;
@@ -104,7 +108,7 @@ public class FollowPath extends Command {
 		SmartDashboard.putNumber("Right Out", rOutput);
 		SmartDashboard.putNumber("Left Error", lErr);
 		SmartDashboard.putNumber("Right Error", rErr);
-		SmartDashboard.putNumber("Heading Error", angErr);
+		// SmartDashboard.putNumber("Heading Error", angErr);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -8,12 +8,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -31,7 +26,6 @@ import org.xml.sax.SAXException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -65,8 +59,8 @@ public class Robot extends IterativeRobot {
 	// private SendableGroupedData m_autoDashboard;
 	private int m_count = 0;
 
-	private PrintWriter m_csvFile;
-	private long m_enableTime;
+	// private PrintWriter m_csvFile;
+	// private long m_enableTime;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -110,8 +104,8 @@ public class Robot extends IterativeRobot {
 		// Turn off the motors and engage the brake when we enter disabled
 		elevatorSubsystem.disablePID();
 
-		if (isAutonomous)
-			m_csvFile.close();
+		// if (isAutonomous)
+		// m_csvFile.close();
 
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
@@ -197,42 +191,43 @@ public class Robot extends IterativeRobot {
 			m_autoCommand.start();
 		}
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		try {
-			m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
-			System.out.println("CSV succesfully written to:" + new File(dateFormat.format(date) + ".csv").getAbsolutePath());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			m_csvFile = null;
-		}
-
-		m_enableTime = System.currentTimeMillis();
-
-		if (m_csvFile != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Time");
-			sb.append(',');
-			sb.append("Battery Voltage");
-			sb.append(',');
-			sb.append("Gyro Angle");
-			sb.append(',');
-			sb.append("Gyro SP");
-			sb.append(',');
-			sb.append("Gyro Out");
-			sb.append(',');
-			sb.append("Gyro Err");
-			sb.append(',');
-			sb.append("Elevator Height");
-			sb.append(',');
-			sb.append("Elevator SP");
-			sb.append(',');
-			sb.append("Elevator Out");
-			sb.append(',');
-			sb.append("Elevator Err");
-			sb.append('\n');
-			m_csvFile.write(sb.toString());
-		}
+		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		// Date date = new Date();
+		// try {
+		// m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
+		// System.out.println("CSV succesfully written to:" + new
+		// File(dateFormat.format(date) + ".csv").getAbsolutePath());
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// m_csvFile = null;
+		// }
+		//
+		// m_enableTime = System.currentTimeMillis();
+		//
+		// if (m_csvFile != null) {
+		// StringBuilder sb = new StringBuilder();
+		// sb.append("Time");
+		// sb.append(',');
+		// sb.append("Battery Voltage");
+		// sb.append(',');
+		// sb.append("Gyro Angle");
+		// sb.append(',');
+		// sb.append("Gyro SP");
+		// sb.append(',');
+		// sb.append("Gyro Out");
+		// sb.append(',');
+		// sb.append("Gyro Err");
+		// sb.append(',');
+		// sb.append("Elevator Height");
+		// sb.append(',');
+		// sb.append("Elevator SP");
+		// sb.append(',');
+		// sb.append("Elevator Out");
+		// sb.append(',');
+		// sb.append("Elevator Err");
+		// sb.append('\n');
+		// m_csvFile.write(sb.toString());
+		// }
 	}
 
 	/**
@@ -246,7 +241,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		
+
 		if (m_autoCommand != null)
 			m_autoCommand.cancel();
 
@@ -256,7 +251,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 		elevatorSubsystem.updatePIDTunings();
-		//elevatorSubsystem.disablePID();
+		// elevatorSubsystem.disablePID();
 		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
 		elevatorTransmissionSubsystem.set(false);
 		driveTransmissionSubsystem.set(true);
@@ -269,8 +264,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		
-		
+
 	}
 
 	public void updateSmartDashboard() {
@@ -294,30 +288,30 @@ public class Robot extends IterativeRobot {
 		// Intake
 		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
 
-		if (isAutonomous && m_csvFile != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(System.currentTimeMillis() - m_enableTime);
-			sb.append(',');
-			sb.append(RobotController.getBatteryVoltage());
-			sb.append(',');
-			sb.append(driveTrainSubsystem.getGyroAngle() % 360);
-			sb.append(',');
-			sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
-			sb.append(',');
-			sb.append(driveTrainSubsystem.getGyroPIDOutput());
-			sb.append(',');
-			sb.append(driveTrainSubsystem.getGyroPIDError());
-			sb.append(',');
-			sb.append(elevatorSubsystem.getHeight());
-			sb.append(',');
-			sb.append(elevatorSubsystem.getSetpoint());
-			sb.append(',');
-			sb.append(elevatorSubsystem.getSpeed());
-			sb.append(',');
-			sb.append(elevatorSubsystem.getError());
-			sb.append('\n');
-			m_csvFile.write(sb.toString());
-		}
+		// if (isAutonomous && m_csvFile != null) {
+		// StringBuilder sb = new StringBuilder();
+		// sb.append(System.currentTimeMillis() - m_enableTime);
+		// sb.append(',');
+		// sb.append(RobotController.getBatteryVoltage());
+		// sb.append(',');
+		// sb.append(driveTrainSubsystem.getGyroAngle() % 360);
+		// sb.append(',');
+		// sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
+		// sb.append(',');
+		// sb.append(driveTrainSubsystem.getGyroPIDOutput());
+		// sb.append(',');
+		// sb.append(driveTrainSubsystem.getGyroPIDError());
+		// sb.append(',');
+		// sb.append(elevatorSubsystem.getHeight());
+		// sb.append(',');
+		// sb.append(elevatorSubsystem.getSetpoint());
+		// sb.append(',');
+		// sb.append(elevatorSubsystem.getSpeed());
+		// sb.append(',');
+		// sb.append(elevatorSubsystem.getError());
+		// sb.append('\n');
+		// m_csvFile.write(sb.toString());
+		// }
 	}
 
 	/**
