@@ -56,7 +56,7 @@ public class ElevatorWithJoystick extends Command {
 			else
 				m_onTargetCount = 0;
 
-			if (m_onTargetCount > 5) {
+			if (m_onTargetCount > 2) {
 				Robot.elevatorSubsystem.disablePID();
 				return;
 			}

@@ -47,7 +47,7 @@ public class MoveToHeight extends Command {
 		else
 			onTargetCount = 0;
 		
-		if(onTargetCount > 5)
+		if(onTargetCount > 2)
 			Robot.elevatorSubsystem.disablePID();
 	}
 
