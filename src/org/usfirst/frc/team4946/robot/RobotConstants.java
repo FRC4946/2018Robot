@@ -118,7 +118,10 @@ public class RobotConstants {
 		}
 	}
 
-	public static DynamicPIDTunings kElevator = new DynamicPIDTunings("Elevator", "0", "0", "0", "-0.2", "0.7", "3.5");
+	// public static DynamicPIDTunings kElevator = new DynamicPIDTunings("Elevator",
+	// "0", "0", "0", "-0.2", "0.7", "3.5");
+	public static PIDTunings kElevator = new PIDTunings("Elevator", 0.0, 0.0, 0.0, -0.2, 0.7, 3.5);
+
 	public static PIDTunings kTurn = new PIDTunings("Turn", 0.008, 0.000003, 0.0, -0.4, 0.4, 1.0);
 	public static PIDTunings kPathTurn = new PIDTunings("Path Turn", 0.0, 0.0, 0.0, 0.5, 0.5, 0);
 
