@@ -9,6 +9,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
+import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevator;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
@@ -56,10 +57,14 @@ public class OI {
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
 
-		operatorA.whileHeld(new SetIntake(-0.2));
-		operatorB.whileHeld(new SetIntake(-0.4));
-		operatorX.whileHeld(new SetIntake(-0.6));
-		operatorY.whileHeld(new SetIntake(-0.8));
+//		operatorA.whileHeld(new SetIntake(-0.2));
+//		operatorB.whileHeld(new SetIntake(-0.4));
+//		operatorX.whileHeld(new SetIntake(-0.6));
+//		operatorY.whileHeld(new SetIntake(-0.8));
+		operatorA.whileHeld(new MoveToHeight(20));
+		operatorB.whileHeld(new MoveToHeight(40));
+		operatorX.whileHeld(new MoveToHeight(60));
+		operatorY.whileHeld(new MoveToHeight(80));
 
 		// operatorRB.whileHeld(new MoveToRung());
 		// operatorLB.whenPressed(new SetElevatorGear(false));
