@@ -70,8 +70,8 @@ public class RobotConstants {
 		}
 	}
 
-	public static PIDTunings kElevator = new PIDTunings("Elevator", 0.1, 0.0001, 0.0, -0.2, 0.7, 3.5);
-	public static PIDTunings kTurn = new PIDTunings("Turn", 0.1, 0.0001, 0.0, -0.2, 0.7, 3.5);
+	public static PIDTunings kElevator = new PIDTunings("Elevator", 0.0, 0.0, 0.0, -0.2, 0.7, 3.5);
+	public static PIDTunings kTurn = new PIDTunings("Turn", 0.008, 0.000003, 0.0, -0.4, 0.4, 1.0);
 	public static PIDTunings kPathTurn = new PIDTunings("Path Turn", 0.0, 0.0, 0.0, 0.5, 0.5, 0);
 
 	/**
@@ -86,23 +86,11 @@ public class RobotConstants {
 	public static void loadPrefs(Preferences prefs) {
 
 		// Remember to put your default values here!
-		driveP = prefs.getDouble("Drive P", 0.1);
-		driveI = prefs.getDouble("Drive I", 0.0001);
+		driveP = prefs.getDouble("Drive P", 0.45);
+		driveI = prefs.getDouble("Drive I", 0.0);
 		driveD = prefs.getDouble("Drive D", 0.0);
-		driveKVel = prefs.getDouble("Drive KVel", 0.0);
-		driveKAccel = prefs.getDouble("Drive KAccel", 0.0);
-		// pathTurnP = prefs.getDouble("Path Turn P", 0.0);
-		// pathTurnI = prefs.getDouble("Path Turn I", 0.0);
-		// pathTurnD = prefs.getDouble("Path Turn D", 0.0);
-		// turnP = prefs.getDouble("Turn P", 0.1);
-		// turnI = prefs.getDouble("Turn I", 0.0001);
-		// turnD = prefs.getDouble("Turn D", 0.0);
-		// elevator.kP = prefs.getDouble("Elevator P", 0.1);
-		// elevator.kI = prefs.getDouble("Elevator I", 0.0001);
-		// elevator.kD = prefs.getDouble("Elevator D", 0.0);
-		// elevator.kMinOutput = prefs.getDouble("Elevator Min Output", -0.2);
-		// elevator.kMaxOutput = prefs.getDouble("Elevator Max Output", 0.7);
-		// elevator.kAbsTolerance = prefs.getDouble("Elevator Abs Tolerance", 3.5);
+		driveKVel = prefs.getDouble("Drive KVel", 1.0/60.0);
+		driveKAccel = prefs.getDouble("Drive KAccel", 1.0/100.0);
 
 		kPathTurn.loadPrefs(prefs);
 		kTurn.loadPrefs(prefs);
@@ -125,15 +113,6 @@ public class RobotConstants {
 		prefs.putDouble("Drive D", driveD);
 		prefs.putDouble("Drive KVel", driveKVel);
 		prefs.putDouble("Drive KAccel", driveKAccel);
-		// prefs.putDouble("Path Turn P", pathTurnP);
-		// prefs.putDouble("Path Turn I", pathTurnI);
-		// prefs.putDouble("Path Turn D", pathTurnD);
-		// prefs.putDouble("Turn P", turnP);
-		// prefs.putDouble("Turn I", turnI);
-		// prefs.putDouble("Turn D", turnD);
-		// prefs.putDouble("Elevator P", elevator.kP);
-		// prefs.putDouble("Elevator I", elevator.kI);
-		// prefs.putDouble("Elevator D", elevator.kD);
 
 		kPathTurn.repopulatePrefs(prefs);
 		kTurn.repopulatePrefs(prefs);
