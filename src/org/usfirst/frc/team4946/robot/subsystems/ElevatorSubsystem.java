@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick;
@@ -14,7 +13,6 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * 
@@ -24,9 +22,9 @@ public class ElevatorSubsystem extends Subsystem {
 	private SpeedControllerGroup m_motors;
 	private DoubleSolenoid m_brake;
 	private AnalogPotentiometer m_analogPot;
-
 	private PIDController m_PIDController;
 
+	private int m_onTargetCount;
 	private boolean m_isBrake = false;
 
 	// Min and max height are used for changing the bounds of the elevator when the
@@ -215,7 +213,11 @@ public class ElevatorSubsystem extends Subsystem {
 	 * @return Whether or not the current height matches the height setpoint.
 	 */
 	public boolean getOnTarget() {
-		return m_PIDController.onTarget();
+		if(m_PIDController.onTarget())
+			m_onTargetCount++;
+		else
+			m_onTargetCount = 0;
+		return m_onTargetCount > 2;
 	}
 
 	public double getSetpoint() {

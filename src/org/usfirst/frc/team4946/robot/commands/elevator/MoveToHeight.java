@@ -42,13 +42,13 @@ public class MoveToHeight extends Command {
 		
 		
 		// For teleop
-		if(Robot.elevatorSubsystem.getOnTarget())
-			onTargetCount++;
-		else
-			onTargetCount = 0;
-		
-		if(onTargetCount > 2)
-			Robot.elevatorSubsystem.disablePID();
+		// if(Robot.elevatorSubsystem.getOnTarget())
+		// onTargetCount++;
+		// else
+		// onTargetCount = 0;
+		//
+		// if(Robot.elevatorSubsystem.getOnTarget())
+		// Robot.elevatorSubsystem.disablePID();
 	}
 
 	protected boolean isFinished() {

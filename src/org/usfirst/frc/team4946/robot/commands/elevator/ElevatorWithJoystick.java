@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorWithJoystick extends Command {
 
-	private int m_onTargetCount = 0;
-
 	public ElevatorWithJoystick() {
 		requires(Robot.elevatorSubsystem);
 	}
@@ -18,15 +16,14 @@ public class ElevatorWithJoystick extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.elevatorSubsystem.enablePID();
-		m_onTargetCount = 0;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
 		// Get the current setpoint
-		 double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
-		
+		double speed = -Robot.m_oi.getOperatorStick().getRawAxis(5);
+
 		if (Math.abs(speed) < 0.1)
 			speed = 0;
 
@@ -51,12 +48,7 @@ public class ElevatorWithJoystick extends Command {
 			Robot.elevatorSubsystem.setSetpoint(setpoint);
 
 			// If PID is done, apply break and turn off PID (PID off, brake on)
-			if (Robot.elevatorSubsystem.getOnTarget())
-				m_onTargetCount++;
-			else
-				m_onTargetCount = 0;
-
-			if (m_onTargetCount > 2) {
+			if (Robot.elevatorSubsystem.getOnTarget()) {
 				Robot.elevatorSubsystem.disablePID();
 				return;
 			}
