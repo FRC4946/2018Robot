@@ -175,16 +175,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//Next few lines are temp, to get working directory
-		java.lang.Runtime rt = java.lang.Runtime.getRuntime();
-		try {
-			java.lang.Process p = rt.exec("pwd");
-			System.out.println("Working Directory: " + p.exitValue());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 		isAutonomous = true;
 
 		driveTrainSubsystem.resetEncoders();
@@ -256,6 +246,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		
 		if (m_autoCommand != null)
 			m_autoCommand.cancel();
 
@@ -265,7 +256,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
 		elevatorSubsystem.updatePIDTunings();
-		elevatorSubsystem.disablePID();
+		//elevatorSubsystem.disablePID();
 		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
 		elevatorTransmissionSubsystem.set(false);
 		driveTransmissionSubsystem.set(true);
