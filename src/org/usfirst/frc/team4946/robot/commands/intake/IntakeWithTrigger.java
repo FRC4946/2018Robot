@@ -25,6 +25,8 @@ public class IntakeWithTrigger extends Command {
 		double inSpeed = Robot.m_oi.getDriveStick().getRawAxis(2);
 		double outSpeed = Math.max(Robot.m_oi.getDriveStick().getRawAxis(3),
 				Robot.m_oi.getOperatorStick().getRawAxis(3));
+		if (inSpeed > 0.05)
+			outSpeed = Robot.m_oi.getDriveStick().getRawAxis(3);
 		double speed = inSpeed - outSpeed;
 
 		// If we're trying to intake but we have a cube, rumble
@@ -45,7 +47,7 @@ public class IntakeWithTrigger extends Command {
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.externalIntakeSubsystem.set(speed * 0.6);
-				
+
 			} else {
 
 				// If the drivers try to intake when the elevator is up, allow the motors to
