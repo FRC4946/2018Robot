@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * 
@@ -92,6 +94,14 @@ public class ElevatorSubsystem extends Subsystem {
 		m_PIDController.setOutputRange(RobotConstants.kElevator.kMinOutput.f(getHeight()),
 				RobotConstants.kElevator.kMaxOutput.f(getHeight()));
 		m_PIDController.setAbsoluteTolerance(RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
+
+		SmartDashboard.putNumber("What My P", m_PIDController.getP());
+		SmartDashboard.putNumber("What My I", m_PIDController.getI());
+		SmartDashboard.putNumber("What My D", m_PIDController.getD());
+		SmartDashboard.putNumber("What My min", RobotConstants.kElevator.kMinOutput.f(getHeight()));
+		SmartDashboard.putNumber("What My max", RobotConstants.kElevator.kMaxOutput.f(getHeight()));
+		SmartDashboard.putNumber("What My tol", RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
+
 	}
 
 	public void limitMinHeight(boolean shouldLimit) {
