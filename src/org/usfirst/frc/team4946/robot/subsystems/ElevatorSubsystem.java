@@ -88,19 +88,27 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Update the PID tunings on the elevator
 	 */
 	public void updatePIDTunings() {
-		m_PIDController.setP(RobotConstants.kElevator.kP.f(getHeight()));
-		m_PIDController.setI(RobotConstants.kElevator.kI.f(getHeight()));
-		m_PIDController.setD(RobotConstants.kElevator.kD.f(getHeight()));
-		m_PIDController.setOutputRange(RobotConstants.kElevator.kMinOutput.f(getHeight()),
-				RobotConstants.kElevator.kMaxOutput.f(getHeight()));
-		m_PIDController.setAbsoluteTolerance(RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
-
-		SmartDashboard.putNumber("What My P", m_PIDController.getP());
-		SmartDashboard.putNumber("What My I", m_PIDController.getI());
-		SmartDashboard.putNumber("What My D", m_PIDController.getD());
-		SmartDashboard.putNumber("What My min", RobotConstants.kElevator.kMinOutput.f(getHeight()));
-		SmartDashboard.putNumber("What My max", RobotConstants.kElevator.kMaxOutput.f(getHeight()));
-		SmartDashboard.putNumber("What My tol", RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
+		m_PIDController.setP(RobotConstants.kElevator.kP);
+		m_PIDController.setI(RobotConstants.kElevator.kI);
+		m_PIDController.setD(RobotConstants.kElevator.kD);
+		m_PIDController.setOutputRange(RobotConstants.kElevator.kMinOutput, RobotConstants.kElevator.kMaxOutput);
+		m_PIDController.setAbsoluteTolerance(RobotConstants.kElevator.kAbsTolerance);
+		// m_PIDController.setP(RobotConstants.kElevator.kP.f(getHeight()));
+		// m_PIDController.setI(RobotConstants.kElevator.kI.f(getHeight()));
+		// m_PIDController.setD(RobotConstants.kElevator.kD.f(getHeight()));
+		// m_PIDController.setOutputRange(RobotConstants.kElevator.kMinOutput.f(getHeight()),
+		// RobotConstants.kElevator.kMaxOutput.f(getHeight()));
+		// m_PIDController.setAbsoluteTolerance(RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
+		//
+		// SmartDashboard.putNumber("What My P", m_PIDController.getP());
+		// SmartDashboard.putNumber("What My I", m_PIDController.getI());
+		// SmartDashboard.putNumber("What My D", m_PIDController.getD());
+		// SmartDashboard.putNumber("What My min",
+		// RobotConstants.kElevator.kMinOutput.f(getHeight()));
+		// SmartDashboard.putNumber("What My max",
+		// RobotConstants.kElevator.kMaxOutput.f(getHeight()));
+		// SmartDashboard.putNumber("What My tol",
+		// RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
 
 	}
 
