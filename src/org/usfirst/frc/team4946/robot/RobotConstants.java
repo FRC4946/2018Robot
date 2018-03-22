@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.util.FunctionEvaluator;
+
 import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
@@ -26,6 +28,9 @@ public class RobotConstants {
 	public static double driveD;
 	public static double driveKVel;
 	public static double driveKAccel;
+	public static String elevatorPFunc;
+	public static String elevatorIFunc;
+	public static String elevatorDFunc;
 
 	public static class PIDTunings {
 		public String name;
@@ -70,7 +75,50 @@ public class RobotConstants {
 		}
 	}
 
-	public static PIDTunings kElevator = new PIDTunings("Elevator", 0.0, 0.0, 0.0, -0.2, 0.7, 3.5);
+	public static class DynamicPIDTunings {
+		public String name;
+		public FunctionEvaluator kP;
+		public FunctionEvaluator kI;
+		public FunctionEvaluator kD;
+		public FunctionEvaluator kMinOutput;
+		public FunctionEvaluator kMaxOutput;
+		public FunctionEvaluator kAbsTolerance;
+
+		public DynamicPIDTunings(String name) {
+			this(name, "0", "0", "0", "0", "0", "0");
+		}
+
+		public DynamicPIDTunings(String name, String defaultP, String defaultI, String defaultD, String defaultMin,
+				String defaultMax, String defaultTol) {
+			this.name = name;
+			kP = new FunctionEvaluator(defaultP);
+			kI = new FunctionEvaluator(defaultI);
+			kD = new FunctionEvaluator(defaultD);
+			kMinOutput = new FunctionEvaluator(defaultMin);
+			kMaxOutput = new FunctionEvaluator(defaultMax);
+			kAbsTolerance = new FunctionEvaluator(defaultTol);
+		}
+
+		public void loadPrefs(Preferences prefs) {
+			kP.setFormula(prefs.getString(name + " P", kP.getFormula()));
+			kI.setFormula(prefs.getString(name + " I", kI.getFormula()));
+			kD.setFormula(prefs.getString(name + " D", kD.getFormula()));
+			kMinOutput.setFormula(prefs.getString(name + " Min Output", kMinOutput.getFormula()));
+			kMaxOutput.setFormula(prefs.getString(name + " Max Output", kMaxOutput.getFormula()));
+			kAbsTolerance.setFormula(prefs.getString(name + " Abs Tolerance", kAbsTolerance.getFormula()));
+		}
+
+		public void repopulatePrefs(Preferences prefs) {
+			prefs.putString(name + " P", kP.getFormula());
+			prefs.putString(name + " I", kI.getFormula());
+			prefs.putString(name + " D", kD.getFormula());
+			prefs.putString(name + " Min Output", kMinOutput.getFormula());
+			prefs.putString(name + " Max Output", kMaxOutput.getFormula());
+			prefs.putString(name + " Abs Tolerance", kAbsTolerance.getFormula());
+		}
+	}
+
+	public static DynamicPIDTunings kElevator = new DynamicPIDTunings("Elevator", "0", "0", "0", "-0.2", "0.7", "3.5");
 	public static PIDTunings kTurn = new PIDTunings("Turn", 0.008, 0.000003, 0.0, -0.4, 0.4, 1.0);
 	public static PIDTunings kPathTurn = new PIDTunings("Path Turn", 0.0, 0.0, 0.0, 0.5, 0.5, 0);
 
@@ -89,8 +137,8 @@ public class RobotConstants {
 		driveP = prefs.getDouble("Drive P", 0.45);
 		driveI = prefs.getDouble("Drive I", 0.0);
 		driveD = prefs.getDouble("Drive D", 0.0);
-		driveKVel = prefs.getDouble("Drive KVel", 1.0/60.0);
-		driveKAccel = prefs.getDouble("Drive KAccel", 1.0/100.0);
+		driveKVel = prefs.getDouble("Drive KVel", 1.0 / 60.0);
+		driveKAccel = prefs.getDouble("Drive KAccel", 1.0 / 100.0);
 
 		kPathTurn.loadPrefs(prefs);
 		kTurn.loadPrefs(prefs);

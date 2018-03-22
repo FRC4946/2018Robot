@@ -36,10 +36,7 @@ public class MoveToHeight extends Command {
 	}
 
 	protected void execute() {
-
-		// I'm pretty sure this should be here in execute so that we're constantly
-		// feeding the controller so the watchdog doesn't starve. This might constantly
-		// reset the integral term though in which case this should go in initialize
+		Robot.elevatorSubsystem.updatePIDTunings();
 		Robot.elevatorSubsystem.setSetpoint(m_height);
 	}
 

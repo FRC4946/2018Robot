@@ -41,7 +41,7 @@ public class ElevatorWithJoystick extends Command {
 				Robot.elevatorSubsystem.set(speed);
 			}
 		} else {
-
+			Robot.elevatorSubsystem.updatePIDTunings();
 			double setpoint = Robot.elevatorSubsystem.getHeight() + 12 * speed;
 
 			// Limit the setpoint to the bounds, and apply it to the elevator
