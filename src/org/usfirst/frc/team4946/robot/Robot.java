@@ -21,6 +21,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.RampSubsystem;
 import org.xml.sax.SAXException;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static ExternalIntakeSubsystem externalIntakeSubsystem;
 	public static InternalIntakeSubsystem internalIntakeSubsystem;
+	public static RampSubsystem rampSubsystem;
 
 	public static OI m_oi;
 
@@ -81,6 +83,7 @@ public class Robot extends IterativeRobot {
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		externalIntakeSubsystem = new ExternalIntakeSubsystem();
 		internalIntakeSubsystem = new InternalIntakeSubsystem();
+		rampSubsystem = new RampSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
@@ -103,6 +106,7 @@ public class Robot extends IterativeRobot {
 
 		// Turn off the motors and engage the brake when we enter disabled
 		elevatorSubsystem.disablePID();
+		rampSubsystem.deployRamp(false);
 
 		// if (isAutonomous)
 		// m_csvFile.close();

@@ -9,10 +9,9 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
-import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
-import org.usfirst.frc.team4946.robot.commands.elevator.SetElevator;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
+import org.usfirst.frc.team4946.robot.commands.ramp.DeployRamp;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,7 +43,7 @@ public class OI {
 	Button operatorRB = new JoystickButton(operatorStick, 6);
 	Button operatorBack = new JoystickButton(operatorStick, 7);
 	Button operatorStart = new JoystickButton(operatorStick, 8);
-	// Button operatorL3 = new JoystickButton(operatorStick, 9);
+	Button operatorL3 = new JoystickButton(operatorStick, 9);
 
 	public OI() {
 
@@ -57,21 +56,15 @@ public class OI {
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
 
-//		operatorA.whileHeld(new SetIntake(-0.2));
-//		operatorB.whileHeld(new SetIntake(-0.4));
-//		operatorX.whileHeld(new SetIntake(-0.6));
-//		operatorY.whileHeld(new SetIntake(-0.8));
-		operatorA.whileHeld(new MoveToHeight(20));
-		operatorB.whileHeld(new MoveToHeight(40));
-		operatorX.whileHeld(new MoveToHeight(60));
-		operatorY.whileHeld(new MoveToHeight(80));
+		operatorA.whileHeld(new SetIntake(-0.2));
+		operatorB.whileHeld(new SetIntake(-0.4));
+		operatorX.whileHeld(new SetIntake(-0.6));
+		operatorY.whileHeld(new SetIntake(-0.8));
 
 		// operatorRB.whileHeld(new MoveToRung());
-		// operatorLB.whenPressed(new SetElevatorGear(false));
-		// operatorLB.whenReleased(new SetElevatorGear(true));
-
-		operatorLB.whileHeld(new SetElevator(0.2));
-		operatorRB.whileHeld(new SetElevator(-0.2));
+		operatorLB.whenPressed(new SetElevatorGear(false));
+		operatorLB.whenReleased(new SetElevatorGear(true));
+		operatorL3.whenPressed(new DeployRamp());
 
 		// operatorLB.whileHeld(new LiftRobot());
 		operatorBack.whenPressed(new SetElevatorGear(false));
