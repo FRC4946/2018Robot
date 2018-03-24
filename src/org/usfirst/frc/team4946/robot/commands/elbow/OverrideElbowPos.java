@@ -21,8 +21,15 @@ public class OverrideElbowPos extends Command {
 
 		double height = Robot.elevatorSubsystem.getHeight();
 
+		// Always allow flipping down
+		if (Robot.elbowSubsystem.getElbowIsUp()) {
+			Robot.elbowSubsystem.set(false);
+			Robot.elevatorSubsystem.limitMaxHeight(false);
+			Robot.elevatorSubsystem.limitMinHeight(false);
+		}
+
 		// If the elevator is below the arms...
-		if (height < RobotConstants.ELEVATOR_INTERFERE_MIN) {
+		else if (height < RobotConstants.ELEVATOR_INTERFERE_MIN) {
 			Robot.elbowSubsystem.toggle();
 			Robot.elevatorSubsystem.limitMaxHeight(Robot.elbowSubsystem.getElbowIsUp());
 			Robot.elevatorSubsystem.limitMinHeight(false);

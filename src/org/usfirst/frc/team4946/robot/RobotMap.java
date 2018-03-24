@@ -60,8 +60,7 @@ public class RobotMap {
 	public static final int PCM_ELEVATOR_GEARLOW = 2;
 	public static final int PCM_ELEVATOR_GEARHIGH = 3;
 	public static final int PCM_ELEVATOR_BREAK = 6;
-	public static final int PCM_ELEVATOR_UNLOCK = 7;
 	public static final int PCM_ELBOW_UP = 0;
 	public static final int PCM_ELBOW_DOWN = 4;
-	public static final int PCM_RAMP_DEPLOY = 8;
+	public static final int PCM_RAMP_DEPLOY = 7;
 }

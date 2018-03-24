@@ -10,8 +10,10 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
 import org.usfirst.frc.team4946.robot.commands.ramp.DeployRamp;
+import org.usfirst.frc.team4946.robot.util.POVButton;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,6 +46,10 @@ public class OI {
 	Button operatorBack = new JoystickButton(operatorStick, 7);
 	Button operatorStart = new JoystickButton(operatorStick, 8);
 	Button operatorL3 = new JoystickButton(operatorStick, 9);
+	POVButton operatorN = new POVButton(operatorStick, 0);
+	POVButton operatorE = new POVButton(operatorStick, 270);
+	POVButton operatorS = new POVButton(operatorStick, 180);
+	POVButton operatorW = new POVButton(operatorStick, 90);
 
 	public OI() {
 
@@ -64,11 +70,15 @@ public class OI {
 		// operatorRB.whileHeld(new MoveToRung());
 		operatorLB.whenPressed(new SetElevatorGear(false));
 		operatorLB.whenReleased(new SetElevatorGear(true));
-		operatorL3.whenPressed(new DeployRamp());
+		operatorL3.whileHeld(new DeployRamp());
 
 		// operatorLB.whileHeld(new LiftRobot());
 		operatorBack.whenPressed(new SetElevatorGear(false));
 		operatorStart.whenPressed(new SetElevatorGear(true));
+
+		operatorN.whileHeld(new MoveToScale(false));
+		operatorS.whileHeld(new MoveToScale(true));
+
 	}
 
 	/**

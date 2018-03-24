@@ -7,10 +7,9 @@ import org.usfirst.frc.team4946.robot.commands.elevator.ElevatorWithJoystick;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElevatorSubsystem extends Subsystem {
 
 	private SpeedControllerGroup m_motors;
-	private DoubleSolenoid m_brake;
+	private Solenoid m_brake;
 	private AnalogPotentiometer m_analogPot;
 	private PIDController m_PIDController;
 
@@ -41,7 +40,7 @@ public class ElevatorSubsystem extends Subsystem {
 		// Setup the acutators and sensors
 		m_motors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_LEFT),
 				new WPI_TalonSRX(RobotMap.CAN_ELEVATOR_RIGHT));
-		m_brake = new DoubleSolenoid(RobotMap.PCM_ELEVATOR_BREAK, RobotMap.PCM_ELEVATOR_UNLOCK);
+		m_brake = new Solenoid(RobotMap.PCM_ELEVATOR_BREAK);
 		m_analogPot = new AnalogPotentiometer(RobotMap.ANALOG_ELEVATOR_POT, RobotConstants.ELEVATOR_SCALING_VALUE,
 				RobotConstants.ELEVATOR_OFFSET_VALUE);
 		m_analogPot.setPIDSourceType(PIDSourceType.kDisplacement);
@@ -143,15 +142,13 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public void setBrake(boolean isBrake) {
 		m_isBrake = isBrake;
-		if (m_isBrake)
-			m_brake.set(Value.kForward);
-		else
-			m_brake.set(Value.kReverse);
+		m_brake.set(m_isBrake);
+//		if (m_isBrake)
+//			m_brake.set(Value.kForward);
+//		else
+//			m_brake.set(Value.kReverse);
 	}
 
-	public void off() {
-		m_brake.set(Value.kOff);
-	}
 
 	/**
 	 * Manually sets the speed of the motors.

@@ -15,7 +15,7 @@ public class RobotConstants {
 	public static final double ELEVATOR_OFFSET_VALUE = 0.7349;
 
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 6;
-	public static final double ELEVATOR_INTERFERE_MIN = 14;
+	public static final double ELEVATOR_INTERFERE_MIN = 7;
 	public static final double ELEVATOR_INTERFERE_MAX = 32;
 	public static final double ELEVATOR_SWITCH_HEIGHT = 40.0;
 	public static final double ELEVATOR_SCALE_LOWHEIGHT = 60.0;

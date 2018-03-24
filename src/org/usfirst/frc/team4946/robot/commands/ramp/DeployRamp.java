@@ -28,12 +28,13 @@ public class DeployRamp extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return m_count > RobotConstants.PNEUMATIC_FIRING_COUNT;
+		return false;
+//		return m_count > RobotConstants.PNEUMATIC_FIRING_COUNT;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		// Robot.rampSubsystem.deployRamp(false);
+		 Robot.rampSubsystem.deployRamp(false);
 	}
 
 	// Called when another command which requires one or more of the same
