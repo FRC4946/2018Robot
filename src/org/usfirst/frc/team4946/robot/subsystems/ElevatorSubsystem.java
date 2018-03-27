@@ -142,7 +142,7 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public void setBrake(boolean isBrake) {
 		m_isBrake = isBrake;
-		m_brake.set(m_isBrake);
+		m_brake.set(!m_isBrake);
 //		if (m_isBrake)
 //			m_brake.set(Value.kForward);
 //		else

@@ -42,11 +42,11 @@ public class IntakeWithTrigger extends Command {
 		else {
 
 			// Only run the external intake if the elevator is low to the ground
-			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN) {
+			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MIN + 6) {
 
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
-				Robot.externalIntakeSubsystem.set(speed * 0.6);
+				Robot.externalIntakeSubsystem.set(speed * 0.8);
 
 			} else {
 
@@ -64,7 +64,7 @@ public class IntakeWithTrigger extends Command {
 			}
 
 			// Always run the internal
-			Robot.internalIntakeSubsystem.set(speed + 0.07);
+			Robot.internalIntakeSubsystem.set(speed + 0.15);
 		}
 
 	}

@@ -11,6 +11,7 @@ import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
+import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
 import org.usfirst.frc.team4946.robot.commands.ramp.DeployRamp;
 import org.usfirst.frc.team4946.robot.util.POVButton;
@@ -68,8 +69,8 @@ public class OI {
 		operatorY.whileHeld(new SetIntake(-0.8));
 
 		// operatorRB.whileHeld(new MoveToRung());
-		operatorLB.whenPressed(new SetElevatorGear(false));
-		operatorLB.whenReleased(new SetElevatorGear(true));
+		operatorLB.whenPressed(new SetElevatorGear(true));
+		operatorLB.whenReleased(new SetElevatorGear(false));
 		operatorL3.whileHeld(new DeployRamp());
 
 		// operatorLB.whileHeld(new LiftRobot());
@@ -78,6 +79,8 @@ public class OI {
 
 		operatorN.whileHeld(new MoveToScale(false));
 		operatorS.whileHeld(new MoveToScale(true));
+		operatorE.whileHeld(new MoveToSwitch());
+		operatorW.whileHeld(new MoveToSwitch());
 
 	}
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.elbow.AutoArms;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -13,6 +14,7 @@ public class ElbowSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_elbowValve;
 	private boolean m_isUp;
+	public boolean m_isOveridden;
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
@@ -20,6 +22,7 @@ public class ElbowSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		// setDefaultCommand(new AutoArms());
 	}
 
 	/**

@@ -26,6 +26,7 @@ public class OverrideElbowPos extends Command {
 			Robot.elbowSubsystem.set(false);
 			Robot.elevatorSubsystem.limitMaxHeight(false);
 			Robot.elevatorSubsystem.limitMinHeight(false);
+			Robot.elbowSubsystem.m_isOveridden = true;
 		}
 
 		// If the elevator is below the arms...
@@ -33,6 +34,7 @@ public class OverrideElbowPos extends Command {
 			Robot.elbowSubsystem.toggle();
 			Robot.elevatorSubsystem.limitMaxHeight(Robot.elbowSubsystem.getElbowIsUp());
 			Robot.elevatorSubsystem.limitMinHeight(false);
+			Robot.elbowSubsystem.m_isOveridden = true;
 		}
 
 		// If the elevator is above the arms
@@ -40,6 +42,7 @@ public class OverrideElbowPos extends Command {
 			Robot.elbowSubsystem.toggle();
 			Robot.elevatorSubsystem.limitMaxHeight(false);
 			Robot.elevatorSubsystem.limitMinHeight(Robot.elbowSubsystem.getElbowIsUp());
+			Robot.elbowSubsystem.m_isOveridden = true;
 		}
 
 		// If the elevator is at the height where the arms will collide, rumble

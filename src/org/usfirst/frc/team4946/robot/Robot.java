@@ -24,6 +24,8 @@ import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.RampSubsystem;
 import org.xml.sax.SAXException;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
@@ -92,7 +94,7 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putData(m_autoDashboard);
 
 		// USB camera
-		// UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		// camera.setResolution(640, 480);
 	}
 
