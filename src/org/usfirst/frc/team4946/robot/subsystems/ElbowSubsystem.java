@@ -17,14 +17,14 @@ public class ElbowSubsystem extends Subsystem {
 	public boolean m_isOveridden;
 	
 	private DoubleSolenoid m_clampValve;
-	private boolean m_isClampClosed;
+	private boolean m_isClampEngaged;
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
 		m_isElbowUp = false;
 		
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
-		m_isClampClosed = false;
+		m_isClampEngaged = false;
 	}
 
 	public void initDefaultCommand() {
@@ -87,45 +87,45 @@ public class ElbowSubsystem extends Subsystem {
 	 * Set the clamp position
 	 * 
 	 * @param isClosed
-	 *            closed position ({@code true}) or open position ({@code false})
+	 *            engaged position ({@code true}) or disengaged position ({@code false})
 	 */
-	public void setClamp(boolean isClosed) {
+	public void setClamp(boolean isEngaged) {
 		
-		if (isClosed) {
+		if (isEngaged) {
 			m_clampValve.set(Value.kForward);
 		} else {
 			m_clampValve.set(Value.kReverse);
 		}
 
-		m_isClampClosed = isClosed;
+		m_isClampEngaged = isEngaged;
 	}
 
 	/**
-	 * Set the clamp to the closed position
+	 * Set the clamp to the engaged position
 	 */
-	public void setClampClosed() {
+	public void setClampEngaged() {
 		setElbow(true);
 	}
 
 	/**
-	 * Set the clamp to the open position
+	 * Set the clamp to the disengaged position
 	 */
-	public void setClampOpen() {
+	public void setClampDisengaged() {
 		setElbow(false);
 	}
 	
 	/**
-	 * Toggle clamp between closed and open position
+	 * Toggle clamp between engaged and disengaged position
 	 */
 	public void toggleClamp() {
-		setElbow(!m_isClampClosed);
+		setElbow(!m_isClampEngaged);
 	}
 
 	/**
-	 * @return {@code true} if the clamp is closed
+	 * @return {@code true} if the clamp is engaged
 	 */
-	public boolean getClampIsClosed() {
-		return m_isClampClosed;
+	public boolean getClampIsEngaged() {
+		return m_isClampEngaged;
 	}
 
 	/**

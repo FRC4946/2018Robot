@@ -69,5 +69,6 @@ public class OverrideElbowPos extends Command {
 
 	protected void end() {
 		Robot.elbowSubsystem.elbowOff();
+		Robot.elbowSubsystem.clampOff();
 	}
 }
