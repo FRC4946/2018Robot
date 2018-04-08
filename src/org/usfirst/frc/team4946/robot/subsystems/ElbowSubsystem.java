@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.elbow.AutoArms;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,6 +18,7 @@ public class ElbowSubsystem extends Subsystem {
 	
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
+	private Timer m_clampTimer;
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
@@ -25,6 +26,7 @@ public class ElbowSubsystem extends Subsystem {
 		
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
 		m_isClampEngaged = false;
+		m_clampTimer.reset();
 	}
 
 	public void initDefaultCommand() {
@@ -93,8 +95,11 @@ public class ElbowSubsystem extends Subsystem {
 		
 		if (isEngaged) {
 			m_clampValve.set(Value.kForward);
+			m_clampTimer.start();
 		} else {
 			m_clampValve.set(Value.kReverse);
+			m_clampTimer.stop();
+			m_clampTimer.reset();
 		}
 
 		m_isClampEngaged = isEngaged;
@@ -125,7 +130,7 @@ public class ElbowSubsystem extends Subsystem {
 	 * @return {@code true} if the clamp is engaged
 	 */
 	public boolean getClampIsEngaged() {
-		return m_isClampEngaged;
+		return m_isClampEngaged && m_clampTimer.get() >= 0.5;
 	}
 
 	/**
