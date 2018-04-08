@@ -49,11 +49,4 @@ public class DriveTrainTransmissionSubsystem extends Subsystem {
 	public void toggle() {
 		set(!m_isHigh);
 	}
-
-	/**
-	 * Turn off the solenoid
-	 */
-	public void off() {
-		m_gearShift.set(false);
-	}
 }

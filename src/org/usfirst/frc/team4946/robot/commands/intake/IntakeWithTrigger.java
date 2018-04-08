@@ -49,7 +49,8 @@ public class IntakeWithTrigger extends Command {
 				Robot.externalIntakeSubsystem.set(speed * 0.8);
 				
 				//Engage the clamp
-				Robot.elbowSubsystem.setClamp(true);
+				if(speed >= 0.05)
+					Robot.elbowSubsystem.setClamp(true);
 
 			} else {
 
