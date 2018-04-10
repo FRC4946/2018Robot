@@ -143,12 +143,11 @@ public class ElevatorSubsystem extends Subsystem {
 	public void setBrake(boolean isBrake) {
 		m_isBrake = isBrake;
 		m_brake.set(!m_isBrake);
-//		if (m_isBrake)
-//			m_brake.set(Value.kForward);
-//		else
-//			m_brake.set(Value.kReverse);
+		// if (m_isBrake)
+		// m_brake.set(Value.kForward);
+		// else
+		// m_brake.set(Value.kReverse);
 	}
-
 
 	/**
 	 * Manually sets the speed of the motors.
@@ -210,7 +209,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 * @return Whether or not the current height matches the height setpoint.
 	 */
 	public boolean getOnTarget() {
-		if(m_PIDController.onTarget())
+		if (m_PIDController.onTarget())
 			m_onTargetCount++;
 		else
 			m_onTargetCount = 0;

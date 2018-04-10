@@ -16,8 +16,7 @@ public class SimplePIFController {
 	private double m_tolerance = 0.0;
 	private boolean m_reverseError = false;
 
-	public SimplePIFController(double newKP, double newKI, double newKF,
-			double newKFOff, PIDSource inputSource) {
+	public SimplePIFController(double newKP, double newKI, double newKF, double newKFOff, PIDSource inputSource) {
 		kp = Math.abs(newKP);
 		ki = Math.abs(newKI);
 		kf = Math.abs(newKF);
@@ -188,8 +187,7 @@ public class SimplePIFController {
 	public boolean onTarget() {
 		this.updateInputVal();
 		if (m_isContinuous)
-			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100
-					* (m_maximumInput - m_minimumInput));
+			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100 * (m_maximumInput - m_minimumInput));
 
 		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance); // If the
 																	// setpoint

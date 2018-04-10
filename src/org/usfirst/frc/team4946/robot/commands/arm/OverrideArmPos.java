@@ -36,8 +36,8 @@ public class OverrideArmPos extends Command {
 			Robot.elevatorSubsystem.limitMaxHeight(Robot.armSubsystem.getElbowIsUp());
 			Robot.elevatorSubsystem.limitMinHeight(false);
 			Robot.armSubsystem.m_isElbowOveridden = true;
-			//disengage when elbow up, engage when down
-			Robot.armSubsystem.setClamp(!Robot.armSubsystem.getElbowIsUp()); 		
+			// disengage when elbow up, engage when down
+			Robot.armSubsystem.setClamp(!Robot.armSubsystem.getElbowIsUp());
 		}
 
 		// If the elevator is above the arms

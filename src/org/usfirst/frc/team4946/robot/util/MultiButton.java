@@ -9,12 +9,11 @@ public class MultiButton extends Button {
 	private final int[] m_buttonNumbers;
 
 	/**
-	 * Create a group of joystick button for triggering a command.
-	 * <br>
+	 * Create a group of joystick button for triggering a command. <br>
 	 * <br>
 	 * <b> Note that {@code MultiButton}s will only fire
-	 * {@link Button#whenReleased(edu.wpi.first.wpilibj.command.Command)} once
-	 * ALL buttons in the group have been released!</b>
+	 * {@link Button#whenReleased(edu.wpi.first.wpilibj.command.Command)} once ALL
+	 * buttons in the group have been released!</b>
 	 *
 	 * @param joystick
 	 *            The GenericHID object that has the button (e.g. Joystick,

@@ -37,7 +37,7 @@ public class RateCounter extends Counter implements PIDSource {
 		// Calculate the average
 		for (int i = 0; i < m_history.length; i++)
 			avg += m_history[i];
-		
+
 		avg /= (double) m_history.length;
 
 		// Update the last average

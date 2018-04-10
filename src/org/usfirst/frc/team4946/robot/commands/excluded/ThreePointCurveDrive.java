@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.commands.excluded;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.util.NDimensionalPoint;
 
 import edu.wpi.first.wpilibj.command.Command;

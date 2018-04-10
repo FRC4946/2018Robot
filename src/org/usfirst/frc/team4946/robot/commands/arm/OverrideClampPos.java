@@ -11,44 +11,44 @@ import edu.wpi.first.wpilibj.command.Command;
 public class OverrideClampPos extends Command {
 
 	int m_count;
-	
-    public OverrideClampPos() {
-    	requires(Robot.armSubsystem);
-    }
 
-    protected void initialize() {
-    	
-    	m_count = 0;
-    	
-    	
-    	//If clamp is not disengaged, do so
-    	if(Robot.armSubsystem.getClampIsEngaged()) {
-    		Robot.armSubsystem.setClamp(false);
+	public OverrideClampPos() {
+		requires(Robot.armSubsystem);
+	}
 
-    	}
-    	
-    	//If the clamp is disengaged and the elevator is at the bottom (or close enough), engage the clamp
-    	else if(Robot.elevatorSubsystem.getHeight() <= RobotConstants.ELEVATOR_MINIMUM_HEIGHT + 1.0) {
-    		Robot.armSubsystem.setClamp(true);
-    	}
-    	
-    	//If the clamp is disengaged and the elevator is not at the bottom, do nothing.
-    	Robot.armSubsystem.setClampOveridden(true);
-    }
+	protected void initialize() {
 
-    protected void execute() {
-    	m_count++;
-    }
+		m_count = 0;
 
-    protected boolean isFinished() {
-        return m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT;
-    }
+		// If clamp is not disengaged, do so
+		if (Robot.armSubsystem.getClampIsEngaged()) {
+			Robot.armSubsystem.setClamp(false);
 
-    protected void end() {
-    	Robot.armSubsystem.clampOff();
-    }
-    
-    protected void interrupted() {
-    	
-    }
+		}
+
+		// If the clamp is disengaged and the elevator is at the bottom (or close
+		// enough), engage the clamp
+		else if (Robot.elevatorSubsystem.getHeight() <= RobotConstants.ELEVATOR_MINIMUM_HEIGHT + 1.0) {
+			Robot.armSubsystem.setClamp(true);
+		}
+
+		// If the clamp is disengaged and the elevator is not at the bottom, do nothing.
+		Robot.armSubsystem.setClampOveridden(true);
+	}
+
+	protected void execute() {
+		m_count++;
+	}
+
+	protected boolean isFinished() {
+		return m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT;
+	}
+
+	protected void end() {
+		Robot.armSubsystem.clampOff();
+	}
+
+	protected void interrupted() {
+
+	}
 }

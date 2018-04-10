@@ -49,8 +49,8 @@ public class SkewIMU extends GyroBase {
 
 				double dRate = m_lastRate.get() - m_rate.get();
 				m_angle.addAndGet(dRate * kSamplePeriod / 1000000);
-				
-//				System.out.println(dRate * kSamplePeriod / 1000000);
+
+				// System.out.println(dRate * kSamplePeriod / 1000000);
 			}
 		}, 0, kSamplePeriod, TimeUnit.MICROSECONDS);
 	}
@@ -59,7 +59,7 @@ public class SkewIMU extends GyroBase {
 	public void calibrate() {
 
 		// TODO: The navX itself doesn't need calibration I think
-		
+
 		// Redefine the 'down' direction
 		m_down.i = m_imu.getRawAccelX();
 		m_down.j = m_imu.getRawAccelY();

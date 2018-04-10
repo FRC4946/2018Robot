@@ -10,15 +10,16 @@ public class PIDSourceGroup implements PIDSource {
 	ArrayList<PIDSource> pidArray = new ArrayList<PIDSource>();
 	PIDSourceType pidType;
 	double pidSum = 0.0;
-	
+
 	/**
 	 * Combines multiple PIDSources.
+	 * 
 	 * @param pids
-	 * 			The PIDSources
+	 *            The PIDSources
 	 */
 	public PIDSourceGroup(PIDSource... pids) {
-		
-		for(int i = 0; i < pids.length; i++) {
+
+		for (int i = 0; i < pids.length; i++) {
 			pidArray.add(pids[i]);
 		}
 	}
@@ -27,14 +28,14 @@ public class PIDSourceGroup implements PIDSource {
 	 * Sets the PIDSourceType
 	 * 
 	 * @param pidSource
-	 * 			The PIDSourceType, which can be kDisplacement or kRate
+	 *            The PIDSourceType, which can be kDisplacement or kRate
 	 */
 	@Override
 	public void setPIDSourceType(PIDSourceType pidSource) {
-		
+
 		pidType = pidSource;
-		
-		for(int i = 0; i < pidArray.size(); i++) {
+
+		for (int i = 0; i < pidArray.size(); i++) {
 			pidArray.get(i).setPIDSourceType(pidType);
 		}
 	}
@@ -46,12 +47,12 @@ public class PIDSourceGroup implements PIDSource {
 
 	@Override
 	public double pidGet() {
-		
-		for(int i = 0; i < pidArray.size(); i++) {
+
+		for (int i = 0; i < pidArray.size(); i++) {
 			pidSum += pidArray.get(i).pidGet();
 		}
-		
-		return (pidSum/((double)pidArray.size()));
+
+		return (pidSum / ((double) pidArray.size()));
 	}
 
 }

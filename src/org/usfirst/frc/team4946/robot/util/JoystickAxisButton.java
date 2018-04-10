@@ -14,7 +14,6 @@ public class JoystickAxisButton extends Button {
 	private double m_activationPercent = 0.5;
 	private boolean m_isInverted = false;
 
-	
 	/**
 	 * Create a joystick axis for triggering commands.
 	 *
@@ -29,14 +28,14 @@ public class JoystickAxisButton extends Button {
 		m_buttonNumber = buttonNumber;
 	}
 
-	public void setActivationPercent(double activation){
+	public void setActivationPercent(double activation) {
 		m_activationPercent = activation;
 	}
-	
-	public void setIsInverted(boolean isInverted){
+
+	public void setIsInverted(boolean isInverted) {
 		m_isInverted = isInverted;
 	}
-	
+
 	/**
 	 * Gets the value of the joystick axis.
 	 *
@@ -44,10 +43,10 @@ public class JoystickAxisButton extends Button {
 	 */
 	public boolean get() {
 		double axis = m_joystick.getRawAxis(m_buttonNumber);
-		if(m_isInverted)
+		if (m_isInverted)
 			axis *= -1.;
-		
-		return  axis > m_activationPercent;
+
+		return axis > m_activationPercent;
 	}
 
 }

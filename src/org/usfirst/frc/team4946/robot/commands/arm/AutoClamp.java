@@ -9,49 +9,51 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutoClamp extends Command {
-	
+
 	int m_count;
 	boolean m_initBannerState;
 	boolean m_currBannerState;
 
-    public AutoClamp() {
-    	requires(Robot.armSubsystem);
-    	requires(Robot.intakeSubsystem);
-    }
+	public AutoClamp() {
+		requires(Robot.armSubsystem);
+		requires(Robot.intakeSubsystem);
+	}
 
-    protected void initialize() {
-    	
-    	m_count = 0;
-    	
-    	m_initBannerState = Robot.intakeSubsystem.getBannerHasCube();
-    	
-    	//Disengage the clamp if the clamp is not overridden and there's a cube detected.
-    	if(!Robot.armSubsystem.getClampOveridden() && Robot.intakeSubsystem.getBannerHasCube()) 
-    		Robot.armSubsystem.setClamp(false);
-    }
+	protected void initialize() {
 
-    protected void execute() {
-    
-    	m_currBannerState = Robot.intakeSubsystem.getBannerHasCube();
-    	
-    	//When the detection of the cube changes, the clamp is reset to a not overwritten state.  
-    	if(m_currBannerState != m_initBannerState) {
-    		
-    		m_initBannerState = m_currBannerState;
-    		Robot.armSubsystem.setClampOveridden(false);
-    		initialize();
-    	}
-    	
-    	m_count++;
-    }
+		m_count = 0;
 
-    protected boolean isFinished() {
-        return Robot.armSubsystem.getClampOveridden() || m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT;
-    }
+		m_initBannerState = Robot.intakeSubsystem.getBannerHasCube();
 
-    protected void end() {
-    }
+		// Disengage the clamp if the clamp is not overridden and there's a cube
+		// detected.
+		if (!Robot.armSubsystem.getClampOveridden() && Robot.intakeSubsystem.getBannerHasCube())
+			Robot.armSubsystem.setClamp(false);
+	}
 
-    protected void interrupted() {
-    }
+	protected void execute() {
+
+		m_currBannerState = Robot.intakeSubsystem.getBannerHasCube();
+
+		// When the detection of the cube changes, the clamp is reset to a not
+		// overwritten state.
+		if (m_currBannerState != m_initBannerState) {
+
+			m_initBannerState = m_currBannerState;
+			Robot.armSubsystem.setClampOveridden(false);
+			initialize();
+		}
+
+		m_count++;
+	}
+
+	protected boolean isFinished() {
+		return Robot.armSubsystem.getClampOveridden() || m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT;
+	}
+
+	protected void end() {
+	}
+
+	protected void interrupted() {
+	}
 }

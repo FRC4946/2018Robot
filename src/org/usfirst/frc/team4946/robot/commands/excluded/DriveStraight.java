@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4946.robot.commands.excluded;
 
-import org.usfirst.frc.team4946.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -50,6 +48,6 @@ public class DriveStraight extends Command {
 	}
 
 	protected void interrupted() {
-		 end();
+		end();
 	}
 }

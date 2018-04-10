@@ -27,6 +27,7 @@ public class ElevatorWithJoystick extends Command {
 		if (Math.abs(speed) < 0.1)
 			speed = 0;
 
+		// If we're in low gear, open loop control
 		if (Robot.elevatorTransmissionSubsystem.getIsClimb()) {
 			if (Robot.elevatorSubsystem.getPIDEnabled())
 				Robot.elevatorSubsystem.disablePID();
@@ -38,7 +39,10 @@ public class ElevatorWithJoystick extends Command {
 				Robot.elevatorSubsystem.setBrake(false);
 				Robot.elevatorSubsystem.set(speed);
 			}
-		} else {
+		}
+
+		// If we're in high gear, PID control
+		else {
 			Robot.elevatorSubsystem.updatePIDTunings();
 			double setpoint = Robot.elevatorSubsystem.getHeight() + 12 * speed;
 

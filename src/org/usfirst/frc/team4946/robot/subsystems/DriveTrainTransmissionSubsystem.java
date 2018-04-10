@@ -29,9 +29,9 @@ public class DriveTrainTransmissionSubsystem extends Subsystem {
 	public void set(boolean isHigh) {
 
 		if (isHigh)
-			m_gearShift.set(true); //low
+			m_gearShift.set(true); // low
 		else
-			m_gearShift.set(false); //high
+			m_gearShift.set(false); // high
 
 		m_isHigh = isHigh;
 	}

@@ -46,6 +46,7 @@ public class CSVLogger {
 
 	/**
 	 * Create a new file with the current timestamp, and start logging
+	 * 
 	 * @throws IOException
 	 */
 	public void start() throws IOException {
@@ -83,6 +84,7 @@ public class CSVLogger {
 
 	/**
 	 * Stop logging and close the file
+	 * 
 	 * @throws IOException
 	 */
 	public void stop() throws IOException {

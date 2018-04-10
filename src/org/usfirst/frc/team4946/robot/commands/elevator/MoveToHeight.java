@@ -39,8 +39,7 @@ public class MoveToHeight extends Command {
 	protected void execute() {
 		Robot.elevatorSubsystem.updatePIDTunings();
 		Robot.elevatorSubsystem.setSetpoint(m_height);
-		
-		
+
 		// For teleop
 		// if(Robot.elevatorSubsystem.getOnTarget())
 		// onTargetCount++;

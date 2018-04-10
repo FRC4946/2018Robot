@@ -16,7 +16,7 @@ public class ArmSubsystem extends Subsystem {
 	private DoubleSolenoid m_elbowValve;
 	private boolean m_isElbowUp;
 	public boolean m_isElbowOveridden;
-	
+
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
 	private boolean m_isClampOveridden;
@@ -25,7 +25,7 @@ public class ArmSubsystem extends Subsystem {
 	public ArmSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
 		m_isElbowUp = false;
-		
+
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
 		m_isClampEngaged = false;
 		m_isClampOveridden = false;
@@ -42,16 +42,17 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getClampOveridden() {
 		return m_isClampOveridden;
 	}
-	
+
 	/**
 	 * Sets if the clamp is being overridden
-	 * @param isOveridden 
-	 * 				if the clamp is being overridden 
+	 * 
+	 * @param isOveridden
+	 *            if the clamp is being overridden
 	 */
 	public void setClampOveridden(boolean isOverriden) {
 		m_isClampOveridden = isOverriden;
 	}
-	
+
 	/**
 	 * Set the elbow position
 	 * 
@@ -59,7 +60,7 @@ public class ArmSubsystem extends Subsystem {
 	 *            up position ({@code true}) or down position ({@code false})
 	 */
 	public void setElbow(boolean isUp) {
-		
+
 		if (isUp) {
 			m_elbowValve.set(Value.kForward);
 		} else {
@@ -103,15 +104,16 @@ public class ArmSubsystem extends Subsystem {
 	public void elbowOff() {
 		m_elbowValve.set(Value.kOff);
 	}
-	
+
 	/**
 	 * Set the clamp position
 	 * 
 	 * @param isClosed
-	 *            engaged position ({@code true}) or disengaged position ({@code false})
+	 *            engaged position ({@code true}) or disengaged position
+	 *            ({@code false})
 	 */
 	public void setClamp(boolean isEngaged) {
-		
+
 		if (isEngaged) {
 			m_clampValve.set(Value.kForward);
 			m_clampTimer.start();
@@ -137,7 +139,7 @@ public class ArmSubsystem extends Subsystem {
 	public void setClampDisengaged() {
 		setClamp(false);
 	}
-	
+
 	/**
 	 * Toggle clamp between engaged and disengaged position
 	 */

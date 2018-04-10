@@ -16,7 +16,7 @@ public class DelayedCommand extends CommandGroup {
 	}
 
 	public DelayedCommand(double delay, Command command) {
-		
+
 		System.out.println("Delay: " + delay);
 		addSequential(new Wait(delay, false));
 		addSequential(command);

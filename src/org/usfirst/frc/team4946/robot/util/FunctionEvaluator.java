@@ -1,4 +1,5 @@
 package org.usfirst.frc.team4946.robot.util;
+
 import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
@@ -45,7 +46,7 @@ public class FunctionEvaluator {
 	 *            the input
 	 * @return the evaluated result
 	 */
-	public double f(double x) {		
+	public double f(double x) {
 		String f = m_formula.replaceAll("x", m_format.format(x));
 		f = f.replaceAll("X", "" + m_format.format(x));
 
@@ -157,7 +158,7 @@ public class FunctionEvaluator {
 			if (f.charAt(i) == '*') {
 				double lOperand = Double.parseDouble(f.substring(termStart, i));
 				double rOperand = Double.parseDouble(nextTerm(f, i + 1));
-				f = f.substring(0, termStart) +  m_format.format((lOperand * rOperand))
+				f = f.substring(0, termStart) + m_format.format((lOperand * rOperand))
 						+ f.substring(i + 1 + nextOperatorIndex(f.substring(i + 1)));
 				termStart = i = 0;
 			}
@@ -165,7 +166,7 @@ public class FunctionEvaluator {
 			else if (f.charAt(i) == '/') {
 				double lOperand = Double.parseDouble(f.substring(termStart, i));
 				double rOperand = Double.parseDouble(nextTerm(f, i + 1));
-				f = f.substring(0, termStart) +  m_format.format((lOperand / rOperand))
+				f = f.substring(0, termStart) + m_format.format((lOperand / rOperand))
 						+ f.substring(i + 1 + nextOperatorIndex(f.substring(i + 1)));
 				termStart = i = 0;
 			}
@@ -181,7 +182,7 @@ public class FunctionEvaluator {
 			if (f.charAt(i) == '+') {
 				double lOperand = Double.parseDouble(f.substring(termStart, i));
 				double rOperand = Double.parseDouble(nextTerm(f, i + 1));
-				f = f.substring(0, termStart) +  m_format.format(lOperand + rOperand)
+				f = f.substring(0, termStart) + m_format.format(lOperand + rOperand)
 						+ f.substring(i + 1 + nextOperatorIndex(f.substring(i + 1)));
 				termStart = i = 0;
 			}
@@ -193,7 +194,7 @@ public class FunctionEvaluator {
 				}
 				double lOperand = Double.parseDouble(f.substring(termStart, i));
 				double rOperand = Double.parseDouble(nextTerm(f, i + 1));
-				f = f.substring(0, termStart) +  m_format.format(lOperand - rOperand)
+				f = f.substring(0, termStart) + m_format.format(lOperand - rOperand)
 						+ f.substring(i + 1 + nextOperatorIndex(f.substring(i + 1)));
 				termStart = i = 0;
 			}
