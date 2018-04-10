@@ -24,8 +24,6 @@ public class OverrideArmPos extends Command {
 		// Always allow flipping down
 		if (Robot.armSubsystem.getElbowIsUp()) {
 			Robot.armSubsystem.setElbow(false);
-			Robot.elevatorSubsystem.limitMaxHeight(false);
-			Robot.elevatorSubsystem.limitMinHeight(false);
 			Robot.armSubsystem.m_isElbowOveridden = true;
 			Robot.armSubsystem.setClamp(true);
 		}
@@ -33,8 +31,6 @@ public class OverrideArmPos extends Command {
 		// If the elevator is below the arms...
 		else if (height < RobotConstants.ELEVATOR_INTERFERE_MIN) {
 			Robot.armSubsystem.toggleElbow();
-			Robot.elevatorSubsystem.limitMaxHeight(Robot.armSubsystem.getElbowIsUp());
-			Robot.elevatorSubsystem.limitMinHeight(false);
 			Robot.armSubsystem.m_isElbowOveridden = true;
 			// disengage when elbow up, engage when down
 			Robot.armSubsystem.setClamp(!Robot.armSubsystem.getElbowIsUp());
@@ -43,18 +39,13 @@ public class OverrideArmPos extends Command {
 		// If the elevator is above the arms
 		else if (height > RobotConstants.ELEVATOR_INTERFERE_MAX) {
 			Robot.armSubsystem.toggleElbow();
-			Robot.elevatorSubsystem.limitMaxHeight(false);
-			Robot.elevatorSubsystem.limitMinHeight(Robot.armSubsystem.getElbowIsUp());
 			Robot.armSubsystem.m_isElbowOveridden = true;
 			Robot.armSubsystem.setClamp(!Robot.armSubsystem.getElbowIsUp());
 		}
 
 		// If the elevator is at the height where the arms will collide, rumble
-		else {
-			Robot.elevatorSubsystem.limitMaxHeight(false);
-			Robot.elevatorSubsystem.limitMinHeight(false);
+		else
 			new RumbleJoysticks(1.0, 0.5).start();
-		}
 
 		m_count = 0;
 	}

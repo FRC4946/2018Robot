@@ -26,15 +26,6 @@ public class ElevatorSubsystem extends Subsystem {
 	private int m_onTargetCount;
 	private boolean m_isBrake = false;
 
-	// Min and max height are used for changing the bounds of the elevator when the
-	// robot is in certain configurations:
-	//
-	// 1. When elevator is above arms and arms are up, minimum = interference_max
-	// 2. When elevator is below arms and arms are up, maximum = interference_min
-	// 3. Whenever the arms are down, full range
-	private double maxHeight = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-	private double minHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
-
 	public ElevatorSubsystem() {
 
 		// Setup the acutators and sensors
@@ -107,28 +98,6 @@ public class ElevatorSubsystem extends Subsystem {
 		// SmartDashboard.putNumber("What My tol",
 		// RobotConstants.kElevator.kAbsTolerance.f(getHeight()));
 
-	}
-
-	public void limitMinHeight(boolean shouldLimit) {
-		if (shouldLimit)
-			minHeight = RobotConstants.ELEVATOR_INTERFERE_MAX;
-		else
-			minHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
-	}
-
-	public void limitMaxHeight(boolean shouldLimit) {
-		if (shouldLimit)
-			maxHeight = RobotConstants.ELEVATOR_INTERFERE_MIN;
-		else
-			maxHeight = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
-	}
-
-	public double getMaxHeight() {
-		return maxHeight;
-	}
-
-	public double getMinHeight() {
-		return minHeight;
 	}
 
 	/**

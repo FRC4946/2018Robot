@@ -116,6 +116,7 @@ public class ArmSubsystem extends Subsystem {
 
 		if (isEngaged) {
 			m_clampValve.set(Value.kForward);
+
 			m_clampTimer.start();
 		} else {
 			m_clampValve.set(Value.kReverse);
