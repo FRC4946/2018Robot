@@ -18,7 +18,7 @@ public class ElbowSubsystem extends Subsystem {
 	
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
-	private Timer m_clampTimer;
+	private Timer m_clampTimer = new Timer();
 
 	public ElbowSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
