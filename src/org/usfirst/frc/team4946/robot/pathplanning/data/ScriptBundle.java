@@ -90,9 +90,9 @@ public class ScriptBundle {
 			// Elbow
 			else if (a instanceof ArmAction) {
 				if (a.option == ArmAction.Option.ArmUp)
-					c = new SetArmPos(true, a.timeout);
+					c = new SetArmPos(true);
 				else
-					c = new SetArmPos(false, a.timeout);
+					c = new SetArmPos(false);
 			}
 
 			// Intake
