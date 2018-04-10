@@ -21,6 +21,8 @@ import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.util.CSVLogger;
+import org.usfirst.frc.team4946.robot.util.SendableSubtable;
 import org.xml.sax.SAXException;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -58,11 +60,11 @@ public class Robot extends IterativeRobot {
 	private ScriptBundle m_script = new ScriptBundle();
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
-	// private SendableGroupedData m_autoDashboard;
+	private SendableSubtable m_autoTable;
+	private SendableSubtable m_gyroTable;
+	private SendableSubtable m_elevatorTable;
+	public static CSVLogger dataLogger;
 	private int m_count = 0;
-
-	// private PrintWriter m_csvFile;
-	// private long m_enableTime;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -88,8 +90,17 @@ public class Robot extends IterativeRobot {
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 
-		// m_autoDashboard = new SendableGroupedData("Auto");
-		// SmartDashboard.putData(m_autoDashboard);
+		m_autoTable = new SendableSubtable("Auto");
+		m_gyroTable = new SendableSubtable("Gyro");
+		m_elevatorTable = new SendableSubtable("Elevator");
+		SmartDashboard.putData(m_autoTable);
+		SmartDashboard.putData(m_gyroTable);
+		SmartDashboard.putData(m_elevatorTable);
+
+		dataLogger = new CSVLogger();
+		dataLogger.addTable(m_autoTable);
+		dataLogger.addTable(m_gyroTable);
+		dataLogger.addTable(m_elevatorTable);
 
 		// USB camera
 		CameraServer.getInstance().startAutomaticCapture();
@@ -107,9 +118,6 @@ public class Robot extends IterativeRobot {
 		// Turn off the motors and engage the brake when we enter disabled
 		elevatorSubsystem.disablePID();
 		// rampSubsystem.deployRamp(false);
-
-		// if (isAutonomous)
-		// m_csvFile.close();
 
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
@@ -136,24 +144,24 @@ public class Robot extends IterativeRobot {
 
 		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
 		if (file == null) {
-			// m_autoDashboard.putString("Script", "No script!");
-			// m_autoDashboard.putString("Notes", "");
-			SmartDashboard.putString("Script", "No script!");
-			SmartDashboard.putString("Notes", "");
+			m_autoTable.putString("Script", "No script!");
+			m_autoTable.putString("Notes", "");
+			// SmartDashboard.putString("Script", "No script!");
+			// SmartDashboard.putString("Notes", "");
 		} else {
 			try {
 
 				m_script = FileIO.loadScript(file);
-				// m_autoDashboard.putString("Script", m_script.name);
-				// m_autoDashboard.putString("Notes", m_script.notes);
-				SmartDashboard.putString("Script", m_script.name);
-				SmartDashboard.putString("Notes", m_script.notes);
+				m_autoTable.putString("Script", m_script.name);
+				m_autoTable.putString("Notes", m_script.notes);
+				// SmartDashboard.putString("Script", m_script.name);
+				// SmartDashboard.putString("Notes", m_script.notes);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 				m_script = null;
-				// m_autoDashboard.putString("Script", "ERROR loading " + file.getName());
-				// m_autoDashboard.putString("Notes", "");
-				SmartDashboard.putString("Script", "ERROR loading " + file.getName());
-				SmartDashboard.putString("Notes", "");
+				m_autoTable.putString("Script", "ERROR loading " + file.getName());
+				m_autoTable.putString("Notes", "");
+				// SmartDashboard.putString("Script", "ERROR loading " + file.getName());
+				// SmartDashboard.putString("Notes", "");
 				e.printStackTrace();
 			}
 		}
@@ -194,44 +202,6 @@ public class Robot extends IterativeRobot {
 			System.out.println("Starting auto");
 			m_autoCommand.start();
 		}
-
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		// Date date = new Date();
-		// try {
-		// m_csvFile = new PrintWriter(new File(dateFormat.format(date) + ".csv"));
-		// System.out.println("CSV succesfully written to:" + new
-		// File(dateFormat.format(date) + ".csv").getAbsolutePath());
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// m_csvFile = null;
-		// }
-		//
-		// m_enableTime = System.currentTimeMillis();
-		//
-		// if (m_csvFile != null) {
-		// StringBuilder sb = new StringBuilder();
-		// sb.append("Time");
-		// sb.append(',');
-		// sb.append("Battery Voltage");
-		// sb.append(',');
-		// sb.append("Gyro Angle");
-		// sb.append(',');
-		// sb.append("Gyro SP");
-		// sb.append(',');
-		// sb.append("Gyro Out");
-		// sb.append(',');
-		// sb.append("Gyro Err");
-		// sb.append(',');
-		// sb.append("Elevator Height");
-		// sb.append(',');
-		// sb.append("Elevator SP");
-		// sb.append(',');
-		// sb.append("Elevator Out");
-		// sb.append(',');
-		// sb.append("Elevator Err");
-		// sb.append('\n');
-		// m_csvFile.write(sb.toString());
-		// }
 	}
 
 	/**
@@ -272,50 +242,26 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void updateSmartDashboard() {
-		// SmartDashboard.putNumber("Counter", m_count);
+		SmartDashboard.putNumber("Counter", m_count);
 
 		// Drive Train
-		SmartDashboard.putNumber("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
-		SmartDashboard.putNumber("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
-		SmartDashboard.putNumber("Gyro Output", driveTrainSubsystem.getGyroPIDOutput());
-		SmartDashboard.putNumber("Gyro Error", driveTrainSubsystem.getGyroPIDError());
+		m_gyroTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
+		m_gyroTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
+		m_gyroTable.putDouble("Gyro Output", driveTrainSubsystem.getGyroPIDOutput());
+		m_gyroTable.putDouble("Gyro Error", driveTrainSubsystem.getGyroPIDError());
 
 		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
 
 		// Elevator
-		SmartDashboard.putNumber("Elevator Position", elevatorSubsystem.getHeight());
-		SmartDashboard.putNumber("Elevator Setpoint", elevatorSubsystem.getSetpoint());
-		SmartDashboard.putNumber("Elevator Output", elevatorSubsystem.getSpeed());
-		SmartDashboard.putNumber("Elevator Error", elevatorSubsystem.getError());
+		m_elevatorTable.putDouble("Elevator Position", elevatorSubsystem.getHeight());
+		m_elevatorTable.putDouble("Elevator Setpoint", elevatorSubsystem.getSetpoint());
+		m_elevatorTable.putDouble("Elevator Output", elevatorSubsystem.getSpeed());
+		m_elevatorTable.putDouble("Elevator Error", elevatorSubsystem.getError());
 
 		// Intake
 		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
 
-		// if (isAutonomous && m_csvFile != null) {
-		// StringBuilder sb = new StringBuilder();
-		// sb.append(System.currentTimeMillis() - m_enableTime);
-		// sb.append(',');
-		// sb.append(RobotController.getBatteryVoltage());
-		// sb.append(',');
-		// sb.append(driveTrainSubsystem.getGyroAngle() % 360);
-		// sb.append(',');
-		// sb.append(driveTrainSubsystem.getGyroPIDSetpoint());
-		// sb.append(',');
-		// sb.append(driveTrainSubsystem.getGyroPIDOutput());
-		// sb.append(',');
-		// sb.append(driveTrainSubsystem.getGyroPIDError());
-		// sb.append(',');
-		// sb.append(elevatorSubsystem.getHeight());
-		// sb.append(',');
-		// sb.append(elevatorSubsystem.getSetpoint());
-		// sb.append(',');
-		// sb.append(elevatorSubsystem.getSpeed());
-		// sb.append(',');
-		// sb.append(elevatorSubsystem.getError());
-		// sb.append('\n');
-		// m_csvFile.write(sb.toString());
-		// }
 	}
 
 	/**

@@ -345,7 +345,6 @@ public class DriveTrainSubsystem extends Subsystem {
 	// }
 
 	public double getGyroPIDError() {
-		SmartDashboard.putData(m_turnPID);
 		return m_turnPID.getError();
 	}
 }
