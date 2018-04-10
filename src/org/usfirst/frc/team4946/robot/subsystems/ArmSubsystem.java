@@ -19,7 +19,6 @@ public class ArmSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
-	private boolean m_isClampOveridden;
 	private Timer m_clampTimer = new Timer();
 
 	public ArmSubsystem() {
@@ -28,29 +27,11 @@ public class ArmSubsystem extends Subsystem {
 
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
 		m_isClampEngaged = false;
-		m_isClampOveridden = false;
 		m_clampTimer.reset();
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new AutoClamp());
-	}
-
-	/**
-	 * @return {@code true} if the clamp is being overidden
-	 */
-	public boolean getClampOveridden() {
-		return m_isClampOveridden;
-	}
-
-	/**
-	 * Sets if the clamp is being overridden
-	 * 
-	 * @param isOveridden
-	 *            if the clamp is being overridden
-	 */
-	public void setClampOveridden(boolean isOverriden) {
-		m_isClampOveridden = isOverriden;
 	}
 
 	/**

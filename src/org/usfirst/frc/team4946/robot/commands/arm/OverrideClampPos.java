@@ -33,7 +33,6 @@ public class OverrideClampPos extends Command {
 		}
 
 		// If the clamp is disengaged and the elevator is not at the bottom, do nothing.
-		Robot.armSubsystem.setClampOveridden(true);
 	}
 
 	protected void execute() {
