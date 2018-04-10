@@ -25,7 +25,7 @@ public class SetElbowPos extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.elbowSubsystem.set(m_posIsUp);
+		Robot.elbowSubsystem.setElbow(m_posIsUp);
 
 		// If we're flipping the arms down, ensure that we have full range of movement
 		// of the elevator
@@ -68,7 +68,7 @@ public class SetElbowPos extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.elbowSubsystem.off();
+		Robot.elbowSubsystem.elbowOff();
 	}
 
 	// Called when another command which requires one or more of the same

@@ -47,6 +47,10 @@ public class IntakeWithTrigger extends Command {
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.externalIntakeSubsystem.set(speed * 0.8);
+				
+				//Engage the clamp
+				if(speed >= 0.05)
+					Robot.elbowSubsystem.setClamp(true);
 
 			} else {
 

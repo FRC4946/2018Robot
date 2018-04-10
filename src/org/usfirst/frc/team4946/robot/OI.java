@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
+import org.usfirst.frc.team4946.robot.commands.elbow.OverrideClampPos;
 import org.usfirst.frc.team4946.robot.commands.elbow.OverrideElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
@@ -37,6 +38,7 @@ public class OI {
 
 	Button driveLB = new JoystickButton(driveStick, 5);
 	Button driveRB = new JoystickButton(driveStick, 6);
+	Button driveStart = new JoystickButton(driveStick, 8);
 
 	Button operatorA = new JoystickButton(operatorStick, 1);
 	Button operatorB = new JoystickButton(operatorStick, 2);
@@ -62,6 +64,7 @@ public class OI {
 		driveRB.whenPressed(new OverrideElbowPos());
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
+		driveStart.whenPressed(new OverrideClampPos());
 
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));

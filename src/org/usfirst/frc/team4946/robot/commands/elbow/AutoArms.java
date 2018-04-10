@@ -29,7 +29,7 @@ public class AutoArms extends Command {
 				Robot.elbowSubsystem.m_isOveridden = false;
 
 			if (!Robot.elbowSubsystem.m_isOveridden) {
-				Robot.elbowSubsystem.set(true);
+				Robot.elbowSubsystem.setElbow(true);
 				Robot.elevatorSubsystem.limitMinHeight(true);
 				Robot.elevatorSubsystem.limitMaxHeight(false);
 			}
