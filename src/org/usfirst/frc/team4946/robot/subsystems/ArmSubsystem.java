@@ -114,14 +114,19 @@ public class ArmSubsystem extends Subsystem {
 	 */
 	public void setClamp(boolean isEngaged) {
 
+		// Every time we engage the clamp, reset the timer to 0
 		if (isEngaged) {
 			m_clampValve.set(Value.kForward);
 
-			m_clampTimer.start();
-		} else {
-			m_clampValve.set(Value.kReverse);
 			m_clampTimer.stop();
 			m_clampTimer.reset();
+		}
+
+		// Every time we disengage the clamp, start a timer so we know when it's safe to
+		// move the elevator
+		else {
+			m_clampValve.set(Value.kReverse);
+			m_clampTimer.start();
 		}
 
 		m_isClampEngaged = isEngaged;
@@ -152,7 +157,9 @@ public class ArmSubsystem extends Subsystem {
 	 * @return {@code true} if the clamp is engaged
 	 */
 	public boolean getClampIsEngaged() {
-		return m_isClampEngaged && m_clampTimer.get() >= 0.5;
+
+		// This should always return true, unless the flag is false and time has passed
+		return m_isClampEngaged || m_clampTimer.get() <= 0.5;
 	}
 
 	/**
