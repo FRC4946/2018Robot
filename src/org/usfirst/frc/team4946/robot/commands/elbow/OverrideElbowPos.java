@@ -2,7 +2,7 @@ package org.usfirst.frc.team4946.robot.commands.elbow;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
-import org.usfirst.frc.team4946.robot.commands.RumbleJoysticks;
+import org.usfirst.frc.team4946.robot.commands.misc.RumbleJoysticks;
 
 import edu.wpi.first.wpilibj.command.Command;
 
