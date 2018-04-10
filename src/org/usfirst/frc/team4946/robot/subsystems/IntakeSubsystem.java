@@ -19,8 +19,8 @@ public class IntakeSubsystem extends Subsystem {
 	private WPI_TalonSRX m_leftOuterMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 	private WPI_TalonSRX m_rightOuterMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
 
-	private DigitalInput m_leftCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH1);
-	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH2);
+//	private DigitalInput m_leftCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH1);
+//	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH2);
 	private DigitalInput m_cubeBannerSensor = new DigitalInput(RobotMap.DIO_INTAKE_BANNER);
 
 	public void initDefaultCommand() {
@@ -57,19 +57,19 @@ public class IntakeSubsystem extends Subsystem {
 		setOuter(0.0);
 	}
 
-	/**
-	 * 
-	 * @return true if limit switches detect the cube, false for no cube
-	 */
-	public boolean getHasCube() {
-		return !m_leftCubeSwitch.get() || !m_rightCubeSwitch.get();
-	}
+	// /**
+	// *
+	// * @return true if limit switches detect the cube, false for no cube
+	// */
+	// public boolean getHasCube() {
+	// return !m_leftCubeSwitch.get() || !m_rightCubeSwitch.get();
+	// }
 
 	/**
 	 * 
 	 * @return true if banner sensor detects the cube, false for no cube
 	 */
-	public boolean getBannerHasCube() {
+	public boolean getHasCube() {
 		return !m_cubeBannerSensor.get();
 	}
 

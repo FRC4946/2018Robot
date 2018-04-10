@@ -257,7 +257,7 @@ public class Robot extends IterativeRobot {
 		m_elevatorTable.putDouble("Elevator Error", elevatorSubsystem.getError());
 
 		// Intake
-		SmartDashboard.putBoolean("Has Cube", intakeSubsystem.getBannerHasCube());
+		SmartDashboard.putBoolean("Has Cube", intakeSubsystem.getHasCube());
 
 	}
 

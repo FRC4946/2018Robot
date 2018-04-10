@@ -23,17 +23,17 @@ public class AutoClamp extends Command {
 
 		m_count = 0;
 
-		m_initBannerState = Robot.intakeSubsystem.getBannerHasCube();
+		m_initBannerState = Robot.intakeSubsystem.getHasCube();
 
 		// Disengage the clamp if the clamp is not overridden and there's a cube
 		// detected.
-		if (!Robot.armSubsystem.getClampOveridden() && Robot.intakeSubsystem.getBannerHasCube())
+		if (!Robot.armSubsystem.getClampOveridden() && Robot.intakeSubsystem.getHasCube())
 			Robot.armSubsystem.setClamp(false);
 	}
 
 	protected void execute() {
 
-		m_currBannerState = Robot.intakeSubsystem.getBannerHasCube();
+		m_currBannerState = Robot.intakeSubsystem.getHasCube();
 
 		// When the detection of the cube changes, the clamp is reset to a not
 		// overwritten state.

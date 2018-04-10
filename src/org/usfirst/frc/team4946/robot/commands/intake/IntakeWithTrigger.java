@@ -30,7 +30,7 @@ public class IntakeWithTrigger extends Command {
 		double speed = inSpeed - outSpeed;
 
 		// If we're trying to intake but we have a cube, rumble
-		if (speed > 0 && Robot.intakeSubsystem.getBannerHasCube()) {
+		if (speed > 0 && Robot.intakeSubsystem.getHasCube()) {
 
 			Robot.intakeSubsystem.setOuter(0.0);
 			Robot.intakeSubsystem.setInner(0.0);
