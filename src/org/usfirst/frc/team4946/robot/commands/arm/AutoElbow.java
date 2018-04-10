@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoArms extends Command {
+public class AutoElbow extends Command {
 
 	private double m_initHeight;
 
-	public AutoArms() {
+	public AutoElbow() {
 		requires(Robot.armSubsystem);
 	}
 

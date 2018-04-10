@@ -5,11 +5,11 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetArmPos extends Command {
+public class SetElbowPos extends Command {
 	private boolean m_posIsUp;
 	private int m_count;
 
-	public SetArmPos(boolean isUp) {
+	public SetElbowPos(boolean isUp) {
 		requires(Robot.armSubsystem);
 		m_posIsUp = isUp;
 	}

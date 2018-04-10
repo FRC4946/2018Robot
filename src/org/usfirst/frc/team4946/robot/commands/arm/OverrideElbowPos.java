@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OverrideArmPos extends Command {
+public class OverrideElbowPos extends Command {
 
 	private int m_count;
 
-	public OverrideArmPos() {
+	public OverrideElbowPos() {
 		requires(Robot.armSubsystem);
 	}
 
