@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.arm.OverrideClampPos;
 import org.usfirst.frc.team4946.robot.commands.arm.OverrideArmPos;
+import org.usfirst.frc.team4946.robot.commands.arm.OverrideClampPos;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;

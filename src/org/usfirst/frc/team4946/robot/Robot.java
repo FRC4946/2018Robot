@@ -14,9 +14,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
+import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
