@@ -21,6 +21,7 @@ public class IntakeWithTrigger extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
+		// Calculate the speed to spin the motors
 		double inSpeed = Robot.m_oi.getDriveStick().getRawAxis(2);
 		double outSpeed = Math.max(Robot.m_oi.getDriveStick().getRawAxis(3),
 				Robot.m_oi.getOperatorStick().getRawAxis(3));
@@ -29,7 +30,7 @@ public class IntakeWithTrigger extends Command {
 		double speed = inSpeed - outSpeed;
 
 		// If we're trying to intake but we have a cube, rumble
-		if (speed > 0 && Robot.intakeSubsystem.getHasCube()) {
+		if (speed > 0 && Robot.intakeSubsystem.getBannerHasCube()) {
 
 			Robot.intakeSubsystem.setOuter(0.0);
 			Robot.intakeSubsystem.setInner(0.0);
@@ -46,9 +47,9 @@ public class IntakeWithTrigger extends Command {
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
 				Robot.intakeSubsystem.setOuter(speed * 0.8);
-				
-				//Engage the clamp
-				if(speed >= 0.05)
+
+				// Engage the clamp
+				if (speed >= 0.05)
 					Robot.armSubsystem.setClamp(true);
 
 			} else {
