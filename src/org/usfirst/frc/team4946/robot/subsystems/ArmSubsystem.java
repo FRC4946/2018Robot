@@ -128,21 +128,21 @@ public class ArmSubsystem extends Subsystem {
 	 * Set the clamp to the engaged position
 	 */
 	public void setClampEngaged() {
-		setElbow(true);
+		setClamp(true);
 	}
 
 	/**
 	 * Set the clamp to the disengaged position
 	 */
 	public void setClampDisengaged() {
-		setElbow(false);
+		setClamp(false);
 	}
 	
 	/**
 	 * Toggle clamp between engaged and disengaged position
 	 */
 	public void toggleClamp() {
-		setElbow(!m_isClampEngaged);
+		setClamp(!m_isClampEngaged);
 	}
 
 	/**
