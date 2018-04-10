@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RunDiagonalIntake extends CommandGroup {
 
 	public RunDiagonalIntake() {
-		requires(Robot.externalIntakeSubsystem);
-		requires(Robot.internalIntakeSubsystem);
+		requires(Robot.intakeSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -20,7 +19,7 @@ public class RunDiagonalIntake extends CommandGroup {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.externalIntakeSubsystem.diagonalSpin(0.2);
+		Robot.intakeSubsystem.diagonalSpin(0.2);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

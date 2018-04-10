@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeWithTrigger extends Command {
 
 	public IntakeWithTrigger() {
-		requires(Robot.externalIntakeSubsystem);
-		requires(Robot.internalIntakeSubsystem);
+		requires(Robot.intakeSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -30,10 +29,10 @@ public class IntakeWithTrigger extends Command {
 		double speed = inSpeed - outSpeed;
 
 		// If we're trying to intake but we have a cube, rumble
-		if (speed > 0 && Robot.internalIntakeSubsystem.getHasCube()) {
+		if (speed > 0 && Robot.intakeSubsystem.getHasCube()) {
 
-			Robot.externalIntakeSubsystem.set(0.0);
-			Robot.internalIntakeSubsystem.set(0.0);
+			Robot.intakeSubsystem.setOuter(0.0);
+			Robot.intakeSubsystem.setInner(0.0);
 			Robot.m_oi.setDriveStickRumble(1.0);
 			Robot.m_oi.setOperateStickRumble(1.0);
 		}
@@ -46,7 +45,7 @@ public class IntakeWithTrigger extends Command {
 
 				Robot.m_oi.setDriveStickRumble(0.0);
 				Robot.m_oi.setOperateStickRumble(0.0);
-				Robot.externalIntakeSubsystem.set(speed * 0.8);
+				Robot.intakeSubsystem.setOuter(speed * 0.8);
 				
 				//Engage the clamp
 				if(speed >= 0.05)
@@ -64,11 +63,11 @@ public class IntakeWithTrigger extends Command {
 					Robot.m_oi.setOperateStickRumble(0.0);
 				}
 
-				Robot.externalIntakeSubsystem.set(0.0);
+				Robot.intakeSubsystem.setOuter(0.0);
 			}
 
 			// Always run the internal
-			Robot.internalIntakeSubsystem.set(speed + 0.15);
+			Robot.intakeSubsystem.setInner(speed + 0.15);
 		}
 
 	}
@@ -81,8 +80,8 @@ public class IntakeWithTrigger extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 
-		Robot.externalIntakeSubsystem.set(0.0);
-		Robot.internalIntakeSubsystem.set(0.0);
+		Robot.intakeSubsystem.setOuter(0.0);
+		Robot.intakeSubsystem.setInner(0.0);
 		Robot.m_oi.setDriveStickRumble(0.0);
 		Robot.m_oi.setOperateStickRumble(0.0);
 	}

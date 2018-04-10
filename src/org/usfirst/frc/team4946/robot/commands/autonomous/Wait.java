@@ -25,8 +25,7 @@ public class Wait extends Command {
 			requires(Robot.elbowSubsystem);
 			requires(Robot.elevatorSubsystem);
 			requires(Robot.elevatorTransmissionSubsystem);
-			requires(Robot.externalIntakeSubsystem);
-			requires(Robot.internalIntakeSubsystem);
+			requires(Robot.intakeSubsystem);
 		}
 
 		m_timeout = timeout;

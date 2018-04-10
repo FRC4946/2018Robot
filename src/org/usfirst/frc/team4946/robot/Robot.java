@@ -19,8 +19,7 @@ import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem
 import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.ExternalIntakeSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.InternalIntakeSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team4946.robot.util.CSVLogger;
 import org.usfirst.frc.team4946.robot.util.SendableSubtable;
 import org.xml.sax.SAXException;
@@ -48,8 +47,7 @@ public class Robot extends IterativeRobot {
 	public static ElbowSubsystem elbowSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
-	public static ExternalIntakeSubsystem externalIntakeSubsystem;
-	public static InternalIntakeSubsystem internalIntakeSubsystem;
+	public static IntakeSubsystem intakeSubsystem;
 	// public static RampSubsystem rampSubsystem;
 
 	public static OI m_oi;
@@ -83,8 +81,7 @@ public class Robot extends IterativeRobot {
 		elbowSubsystem = new ElbowSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
-		externalIntakeSubsystem = new ExternalIntakeSubsystem();
-		internalIntakeSubsystem = new InternalIntakeSubsystem();
+		intakeSubsystem = new IntakeSubsystem();
 		// rampSubsystem = new RampSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
@@ -260,7 +257,7 @@ public class Robot extends IterativeRobot {
 		m_elevatorTable.putDouble("Elevator Error", elevatorSubsystem.getError());
 
 		// Intake
-		SmartDashboard.putBoolean("Has Cube", internalIntakeSubsystem.getHasCube());
+		SmartDashboard.putBoolean("Has Cube", intakeSubsystem.getHasCube());
 
 	}
 
