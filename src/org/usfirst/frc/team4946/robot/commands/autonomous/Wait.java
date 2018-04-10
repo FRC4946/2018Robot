@@ -22,7 +22,7 @@ public class Wait extends Command {
 		if (shouldBlock) {
 			requires(Robot.driveTrainSubsystem);
 			requires(Robot.driveTransmissionSubsystem);
-			requires(Robot.elbowSubsystem);
+			requires(Robot.armSubsystem);
 			requires(Robot.elevatorSubsystem);
 			requires(Robot.elevatorTransmissionSubsystem);
 			requires(Robot.intakeSubsystem);

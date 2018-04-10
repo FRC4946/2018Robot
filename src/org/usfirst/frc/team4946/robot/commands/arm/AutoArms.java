@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
+package org.usfirst.frc.team4946.robot.commands.arm;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -13,7 +13,7 @@ public class AutoArms extends Command {
 	private double m_initHeight;
 
 	public AutoArms() {
-		requires(Robot.elbowSubsystem);
+		requires(Robot.armSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -25,11 +25,11 @@ public class AutoArms extends Command {
 	protected void execute() {
 		if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MAX + 4) {
 
-			if (m_initHeight < RobotConstants.ELEVATOR_INTERFERE_MAX + 2 && Robot.elbowSubsystem.m_isOveridden)
-				Robot.elbowSubsystem.m_isOveridden = false;
+			if (m_initHeight < RobotConstants.ELEVATOR_INTERFERE_MAX + 2 && Robot.armSubsystem.m_isElbowOveridden)
+				Robot.armSubsystem.m_isElbowOveridden = false;
 
-			if (!Robot.elbowSubsystem.m_isOveridden) {
-				Robot.elbowSubsystem.setElbow(true);
+			if (!Robot.armSubsystem.m_isElbowOveridden) {
+				Robot.armSubsystem.setElbow(true);
 				Robot.elevatorSubsystem.limitMinHeight(true);
 				Robot.elevatorSubsystem.limitMaxHeight(false);
 			}

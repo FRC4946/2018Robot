@@ -54,6 +54,7 @@ public class RobotMap {
 	public static final int DIO_DRIVE_RIGHTENC2 = 1;
 	public static final int DIO_INTAKE_SWITCH1 = 8;
 	public static final int DIO_INTAKE_SWITCH2 = 9;
+	public static final int DIO_INTAKE_BANNER = 7; //Dummy
 
 	public static final int PCM_DRIVE_SOLENOID = 7; //Dummy
 	public static final int PCM_ELEVATOR_GEARLOW = 2;

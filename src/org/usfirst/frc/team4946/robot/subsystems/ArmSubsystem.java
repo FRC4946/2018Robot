@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.arm.AutoClamp;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -10,29 +11,47 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ElbowSubsystem extends Subsystem {
+public class ArmSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_elbowValve;
 	private boolean m_isElbowUp;
-	public boolean m_isOveridden;
+	public boolean m_isElbowOveridden;
 	
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
+	private boolean m_isClampOveridden;
 	private Timer m_clampTimer = new Timer();
 
-	public ElbowSubsystem() {
+	public ArmSubsystem() {
 		m_elbowValve = new DoubleSolenoid(RobotMap.PCM_ELBOW_UP, RobotMap.PCM_ELBOW_DOWN);
 		m_isElbowUp = false;
 		
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
 		m_isClampEngaged = false;
+		m_isClampOveridden = false;
 		m_clampTimer.reset();
 	}
 
 	public void initDefaultCommand() {
-		// setDefaultCommand(new AutoArms());
+		setDefaultCommand(new AutoClamp());
 	}
 
+	/**
+	 * @return {@code true} if the clamp is being overidden
+	 */
+	public boolean getClampOveridden() {
+		return m_isClampOveridden;
+	}
+	
+	/**
+	 * Sets if the clamp is being overridden
+	 * @param isOveridden 
+	 * 				if the clamp is being overridden 
+	 */
+	public void setClampOveridden(boolean isOverriden) {
+		m_isClampOveridden = isOverriden;
+	}
+	
 	/**
 	 * Set the elbow position
 	 * 

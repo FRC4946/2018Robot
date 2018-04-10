@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
+package org.usfirst.frc.team4946.robot.commands.arm;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -13,24 +13,27 @@ public class OverrideClampPos extends Command {
 	int m_count;
 	
     public OverrideClampPos() {
-    	requires(Robot.elbowSubsystem);
+    	requires(Robot.armSubsystem);
     }
 
     protected void initialize() {
     	
     	m_count = 0;
     	
+    	
     	//If clamp is not disengaged, do so
-    	if(Robot.elbowSubsystem.getClampIsEngaged()) {
-    		Robot.elbowSubsystem.setClamp(false);
+    	if(Robot.armSubsystem.getClampIsEngaged()) {
+    		Robot.armSubsystem.setClamp(false);
+
     	}
     	
     	//If the clamp is disengaged and the elevator is at the bottom (or close enough), engage the clamp
     	else if(Robot.elevatorSubsystem.getHeight() <= RobotConstants.ELEVATOR_MINIMUM_HEIGHT + 1.0) {
-    		Robot.elbowSubsystem.setClamp(true);
+    		Robot.armSubsystem.setClamp(true);
     	}
     	
     	//If the clamp is disengaged and the elevator is not at the bottom, do nothing.
+    	Robot.armSubsystem.setClampOveridden(true);
     }
 
     protected void execute() {
@@ -42,7 +45,7 @@ public class OverrideClampPos extends Command {
     }
 
     protected void end() {
-    	Robot.elbowSubsystem.clampOff();
+    	Robot.armSubsystem.clampOff();
     }
     
     protected void interrupted() {

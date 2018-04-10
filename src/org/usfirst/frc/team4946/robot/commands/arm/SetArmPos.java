@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.elbow;
+package org.usfirst.frc.team4946.robot.commands.arm;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -6,18 +6,18 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetElbowPos extends Command {
+public class SetArmPos extends Command {
 	private boolean m_posIsUp;
 	private int m_count;
 	private double m_duration;
 	private Timer m_timer;
 
-	public SetElbowPos(boolean isUp) {
+	public SetArmPos(boolean isUp) {
 		this(isUp, -1);
 	}
 
-	public SetElbowPos(boolean isUp, double duration) {
-		requires(Robot.elbowSubsystem);
+	public SetArmPos(boolean isUp, double duration) {
+		requires(Robot.armSubsystem);
 		m_posIsUp = isUp;
 		m_duration = duration;
 		m_timer = new Timer();
@@ -25,7 +25,7 @@ public class SetElbowPos extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.elbowSubsystem.setElbow(m_posIsUp);
+		Robot.armSubsystem.setElbow(m_posIsUp);
 
 		// If we're flipping the arms down, ensure that we have full range of movement
 		// of the elevator
@@ -68,7 +68,7 @@ public class SetElbowPos extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.elbowSubsystem.elbowOff();
+		Robot.armSubsystem.elbowOff();
 	}
 
 	// Called when another command which requires one or more of the same

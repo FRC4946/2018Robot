@@ -21,7 +21,8 @@ public class IntakeSubsystem extends Subsystem {
 	
 	private DigitalInput m_leftCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH1);
 	private DigitalInput m_rightCubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_SWITCH2);
-
+	private DigitalInput m_cubeBannerSensor = new DigitalInput(RobotMap.DIO_INTAKE_BANNER);
+	
 	public void initDefaultCommand() {
 		setDefaultCommand(new IntakeWithTrigger());
 	}
@@ -40,7 +41,7 @@ public class IntakeSubsystem extends Subsystem {
 	/**
 	 * Manually sets the speed of the motors
 	 * 
-	 * @param d_speeandAA
+	 * @param d_speed
 	 *            Speed of the motors
 	 */
 	public void setOuter(double d_speed) {
@@ -58,13 +59,26 @@ public class IntakeSubsystem extends Subsystem {
 
 	/** 
 	 * 
-	 * @return true if detects the cube, false for no cube
+	 * @return true if limit switches detect the cube, false for no cube
 	 */
 	public boolean getHasCube() {
 		return !m_leftCubeSwitch.get() || !m_rightCubeSwitch.get();
 	}
 	
-
+	/** 
+	 * 
+	 * @return true if banner sensor detects the cube, false for no cube
+	 */
+	public boolean getBannerHasCube() {
+		return m_cubeBannerSensor.get();
+	}
+	
+	/**
+	 * Sets the outer intake motors in reverse directions to reorient the cube
+	 * 
+	 * @param d_speed
+	 * 			  Speed of the motors
+	 */
 	public void diagonalSpin(double d_speed) {
 		m_leftOuterMotor.set(d_speed);
 		m_rightOuterMotor.set(d_speed);

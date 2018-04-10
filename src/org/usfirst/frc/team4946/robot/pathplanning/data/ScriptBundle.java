@@ -2,11 +2,11 @@ package org.usfirst.frc.team4946.robot.pathplanning.data;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team4946.robot.commands.arm.SetArmPos;
 import org.usfirst.frc.team4946.robot.commands.autonomous.DelayedCommand;
 import org.usfirst.frc.team4946.robot.commands.autonomous.Wait;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.FollowPath;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
-import org.usfirst.frc.team4946.robot.commands.elbow.SetElbowPos;
 import org.usfirst.frc.team4946.robot.commands.elevator.MoveToHeight;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToBottom;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
@@ -90,9 +90,9 @@ public class ScriptBundle {
 			// Elbow
 			else if (a instanceof ArmAction) {
 				if (a.option == ArmAction.Option.ArmUp)
-					c = new SetElbowPos(true, a.timeout);
+					c = new SetArmPos(true, a.timeout);
 				else
-					c = new SetElbowPos(false, a.timeout);
+					c = new SetArmPos(false, a.timeout);
 			}
 
 			// Intake

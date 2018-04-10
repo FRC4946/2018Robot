@@ -16,7 +16,7 @@ import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
-import org.usfirst.frc.team4946.robot.subsystems.ElbowSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.IntakeSubsystem;
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 
 	public static DriveTrainSubsystem driveTrainSubsystem;
 	public static DriveTrainTransmissionSubsystem driveTransmissionSubsystem;
-	public static ElbowSubsystem elbowSubsystem;
+	public static ArmSubsystem armSubsystem;
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static IntakeSubsystem intakeSubsystem;
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 
 		driveTrainSubsystem = new DriveTrainSubsystem();
 		driveTransmissionSubsystem = new DriveTrainTransmissionSubsystem();
-		elbowSubsystem = new ElbowSubsystem();
+		armSubsystem = new ArmSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		intakeSubsystem = new IntakeSubsystem();
