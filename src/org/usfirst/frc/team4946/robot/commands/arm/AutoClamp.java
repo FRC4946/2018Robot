@@ -11,20 +11,19 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoClamp extends Command {
 	
 	int m_count;
-	boolean m_initElevatorState;
-	boolean m_currElevatorState;
+	boolean m_initBannerState;
+	boolean m_currBannerState;
 
     public AutoClamp() {
     	requires(Robot.armSubsystem);
     	requires(Robot.intakeSubsystem);
-    	requires(Robot.elevatorSubsystem);
     }
 
     protected void initialize() {
     	
     	m_count = 0;
     	
-    	m_initElevatorState = Robot.elevatorSubsystem.getHeight() <= RobotConstants.ELEVATOR_INTERFERE_MAX;
+    	m_initBannerState = Robot.intakeSubsystem.getBannerHasCube();
     	
     	//Disengage the clamp if the clamp is not overridden and there's a cube detected.
     	if(!Robot.armSubsystem.getClampOveridden() && Robot.intakeSubsystem.getBannerHasCube()) 
@@ -33,13 +32,12 @@ public class AutoClamp extends Command {
 
     protected void execute() {
     
-    	m_currElevatorState = Robot.elevatorSubsystem.getHeight() <= RobotConstants.ELEVATOR_INTERFERE_MAX;
+    	m_currBannerState = Robot.intakeSubsystem.getBannerHasCube();
     	
-    	//When the elevator moves to a point upwards or downards of the arms in the upward position, we reset 
-    	//whether the clamp as been overridden to false. 
-    	if(m_currElevatorState != m_initElevatorState) {
+    	//When the detection of the cube changes, the clamp is reset to a not overwritten state.  
+    	if(m_currBannerState != m_initBannerState) {
     		
-    		m_initElevatorState = m_currElevatorState;
+    		m_initBannerState = m_currBannerState;
     		Robot.armSubsystem.setClampOveridden(false);
     		initialize();
     	}
