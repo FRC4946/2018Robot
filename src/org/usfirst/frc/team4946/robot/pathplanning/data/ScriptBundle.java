@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.pathplanning.data;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 import org.usfirst.frc.team4946.robot.commands.arm.SetElbow;
 import org.usfirst.frc.team4946.robot.commands.autonomous.DelayedCommand;
 import org.usfirst.frc.team4946.robot.commands.autonomous.Wait;
@@ -91,8 +92,12 @@ public class ScriptBundle {
 			else if (a instanceof ArmAction) {
 				if (a.option == ArmAction.Option.ArmUp)
 					c = new SetElbow(true);
-				else
+				else if (a.option == ArmAction.Option.ArmDown)
 					c = new SetElbow(false);
+				else if (a.option == ArmAction.Option.CloseClamp)
+					c = new SetClamp(true);
+				else if (a.option == ArmAction.Option.OpenClamp)
+					c = new SetClamp(false);
 			}
 
 			// Intake
