@@ -5,7 +5,7 @@ import org.usfirst.frc.team4946.robot.util.FunctionEvaluator;
 import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
-	public static final int PNEUMATIC_FIRING_COUNT = 20;
+	public static final int PNEUMATIC_FIRING_COUNT = 10;
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 6.0;
 	public static final double DRIVETRAIN_GEARBOX_REDUCTION = 1;

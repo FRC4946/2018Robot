@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.commands.elevator;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -53,11 +54,11 @@ public class ElevatorWithJoystick extends Command {
 
 			// If the elbow is up or the clamp is engaged and the elevator is below, limit
 			// upwards movement
-			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MAX) {
+			if (Robot.elevatorSubsystem.getHeight() < RobotConstants.ELEVATOR_INTERFERE_MAX - 6) {
 
 				// If we're trying to move up, open the clamp
-				if (setpoint > Robot.elevatorSubsystem.getHeight())
-					Robot.armSubsystem.setClamp(false);
+				if (setpoint > Robot.elevatorSubsystem.getHeight() + 0.1 && Robot.armSubsystem.getClampIsEngaged())
+					new SetClamp(false).start();
 
 				if (Robot.armSubsystem.getElbowIsUp() || Robot.armSubsystem.getClampIsEngaged())
 					setpoint = Math.min(setpoint, RobotConstants.ELEVATOR_INTERFERE_MIN);
@@ -65,7 +66,7 @@ public class ElevatorWithJoystick extends Command {
 
 			// If we're above the arms and the arms are up or clamp is closed, limit
 			// downwards movement
-			if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MIN)
+			if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MIN + 6)
 				if (Robot.armSubsystem.getElbowIsUp() || Robot.armSubsystem.getClampIsEngaged())
 					setpoint = Math.max(setpoint, RobotConstants.ELEVATOR_INTERFERE_MAX);
 

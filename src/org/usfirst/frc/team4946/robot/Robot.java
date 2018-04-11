@@ -61,6 +61,7 @@ public class Robot extends IterativeRobot {
 	private SendableSubtable m_autoTable;
 	private SendableSubtable m_gyroTable;
 	private SendableSubtable m_elevatorTable;
+	private SendableSubtable m_armsTable;
 	public static CSVLogger dataLogger;
 	private int m_count = 0;
 
@@ -90,14 +91,17 @@ public class Robot extends IterativeRobot {
 		m_autoTable = new SendableSubtable("Auto");
 		m_gyroTable = new SendableSubtable("Gyro");
 		m_elevatorTable = new SendableSubtable("Elevator");
+		m_armsTable = new SendableSubtable("Arms");
 		SmartDashboard.putData(m_autoTable);
 		SmartDashboard.putData(m_gyroTable);
 		SmartDashboard.putData(m_elevatorTable);
+		SmartDashboard.putData(m_armsTable);
 
 		dataLogger = new CSVLogger();
 		dataLogger.addTable(m_autoTable);
 		dataLogger.addTable(m_gyroTable);
 		dataLogger.addTable(m_elevatorTable);
+		dataLogger.addTable(m_armsTable);
 
 		// USB camera
 		CameraServer.getInstance().startAutomaticCapture();
@@ -255,6 +259,9 @@ public class Robot extends IterativeRobot {
 		m_elevatorTable.putDouble("Elevator Setpoint", elevatorSubsystem.getSetpoint());
 		m_elevatorTable.putDouble("Elevator Output", elevatorSubsystem.getSpeed());
 		m_elevatorTable.putDouble("Elevator Error", elevatorSubsystem.getError());
+
+		m_armsTable.putBoolean("Clamp Engaged", armSubsystem.getClampIsEngaged());
+		m_armsTable.putBoolean("Elbow Up", armSubsystem.getElbowIsUp());
 
 		// Intake
 		SmartDashboard.putBoolean("Has Cube", intakeSubsystem.getHasCube());

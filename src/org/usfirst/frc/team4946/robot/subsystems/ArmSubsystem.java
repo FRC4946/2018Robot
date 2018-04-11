@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -15,7 +16,6 @@ public class ArmSubsystem extends Subsystem {
 
 	private DoubleSolenoid m_elbowValve;
 	private boolean m_isElbowUp;
-	public boolean m_isElbowOveridden;
 
 	private DoubleSolenoid m_clampValve;
 	private boolean m_isClampEngaged;
@@ -27,6 +27,7 @@ public class ArmSubsystem extends Subsystem {
 
 		m_clampValve = new DoubleSolenoid(RobotMap.PCM_CLAMP_CLOSE, RobotMap.PCM_CLAMP_OPEN);
 		m_isClampEngaged = false;
+		m_clampTimer.stop();
 		m_clampTimer.reset();
 	}
 
@@ -107,37 +108,39 @@ public class ArmSubsystem extends Subsystem {
 		// move the elevator
 		else {
 			m_clampValve.set(Value.kReverse);
-			m_clampTimer.start();
+			if (m_clampTimer.get() <= 0)
+				m_clampTimer.start();
 		}
 
 		m_isClampEngaged = isEngaged;
 	}
 
-	/**
-	 * Set the clamp to the engaged position
-	 */
-	public void setClampEngaged() {
-		setClamp(true);
-	}
-
-	/**
-	 * Set the clamp to the disengaged position
-	 */
-	public void setClampDisengaged() {
-		setClamp(false);
-	}
-
-	/**
-	 * Toggle clamp between engaged and disengaged position
-	 */
-	public void toggleClamp() {
-		setClamp(!m_isClampEngaged);
-	}
+	// /**
+	// * Set the clamp to the engaged position
+	// */
+	// public void setClampEngaged() {
+	// setClamp(true);
+	// }
+	//
+	// /**
+	// * Set the clamp to the disengaged position
+	// */
+	// public void setClampDisengaged() {
+	// setClamp(false);
+	// }
+	//
+	// /**
+	// * Toggle clamp between engaged and disengaged position
+	// */
+	// public void toggleClamp() {
+	// setClamp(!m_isClampEngaged);
+	// }
 
 	/**
 	 * @return {@code true} if the clamp is engaged
 	 */
 	public boolean getClampIsEngaged() {
+		SmartDashboard.putNumber("Timer", m_clampTimer.get());
 
 		// This should always return true, unless the flag is false and time has passed
 		return m_isClampEngaged || m_clampTimer.get() <= 0.5;

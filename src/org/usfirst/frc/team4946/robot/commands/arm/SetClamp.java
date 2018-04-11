@@ -5,20 +5,32 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetElbowPos extends Command {
-	private boolean m_posIsUp;
+public class SetClamp extends Command {
+	private boolean m_isEngaged;
 	private int m_count;
+	private boolean exit = false;
 
-	public SetElbowPos(boolean isUp) {
+	public SetClamp(boolean isEngaged) {
 		requires(Robot.armSubsystem);
-		m_posIsUp = isUp;
+		m_isEngaged = isEngaged;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.armSubsystem.setElbow(m_posIsUp);
-
 		m_count = 0;
+
+		// If the elevator is not at the bottom, make sure it is open
+		if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MIN)
+			m_isEngaged = false;
+
+		// If the clamp is already in the correct state, return
+		// If the elbow is up, return
+		if (m_isEngaged == Robot.armSubsystem.getClampIsEngaged() || Robot.armSubsystem.getElbowIsUp()) {
+			exit = true;
+			return;
+		}
+
+		Robot.armSubsystem.setClamp(m_isEngaged);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -28,12 +40,13 @@ public class SetElbowPos extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return m_count > RobotConstants.PNEUMATIC_FIRING_COUNT;
+		return exit || (m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT
+				&& Robot.armSubsystem.getClampIsEngaged() == m_isEngaged);
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.armSubsystem.elbowOff();
+		Robot.armSubsystem.clampOff();
 	}
 
 	// Called when another command which requires one or more of the same

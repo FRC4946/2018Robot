@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.arm.OverrideElbowPos;
-import org.usfirst.frc.team4946.robot.commands.arm.OverrideClampPos;
+import org.usfirst.frc.team4946.robot.commands.arm.ToggleClamp;
+import org.usfirst.frc.team4946.robot.commands.arm.ToggleElbow;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
@@ -61,10 +61,10 @@ public class OI {
 		driveX.whileHeld(new SetIntake(-0.6));
 		driveY.whileHeld(new SetIntake(-0.8));
 
-		driveRB.whenPressed(new OverrideElbowPos());
+		driveRB.whenPressed(new ToggleElbow());
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
-		driveStart.whenPressed(new OverrideClampPos());
+		driveStart.whenPressed(new ToggleClamp());
 
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));

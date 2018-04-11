@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.commands.intake;
 
 import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -49,8 +50,8 @@ public class IntakeWithTrigger extends Command {
 				Robot.intakeSubsystem.setOuter(speed * 0.8);
 
 				// Engage the clamp
-				if (speed >= 0.05)
-					Robot.armSubsystem.setClamp(true);
+				if (speed >= 0.05 && !Robot.armSubsystem.getClampIsEngaged() && !Robot.intakeSubsystem.getHasCube())
+					new SetClamp(true).start();
 
 			} else {
 
