@@ -59,9 +59,10 @@ public class Robot extends IterativeRobot {
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
 	private SendableSubtable m_autoTable;
-	private SendableSubtable m_gyroTable;
+	private SendableSubtable m_driveTable;
 	private SendableSubtable m_elevatorTable;
 	private SendableSubtable m_armsTable;
+	private SendableSubtable m_intakeTable;
 	public static CSVLogger dataLogger;
 	private int m_count = 0;
 
@@ -89,19 +90,22 @@ public class Robot extends IterativeRobot {
 		m_oi = new OI();
 
 		m_autoTable = new SendableSubtable("Auto");
-		m_gyroTable = new SendableSubtable("Gyro");
+		m_driveTable = new SendableSubtable("Drive");
 		m_elevatorTable = new SendableSubtable("Elevator");
 		m_armsTable = new SendableSubtable("Arms");
+		m_intakeTable = new SendableSubtable("Intake");
 		SmartDashboard.putData(m_autoTable);
-		SmartDashboard.putData(m_gyroTable);
+		SmartDashboard.putData(m_driveTable);
 		SmartDashboard.putData(m_elevatorTable);
 		SmartDashboard.putData(m_armsTable);
+		SmartDashboard.putData(m_intakeTable);
 
 		dataLogger = new CSVLogger();
 		dataLogger.addTable(m_autoTable);
-		dataLogger.addTable(m_gyroTable);
+		dataLogger.addTable(m_driveTable);
 		dataLogger.addTable(m_elevatorTable);
 		dataLogger.addTable(m_armsTable);
+		dataLogger.addTable(m_intakeTable);
 
 		// USB camera
 		CameraServer.getInstance().startAutomaticCapture();
@@ -246,13 +250,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Counter", m_count);
 
 		// Drive Train
-		m_gyroTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
-		m_gyroTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
-		m_gyroTable.putDouble("Gyro Output", driveTrainSubsystem.getGyroPIDOutput());
-		m_gyroTable.putDouble("Gyro Error", driveTrainSubsystem.getGyroPIDError());
-
-		SmartDashboard.putNumber("Left Enc", driveTrainSubsystem.getLeftEncDist());
-		SmartDashboard.putNumber("Right Enc", driveTrainSubsystem.getRightEncDist());
+		m_driveTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
+		m_driveTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
+		m_driveTable.putDouble("Gyro Output", driveTrainSubsystem.getGyroPIDOutput());
+		m_driveTable.putDouble("Gyro Error", driveTrainSubsystem.getGyroPIDError());
+		m_driveTable.putDouble("Left Enc", driveTrainSubsystem.getLeftEncDist());
+		m_driveTable.putDouble("Right Enc", driveTrainSubsystem.getRightEncDist());
 
 		// Elevator
 		m_elevatorTable.putDouble("Elevator Position", elevatorSubsystem.getHeight());
@@ -260,11 +263,12 @@ public class Robot extends IterativeRobot {
 		m_elevatorTable.putDouble("Elevator Output", elevatorSubsystem.getSpeed());
 		m_elevatorTable.putDouble("Elevator Error", elevatorSubsystem.getError());
 
+		// Arms
 		m_armsTable.putBoolean("Clamp Engaged", armSubsystem.getClampIsEngaged());
 		m_armsTable.putBoolean("Elbow Up", armSubsystem.getElbowIsUp());
 
 		// Intake
-		SmartDashboard.putBoolean("Has Cube", intakeSubsystem.getHasCube());
+		m_intakeTable.putBoolean("Has Cube", intakeSubsystem.getHasCube());
 
 	}
 
