@@ -10,10 +10,13 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleClamp;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleElbow;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.SetRotateSpeed;
+import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
+import org.usfirst.frc.team4946.robot.commands.misc.LogData;
 import org.usfirst.frc.team4946.robot.commands.ramp.DeployRamp;
 import org.usfirst.frc.team4946.robot.util.POVButton;
 
@@ -35,10 +38,14 @@ public class OI {
 	Button driveB = new JoystickButton(driveStick, 2);
 	Button driveX = new JoystickButton(driveStick, 3);
 	Button driveY = new JoystickButton(driveStick, 4);
-
 	Button driveLB = new JoystickButton(driveStick, 5);
 	Button driveRB = new JoystickButton(driveStick, 6);
+	Button driveBack = new JoystickButton(driveStick, 7);
 	Button driveStart = new JoystickButton(driveStick, 8);
+	POVButton driveN = new POVButton(driveStick, 0);
+	POVButton driveE = new POVButton(driveStick, 270);
+	POVButton driveS = new POVButton(driveStick, 180);
+	POVButton driveW = new POVButton(driveStick, 90);
 
 	Button operatorA = new JoystickButton(operatorStick, 1);
 	Button operatorB = new JoystickButton(operatorStick, 2);
@@ -65,6 +72,12 @@ public class OI {
 		driveLB.whenPressed(new SetDriveGear(false));
 		driveLB.whenReleased(new SetDriveGear(true));
 		driveStart.whenPressed(new ToggleClamp());
+
+		driveBack.whileHeld(new LogData());
+		driveN.whileHeld(new TurnPID(175));
+		driveW.whileHeld(new SetRotateSpeed(0.2));
+		driveS.whileHeld(new SetRotateSpeed(0.4));
+		driveE.whileHeld(new SetRotateSpeed(0.6));
 
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));

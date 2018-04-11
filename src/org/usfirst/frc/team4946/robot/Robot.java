@@ -27,7 +27,9 @@ import org.xml.sax.SAXException;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,6 +60,7 @@ public class Robot extends IterativeRobot {
 	private ScriptBundle m_script = new ScriptBundle();
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
+	private SendableSubtable m_mainTable;
 	private SendableSubtable m_autoTable;
 	private SendableSubtable m_driveTable;
 	private SendableSubtable m_elevatorTable;
@@ -89,11 +92,13 @@ public class Robot extends IterativeRobot {
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
 
+		m_mainTable = new SendableSubtable("Robot");
 		m_autoTable = new SendableSubtable("Auto");
 		m_driveTable = new SendableSubtable("Drive");
 		m_elevatorTable = new SendableSubtable("Elevator");
 		m_armsTable = new SendableSubtable("Arms");
 		m_intakeTable = new SendableSubtable("Intake");
+		SmartDashboard.putData(m_mainTable);
 		SmartDashboard.putData(m_autoTable);
 		SmartDashboard.putData(m_driveTable);
 		SmartDashboard.putData(m_elevatorTable);
@@ -101,6 +106,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(m_intakeTable);
 
 		dataLogger = new CSVLogger();
+		dataLogger.addTable(m_mainTable);
 		dataLogger.addTable(m_autoTable);
 		dataLogger.addTable(m_driveTable);
 		dataLogger.addTable(m_elevatorTable);
@@ -249,6 +255,8 @@ public class Robot extends IterativeRobot {
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("Counter", m_count);
 
+		m_mainTable.putDouble("Battery Voltage", RobotController.getBatteryVoltage());
+
 		// Drive Train
 		m_driveTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
 		m_driveTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
@@ -256,6 +264,8 @@ public class Robot extends IterativeRobot {
 		m_driveTable.putDouble("Gyro Error", driveTrainSubsystem.getGyroPIDError());
 		m_driveTable.putDouble("Left Enc", driveTrainSubsystem.getLeftEncDist());
 		m_driveTable.putDouble("Right Enc", driveTrainSubsystem.getRightEncDist());
+		m_driveTable.putDouble("Left Voltage %", driveTrainSubsystem.getSpeedLeft());
+		m_driveTable.putDouble("Right Voltage %", driveTrainSubsystem.getSpeedRight());
 
 		// Elevator
 		m_elevatorTable.putDouble("Elevator Position", elevatorSubsystem.getHeight());
