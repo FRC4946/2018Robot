@@ -114,7 +114,7 @@ public class Robot extends IterativeRobot {
 		dataLogger.addTable(m_intakeTable);
 
 		// USB camera
-		CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().startAutomaticCapture(0);
 		// camera.setResolution(640, 480);
 	}
 
