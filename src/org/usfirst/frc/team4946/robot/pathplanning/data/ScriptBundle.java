@@ -26,6 +26,7 @@ import org.usfirst.frc.team4946.robot.pathplanning.data.actions.TurnAction;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ScriptBundle {
 	public String name = "";
@@ -90,6 +91,7 @@ public class ScriptBundle {
 
 			// Elbow
 			else if (a instanceof ArmAction) {
+				SmartDashboard.putString("Arm", a.option.toString());
 				if (a.option == ArmAction.Option.ArmUp)
 					c = new SetElbow(true);
 				else if (a.option == ArmAction.Option.ArmDown)

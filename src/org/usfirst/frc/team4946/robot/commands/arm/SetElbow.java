@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SetElbow extends CommandGroup {
 
 	public SetElbow(boolean isUp) {
-		if (Robot.armSubsystem.getElbowIsUp() == isUp)
-			return;
+		// if (Robot.armSubsystem.getElbowIsUp() == isUp)
+		// return;
 
 		// If we're flipping up and the elevator is in the way, rumble
 		if (isUp && RobotConstants.ELEVATOR_INTERFERE_MIN < Robot.elevatorSubsystem.getHeight()

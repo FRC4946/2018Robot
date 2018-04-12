@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
@@ -27,7 +28,6 @@ import org.xml.sax.SAXException;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
@@ -135,6 +135,8 @@ public class Robot extends IterativeRobot {
 		isAutonomous = false;
 
 		loadShuffleboard();
+
+		new SetClamp(true).start();
 	}
 
 	@Override

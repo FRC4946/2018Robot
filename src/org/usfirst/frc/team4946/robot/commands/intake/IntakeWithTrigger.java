@@ -53,6 +53,10 @@ public class IntakeWithTrigger extends Command {
 				if (speed >= 0.05 && !Robot.armSubsystem.getClampIsEngaged() && !Robot.intakeSubsystem.getHasCube())
 					new SetClamp(true).start();
 
+				// Disengage the clamp
+				if (speed <= -0.05 && !Robot.armSubsystem.getClampIsEngaged())
+					new SetClamp(true).start();
+
 			} else {
 
 				// If the drivers try to intake when the elevator is up, allow the motors to

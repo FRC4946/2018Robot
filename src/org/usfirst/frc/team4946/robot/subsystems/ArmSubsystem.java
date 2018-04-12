@@ -143,7 +143,7 @@ public class ArmSubsystem extends Subsystem {
 		SmartDashboard.putNumber("Timer", m_clampTimer.get());
 
 		// This should always return true, unless the flag is false and time has passed
-		return m_isClampEngaged || m_clampTimer.get() <= 0.5;
+		return m_isClampEngaged || m_clampTimer.get() <= 0.3;
 	}
 
 	/**

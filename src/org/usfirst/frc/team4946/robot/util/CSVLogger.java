@@ -51,10 +51,12 @@ public class CSVLogger {
 	 */
 	public void start() throws IOException {
 		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss");
 
 		File f = new File("/home/lvuser/mylogs/" + format.format(date) + ".csv");
 		f.createNewFile();
+		
+		
 		m_writer = new BufferedWriter(new FileWriter(f));
 		m_startTime = System.currentTimeMillis();
 

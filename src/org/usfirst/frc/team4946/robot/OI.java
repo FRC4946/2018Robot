@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
+import org.usfirst.frc.team4946.robot.commands.arm.SetElbow;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleClamp;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleElbow;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
@@ -63,15 +65,17 @@ public class OI {
 
 	public OI() {
 
-		driveA.whileHeld(new SetIntake(-0.2));
-		driveB.whileHeld(new SetIntake(-0.4));
-		driveX.whileHeld(new SetIntake(-0.6));
-		driveY.whileHeld(new SetIntake(-0.8));
+		// driveA.whileHeld(new SetIntake(-0.2));
+		// driveB.whileHeld(new SetIntake(-0.4));
+		// driveX.whileHeld(new SetIntake(-0.6));
+		// driveY.whileHeld(new SetIntake(-0.8));
 
-		driveRB.whenPressed(new ToggleElbow());
-		driveLB.whenPressed(new SetDriveGear(false));
-		driveLB.whenReleased(new SetDriveGear(true));
-		driveStart.whenPressed(new ToggleClamp());
+		driveLB.whenPressed(new ToggleElbow());
+		driveRB.whenPressed(new SetClamp(false));
+		driveRB.whenReleased(new SetClamp(true));
+		driveA.whenPressed(new SetDriveGear(false));
+		driveA.whenReleased(new SetDriveGear(true));
+		// driveStart.whenPressed(new ToggleClamp());
 
 		driveBack.whileHeld(new LogData());
 		driveN.whileHeld(new TurnPID(175));
@@ -97,6 +101,8 @@ public class OI {
 		operatorS.whileHeld(new MoveToScale(true));
 		operatorE.whileHeld(new MoveToSwitch());
 		operatorW.whileHeld(new MoveToSwitch());
+		operatorE.whenReleased(new SetElbow(true));
+		operatorW.whenReleased(new SetElbow(true));
 
 	}
 

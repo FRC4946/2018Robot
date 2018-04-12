@@ -17,18 +17,21 @@ public class SetClamp extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		exit = false;
 		m_count = 0;
 
 		// If the elevator is not at the bottom, make sure it is open
-		if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MIN)
-			m_isEngaged = false;
-
+		// if (Robot.elevatorSubsystem.getHeight() >
+		// RobotConstants.ELEVATOR_INTERFERE_MIN)
+		// m_isEngaged = false;
+		//
 		// If the clamp is already in the correct state, return
 		// If the elbow is up, return
-		if (m_isEngaged == Robot.armSubsystem.getClampIsEngaged() || Robot.armSubsystem.getElbowIsUp()) {
-			exit = true;
-			return;
-		}
+		// if (m_isEngaged == Robot.armSubsystem.getClampIsEngaged() ||
+		// Robot.armSubsystem.getElbowIsUp()) {
+		// exit = true;
+		// return;
+		// }
 
 		Robot.armSubsystem.setClamp(m_isEngaged);
 	}
