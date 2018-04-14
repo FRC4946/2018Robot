@@ -50,7 +50,7 @@ public class MoveToHeight extends Command {
 		// If we're above the arms and the arms are up or clamp is closed, limit
 		// downwards movement
 		if (Robot.elevatorSubsystem.getHeight() > RobotConstants.ELEVATOR_INTERFERE_MIN+6)
-			if (Robot.armSubsystem.getElbowIsUp() || Robot.armSubsystem.getClampIsEngaged())
+			if (Robot.armSubsystem.getElbowIsUp())
 				setpoint = Math.max(setpoint, RobotConstants.ELEVATOR_INTERFERE_MAX);
 
 		Robot.elevatorSubsystem.setSetpoint(setpoint);

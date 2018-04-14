@@ -79,9 +79,9 @@ public class OI {
 
 		driveBack.whileHeld(new LogData());
 		driveN.whileHeld(new TurnPID(175));
-		driveW.whileHeld(new SetRotateSpeed(0.2));
-		driveS.whileHeld(new SetRotateSpeed(0.4));
-		driveE.whileHeld(new SetRotateSpeed(0.6));
+		driveW.whileHeld(new TurnPID(145));
+		driveS.whileHeld(new TurnPID(120));
+		driveE.whileHeld(new TurnPID(100));
 
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));
@@ -101,8 +101,8 @@ public class OI {
 		operatorS.whileHeld(new MoveToScale(true));
 		operatorE.whileHeld(new MoveToSwitch());
 		operatorW.whileHeld(new MoveToSwitch());
-		operatorE.whenReleased(new SetElbow(true));
-		operatorW.whenReleased(new SetElbow(true));
+		//operatorE.whenReleased(new SetElbow(true));
+		//operatorW.whenReleased(new SetElbow(true));
 
 	}
 

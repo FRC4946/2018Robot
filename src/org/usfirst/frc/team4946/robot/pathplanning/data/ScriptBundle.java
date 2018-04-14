@@ -124,7 +124,7 @@ public class ScriptBundle {
 				continue;
 
 			// If it's negative, no timeout
-			if (a.timeout < 0) {
+			if (a.timeout <= 0) {
 				if (a.behaviour == Behaviour.kParallel)
 					auto.addParallel(new DelayedCommand(a.delay, c));
 				else

@@ -5,15 +5,20 @@ import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
 import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
 
+import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -110,8 +115,20 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		m_left.set(-speed - rotate);
-		m_right.set(speed - rotate);
+		double leftSpeed = -speed - rotate;
+		double rightSpeed = speed - rotate;
+
+		leftSpeed = Math.min(leftSpeed, 1.0);
+		leftSpeed = Math.max(leftSpeed, -1);
+
+		rightSpeed = Math.min(rightSpeed, 1.0);
+		rightSpeed = Math.max(rightSpeed, -1);
+
+		m_left.set(leftSpeed * 10.0 / m_frontLeft.getBusVoltage());
+		m_right.set(rightSpeed * 10.0 / m_frontLeft.getBusVoltage());
+
+		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
+		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
 	}
 
 	/**

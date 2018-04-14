@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetClamp extends Command {
 	private boolean m_isEngaged;
+	private boolean m_desiredState;
 	private int m_count;
-	private boolean exit = false;
 
 	public SetClamp(boolean isEngaged) {
 		requires(Robot.armSubsystem);
@@ -17,23 +17,20 @@ public class SetClamp extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		exit = false;
 		m_count = 0;
 
+		m_desiredState = m_isEngaged;
 		// If the elevator is not at the bottom, make sure it is open
 		// if (Robot.elevatorSubsystem.getHeight() >
 		// RobotConstants.ELEVATOR_INTERFERE_MIN)
 		// m_isEngaged = false;
-		//
-		// If the clamp is already in the correct state, return
-		// If the elbow is up, return
-		// if (m_isEngaged == Robot.armSubsystem.getClampIsEngaged() ||
-		// Robot.armSubsystem.getElbowIsUp()) {
-		// exit = true;
-		// return;
-		// }
 
-		Robot.armSubsystem.setClamp(m_isEngaged);
+		// If the elbow is up, make sure dat boi clamped
+		if (Robot.armSubsystem.getElbowIsUp()) {
+			m_desiredState = true;
+		}
+
+		Robot.armSubsystem.setClamp(m_desiredState);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -43,8 +40,8 @@ public class SetClamp extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return exit || (m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT
-				&& Robot.armSubsystem.getClampIsEngaged() == m_isEngaged);
+		return m_count >= RobotConstants.PNEUMATIC_FIRING_COUNT
+				&& Robot.armSubsystem.getClampIsEngaged() == m_desiredState;
 	}
 
 	// Called once after isFinished returns true
