@@ -12,7 +12,13 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.usfirst.frc.team4946.robot.RobotConstants.Auto.ElementOption;
+import org.usfirst.frc.team4946.robot.RobotConstants.Auto.StartPos;
 import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutoDriveCross_Scale;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutoDriveMid_Switch;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutoDriveStraight_Scale;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutoDriveStraight_Switch;
 import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
@@ -25,6 +31,7 @@ import org.usfirst.frc.team4946.robot.util.CSVLogger;
 import org.usfirst.frc.team4946.robot.util.SendableSubtable;
 import org.xml.sax.SAXException;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -33,6 +40,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -55,9 +63,17 @@ public class Robot extends IterativeRobot {
 	public static OI m_oi;
 
 	public static boolean isAutonomous = false;
+	
+	public static boolean switchRight;
+	public static boolean scaleRight;
+	public static int startPos;
 
-	private CommandGroup m_autoCommand = new CommandGroup();
-	private ScriptBundle m_script = new ScriptBundle();
+	public CommandGroup m_autoCommand = new CommandGroup();
+	public ScriptBundle m_script = new ScriptBundle();
+	
+	private SendableChooser<StartPos> m_startPosChooser;
+	private SendableChooser<ElementOption> m_elementChooser;
+	
 	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
 	private SendableSubtable m_mainTable;
@@ -116,6 +132,16 @@ public class Robot extends IterativeRobot {
 		// USB camera
 		CameraServer.getInstance().startAutomaticCapture(0);
 		// camera.setResolution(640, 480);
+		
+		//Set up Auto Menu (Starting Position Menu)
+		m_startPosChooser = new SendableChooser<StartPos>();
+		m_startPosChooser.addDefault("Left", RobotConstants.Auto.StartPos.LEFT);
+		m_startPosChooser.addObject("Middle", RobotConstants.Auto.StartPos.MIDDLE);
+		m_startPosChooser.addObject("Right", RobotConstants.Auto.StartPos.RIGHT);
+		
+		m_elementChooser = new SendableChooser<ElementOption>();
+		m_elementChooser.addDefault("Switch", RobotConstants.Auto.ElementOption.SWITCH);
+		m_elementChooser.addObject("Scale", RobotConstants.Auto.ElementOption.SCALE);
 	}
 
 	/**
@@ -149,12 +175,17 @@ public class Robot extends IterativeRobot {
 			loadShuffleboard();
 		}
 
+		//TODO : find out if addition to robotInit is necesscary 
+		//Initial robot position: 1 for left, 2 for right, 3 for center
+		startPos = (int) m_robotPrefs.getDouble("startPos", 1.0); //of questionable integrity
+		
 		m_count = (m_count + 1) % 1000;
 	}
 
 	private void loadShuffleboard() {
 		RobotConstants.updatePrefs(m_robotPrefs);
-
+		
+		/*
 		File file = FileIO.lastFileModified("/home/lvuser/AutoPathPlanner");
 		if (file == null) {
 			m_autoTable.putString("Script", "No script!");
@@ -178,6 +209,7 @@ public class Robot extends IterativeRobot {
 				e.printStackTrace();
 			}
 		}
+		*/
 	}
 
 	/**
@@ -204,12 +236,49 @@ public class Robot extends IterativeRobot {
 		driveTransmissionSubsystem.set(true);
 
 		String data = DriverStation.getInstance().getGameSpecificMessage();
-
+		
+		//get switch
+		switchRight = (data.toCharArray()[0] == 'R'); 
+		//get scale
+		scaleRight = (data.toCharArray()[1] == 'R');		
+		
 		if (m_script == null)
 			return;
 
 		// Load the auto
-		m_autoCommand = m_script.getAuto(data);
+		
+		if (m_startPosChooser.getSelected() == RobotConstants.Auto.StartPos.MIDDLE) {
+			
+			m_autoCommand = new AutoDriveMid_Switch();
+			
+		} else {
+			
+			if (m_elementChooser.getSelected() == RobotConstants.Auto.ElementOption.SCALE)
+			
+				if (scaleRight) {
+					
+					if (m_startPosChooser.getSelected() == RobotConstants.Auto.StartPos.RIGHT) {
+						m_autoCommand = new AutoDriveStraight_Scale();
+					} else {
+						m_autoCommand = new AutoDriveCross_Scale();
+					}
+					
+				} else {
+					
+					if (m_startPosChooser.getSelected() == RobotConstants.Auto.StartPos.LEFT) {
+						m_autoCommand = new AutoDriveStraight_Scale();
+					} else {
+						m_autoCommand = new AutoDriveCross_Scale();
+					}
+					
+				}
+			
+			else {
+				m_autoCommand = new AutoDriveStraight_Switch();
+			}
+			
+		}
+		
 		if (m_autoCommand != null) {
 
 			System.out.println("Starting auto");
@@ -256,6 +325,8 @@ public class Robot extends IterativeRobot {
 
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("Counter", m_count);
+		//SmartDashboard.putData(new PowerDistributionPanel()); //If doesn't work, means were creating a new object every iteration, make just one PDP object if complain 
+		//should output current voltage draw, amperpage on every channel
 
 		m_mainTable.putDouble("Battery Voltage", RobotController.getBatteryVoltage());
 

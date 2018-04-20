@@ -45,7 +45,7 @@ public class ElevatorWithJoystick extends Command {
 		// If we're in high gear, PID control
 		else {
 			Robot.elevatorSubsystem.updatePIDTunings();
-			double setpoint = Robot.elevatorSubsystem.getHeight() + 12 * speed;
+			double setpoint = Robot.elevatorSubsystem.getHeight() + 24 * speed;
 			
 			// Limit the setpoint to the appropriate bounds, and apply it to the elevator
 			setpoint = Math.min(setpoint, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);

@@ -5,20 +5,17 @@ import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
 import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
 
-import com.ctre.CANTalon;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  *
@@ -32,7 +29,7 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private AHRS m_gyro;
 
-	private PIDController /* m_leftPID, m_rightPID, */ m_turnPID;
+	private PIDController  m_leftPID, m_rightPID,  m_turnPID;
 	private NullPIDOutput m_turnPIDOutput;
 
 	public DriveTrainSubsystem() {
@@ -61,10 +58,10 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_gyro.setPIDSourceType(PIDSourceType.kDisplacement);
 
-		// m_leftPID = new PIDController(0, 0, 0, m_leftEnc, m_left);
-		// m_leftPID.setAbsoluteTolerance(0.5);
-		// m_rightPID = new PIDController(0, 0, 0, m_rightEnc, m_right);
-		// m_rightPID.setAbsoluteTolerance(0.5);
+		m_leftPID = new PIDController(0, 0, 0, m_leftEnc, m_left);
+		m_leftPID.setAbsoluteTolerance(0.5);
+		m_rightPID = new PIDController(0, 0, 0, m_rightEnc, m_right);
+		m_rightPID.setAbsoluteTolerance(0.5);
 
 		m_turnPID = new PIDController(0, 0, 0, m_gyro, m_turnPIDOutput);
 		m_turnPID.setInputRange(0, 360);
@@ -115,20 +112,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		if (Math.abs(rotate) < 0.125)
 			rotate = 0.0;
 
-		double leftSpeed = -speed - rotate;
-		double rightSpeed = speed - rotate;
-
-		leftSpeed = Math.min(leftSpeed, 1.0);
-		leftSpeed = Math.max(leftSpeed, -1);
-
-		rightSpeed = Math.min(rightSpeed, 1.0);
-		rightSpeed = Math.max(rightSpeed, -1);
-
-		m_left.set(leftSpeed * 10.0 / m_frontLeft.getBusVoltage());
-		m_right.set(rightSpeed * 10.0 / m_frontLeft.getBusVoltage());
-
-		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
-		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
+		m_left.set(-speed - rotate);
+		m_right.set(speed - rotate);
 	}
 
 	/**
@@ -239,32 +224,32 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_right.set(0.0);
 	}
 
-	// /**
-	// * Sets the encoder distance setpoint.
-	// *
-	// * @param distSetpoint
-	// * The distance for the robot to drive in inches.
-	// */
-	// public void setDistSetpoint(double distSetpoint) {
-	// m_leftPID.setSetpoint(distSetpoint);
-	// m_rightPID.setSetpoint(distSetpoint);
-	// }
-	//
-	// /**
-	// * @return The current encoder setpoint.
-	// */
-	// public double getDistSetpoint() {
-	// return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint()) / 2;
-	// }
-	//
-	// /**
-	// * @return Whether or not the current distance matches the distance setpoint
-	// on
-	// * both sides.
-	// */
-	// public boolean getDistOnTarget() {
-	// return m_leftPID.onTarget() && m_rightPID.onTarget();
-	// }
+	/**
+	 * Sets the encoder distance setpoint.
+	 *
+	 * @param distSetpoint
+	 * The distance for the robot to drive in inches.
+	 */
+	 public void setDistSetpoint(double distSetpoint) {
+		 m_leftPID.setSetpoint(distSetpoint);
+		 m_rightPID.setSetpoint(distSetpoint);
+	 }
+	
+	 /**
+	 * @return The current encoder setpoint.
+	 */
+	 public double getDistSetpoint() {
+		 return (m_leftPID.getSetpoint() + m_rightPID.getSetpoint()) / 2;
+	 }
+	
+	 /**
+	 * @return Whether or not the current distance matches the distance setpoint
+	 on
+	 * both sides.
+	 */
+	 public boolean getDistOnTarget() {
+		 return m_leftPID.onTarget() && m_rightPID.onTarget();
+	 }
 
 	/**
 	 * @return Whether or not the current angle matches the gyro setpoint.
@@ -273,6 +258,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		return m_turnPID.onTarget();
 	}
 
+	public double getDrivePIDOutput() {
+		return (m_leftPID.get() + m_rightPID.get())/2;
+	}
+	
+	public double getGyroOutput() {
+		return m_turnPID.get();
+	}
 	/**
 	 * Resets the encoders.
 	 */
@@ -295,13 +287,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.reset();
 	}
 
-	// /**
-	// * Enables the drivetrain PID objects.
-	// */
-	// public void enableDrivePID() {
-	// m_leftPID.enable();
-	// m_rightPID.enable();
-	// }
+	 /**
+	 * Enables the drivetrain PID objects.
+	 */
+	 public void enableDrivePID() {
+		 m_leftPID.enable();
+		 m_rightPID.enable();
+	 }
 
 	/**
 	 * Enables the gyro PID objects.
@@ -310,13 +302,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.enable();
 	}
 
-	// /**
-	// * Disables the drivetrain PID objects.
-	// */
-	// public void disableDrivePID() {
-	// m_leftPID.disable();
-	// m_rightPID.disable();
-	// }
+	 /**
+	 * Disables the drivetrain PID objects.
+	 */
+	 public void disableDrivePID() {
+		 m_leftPID.disable();
+		 m_rightPID.disable();
+	 }
 
 	/**
 	 * Disables the gyro PID objects.
@@ -325,13 +317,13 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_turnPID.disable();
 	}
 
-	// /**
-	// * Resets the drivetrain PID objects.
-	// */
-	// public void resetPID() {
-	// m_leftPID.reset();
-	// m_rightPID.reset();
-	// }
+	/**
+	 * Resets the drivetrain PID objects.
+	 */
+	 public void resetPID() {
+		 m_leftPID.reset();
+		 m_rightPID.reset();
+	 }
 
 	/**
 	 * @return the average distance traveled between both encoders

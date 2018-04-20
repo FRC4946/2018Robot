@@ -1,10 +1,12 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.RobotConstants.PIDTunings;
 import org.usfirst.frc.team4946.robot.util.FunctionEvaluator;
 
 import edu.wpi.first.wpilibj.Preferences;
 
 public class RobotConstants {
+
 	public static final int PNEUMATIC_FIRING_COUNT = 10;
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 6.0;
@@ -31,6 +33,17 @@ public class RobotConstants {
 	public static String elevatorPFunc;
 	public static String elevatorIFunc;
 	public static String elevatorDFunc;
+	
+	public static class Auto {
+		
+		public enum StartPos {
+			LEFT, MIDDLE, RIGHT,
+		}
+		
+		public enum ElementOption {
+			SCALE, SWITCH,
+		}
+	}
 
 	public static class PIDTunings {
 		public String name;

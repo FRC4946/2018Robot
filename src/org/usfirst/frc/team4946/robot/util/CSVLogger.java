@@ -55,8 +55,7 @@ public class CSVLogger {
 
 		File f = new File("/home/lvuser/mylogs/" + format.format(date) + ".csv");
 		f.createNewFile();
-		
-		
+
 		m_writer = new BufferedWriter(new FileWriter(f));
 		m_startTime = System.currentTimeMillis();
 
@@ -90,7 +89,8 @@ public class CSVLogger {
 	 * @throws IOException
 	 */
 	public void stop() throws IOException {
-		m_writer.close();
+		if (m_writer != null)
+			m_writer.close();
 	}
 
 }
