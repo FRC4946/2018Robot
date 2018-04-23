@@ -123,6 +123,9 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
+		
+		m_left.set(leftSpeed);
+		m_right.set(rightSpeed);
 
 		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
 		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
