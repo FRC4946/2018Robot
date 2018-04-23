@@ -194,8 +194,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
 		isAutonomous = true;
-
+		driveTrainSubsystem.setCompressor(false);
+		
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
@@ -233,7 +235,8 @@ public class Robot extends IterativeRobot {
 			m_autoCommand.cancel();
 
 		isAutonomous = false;
-
+		
+		driveTrainSubsystem.setCompressor(true);
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
@@ -258,7 +261,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Counter", m_count);
 
 		m_mainTable.putDouble("Battery Voltage", RobotController.getBatteryVoltage());
-
 		// Drive Train
 		m_driveTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
 		m_driveTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());

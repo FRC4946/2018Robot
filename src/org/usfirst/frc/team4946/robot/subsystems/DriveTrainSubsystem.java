@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -29,6 +30,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	private SpeedControllerGroup m_left, m_right;
 
 	private Encoder m_leftEnc, m_rightEnc;
+	
+	private Compressor m_compressor;
 
 	private AHRS m_gyro;
 
@@ -49,6 +52,8 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
+		
+		m_compressor = new Compressor(RobotMap.COMPRESSOR);
 
 		m_leftEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
 		m_rightEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
@@ -124,6 +129,14 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
 		
+		if(Math.abs(leftSpeed) > 1.0) {
+			leftSpeed = (leftSpeed/leftSpeed) * Math.signum(leftSpeed); //keeps the values between -1.0 and 1.0
+		}
+		
+		if(Math.abs(rightSpeed) > 1.0) {
+			rightSpeed = (rightSpeed/rightSpeed) * Math.signum(rightSpeed); //keeps the values between -1.0 and 1.0
+		}
+		
 		m_left.set(leftSpeed);
 		m_right.set(rightSpeed);
 
@@ -190,11 +203,29 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
 
+		if(Math.abs(leftSpeed) > 1.0) {
+			leftSpeed = (leftSpeed/leftSpeed) * Math.signum(leftSpeed); //keeps the values between -1.0 and 1.0
+		}
+		
+		if(Math.abs(rightSpeed) > 1.0) {
+			rightSpeed = (rightSpeed/rightSpeed) * Math.signum(rightSpeed); //keeps the values between -1.0 and 1.0
+		}
+		
 		m_left.set(leftSpeed * voltage / m_frontLeft.getBusVoltage());
 		m_right.set(rightSpeed * voltage / m_frontLeft.getBusVoltage());
 
 		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
 		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
+	}
+	
+	/**
+	 * Sets the robot compressor on or off
+	 * 
+	 * @param isOn
+	 * 		   Whether to turn the compressor on or off (true is on)
+	 */
+	public void setCompressor(boolean isOn) {
+		m_compressor.setClosedLoopControl(isOn);
 	}
 	
 	/**

@@ -25,7 +25,6 @@ public class RobotMap {
 	// DIO_SHOOTER_ENCODER
 	// PCM_SHOOTER_HOOD
 	// RELAY_VISION_LED
-	//
 
 	public static final int ANALOG_ELEVATOR_POT = 0;
 
@@ -64,5 +63,7 @@ public class RobotMap {
 	public static final int PCM_ELBOW_DOWN = 4;
 	public static final int PCM_CLAMP_CLOSE = 1; // Dummy
 	public static final int PCM_CLAMP_OPEN = 5; // Dummy
+	
+	public static final int COMPRESSOR = 0;
 	// public static final int PCM_RAMP_DEPLOY = 7;
 }
