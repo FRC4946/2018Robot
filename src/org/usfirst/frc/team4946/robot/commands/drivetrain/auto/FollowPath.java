@@ -50,6 +50,8 @@ public class FollowPath extends Command {
 
 		// kvel = 1.0 / 60.0;
 		// kaccel = 1.0 / 100.0;
+		
+		curSegIndex = 0;
 	}
 
 	// Called repeatedly when this Command is scheduled to run

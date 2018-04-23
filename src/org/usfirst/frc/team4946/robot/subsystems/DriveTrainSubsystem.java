@@ -124,13 +124,76 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
 
-		m_left.set(leftSpeed * 10.0 / m_frontLeft.getBusVoltage());
-		m_right.set(rightSpeed * 10.0 / m_frontLeft.getBusVoltage());
-
 		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
 		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
 	}
 
+	/**
+	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * 
+	 * @param speed
+	 *            the forward/backward speed
+	 * @param rotate
+	 *            the turning speed
+	 * 
+	 */
+	public void normalizeArcadeDrive(double speed, double rotate) {
+		normalizeArcadeDrive(speed, rotate, 10.0);
+	}
+	
+	/**
+	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * 
+	 * @param speed
+	 *            the forward/backward speed
+	 * @param rotate
+	 *            the turning speed
+	 * @param voltage
+	 * 			  the voltage to normalize to
+	 */
+	public void normalizeArcadeDrive(double speed, double rotate, double voltage) {
+		normalizeArcadeDrive(speed, rotate, voltage);
+	}
+
+	/**
+	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * 
+	 * @param speed
+	 *            the forward/backward speed
+	 * @param rotate
+	 *            the turning speed
+	 * @param throttle
+	 *            the scaling factor
+	 * @param voltage
+	 * 			  the voltage to normalize to
+	 */
+	public void normalizeArcadeDrive(double speed, double rotate, double throttle, double voltage) {
+
+		speed *= (0.5 + (0.5 * throttle));
+		rotate *= (0.5 + (0.5 * throttle));
+
+		if (Math.abs(speed) < 0.125)
+			speed = 0.0;
+
+		if (Math.abs(rotate) < 0.125)
+			rotate = 0.0;
+
+		double leftSpeed = -speed - rotate;
+		double rightSpeed = speed - rotate;
+
+		leftSpeed = Math.min(leftSpeed, 1.0);
+		leftSpeed = Math.max(leftSpeed, -1);
+
+		rightSpeed = Math.min(rightSpeed, 1.0);
+		rightSpeed = Math.max(rightSpeed, -1);
+
+		m_left.set(leftSpeed * voltage / m_frontLeft.getBusVoltage());
+		m_right.set(rightSpeed * voltage / m_frontLeft.getBusVoltage());
+
+		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
+		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
+	}
+	
 	/**
 	 * @return the average speed of both drivetrain MotorControllerGroups
 	 */
