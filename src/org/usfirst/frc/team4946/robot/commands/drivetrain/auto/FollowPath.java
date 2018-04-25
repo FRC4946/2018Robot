@@ -54,18 +54,50 @@ public class FollowPath extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Segment left = m_path.left.get(curSegIndex);
-		Segment right = m_path.right.get(curSegIndex);
+		// Segment left = m_path.left.get(curSegIndex);
+		// Segment right = m_path.right.get(curSegIndex);
 
 		// =*=*=*=*=*=*=*=*= Distance Controllers =*=*=*=*=*=*=*=*=
 
 		double leftPos = Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc;
 		double rightPos = Robot.driveTrainSubsystem.getRightEncDist() - initRightEnc;
-		
-//		for(int i = 0; i < m_path.left.size()-1; i++) {
-//			if(m_path.left.get(i).pos < leftPos);
-//		}
-		
+
+		int leftPrevSeg = 0;
+		int rightPrevSeg = 0;
+
+		for (int i = 0; i < m_path.left.size() - 1; i++)
+			if (m_path.left.get(i).pos < leftPos && m_path.left.get(i + 1).pos > leftPos) {
+				leftPrevSeg = i;
+				break;
+			}
+
+		for (int i = 0; i < m_path.right.size() - 1; i++)
+			if (m_path.right.get(i).pos < rightPos && m_path.right.get(i + 1).pos > rightPos) {
+				rightPrevSeg = i;
+				break;
+			}
+
+		int prevSeg = Math.min(leftPrevSeg, rightPrevSeg);
+		int nextSeg = Math.max(leftPrevSeg + 1, rightPrevSeg + 1);
+
+		double leftInterpolationFactor = (leftPos - m_path.left.get(prevSeg).pos)
+				/ (m_path.left.get(nextSeg).pos - m_path.left.get(prevSeg).pos);
+		double rightInterpolationFactor = (rightPos - m_path.right.get(prevSeg).pos)
+				/ (m_path.right.get(nextSeg).pos - m_path.right.get(prevSeg).pos);
+
+		Segment left = new Segment();
+		left.vel = m_path.left.get(prevSeg).vel
+				+ (m_path.left.get(nextSeg).vel - m_path.left.get(prevSeg).vel) * leftInterpolationFactor;
+		left.accel = m_path.left.get(prevSeg).accel
+				+ (m_path.left.get(nextSeg).accel - m_path.left.get(prevSeg).accel) * leftInterpolationFactor;
+
+		Segment right = new Segment();
+		right.vel = m_path.right.get(prevSeg).vel
+				+ (m_path.right.get(nextSeg).vel - m_path.right.get(prevSeg).vel) * rightInterpolationFactor;
+		right.accel = m_path.right.get(prevSeg).accel
+				+ (m_path.right.get(nextSeg).accel - m_path.right.get(prevSeg).accel) * rightInterpolationFactor;
+
+		//TODO: Make PID velocity-based
 		
 		// Calculate the base output speed for the left wheels
 		double lErr = left.pos - (Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc);
