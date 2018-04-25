@@ -50,7 +50,7 @@ public class FollowPath extends Command {
 
 		// kvel = 1.0 / 60.0;
 		// kaccel = 1.0 / 100.0;
-		
+
 		curSegIndex = 0;
 	}
 
@@ -92,23 +92,24 @@ public class FollowPath extends Command {
 		double turnOutput = angErr * RobotConstants.kPathTurn.kP + angIntegral
 				+ RobotConstants.kPathTurn.kD * ((angErr - lastAngErr) / left.dt - dHeading);
 		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMaxOutput);
-		turnOutput = Math.min(turnOutput, RobotConstants.kPathTurn.kMinOutput);
+		turnOutput = Math.max(turnOutput, RobotConstants.kPathTurn.kMinOutput);
 
 		// Combine the distance and heading controllers to calculate the overall
 		// output
 		lOutput += turnOutput;
 		rOutput -= turnOutput;
-		//Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
 
 		lOutput = Math.min(lOutput, 1.0);
-		rOutput = Math.max(rOutput, -1);
+		rOutput = Math.max(rOutput, -1.0);
 
 		lOutput = Math.min(lOutput, 1.0);
-		rOutput = Math.max(rOutput, -1);
+		rOutput = Math.max(rOutput, -1.0);
 
-		Robot.driveTrainSubsystem.tankDrive(lOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getFrontLeft().getBusVoltage(), 
-				rOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getFrontRight().getBusVoltage());
-		
+		// Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
+		Robot.driveTrainSubsystem.tankDrive(
+				lOutput * RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getVBus(),
+				rOutput * RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getVBus());
+
 		curSegIndex++;
 
 		// Logging

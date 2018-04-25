@@ -20,10 +20,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrainSubsystem extends Subsystem {
 
-	public WPI_TalonSRX m_frontLeft;
+	private WPI_TalonSRX m_frontLeft;
 	private WPI_TalonSRX m_midLeft;
 	private WPI_TalonSRX m_rearLeft;
-	public WPI_TalonSRX m_frontRight;
+	private WPI_TalonSRX m_frontRight;
 	private WPI_TalonSRX m_midRight;
 	private WPI_TalonSRX m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
@@ -221,20 +221,6 @@ public class DriveTrainSubsystem extends Subsystem {
 	/**
 	 * Update the PID tunings on the DriveTrain
 	 */
-	public WPI_TalonSRX getFrontLeft() {
-		return m_frontLeft;
-	}
-	
-	/**
-	 * Update the PID tunings on the DriveTrain
-	 */
-	public WPI_TalonSRX getFrontRight() {
-		return m_frontRight;
-	}
-	
-	/**
-	 * Update the PID tunings on the DriveTrain
-	 */
 	public void updatePIDTunings() {
 		// m_leftPID.setP(RobotConstants.driveP);
 		// m_leftPID.setI(RobotConstants.driveI);
@@ -376,20 +362,12 @@ public class DriveTrainSubsystem extends Subsystem {
 	public double getRightEncDist() {
 		return m_rightEnc.getDistance();
 	}
-	//
-	// /**
-	// * Sets the maximum speed output for both PID objects
-	// *
-	// * @param speed
-	// * The upper bound for the output range of the PIDObjects. The
-	// * negative speed is set as the lower bound.
-	// */
-	// public void setMaxSpeed(double speed) {
-	// m_leftPID.setOutputRange(-speed, speed);
-	// m_rightPID.setOutputRange(-speed, speed);
-	// }
 
 	public double getGyroPIDError() {
 		return m_turnPID.getError();
+	}
+
+	public double getVBus() {
+		return m_frontLeft.getBusVoltage();
 	}
 }
