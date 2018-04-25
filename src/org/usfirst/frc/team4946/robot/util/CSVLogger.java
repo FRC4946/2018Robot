@@ -55,8 +55,7 @@ public class CSVLogger {
 
 		File f = new File("/home/lvuser/mylogs/" + format.format(date) + ".csv");
 		f.createNewFile();
-		
-		
+
 		m_writer = new BufferedWriter(new FileWriter(f));
 		m_startTime = System.currentTimeMillis();
 
@@ -73,13 +72,16 @@ public class CSVLogger {
 	 * Write a snapshot of the current data to the logger
 	 */
 	public void snapshot() {
+		if (m_writer == null)
+			return;
+
 		try {
 			m_writer.append((System.currentTimeMillis() - m_startTime) + ", ");
 			for (SendableSubtable table : m_tables)
 				for (Object value : table.getValues())
 					m_writer.append(value + ", ");
 			m_writer.append("\n");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -90,7 +92,8 @@ public class CSVLogger {
 	 * @throws IOException
 	 */
 	public void stop() throws IOException {
-		m_writer.close();
+		if (m_writer != null)
+			m_writer.close();
 	}
 
 }

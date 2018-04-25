@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
@@ -52,7 +51,6 @@ public class Robot extends IterativeRobot {
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static IntakeSubsystem intakeSubsystem;
 	public static CompressorSubsystem compressorSubsystem;
-	// public static RampSubsystem rampSubsystem;
 
 	public static OI m_oi;
 
@@ -68,7 +66,7 @@ public class Robot extends IterativeRobot {
 	private SendableSubtable m_elevatorTable;
 	private SendableSubtable m_armsTable;
 	private SendableSubtable m_intakeTable;
-	public static CSVLogger dataLogger;
+	private CSVLogger m_dataLogger;
 	private int m_count = 0;
 
 	/**
@@ -77,6 +75,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+
 		// Load all of the robot preferences from the NetworkTables,
 		// and then repopulate them to ensure they are visible on the
 		// SmartDashboard
@@ -90,7 +89,6 @@ public class Robot extends IterativeRobot {
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		intakeSubsystem = new IntakeSubsystem();
 		compressorSubsystem = new CompressorSubsystem();
-		// rampSubsystem = new RampSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
 		m_oi = new OI();
@@ -108,13 +106,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(m_armsTable);
 		SmartDashboard.putData(m_intakeTable);
 
-		dataLogger = new CSVLogger();
-		dataLogger.addTable(m_mainTable);
-		dataLogger.addTable(m_autoTable);
-		dataLogger.addTable(m_driveTable);
-		dataLogger.addTable(m_elevatorTable);
-		dataLogger.addTable(m_armsTable);
-		dataLogger.addTable(m_intakeTable);
+		m_dataLogger = new CSVLogger();
+		m_dataLogger.addTable(m_mainTable);
+		m_dataLogger.addTable(m_autoTable);
+		m_dataLogger.addTable(m_driveTable);
+		m_dataLogger.addTable(m_elevatorTable);
+		m_dataLogger.addTable(m_armsTable);
+		m_dataLogger.addTable(m_intakeTable);
 
 		// USB camera
 		CameraServer.getInstance().startAutomaticCapture(0);
@@ -132,6 +130,7 @@ public class Robot extends IterativeRobot {
 		// Turn off the motors and engage the brake when we enter disabled
 		elevatorSubsystem.disablePID();
 		// rampSubsystem.deployRamp(false);
+		armSubsystem.setClamp(true);
 
 		m_prefsUpdateTimer.reset();
 		m_prefsUpdateTimer.start();
@@ -139,7 +138,11 @@ public class Robot extends IterativeRobot {
 
 		loadShuffleboard();
 
-		new SetClamp(true).start();
+		try {
+			m_dataLogger.stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -162,22 +165,16 @@ public class Robot extends IterativeRobot {
 		if (file == null) {
 			m_autoTable.putString("Script", "No script!");
 			m_autoTable.putString("Notes", "");
-			// SmartDashboard.putString("Script", "No script!");
-			// SmartDashboard.putString("Notes", "");
 		} else {
 			try {
 
 				m_script = FileIO.loadScript(file);
 				m_autoTable.putString("Script", m_script.name);
 				m_autoTable.putString("Notes", m_script.notes);
-				// SmartDashboard.putString("Script", m_script.name);
-				// SmartDashboard.putString("Notes", m_script.notes);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 				m_script = null;
 				m_autoTable.putString("Script", "ERROR loading " + file.getName());
 				m_autoTable.putString("Notes", "");
-				// SmartDashboard.putString("Script", "ERROR loading " + file.getName());
-				// SmartDashboard.putString("Notes", "");
 				e.printStackTrace();
 			}
 		}
@@ -200,13 +197,7 @@ public class Robot extends IterativeRobot {
 
 		isAutonomous = true;
 		compressorSubsystem.setCompressor(false);
-
-		driveTrainSubsystem.resetEncoders();
-		RobotConstants.updatePrefs(m_robotPrefs);
-		driveTrainSubsystem.updatePIDTunings();
-		elevatorSubsystem.updatePIDTunings();
-		elevatorSubsystem.disablePID();
-		driveTransmissionSubsystem.set(true);
+		preEnable();
 
 		String data = DriverStation.getInstance().getGameSpecificMessage();
 
@@ -216,7 +207,6 @@ public class Robot extends IterativeRobot {
 		// Load the auto
 		m_autoCommand = m_script.getAuto(data);
 		if (m_autoCommand != null) {
-
 			System.out.println("Starting auto");
 			m_autoCommand.start();
 		}
@@ -238,16 +228,8 @@ public class Robot extends IterativeRobot {
 			m_autoCommand.cancel();
 
 		isAutonomous = false;
-
 		compressorSubsystem.setCompressor(true);
-		driveTrainSubsystem.resetEncoders();
-		RobotConstants.updatePrefs(m_robotPrefs);
-		driveTrainSubsystem.updatePIDTunings();
-		elevatorSubsystem.updatePIDTunings();
-		// elevatorSubsystem.disablePID();
-		// elevatorSubsystem.setSetpoint(elevatorSubsystem.getHeight());
-		elevatorTransmissionSubsystem.set(false);
-		driveTransmissionSubsystem.set(true);
+		preEnable();
 	}
 
 	/**
@@ -264,6 +246,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Counter", m_count);
 
 		m_mainTable.putDouble("Battery Voltage", RobotController.getBatteryVoltage());
+		m_mainTable.putString("State", isAutonomous ? "Auto" : "Teleop");
+
 		// Drive Train
 		m_driveTable.putDouble("Gyro Angle", driveTrainSubsystem.getGyroAngle() % 360);
 		m_driveTable.putDouble("Gyro Setpoint", driveTrainSubsystem.getGyroPIDSetpoint());
@@ -287,21 +271,28 @@ public class Robot extends IterativeRobot {
 		// Intake
 		m_intakeTable.putBoolean("Has Cube", intakeSubsystem.getHasCube());
 
+		m_dataLogger.snapshot();
 	}
 
-	/**
-	 * This function is called periodically during test mode.
-	 */
-	@Override
-	public void testPeriodic() {
+	private void preEnable() {
 
-	}
+		// Update the PIDs
+		driveTrainSubsystem.resetEncoders();
+		RobotConstants.updatePrefs(m_robotPrefs);
+		driveTrainSubsystem.updatePIDTunings();
+		elevatorSubsystem.updatePIDTunings();
 
-	public boolean isAuto() {
-		return isAutonomous();
-	}
+		// Ensure the drivetrain and elevator are in the right gear
+		// Ensure the elevator brake is engaged
+		elevatorSubsystem.disablePID();
+		elevatorTransmissionSubsystem.set(false);
+		driveTransmissionSubsystem.set(true);
 
-	public boolean isTeleop() {
-		return isOperatorControl();
+		// Start the data logger
+		try {
+			m_dataLogger.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

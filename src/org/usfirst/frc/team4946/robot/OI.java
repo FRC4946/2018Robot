@@ -10,12 +10,10 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleElbow;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToSwitch;
 import org.usfirst.frc.team4946.robot.commands.intake.SetIntake;
-import org.usfirst.frc.team4946.robot.commands.misc.LogData;
 import org.usfirst.frc.team4946.robot.commands.ramp.DeployRamp;
 import org.usfirst.frc.team4946.robot.util.POVButton;
 
@@ -72,34 +70,25 @@ public class OI {
 		driveRB.whenReleased(new SetClamp(true));
 		driveA.whenPressed(new SetDriveGear(false));
 		driveA.whenReleased(new SetDriveGear(true));
-		// driveStart.whenPressed(new ToggleClamp());
 
-		driveBack.whileHeld(new LogData());
-		driveN.whileHeld(new TurnPID(175));
-		driveW.whileHeld(new TurnPID(145));
-		driveS.whileHeld(new TurnPID(120));
-		driveE.whileHeld(new TurnPID(100));
+		// driveN.whileHeld(new TurnPID(175));
+		// driveW.whileHeld(new TurnPID(145));
+		// driveS.whileHeld(new TurnPID(120));
+		// driveE.whileHeld(new TurnPID(100));
 
 		operatorA.whileHeld(new SetIntake(-0.2));
 		operatorB.whileHeld(new SetIntake(-0.4));
 		operatorX.whileHeld(new SetIntake(-0.6));
 		operatorY.whileHeld(new SetIntake(-0.8));
 
-		// operatorRB.whileHeld(new MoveToRung());
 		operatorLB.whenPressed(new SetElevatorGear(true));
 		operatorLB.whenReleased(new SetElevatorGear(false));
 		operatorL3.whileHeld(new DeployRamp());
-
-		// operatorLB.whileHeld(new LiftRobot());
-		operatorBack.whenPressed(new SetElevatorGear(false));
-		operatorStart.whenPressed(new SetElevatorGear(true));
 
 		operatorN.whileHeld(new MoveToScale(false));
 		operatorS.whileHeld(new MoveToScale(true));
 		operatorE.whileHeld(new MoveToSwitch());
 		operatorW.whileHeld(new MoveToSwitch());
-		//operatorE.whenReleased(new SetElbow(true));
-		//operatorW.whenReleased(new SetElbow(true));
 
 	}
 

@@ -15,7 +15,6 @@ package org.usfirst.frc.team4946.robot;
  */
 public class RobotMap {
 
-	// Let's establish a naming convention here.
 	// Each constant will be of the format INTERFACE_SUBSYSTEM_COMPONENT.
 	// Remember also that all of these should be public static final ints.
 
@@ -53,17 +52,16 @@ public class RobotMap {
 	public static final int DIO_DRIVE_RIGHTENC2 = 1;
 	public static final int DIO_INTAKE_SWITCH1 = 8;
 	public static final int DIO_INTAKE_SWITCH2 = 9;
-	public static final int DIO_INTAKE_BANNER = 7; // Dummy
+	public static final int DIO_INTAKE_BANNER = 7;
 
-	public static final int PCM_DRIVE_LOW_GEAR = 7; // Dummy
+	public static final int PCM_DRIVE_LOW_GEAR = 7;
 	public static final int PCM_ELEVATOR_GEARLOW = 2;
 	public static final int PCM_ELEVATOR_GEARHIGH = 3;
 	public static final int PCM_ELEVATOR_BREAK = 6;
 	public static final int PCM_ELBOW_UP = 0;
 	public static final int PCM_ELBOW_DOWN = 4;
-	public static final int PCM_CLAMP_CLOSE = 1; // Dummy
-	public static final int PCM_CLAMP_OPEN = 5; // Dummy
-	
+	public static final int PCM_CLAMP_CLOSE = 1;
+	public static final int PCM_CLAMP_OPEN = 5;
+
 	public static final int CAN_PCM = 0;
-	// public static final int PCM_RAMP_DEPLOY = 7;
 }
