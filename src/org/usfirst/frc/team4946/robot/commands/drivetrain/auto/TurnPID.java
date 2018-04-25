@@ -31,7 +31,7 @@ public class TurnPID extends Command {
 	}
 
 	protected void execute() {
-		Robot.driveTrainSubsystem.arcadeDrive(0, Robot.driveTrainSubsystem.getGyroPIDOutput());
+		Robot.driveTrainSubsystem.normalizeArcadeDrive(0, Robot.driveTrainSubsystem.getGyroPIDOutput());
 	}
 
 	protected boolean isFinished() {
