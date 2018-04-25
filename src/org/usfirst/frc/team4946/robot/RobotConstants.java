@@ -22,6 +22,8 @@ public class RobotConstants {
 	public static final double ELEVATOR_SCALE_HIGHHEIGHT = 92.0;
 	public static final double ELEVATOR_RUNG_HEIGHT = 78.0;
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 96;
+	
+	public static final double ROBOT_NORMALIZED_VOLTAGE = 10.0;
 
 	public static double driveP;
 	public static double driveI;

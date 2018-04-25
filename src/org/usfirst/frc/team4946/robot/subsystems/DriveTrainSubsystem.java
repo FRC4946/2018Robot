@@ -20,7 +20,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrainSubsystem extends Subsystem {
 
-	private WPI_TalonSRX m_frontLeft, m_midLeft, m_rearLeft, m_frontRight, m_midRight, m_rearRight;
+	public WPI_TalonSRX m_frontLeft;
+	private WPI_TalonSRX m_midLeft;
+	private WPI_TalonSRX m_rearLeft;
+	public WPI_TalonSRX m_frontRight;
+	private WPI_TalonSRX m_midRight;
+	private WPI_TalonSRX m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
 	private Encoder m_leftEnc, m_rightEnc;
 	private AHRS m_gyro;
