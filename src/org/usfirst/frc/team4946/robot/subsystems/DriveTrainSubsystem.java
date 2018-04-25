@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -82,27 +81,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * @param speed
 	 *            the forward/backward speed
 	 * @param rotate
-	 *            the turning speed
 	 */
 	public void arcadeDrive(double speed, double rotate) {
-		arcadeDrive(speed, rotate, 1.0);
-	}
-
-	/**
-	 * Drive the robot with a single stick (Like an arcade game)
-	 * 
-	 * @param speed
-	 *            the forward/backward speed
-	 * @param rotate
-	 *            the turning speed
-	 * @param throttle
-	 *            the scaling factor
-	 */
-	public void arcadeDrive(double speed, double rotate, double throttle) {
-
-		speed *= (0.5 + (0.5 * throttle));
-		rotate *= (0.5 + (0.5 * throttle));
-
 		if (Math.abs(speed) < 0.125)
 			speed = 0.0;
 
@@ -112,25 +92,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		double leftSpeed = -speed - rotate;
 		double rightSpeed = speed - rotate;
 
-		leftSpeed = Math.min(leftSpeed, 1.0);
-		leftSpeed = Math.max(leftSpeed, -1);
-
-		rightSpeed = Math.min(rightSpeed, 1.0);
-		rightSpeed = Math.max(rightSpeed, -1);
-
-		if (Math.abs(leftSpeed) > 1.0) {
-			leftSpeed = (leftSpeed / leftSpeed) * Math.signum(leftSpeed); // keeps the values between -1.0 and 1.0
-		}
-
-		if (Math.abs(rightSpeed) > 1.0) {
-			rightSpeed = (rightSpeed / rightSpeed) * Math.signum(rightSpeed); // keeps the values between -1.0 and 1.0
-		}
-
 		m_left.set(leftSpeed);
 		m_right.set(rightSpeed);
-
-		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
-		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
 	}
 
 	/**
@@ -154,31 +117,10 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * @param speed
 	 *            the forward/backward speed
 	 * @param rotate
-	 *            the turning speed
 	 * @param voltage
 	 *            the voltage to normalize to
 	 */
 	public void normalizeArcadeDrive(double speed, double rotate, double voltage) {
-		normalizeArcadeDrive(speed, rotate, voltage);
-	}
-
-	/**
-	 * Drive the robot with a single stick with voltage normalization (Like an
-	 * arcade game)
-	 * 
-	 * @param speed
-	 *            the forward/backward speed
-	 * @param rotate
-	 *            the turning speed
-	 * @param throttle
-	 *            the scaling factor
-	 * @param voltage
-	 *            the voltage to normalize to
-	 */
-	public void normalizeArcadeDrive(double speed, double rotate, double throttle, double voltage) {
-
-		speed *= (0.5 + (0.5 * throttle));
-		rotate *= (0.5 + (0.5 * throttle));
 
 		if (Math.abs(speed) < 0.125)
 			speed = 0.0;
@@ -195,19 +137,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
 
-		if (Math.abs(leftSpeed) > 1.0) {
-			leftSpeed = (leftSpeed / leftSpeed) * Math.signum(leftSpeed); // keeps the values between -1.0 and 1.0
-		}
-
-		if (Math.abs(rightSpeed) > 1.0) {
-			rightSpeed = (rightSpeed / rightSpeed) * Math.signum(rightSpeed); // keeps the values between -1.0 and 1.0
-		}
-
 		m_left.set(leftSpeed * voltage / m_frontLeft.getBusVoltage());
 		m_right.set(rightSpeed * voltage / m_frontLeft.getBusVoltage());
-
-		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
-		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
 	}
 
 	/**
