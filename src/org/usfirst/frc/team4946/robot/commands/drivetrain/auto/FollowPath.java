@@ -98,8 +98,9 @@ public class FollowPath extends Command {
 		// output
 		lOutput += turnOutput;
 		rOutput -= turnOutput;
-		Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
-
+		//Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
+		Robot.driveTrainSubsystem.normalizeArcadeDrive(lOutput, rOutput);
+		
 		curSegIndex++;
 
 		// Logging
