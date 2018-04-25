@@ -64,6 +64,6 @@ public class RobotMap {
 	public static final int PCM_CLAMP_CLOSE = 1; // Dummy
 	public static final int PCM_CLAMP_OPEN = 5; // Dummy
 	
-	public static final int COMPRESSOR = 0;
+	public static final int CAN_PCM = 0;
 	// public static final int PCM_RAMP_DEPLOY = 7;
 }

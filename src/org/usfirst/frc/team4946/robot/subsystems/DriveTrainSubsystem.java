@@ -5,17 +5,12 @@ import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.DriveWithJoystick;
 import org.usfirst.frc.team4946.robot.util.NullPIDOutput;
 
-import com.ctre.CANTalon;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -28,11 +23,7 @@ public class DriveTrainSubsystem extends Subsystem {
 
 	private WPI_TalonSRX m_frontLeft, m_midLeft, m_rearLeft, m_frontRight, m_midRight, m_rearRight;
 	private SpeedControllerGroup m_left, m_right;
-
 	private Encoder m_leftEnc, m_rightEnc;
-	
-	private Compressor m_compressor;
-
 	private AHRS m_gyro;
 
 	private PIDController /* m_leftPID, m_rightPID, */ m_turnPID;
@@ -52,8 +43,6 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC1, RobotMap.DIO_DRIVE_LEFTENC2);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC1, RobotMap.DIO_DRIVE_RIGHTENC2);
-		
-		m_compressor = new Compressor(RobotMap.COMPRESSOR);
 
 		m_leftEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
 		m_rightEnc.setDistancePerPulse(RobotConstants.DISTANCE_PER_PULSE);
@@ -128,15 +117,15 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
-		
-		if(Math.abs(leftSpeed) > 1.0) {
-			leftSpeed = (leftSpeed/leftSpeed) * Math.signum(leftSpeed); //keeps the values between -1.0 and 1.0
+
+		if (Math.abs(leftSpeed) > 1.0) {
+			leftSpeed = (leftSpeed / leftSpeed) * Math.signum(leftSpeed); // keeps the values between -1.0 and 1.0
 		}
-		
-		if(Math.abs(rightSpeed) > 1.0) {
-			rightSpeed = (rightSpeed/rightSpeed) * Math.signum(rightSpeed); //keeps the values between -1.0 and 1.0
+
+		if (Math.abs(rightSpeed) > 1.0) {
+			rightSpeed = (rightSpeed / rightSpeed) * Math.signum(rightSpeed); // keeps the values between -1.0 and 1.0
 		}
-		
+
 		m_left.set(leftSpeed);
 		m_right.set(rightSpeed);
 
@@ -145,7 +134,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 
 	/**
-	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * Drive the robot with a single stick with voltage normalization (Like an
+	 * arcade game)
 	 * 
 	 * @param speed
 	 *            the forward/backward speed
@@ -156,23 +146,25 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void normalizeArcadeDrive(double speed, double rotate) {
 		normalizeArcadeDrive(speed, rotate, 10.0);
 	}
-	
+
 	/**
-	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * Drive the robot with a single stick with voltage normalization (Like an
+	 * arcade game)
 	 * 
 	 * @param speed
 	 *            the forward/backward speed
 	 * @param rotate
 	 *            the turning speed
 	 * @param voltage
-	 * 			  the voltage to normalize to
+	 *            the voltage to normalize to
 	 */
 	public void normalizeArcadeDrive(double speed, double rotate, double voltage) {
 		normalizeArcadeDrive(speed, rotate, voltage);
 	}
 
 	/**
-	 * Drive the robot with a single stick with voltage normalization (Like an arcade game)
+	 * Drive the robot with a single stick with voltage normalization (Like an
+	 * arcade game)
 	 * 
 	 * @param speed
 	 *            the forward/backward speed
@@ -181,7 +173,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	 * @param throttle
 	 *            the scaling factor
 	 * @param voltage
-	 * 			  the voltage to normalize to
+	 *            the voltage to normalize to
 	 */
 	public void normalizeArcadeDrive(double speed, double rotate, double throttle, double voltage) {
 
@@ -203,31 +195,21 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.min(rightSpeed, 1.0);
 		rightSpeed = Math.max(rightSpeed, -1);
 
-		if(Math.abs(leftSpeed) > 1.0) {
-			leftSpeed = (leftSpeed/leftSpeed) * Math.signum(leftSpeed); //keeps the values between -1.0 and 1.0
+		if (Math.abs(leftSpeed) > 1.0) {
+			leftSpeed = (leftSpeed / leftSpeed) * Math.signum(leftSpeed); // keeps the values between -1.0 and 1.0
 		}
-		
-		if(Math.abs(rightSpeed) > 1.0) {
-			rightSpeed = (rightSpeed/rightSpeed) * Math.signum(rightSpeed); //keeps the values between -1.0 and 1.0
+
+		if (Math.abs(rightSpeed) > 1.0) {
+			rightSpeed = (rightSpeed / rightSpeed) * Math.signum(rightSpeed); // keeps the values between -1.0 and 1.0
 		}
-		
+
 		m_left.set(leftSpeed * voltage / m_frontLeft.getBusVoltage());
 		m_right.set(rightSpeed * voltage / m_frontLeft.getBusVoltage());
 
 		SmartDashboard.putNumber("Vbus", m_frontLeft.getBusVoltage());
 		SmartDashboard.putNumber("Vout", m_frontLeft.getMotorOutputVoltage());
 	}
-	
-	/**
-	 * Sets the robot compressor on or off
-	 * 
-	 * @param isOn
-	 * 		   Whether to turn the compressor on or off (true is on)
-	 */
-	public void setCompressor(boolean isOn) {
-		m_compressor.setClosedLoopControl(isOn);
-	}
-	
+
 	/**
 	 * @return the average speed of both drivetrain MotorControllerGroups
 	 */

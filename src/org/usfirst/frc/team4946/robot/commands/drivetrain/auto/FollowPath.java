@@ -61,14 +61,6 @@ public class FollowPath extends Command {
 
 		// =*=*=*=*=*=*=*=*= Distance Controllers =*=*=*=*=*=*=*=*=
 
-		double leftPos = Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc;
-		double rightPos = Robot.driveTrainSubsystem.getRightEncDist() - initRightEnc;
-		
-//		for(int i = 0; i < m_path.left.size()-1; i++) {
-//			if(m_path.left.get(i).pos < leftPos);
-//		}
-		
-		
 		// Calculate the base output speed for the left wheels
 		double lErr = left.pos - (Robot.driveTrainSubsystem.getLeftEncDist() - initLeftEnc);
 		lIntegral += lErr * RobotConstants.driveI;

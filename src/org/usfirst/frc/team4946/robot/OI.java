@@ -8,11 +8,8 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
-import org.usfirst.frc.team4946.robot.commands.arm.SetElbow;
-import org.usfirst.frc.team4946.robot.commands.arm.ToggleClamp;
 import org.usfirst.frc.team4946.robot.commands.arm.ToggleElbow;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.SetDriveGear;
-import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.SetRotateSpeed;
 import org.usfirst.frc.team4946.robot.commands.drivetrain.auto.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.elevator.SetElevatorGear;
 import org.usfirst.frc.team4946.robot.commands.elevator.preset.MoveToScale;

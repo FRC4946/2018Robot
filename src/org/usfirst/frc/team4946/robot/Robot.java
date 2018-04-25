@@ -16,6 +16,7 @@ import org.usfirst.frc.team4946.robot.commands.arm.SetClamp;
 import org.usfirst.frc.team4946.robot.pathplanning.FileIO;
 import org.usfirst.frc.team4946.robot.pathplanning.data.ScriptBundle;
 import org.usfirst.frc.team4946.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.CompressorSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrainTransmissionSubsystem;
 import org.usfirst.frc.team4946.robot.subsystems.ElevatorSubsystem;
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorSubsystem elevatorSubsystem;
 	public static ElevatorTransmissionSubsystem elevatorTransmissionSubsystem;
 	public static IntakeSubsystem intakeSubsystem;
+	public static CompressorSubsystem compressorSubsystem;
 	// public static RampSubsystem rampSubsystem;
 
 	public static OI m_oi;
@@ -87,6 +89,7 @@ public class Robot extends IterativeRobot {
 		elevatorSubsystem = new ElevatorSubsystem();
 		elevatorTransmissionSubsystem = new ElevatorTransmissionSubsystem();
 		intakeSubsystem = new IntakeSubsystem();
+		compressorSubsystem = new CompressorSubsystem();
 		// rampSubsystem = new RampSubsystem();
 
 		// This MUST occur AFTER the subsystems and instantiated
@@ -194,10 +197,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+
 		isAutonomous = true;
-		driveTrainSubsystem.setCompressor(false);
-		
+		compressorSubsystem.setCompressor(false);
+
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
@@ -235,8 +238,8 @@ public class Robot extends IterativeRobot {
 			m_autoCommand.cancel();
 
 		isAutonomous = false;
-		
-		driveTrainSubsystem.setCompressor(true);
+
+		compressorSubsystem.setCompressor(true);
 		driveTrainSubsystem.resetEncoders();
 		RobotConstants.updatePrefs(m_robotPrefs);
 		driveTrainSubsystem.updatePIDTunings();
