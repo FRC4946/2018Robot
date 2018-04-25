@@ -143,7 +143,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		rightSpeed = Math.max(rightSpeed, -1);
 
 		m_left.set(leftSpeed * voltage / m_frontLeft.getBusVoltage());
-		m_right.set(rightSpeed * voltage / m_frontLeft.getBusVoltage());
+		m_right.set(rightSpeed * voltage / m_frontRight.getBusVoltage());
 	}
 
 	/**
@@ -218,6 +218,20 @@ public class DriveTrainSubsystem extends Subsystem {
 		m_right.set(right);
 	}
 
+	/**
+	 * Update the PID tunings on the DriveTrain
+	 */
+	public WPI_TalonSRX getFrontLeft() {
+		return m_frontLeft;
+	}
+	
+	/**
+	 * Update the PID tunings on the DriveTrain
+	 */
+	public WPI_TalonSRX getFrontRight() {
+		return m_frontRight;
+	}
+	
 	/**
 	 * Update the PID tunings on the DriveTrain
 	 */

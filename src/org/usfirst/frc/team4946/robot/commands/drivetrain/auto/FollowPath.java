@@ -99,11 +99,6 @@ public class FollowPath extends Command {
 		lOutput += turnOutput;
 		rOutput -= turnOutput;
 		//Robot.driveTrainSubsystem.tankDrive(lOutput, rOutput);
-		if (Math.abs(lOutput) < 0.125)
-			lOutput = 0.0;
-
-		if (Math.abs(rOutput) < 0.125)
-			rOutput = 0.0;
 
 		lOutput = Math.min(lOutput, 1.0);
 		rOutput = Math.max(rOutput, -1);
@@ -111,8 +106,8 @@ public class FollowPath extends Command {
 		lOutput = Math.min(lOutput, 1.0);
 		rOutput = Math.max(rOutput, -1);
 
-		Robot.driveTrainSubsystem.tankDrive(lOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.m_frontLeft.getBusVoltage(), 
-				rOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.m_frontRight.getBusVoltage());
+		Robot.driveTrainSubsystem.tankDrive(lOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getFrontLeft().getBusVoltage(), 
+				rOutput*RobotConstants.ROBOT_NORMALIZED_VOLTAGE / Robot.driveTrainSubsystem.getFrontRight().getBusVoltage());
 		
 		curSegIndex++;
 
